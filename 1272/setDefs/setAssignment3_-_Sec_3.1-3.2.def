@@ -1,0 +1,16 @@
+
+openDate          = 06/01/2013 at 11:04pm EDT
+dueDate           = 06/11/2013 at 02:00am EDT
+answerDate        = 06/11/2013 at 02:01am EDT
+paperHeaderFile   = local/opt/webwork/webwork2/conf/snippets/JREITZDefaultsetHeader.pg
+screenHeaderFile  = local/opt/webwork/webwork2/conf/snippets/JREITZDefaultsetHeader.pg
+problemList       = 
+Library/Rochester/setAlgebra38Counting/sw10_1_1.pg, 2, -1 
+Library/UMN/algebraKaufmannSchwitters/ks_15_1_37.pg, 2, -1 
+Library/UMN/algebraKaufmannSchwitters/ks_15_3_prob01.pg, 4, -1 
+local/Library/Rochester/setProbability3Events/ur_pb_3_3-ReitzEditFeb2013.pg, 3, -1 
+Library/NAU/setProbability/counting2.pg, 4, -1 
+local/Library/UMN/algebraKaufmannSchwitters/ks_15_3_prob03-ReitzEditFeb2013.pg, 4, -1 
+Library/ASU-topics/setProbability/cond13.pg, 5, -1 
+Library/ASU-topics/setProbability/cond12.pg, 5, -1 
+

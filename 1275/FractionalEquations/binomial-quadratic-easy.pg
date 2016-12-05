@@ -1,0 +1,67 @@
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextFraction.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+# AB/x - AB/(x - R) = A/x => -ABR = A(x - R) => x = R(1 - B)
+
+Context("Numeric")->flags->set(reduceConstants=>0, reduceConstantFunctions=>0);
+Context()->variables->are("x"=>Real);
+
+$A = random(2,6,1);
+$B = random(2,6,1);
+$R = random(-1,1,2)*random(2,9,1);
+
+$AB = $A*$B;
+$X = $R*(1-$B);
+
+$Lfrac1 = Formula("$AB/x");
+$Lfrac2 = Formula("$AB/(x - $R)")->reduce;
+$LHS = Formula("$Lfrac1 - $Lfrac2");
+$RHS = Formula("$A/x")->reduce;
+
+Context("LimitedFraction")->flags->set(showMixedNumbers=>0);
+
+$ans = Fraction("$X")->reduce;
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Solve for x:
+
+\[ $LHS = $RHS \]
+
+$PAR
+x = \{ans_rule(10)\}
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans->cmp);
+
+ENDDOCUMENT();        

@@ -1,0 +1,91 @@
+#DESCRIPTION
+##Type of
+#ENDDESCRIPTION
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+#"PGgraphmacros.pl",
+ "MathObjects.pl",
+# "compoundProblem.pl",
+#"contextCurrency.pl",
+#"contextInequalities.pl",
+#"unionTables.pl",
+# "unionLists.pl",
+#"unionMacros.pl",
+#"contextLeadingZero.pl",
+"contextFraction.pl",
+#"contextString.pl",
+#"answerHints.pl",
+#"problemPanic.pl",
+
+#"PGauxiliaryFunctions.pl", #for lcm, gcd,etc
+);
+#for currency use Context("Currency") then Currency($A);
+#Then, in the text use $DOLLAR $a
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+Context("Fraction");
+       
+$a1=random(11,19,2); 
+$ans1=Fraction($a1,2);
+$b1=$a1%2; 
+$e1=($a1-$b1); 
+$c1=$e1/2;
+
+$a2=random(22,28,3); 
+$ans2=Fraction($a2,3);
+$b2=$a2%3; 
+$e2=($a2-$b2); 
+$c2=$e2/3;
+
+do { $a3=random(21,31,1); } until ( $a3%5 != 0 );
+$ans3 = Fraction($a3,5);
+$b3=$a3%5;
+$e3=$a3-$b3;
+$c3=$e3/5;
+
+Context()->texStrings;
+
+BEGIN_TEXT
+Change to improper fractions.$BR
+To enter a fraction \(\frac{a}{b}\) in an answer box, type a/b.$PAR
+1)  \($c1 \frac{$b1}{2}\) =   \{ans_rule(2)\} $PAR
+2)  \($c2 \frac{$b2}{3}\) =   \{ans_rule(2)\} $PAR
+3)  \($c3 \frac{$b3}{5}\) =   \{ans_rule(2)\}
+
+END_TEXT
+
+BEGIN_HINT
+$PAR
+$BBOLD Example: $EBOLD
+$PAR
+Let's do the first one together: \( $c1 \frac{$b1}{2} \). First, recognize what size fractions we're working with - in this problem, the denominator is 2 so we're working with halves.
+$PAR
+We have $c1 whole objects. If we cut each of the $c1 whole objects in half, how many halves will that make? (You should get $e1 halves, or \( \frac{$e1}{2} \) )
+$PAR
+Then how many halves will we have in total once we add in the extra \( \frac{1}{2} \)? $e1 halves plus the extra one-half ( \( \frac{$e1}{2} + \frac{1}{2} \) ) should get us $a1 halves, or \( \frac{$a1}{2} \), our final answer.
+END_HINT
+
+Context()->normalStrings;
+
+ANS($ans1->cmp);
+ANS($ans2->cmp);
+ANS($ans3->cmp);
+
+BEGIN_SOLUTION
+$PAR Solution $PAR
+1)\(\ \ \ \ $c1= \frac{$e1}{2}\ \  \) $PAR  \(\ \ $c1 \frac{$b1}{2} =\frac{$e1}{2} +\frac{$b1}{2}=\frac{$a1}{2}\).
+$PAR
+2)\(\ \ \ \ $c2= \frac{$e2}{3}\ \  \) $PAR  \(\ \ $c2 \frac{$b2}{3} =\frac{$e2}{3} +\frac{$b2}{3}=\frac{$a2}{3}\).
+$PAR
+3)\(\ \ \ \ $c3= \frac{$e3}{5}\ \  \) $PAR  \(\ \ $c3 \frac{$b3}{5} =\frac{$e3}{5} +\frac{$b3}{5}=\frac{$a3}{5}\).
+END_SOLUTION
+
+COMMENT('MathObject version');
+ENDDOCUMENT();
+## DBsubject(Middle school)
+## DBchapter('Fractions')
+## DBsection('')
+

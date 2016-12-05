@@ -1,0 +1,131 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject('Algebra')
+## DBchapter('Fundamentals')
+## DBsection('Real Numbers')
+## Date('6/3/2002')
+## Author('')
+## Institution('')
+## TitleText1('Precalculus')
+## EditionText1('3')
+## AuthorText1('Stewart, Redlin, Watson')
+## Section1('1.1')
+## Problem1('22')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "source.pl",        # allows code to be displayed on certain sites.
+   "PGcourse.pl",      # Customization file for the course
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->variables->{namePattern} = qr/[a-z][a-z0-9_]*'*/i;
+Context()->variables->are( y => "Real", x => "Real", c => "Real", "y'" => "Real" );
+
+$a = Real(random(1,9,1));
+$b = Real(random(4,10,2));
+
+# workaround: $de & $hom are not the actual LHS and RHS of the DE,
+# we ask for y^2 as a solution, so y is the sqrt of the student answer
+# Furthermore, the solution process is simplified by cancelling y^(-1/2)
+# on both sides.
+$de = Formula("0.5*y'");
+$hom = Formula("($a*x^2+$b*y)/(2*x)");
+
+# RHS of the displayed DE
+$hom1 = Formula("($a*x^2+$b*y^2)/(2*x*y)")->reduce;
+
+# General Solution
+$sol = Formula("c*x^($b)-$a/($b-2)*x^2"); 
+
+# General Solution, solved for "c"
+$getC = Formula("(y + $a/($b-2)*x^2)/x^6");
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+Use a substitute variable to replace \(y\) in order to make this DE separable, then separate and solve:
+$BR
+$BR
+\( y' = $hom1 \)
+$BR
+$BR
+General Solution (implicitly for \(y^2\)): \([y(x)]^2=\) \{$sol->ans_rule\}
+$BR
+END_TEXT
+
+$showHint = 5;
+BEGIN_TEXT
+$PAR
+If you don't get this in $showHint tries, you can get a hint.
+END_TEXT
+BEGIN_HINT
+This is a homogeneous DE.
+$BR
+The replacement variable \(v=\frac{y}{x}\) should be used to replace \(y\) in the problem.
+$BR
+$BR
+Don't forget that \(y'\) must also be replaced. It can be found by deriving the equation \(y=v \cdot x\) with respect to \(x\).
+$BR
+$BR
+Solve the new equation (in variables \(x\) and \(v\)) by isolating \(v'\) and then separating the resulting DE using only multiplication and division.
+$BR
+$BR
+Also, remember that your answer must return to the original variables and be explicitly solved for \(y\).
+END_HINT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS( $sol->cmp( checker => sub {
+    my ( $correct, $student, $self ) = @_;
+
+### Get the student's y', c, and find the derivative of their "c".
+    my $Dstudent = $student->D('x');
+    my $studentC = $getC->substitute(y=>"$student");
+    my $DstudentC = $studentC->D('c');
+
+### Plug the student's solutions into the DE
+    my $rhs = $hom->substitute(y=>"$student");
+    my $lhs = $de->substitute("y'"=>"$Dstudent", y=>"$student")->reduce;
+
+### Make sure that the student has the _general_ solution here
+    if ($DstudentC == Formula("0")) {
+      Value->Error("Your answer is not the most general solution. Where's 'c'?");
+    };
+
+    return ($lhs == $rhs && $DstudentC != Formula("0"));
+}));
+
+ENDDOCUMENT();        

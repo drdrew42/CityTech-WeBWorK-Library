@@ -1,0 +1,90 @@
+##DESCRIPTION
+##  Find an general solution. Separable method. IVP. Word Problem.
+##ENDDESCRIPTION
+
+##KEYWORDS('separable', 'application', word problem', 'modeling', 'autonomous')
+
+## DBsubject('Differential Equations')
+## DBchapter('Introduction')
+## DBsection('Modeling with Differential Equations')
+## Date('6/3/2013')
+## Author('Andrew Parker')
+## Institution('NYC College of Technology')
+## TitleText1('Elementary Differential Equations and Boundary Value Problems')
+## EditionText1('10')
+## AuthorText1('Boyce, DiPrima')
+## Section1('1.1')
+## Problem1('22')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->variables->remove(x);
+Context()->variables->add( v => "Real", t => "Real", c => "Real" );
+$mass = Real(random(1,10,1));
+$gamma = Real(non_zero_random(1,5,.5));
+$v0 = Real(non_zero_random(-5,5,0.1));
+$soln = Formula("$mass * 9.8 / $gamma + ($v0 - 9.8 * $mass / $gamma) * e ^ (-1 * $gamma * t / $mass)");
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+A $mass kg object is falling with $gamma kg/s drag coefficient and initial velocity $v0 \(m/s\). 
+Find the general solution describing the velocity of the object.
+$BR
+\(v(t) = \)\{$soln->ans_rule\}
+END_TEXT
+
+$showHint = 5;
+BEGIN_TEXT
+$PAR
+If you don't get this in $showHint tries, you can get a hint.
+END_TEXT
+BEGIN_HINT
+The differential equation describing falling objects is \(m \frac{dv}{dt} = mg - \gamma v\).
+$BR
+Factor out the coefficient of \(v\) from the LHS of the equation and solve like you did in the previous problem.
+$BR
+Remember that you must find a specific value of \(c\) so that your solution has velocity $v0 when  \(t=0\).
+END_HINT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($soln->cmp);
+# relative tolerance --3.1412 is incorrect but 3.1413 is correct
+# default tolerance is .01 or one percent.
+
+
+COMMENT('Includes hint.');
+ENDDOCUMENT();        

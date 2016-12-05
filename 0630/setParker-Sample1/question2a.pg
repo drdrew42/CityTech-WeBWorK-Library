@@ -1,0 +1,57 @@
+##DESCRIPTION
+##  Parker - Sample Exam 1 
+##ENDDESCRIPTION
+
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextFraction.pl",
+   "contextLimitedNumeric.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("LimitedNumeric");
+
+$ans = Real("-35");
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Evaluate:
+\((-5)+(-23)+(-7)\)
+$PAR
+\{$ans->ans_rule\}
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans->cmp);
+
+
+ENDDOCUMENT();        

@@ -1,0 +1,131 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject('Algebra')
+## DBchapter('Fundamentals')
+## DBsection('Real Numbers')
+## Date('6/3/2002')
+## Author('')
+## Institution('')
+## TitleText1('Precalculus')
+## EditionText1('3')
+## AuthorText1('Stewart, Redlin, Watson')
+## Section1('1.1')
+## Problem1('22')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextLimitedPowers.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+$warning = $showPartialCorrectAnswers == 1 ? "$PAR" : "$BBOLD Be careful! $EBOLD This problem will not specify which individual parts you get right. You must get them all correct at the same time! $PAR";
+
+# Select two variables for this problem
+@var = ("a", "b", "c", "d", "m", "n", "p", "q", "r", "s", "w", "x", "y", "z" );
+$one = random(0,13,1);
+ do { $two = random(0,13,1); } until ( $one != $two );
+
+# Force students to combine exponents within fractions
+$fractionChecker = sub {
+  my ($correct,$student,$ans) = @_;
+  Value->Error("Your answer should be a fraction. Make sure you put parenthesis around your numerator and denominator.") unless $student->{tree}->class eq "BOP" && $student->{tree}{bop} eq "/";
+  return 0 unless $correct == $student;
+  my $cden = Formula($correct->{tree}{rop});
+  my $sden = Formula($student->{tree}{rop});
+Value->Error("Your answer isn't completely simplified") unless $cden == $sden;
+  return 1;
+};
+
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+
+Context()->variables->are( 
+  $var[$one]=>Real, 
+  $var[$two]=>Real
+);
+
+$nCoeff = list_random( 3, 4, 5, 7 );
+do { $dCoeff = list_random( 3, 4, 5, 7); } until ( $nCoeff != $dCoeff );
+
+$common = random( 5, 12, 1 );
+
+$dispN = $nCoeff * $common;
+$dispD = $dCoeff * $common;
+
+$m1 = 1;
+$m2 = random( 3, 9, 1 );
+$n1 = random( 5, 12, 1 );
+do { $n2 = random( 2, 7, 1 ); } until ( $n2 < $n1 -1 );
+
+$mAns = $m2 - $m1;
+$nAns = $n1 - $n2;
+
+$problem = Formula("($dispN*$var[$one]^$m1*$var[$two]^$n1)/($dispD*$var[$one]^$m2*$var[$two]^$n2)")->reduce;
+
+$answer = Formula("$nCoeff*$var[$two]^$nAns/($dCoeff*$var[$one]^$mAns)")->with(testAt=>[[0,0]]);
+
+Context()->operators->undefine("+"," +","+ ");
+Context()->operators->undefine("-"," -","- ");
+# Context()->operators->undefine("*"," *","* ");
+Context()->{error}{msg}{"Can't use '+' in this context"} 
+  = "Addition is disabled for this problem. Simplify the sum and resubmit your answer.";
+Context()->{error}{msg}{"Can't use '-' in this context"} 
+  = "Subtraction is disabled for this problem. Simplify the difference and resubmit your answer.";
+# Context()->{error}{msg}{"Can't use '*' in this context"} 
+#  = "Multiplication is disabled for this problem. Simplify the product and resubmit your answer.";
+LimitedPowers::OnlyPositiveIntegers();
+Context()->{error}{msg}{"Powers must be positive integer constants"} 
+  = "Please rewrite your answer without using negative exponents.";
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+$PAR
+$warning
+Simplify \( \displaystyle{$problem} \) and write your answer without using negative exponents.
+$PAR
+\{$answer->ans_rule\}
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+
+ANS($answer->cmp(checker=>$fractionChecker) );
+#->withPostFilter(sub { 
+#  my $ans = shift; 
+#  $ans->{ans_message} = "Your answer isn't completely simplified." 
+#    if $ans->{ans_message} eq "The domain of your function doesn't match that of the #correct answer";
+#  return $ans; 
+#}));
+
+ENDDOCUMENT();        

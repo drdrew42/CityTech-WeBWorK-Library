@@ -1,0 +1,101 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject('Algebra')
+## DBchapter('Fundamentals')
+## DBsection('Real Numbers')
+## Date('6/3/2002')
+## Author('')
+## Institution('')
+## TitleText1('Precalculus')
+## EditionText1('3')
+## AuthorText1('Stewart, Redlin, Watson')
+## Section1('1.1')
+## Problem1('22')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "parserImplicitEquation.pl",
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("ImplicitEquation");
+Context()->variables->add( c => "Real" );
+#$a = Real(non_zero_random(-9,9,1));
+#$b = Real(non_zero_random(-9,9,1));
+#$c = Real(non_zero_random(-9,9,1));
+$m = Real(random(2,6,1));
+$n = Real(random(2,6,1));
+#$p = Real(random(2,10,1));
+$q = Formula("x ^ $n / y ^ $m");
+#$y0 = Real(random(-10,10,0.1));
+$gen = ImplicitEquation("1 / ( $m + 1 ) y ^ ( $m + 1 ) = 1 / ( $n + 1 ) x ^ ( $n + 1 ) + c", tolerance=>0.001); 
+#$sol = Formula("$a * t * e ^ ( $p * t ) + $y0 * e ^ ( $p * t )");
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+Separate the following differential equation and integrate to find the general solution:
+$BR
+\( y' = $q \)
+$BR
+$BR
+General Solution (implicitly): \{$gen->ans_rule\}
+END_TEXT
+
+$showHint = 5;
+BEGIN_TEXT
+$PAR
+If you don't get this in $showHint tries, you can get a hint.
+END_TEXT
+BEGIN_HINT
+Make sure you've adjusted to the variables appearing in this problem: \(y\) is dependent upon \(x\) as the independent variable.
+$BR
+$BR
+Don't forget your unknown parameter, \(c\). Since no initial value is given, we will not be able to determine a particular solution for this differential equation. Thus, your final answer must have \(c\) somewhere. 
+$BR
+END_HINT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+#ANS($mu->cmp);
+ANS($gen->cmp);
+#ANS($sol->cmp);
+# relative tolerance --3.1412 is incorrect but 3.1413 is correct
+# default tolerance is .01 or one percent.
+
+
+ENDDOCUMENT();        

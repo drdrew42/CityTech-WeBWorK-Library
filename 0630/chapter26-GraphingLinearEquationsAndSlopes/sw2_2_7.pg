@@ -1,0 +1,62 @@
+#DESCRIPTION
+##  Algebra problem: Coordinates and Graphs
+##ENDDESCRIPTION
+
+## pphi tagged and PAID on 12-12-2003
+
+## DBsubject(Algebra)
+## DBchapter(Functions)
+## DBsection(Graphs)
+## Date(6/3/2002)
+## MLT(intercept)
+## Level(2)
+## TitleText1('College Algebra')
+## AuthorText1('Stewart, Redlin, Watson')
+## EditionText1('3')
+## Section1('2.2')
+## Problem1('7')
+## TitleText2('Precalculus')
+## AuthorText2('Stewart, Redlin, Watson')
+## EditionText2('3')
+## Section2('1.8')
+## Problem2('37')
+## KEYWORDS('algebra', 'graph')
+DOCUMENT();        # This should be the first executable line in the problem.
+
+loadMacros(
+"PG.pl",
+"PGbasicmacros.pl",
+"PGchoicemacros.pl",
+"PGanswermacros.pl",
+"PGauxiliaryFunctions.pl",
+"MathObjects.pl"
+);
+
+TEXT(beginproblem());
+
+$showPartialCorrectAnswers = 1;
+
+Context("Point");
+
+$X = non_zero_random(-6,6,1);
+$a = random(2,7,1);
+$b = $a*$X;
+$Y = -$b;
+
+$Xint = Point("($X,0)");
+$Yint = Point("(0,$Y)");
+
+BEGIN_TEXT
+Find the \(x\)- and \(y\)-intercepts of the graph of the equation
+\(y=$a x - $b\).
+$BR $BR
+The \(x\)-intercept is: \{$Xint->ans_array\}
+$BR $BR
+The \(y\)-intercept is: \{$Yint->ans_array\}
+END_TEXT
+
+
+ANS($Xint->cmp() );
+ANS($Yint->cmp() );
+
+ENDDOCUMENT();        # This should be the last executable line in the problem.

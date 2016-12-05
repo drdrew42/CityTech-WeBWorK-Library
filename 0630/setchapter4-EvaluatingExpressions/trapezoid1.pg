@@ -1,0 +1,95 @@
+## DESCRIPTION
+## Algebraic expressions
+## ENDDESCRIPTION
+## /Library/FortLewis/Algebra/1-1-Expressions/MCH1-1-1-06-Expressions.pg
+
+## BookTitle('Algebra: Form and Function')
+## BookChapter('The Key Concepts of Algebra')
+## DBsubject(Algebra)
+## DBchapter(Algebra of real numbers and simplifying expressions)
+## DBsection(Evaluating expressions)
+## Date(01/01/10)
+## Institution(Fort Lewis College, City Tech)
+## Author(Paul Pearson, Parker)
+## Level(2)
+## MO(1)
+## TitleText1('Algebra: Form and Function')
+## AuthorText1('McCallum, Connally, and Hughes-Hallett')
+## EditionText1('1')
+## Section1('1.1')
+## Problem1('6')
+## KEYWORDS('Expressions')
+
+
+########################################
+#  Initialization
+
+DOCUMENT();   
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"PGcourse.pl",    
+);     
+
+TEXT(beginproblem());
+
+#######################################
+#  Set-up
+
+Context("Numeric");
+Context()->variables->add(h=>"Real",B=>"Real",b=>"Real");
+
+$h = random(6,12,2);
+$B = random(3,8,1);
+$b = random(3,8,1);
+while ($B == $b) { $b = random(3,8,1); }
+
+$f = Formula("0.5 * $h * ($B + $b)");
+
+$answer = $f->eval(h=>$h,B=>$B,b=>$b);
+
+################################################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Evaluate the expression 
+\( \displaystyle \frac{1}{2} h \big( B + b \big) \) 
+when \( h = $h, \ B = $B, \ b = $b. \)
+$BR
+$BR
+\{ ans_rule(10) \}
+\{ AnswerFormatHelp("number") \}
+
+END_TEXT
+
+Context()->normalStrings;
+
+################################################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 0;
+
+Context("LimitedNumeric");
+Context()->{error}{msg}{"Can't use '+' in this context"} 
+  = "Addition is disabled for this problem. Compute the result for yourself and resubmit your answer.";
+Context()->{error}{msg}{"Can't use '-' in this context"} 
+  = "Subtraction is disabled for this problem. Compute the result for yourself and resubmit your answer.";
+Context()->{error}{msg}{"Can't use '*' in this context"} 
+  = "Multiplication is disabled for this problem. Compute the result for yourself and resubmit your answer.";
+Context()->{error}{msg}{"Can't use '/' in this context"} 
+  = "Division is disabled for this problem. Compute the result for yourself and resubmit your answer.";
+Context()->{error}{msg}{"Can't use '^' in this context"} 
+  = "Exponents are disabled for this problem. Compute the result for yourself and resubmit your answer.";
+Context()->{error}{msg}{"Can't use '**' in this context"} 
+  = "Exponents are disabled for this problem. Compute the result for yourself and resubmit your answer.";
+$answer = Real($answer);
+
+ANS($answer->cmp());
+
+
+;
+ENDDOCUMENT();

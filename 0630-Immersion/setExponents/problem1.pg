@@ -1,0 +1,202 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject(‘Algebra’)
+## DBchapter(‘Properties of exponents, rational exponents and radicals’)
+## DBsection(‘Properties of exponents’)
+## Date('6/19/2015')
+## Author('K. Andrew Parker')
+## Institution('NYC City Tech')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "parserPopUp.pl",
+   "scaffold.pl",
+   "niceTables.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer=>"parsed"
+   );
+
+  $sumChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentstring = $ansHash->{preview_text_string};
+     return ($studentstring eq $ansHash->{correct_ans} ? 1 : 0);
+   };
+
+@prime = ( 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 );
+
+$list81 = List(3,3,3,3);
+$form81 = Formula("3*3*3*3");
+
+$base1 = Real( random(2,9,1) );
+$exp1 = Real( random(3,6,1) );
+
+$list1 = List($base1);
+$form1 = Formula("$base1");
+
+foreach my $i (2..$exp1) {
+ $list1 = $list1 . List( $base1 );
+ $form1 = Formula("$form1*$base1");
+}
+
+$base2 = Real( random(4,9,1) );
+$exp2 = Real( random(3,6,1) );
+
+$form2 = "$base2";
+foreach my $i (2..$exp2) {
+ $form2 = "$form2 \times $base2";
+}
+$expform2=Formula("$base2^$exp2");
+
+$expof2 = random(4,7,1);
+$powerof2 = Real(2**$expof2);
+$listof2 = List("2");
+$formof2 = Formula( "2" );
+foreach my $i (2..$expof2) {
+ $listof2 = $listof2 . List( "2" );
+ $formof2 = Formula( "$formof2 * 2" );
+}
+$expformof2 = Formula( "2^$expof2" );
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+Scaffold::Begin();
+
+Section::Begin( "Part 1" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+When we write out the prime factorization for a number, we sometimes find ourselves writing the same prime factor over and over again. Take 81 for example. If we do a factor tree for 81 and list the prime factors, what do we get? \{ ans_rule(10) \}
+$PAR
+Write out the prime factorization as a product. (Do not actually compute the product, we know it should be 81.) \{ans_rule(10)\}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( $list81->cmp() );
+ANS( $form81->cmp(checker=>$sumChecker) );
+
+Section::End();
+
+Section::Begin( "Part 2" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+So, instead of having to write out \(3 \times 3 \times 3 \times 3\) (or even worse for some numbers), mathematicians have come up with a shorter way to represent the same expression by using a new symbol: "^"
+$PAR
+Just like \( 3 \times 4 \) was a shorter way of writing \( 3 + 3 + 3 + 3 \),
+$BR
+\( 3 \wedge 4 \) is going to be our shorter way of writing \(3 \times 3 \times 3 \times 3\). 
+$PAR
+You'll often see \( 3 \wedge 4 \) written as \(3^4\). 
+$BR
+\(3 \wedge 4\) is how you will type it here in WeBWorK, or how you would enter it into a calculator; but in problems it will look like \(3^4\).
+$PAR
+The number that's being repeated is called the $BBOLD base $EBOLD and it goes to the left of the \(\wedge\) sign. 
+$BR
+The number of times it is repeated is called the $BBOLD exponent $EBOLD and it goes to the right of the \(\wedge\) sign.
+$PAR
+In the expression \( $base1 \wedge $exp1 \):
+$BR
+What is the base? \{ans_rule(5)\}
+$BR
+What is the exponent? \{ans_rule(5)\}
+$BR
+Which number will be repeatedly multiplied? \{ans_rule(5)\}
+$BR
+How many times will it be repeated? \{ans_rule(5)\}
+$BR
+Write out the repeated multiplication expression of \( $base1 \wedge $exp1 \) \{ans_rule(10)\}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( $base1->cmp() );
+ANS( $exp1->cmp() );
+ANS( $base1->cmp() );
+ANS( $exp1->cmp() );
+ANS( $form1->cmp(checker=>$sumChecker) );
+
+Section::End();
+
+Section::Begin( "Part 3" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Let's try using the \(\wedge\) symbol to abbreviate some repeated multiplication.
+$PAR
+Given the expression \( $form2 \), which number would we use as the base? \{ans_rule(5)\}
+$BR
+Which number would we use as the exponent? \{ans_rule(5)\}
+$PAR
+Use the \(\wedge\) symbol to abbreviate the expression \( $form2 \). \{ans_rule(5)\}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS(Real($base2)->cmp() );
+ANS(Real($exp2)->cmp() );
+ANS($expform2->cmp(checker=>$sumChecker) );
+
+Section::End();
+
+Section::Begin( "Part 4" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Do a factor tree and list the prime factors of $powerof2. \{ans_rule(10)\}
+$PAR
+Write out the repeated multiplication form for the prime factorization of $powerof2. 
+\{ans_rule(10)\}
+$PAR
+Use exponent notation to represent the prime factorization of $powerof2. \{ans_rule(10)\}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( $listof2->cmp() );
+ANS( $formof2->cmp(checker=>$sumChecker) );
+ANS( $expformof2->cmp(checker=>$sumChecker) );
+
+Section::End();
+Scaffold::End();
+
+
+ENDDOCUMENT();        

@@ -1,0 +1,89 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('introduction of systems')
+## DBsection("The method of Elimination")
+## Date('06/11/2012')
+## Author('Anna Ghazaryan,Fuli Zhang')
+## Institution('Muohio')
+## TitleText1('Differential equations with Boundary-value problem')
+## AuthorText1('David E. Penney')
+## Section1('5.2')
+## Edition('7')
+## Problem1('11')
+
+###############################################################
+
+
+DOCUMENT(); 
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"parserAssignment.pl",
+"unionLists.pl",
+);
+
+TEXT(beginproblem());
+
+
+#############################
+#  Setup
+
+Context("Numeric");
+Context()->variables->are(
+t=>"Real"
+);
+
+$a=1/18;
+$b=14/9;
+$x = Formula("6sin(3t)-e^(-4t)/4-11e^(t)/20");
+$y = Formula("-2cos(3t)+3sin(3t)+e^(-t)/2+8e^(t)/5");
+
+
+
+######################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+Use either Laplace Transform or method of elimination to solve the systems
+$PAR
+\[
+\begin{array}{lcl}
+2y'-x' & = & x+3y+e^{t}\\
+3x'-4y' & = & x-15y+e^{-t} 
+\end{array}
+\]
+$BR
+$BR
+if \( x(0) = -4/5 \) and \(y(0) = 1/10\).
+$BR
+$BR
+\( x(t) = \) 
+\{ ans_rule(40) \}
+\{ AnswerFormatHelp("formulas") \}
+$BR
+\( y(t) = \) 
+\{ ans_rule(40) \}
+\{ AnswerFormatHelp("formulas") \}
+END_TEXT
+Context()->normalStrings;
+
+
+######################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 1;
+
+ANS( $x->cmp() );
+ANS( $y->cmp() );
+
+
+COMMENT("MathObject version.");
+
+ENDDOCUMENT();

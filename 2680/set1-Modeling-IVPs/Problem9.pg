@@ -1,0 +1,92 @@
+##DESCRIPTION
+##  Find a particular solution. Separable method. IVP. Word problem.
+##ENDDESCRIPTION
+
+##KEYWORDS('separable', 'modeling', 'autonomous', 'application', 'IVP')
+
+## DBsubject('Differential Equations')
+## DBchapter('Introduction')
+## DBsection('Modeling with Differential Equations')
+## Date('6/3/2013')
+## Author('Andrew Parker')
+## Institution('NYC College of Technology')
+## TitleText1('Elementary Differential Equations and Boundary Value Problems')
+## EditionText1('10')
+## AuthorText1('Boyce, DiPrima')
+## Section1('1.1')
+## Problem1('22')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->variables->remove(x);
+Context()->variables->add( p => "Real", t => "Real");
+$rate = Real(random(1,7,1)/8);
+$pred = Real(random(1,5,1)*5);
+$p0 = Real(random(0.1,6,0.1) * 1000);
+$soln = Compute("$pred*30/$rate + ($p0 - $pred * 30 / $rate) * e ^ ($rate * t)");
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+A species of rabbits has an initial population of $p0 and a growth rate of $rate / month. If a population of foxes inhabits the same forest and kills $pred rabbits per day, find the particular solution describing the population of rabbits.
+$BR
+\{$soln->ans_rule\}
+END_TEXT
+
+$showHint = 5;
+BEGIN_TEXT
+$PAR
+If you don't get this in $showHint tries, you can get a hint.
+END_TEXT
+BEGIN_HINT
+$BR
+The differential equation describing the population of rabbits is \(\frac{dp}{dt} = rp - k\). 
+$BR
+Don't forget that \(k\) is measured by the month.
+$BR
+Using the techniques of the previous problems, factor out \(r\) from the LHS and proceed as usual.
+$BR
+Make sure to find a specific value of \(c\) so that your solution has a population of $p0 when \(t=0\).
+END_HINT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($soln->cmp);
+# relative tolerance --3.1412 is incorrect but 3.1413 is correct
+# default tolerance is .01 or one percent.
+
+
+COMMENT('Includes hint.');
+ENDDOCUMENT();        

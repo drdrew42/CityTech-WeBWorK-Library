@@ -1,0 +1,181 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "PGML.pl",
+   "contextLimitedFactor.pl",
+   "scaffold.pl",
+   "contextFraction.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+# y = (x - h)^2 + k
+Context("Numeric")->variables->are(x=>Real,y=>Real);
+Context()->flags->set(reduceConstants=>0, reduceConstantFunctions=>0);
+Parser::Number::NoDecimals();
+
+Context()->{error}{msg}{"You are not allowed to type decimal numbers in this problem"} 
+  = "Decimals are not allowed for this problem, please use fractions instead.";
+
+$H = random(-9,9,2);
+$absH = abs($H);
+$h = Formula("$H/2");
+$absh = Formula("$absH/2");
+$k = non_zero_random(-8,8,1);
+
+$B = -$H;
+$C = ($B)**2+4*$k;
+$absC = abs($C);
+$C = Formula("$C/4");
+$absC = Formula("$absC/4");
+
+$CtS = ($B)**2;
+$CtS = Formula("$CtS/4");
+
+#Context("Numeric")->variables->are(x=>Real,y=>Real);
+#Context()->flags->set(reduceConstants=>0, reduceConstantFunctions=>0);
+#Parser::Number::NoDecimals();
+
+$LHS = Formula("y");
+### Chicanery to avoid displaying decimals ###
+$RHSp = Formula("x^2 + $B x + y")->reduce;
+$RHSm = Formula("x^2 + $B x - y")->reduce;
+$RHS = ($C>0) ? $RHSp->substitute(y=>$C) : $RHSm->substitute(y=>$absC);
+
+### More chicanery ###
+$LHS1p = Formula("y - x")->reduce;
+$LHS1m = Formula("y + x")->reduce;
+$LHS1 = ($C>0) ? $LHS1p->substitute(x=>$C) : $LHS1m->substitute(x=>$absC);
+$RHS1 = Formula("x^2 + $B x")->reduce;
+
+$LHS2 = Formula("y - $k")->reduce;
+### Yet more chicanery ###
+$RHS2 = Formula("x^2 + $B x + y")->reduce;
+$RHS2 = $RHS2->substitute(y=>$CtS);
+
+Context("LimitedFactor")->variables->are(x=>Real,y=>Real);
+
+$factorCheck = sub {
+    my ($correct,$student,$ans) = @_;
+    return 0 if $ans->{isPreview} || $correct != $student;
+    $student = $ans->{student_formula};
+    $correct = $correct->{original_formula} if defined $correct->{original_formula};
+    # check for equivalence when bizarro arithmetic is enforced
+    Context()->flags->set(bizarroSub=> 1,bizarroAdd=> 1, bizarroPow=>1);
+    delete $correct->{test_values}, $student->{test_values};
+    my $OK = (($correct == $student) || ($correct == $student)); # check if equal when arithmetic is replace by bizarro arithmetic
+    Context()->flags->set(bizarroSub=> 0,bizarroAdd=> 0, bizarroDiv=> 0);
+    delete $correct->{test_values}, $student->{test_values};
+    $factorableObject = Context()->flag("factorableObject");
+    Value::Error("Your answer is equivalent to the $factorableObject in the correct answer, but not completely factored or simplified") unless $OK;
+    return $OK;
+  };
+
+### UGH! CHICANERY! ###
+
+$ansp = Formula("(x-y)^2+$k")->reduce;
+$ansm = Formula("(x+y)^2+$k")->reduce;
+$ans = ($H>0) ? $ansp->substitute(y=>$h) : $ansm->substitute(y=>$absh);
+
+Context("Fraction-NoDecimals");
+Context()->{precedence}{Fraction} = 2.5;
+Context()->parens->set('(' => {type => "Point"} );
+Context()->flags->set(reduceFractions=>0);
+
+Context()->{error}{msg}{"You are not allowed to type decimal numbers in this problem"} 
+  = "Decimals are not allowed for this problem, please use fractions instead.";
+
+$vertex = Point("($H/2,$k)");
+
+##############################################################
+#
+#  Text
+#
+#
+
+BEGIN_PGML
+
+Use the _complete the square_ method to find the vertex of the following parabola:
+
+[` \large{ [$LHS] = [$RHS] } `]  
+
+END_PGML
+
+Scaffold::Begin();
+Section::Begin("Step 1: Separate non-x-terms from x-terms");
+BEGIN_PGML
+
+Manipulate the equation until all terms containing _x_ are on one side of the equation, and all terms *not* containing _x_ are on the opposite side:
+
+>> [__________]{$LHS1} [` \large{  = [$RHS1] } `] <<
+
+END_PGML
+Section::End();
+Section::Begin("Step 2: Identify the value that completes the square");
+BEGIN_PGML
+
+What value completes the perfect square trinomial? [` \large{ [$RHS1] + } `] [_____]{$CtS}
+
+END_PGML
+Section::End();
+Section::Begin("Step 3: Complete the Square");
+BEGIN_PGML
+
+[` \large{ [$LHS1] = [$RHS1] } `]
+
+Add [$CtS] to both sides to complete the perfect square trinomial.
+
+>> [__________]{$LHS2} [` \large{ = [$RHS2] } `] <<
+
+END_PGML
+Section::End();
+Section::Begin("Step 4: Factor and solve for y");
+BEGIN_PGML
+
+[` \large{ [$LHS2] = [$RHS2] } `]
+
+Factor the perfect square trinomial, and solve for _y_.
+
+[` y = `] [____________]{$ans->cmp(checker=>$factorCheck)}
+
+END_PGML
+Section::End();
+Section::Begin("Step 5: Identify the vertex");
+BEGIN_PGML
+
+[` \large{ y = [$ans] } `]
+
+Try to determine the vertex just by thinking about how the graph of this equation is a shifted version of [` y = x^2 `]. 
+    The vertex of [` y = x^2 `] is [` (0,0) `], what would the new vertex be after applying the shifts?
+
+Otherwise, identify the values of _h_ and _k_ in our equation by comparing our equation to the form [` y = (x-h)^2 + k `]. 
+    (_Remember that expressions like [` x+1 `] can be re-written as [` x - (-1) `] and expressions like [` x - 1 `] can be re-written as [` x + (-1) `]_)
+
+The vertex of our parabola will be [` (h,k) `].
+
+What is the vertex of [` y = [$ans] `]? [__________]{$vertex}
+
+END_PGML
+Section::End();
+Scaffold::End();
+ 
+##############################################################
+#
+#  Answers
+#
+#
+
+
+ENDDOCUMENT();        

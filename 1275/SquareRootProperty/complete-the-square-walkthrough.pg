@@ -1,0 +1,158 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "PGML.pl",
+   "scaffold.pl",
+   "contextFraction.pl",
+   "contextLimitedFactor.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric")->variables->are(x=>Real);
+
+$R1 = random(-1,1,2)*random(2,9,1);
+do { $R2 = random(-1,1,2)*random(2,9,1); } until ( ($R1+$R2)%2 == 0 && abs($R1) != abs($R2) );
+
+$B = $R1 + $R2;
+$C = $R1 * $R2;
+
+$LHS = Formula("x^2 - $B x + $C")->reduce;
+$RHS = Formula("0");
+
+$LHS1 = Formula("x^2 - $B x")->reduce;
+$ans1 = Real("-$C")->reduce;
+
+$CtS = ($B/2)**2;
+$ans2 = Real("$CtS");
+$ans3 = Real("$ans1 + $CtS")->reduce;
+
+$halfB = $B/2;
+
+$LHS5 = Formula("x - $halfB")->reduce;
+$root = sqrt($ans3);
+$ans5 = List(Real("$root"),Real("-$root"));
+
+$ans6 = List(Real("$halfB + $root"),Real("$halfB - $root"))->reduce;
+
+Context("LimitedFactor");
+
+$ans4 = Compute("(x -  $halfB)^2")->reduce;
+
+$factorCheck = sub{
+      my ( $correct, $student, $ansHash ) = @_;
+      return 0 if $ansHash->{isPreview} || $correct != $student;
+      $student = $ansHash->{student_formula};
+      $correct = $correct->{original_formula} if defined $correct->{original_formula};
+      $student = Formula("$student"); $correct = Formula("$correct");
+      return 0 unless ($correct == $student);
+      Context()->flags->set(bizarroAdd=>1, bizarroSub=>1);
+      delete $correct->{test_values}, $student->{test_values};
+      Value->Error("Your answer is equivalent to the correct answer, but is not completely factored") unless (($correct == $student) or ($student == $correct));
+      Context()->flags->set(bizarroAdd=>0,bizarroSub=>0);
+      return 1;
+  };
+
+##############################################################
+#
+#  Text
+#
+#
+
+BEGIN_PGML
+
+This polynomial is factorable, so you should be able to find the roots without using the _complete the square_ method.
+
+However, we're going to walk through the process of completing the square as practice for those polynomials where you cannot use the factoring method.
+
+Solve the equation for x.
+
+    [`` \large{ [$LHS] = [$RHS] } ``]  
+
+END_PGML
+
+Scaffold::Begin();
+Section::Begin("Step 1: Separate the constant term");
+BEGIN_PGML
+First, separate the constant term from the terms with variables.
+
+    [` \large{ [$LHS1] = } `] [_____]
+END_PGML
+Section::End();
+Section::Begin("Step 2: Complete the Square");
+BEGIN_PGML
+
+    [`` \large{ [$LHS1] = [$ans1] } ``]
+
+Find the value that will make the left-hand side into a perfect square trinomial, and add it to both sides of the equation.
+
+    [` \large{ [$LHS1] + } `] [_____] [` \large= `] [_____]
+END_PGML
+Section::End();
+Section::Begin("Step 3: Factor the completed square");
+BEGIN_PGML
+
+    [`` \large{ [$LHS1] + [$ans2] = [$ans3] } ``]
+
+Now that the left-hand side is a perfect square, factor it.
+
+    [__________] [` \large{ = [$ans3] } `]
+END_PGML
+Section::End();
+Section::Begin("Step 4: Use the Square Root Property");
+BEGIN_PGML
+
+    [`` \large{ [$ans4] = [$ans3] } ``]
+
+Take the square root of both sides, remembering the square root property (there are _two_ square roots to consider, the positive *and* the negative!)
+
+    [` \large{ [$LHS5] = } `] [_____]
+END_PGML
+Section::End();
+Section::Begin("Step 5: Finish solving");
+BEGIN_PGML
+
+    [`` \large{ [$LHS5] = [$ans5->extract(1)] \text{  or  } [$LHS5] = [$ans5->extract(2)] } ``]
+
+Finally, solve for x. Remember to deal with each root separately!
+
+    [` \large{ x = } `] [_____]
+END_PGML
+Section::End();
+Scaffold::End();
+
+BEGIN_PGML
+* If your answer contains non-integer values, use fractions, not decimals.
+* If you need to use the square root symbol as in [`\sqrt{5}`], type it using *sqrt(5)*.
+* If there are no solutions, enter *no solutions*.
+END_PGML
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS(
+    $ans1->cmp,
+    $ans2->cmp,
+    $ans3->cmp,
+    $ans4->cmp(checker=>$factorCheck),
+    $ans5->cmp,
+    $ans6->cmp,
+);
+
+ENDDOCUMENT();        

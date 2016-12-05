@@ -1,0 +1,85 @@
+## DESCRIPTION
+## Introduction to differential equations
+## ENDDESCRIPTION
+
+## KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('First Order Differential Equations')
+## DBsection('Introduction to Differential Equations')
+## Date('01/30/2011')
+## Author('Paul Pearson')
+## Institution('Fort Lewis College')
+## TitleText1('Notes on Diffy Qs')
+## EditionText1('December 9, 2012')
+## AuthorText1('AG')
+## Section1('0.2')
+## Problem1('4')
+## TitleText2('Differential Equations Computing and Modeling')
+## EditionText1('4')
+## AuthorText1('Edwards and Penney')
+## Section1('1.1')
+## Problem1('')
+
+
+##############################
+#  Initialization
+
+DOCUMENT(); 
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"unionLists.pl",
+"parserPrime.pl",
+"parserPopUp.pl",
+"answerHints.pl",
+);
+
+TEXT(beginproblem());
+
+
+#############################
+#  Setup
+
+Context("Numeric")->variables->add(
+t=>"Real"
+);
+parser::Prime->Enable("t");
+
+
+Context()->flags->set(
+  reduceConstants=>0, # no decimals
+  reduceConstantFunctions=>1, # combine 4+5*2?
+  formatStudentAnswer=>'parsed', # no decimals
+);
+
+$answer[0] = PopUp(["Choose","Yes","No"],"Yes");
+
+$answer[1] = Formula("2");
+
+#############################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+Does the  differential equation \(3xy'+5y=10\) have a constant solution \(y=c\)?  \{ $answer[0]->menu() \}  
+$BR
+If yes,  this  solution is  \(y(x)=\)\{ans_rule(20)\}\{ AnswerFormatHelp("formulas") \}
+
+END_TEXT
+Context()->normalStrings;
+
+
+############################
+#  Answers
+
+$showPartialCorrectAnswers = 0;
+
+ANS( $answer[0]->cmp() );
+ANS( $answer[1]->cmp() );
+
+COMMENT("MathObject version.");
+
+ENDDOCUMENT();

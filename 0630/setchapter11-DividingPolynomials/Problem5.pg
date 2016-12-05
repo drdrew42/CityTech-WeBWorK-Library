@@ -1,0 +1,100 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'monomial denominator', 'fraction')
+
+## DBsubject('Algebra')
+## DBchapter('Rational equations and functions')
+## DBsection('Simplifying')
+## Date('2/15/2016')
+## Author('Parker')
+## Institution('City Tech')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextLimitedPolynomial.pl",
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->variables->are("x"=>Real, "y"=>Real);
+Context()->noreduce('x^(-1)','(-x)-y');
+
+$dcoeff=non_zero_random(-10,10,1);
+$dxexp=random(1,9,1);
+$dyexp=random(1,9,1);
+
+$anscoeff1=non_zero_random(-10,10,1);
+$anscoeff2=non_zero_random(-10,10,1);
+$anscoeff3=1;
+$ansxexp1=random(1,9,1);
+do { $ansxexp2=random(1,9,1); } until ($ansxexp1 != $ansxexp2);
+$ansxexp3=0;
+$ansyexp1=random(1,9,1);
+$ansyexp2=random(1,9,1);
+$ansyexp3=0;
+
+$ncoeff1 = $anscoeff1*$dcoeff;
+$ncoeff2 = $anscoeff2*$dcoeff;
+$ncoeff3 = $anscoeff3*$dcoeff;
+$nxexp1 = $ansxexp1+$dxexp;
+$nxexp2 = $ansxexp2+$dxexp;
+$nxexp3 = $ansxexp3+$dxexp;
+$nyexp1 = $ansyexp1+$dyexp;
+$nyexp2 = $ansyexp2+$dyexp;
+$nyexp3 = $ansyexp3+$dyexp;
+
+$denominator = Formula("$dcoeff*x**$dxexp*y**$dyexp")->reduce;
+
+$numerator = Formula("$ncoeff1*x**$nxexp1*y**$nyexp1 + $ncoeff2*x**$nxexp2*y**$nyexp2 + $ncoeff3*x**$nxexp3*y**$nyexp3")->reduce;
+
+$ans = Formula("$anscoeff1*x**$ansxexp1*y**$ansyexp1 + $anscoeff2*x**$ansxexp2*y**$ansyexp2 + $anscoeff3*x**$ansxexp3*y**$ansyexp3")->reduce;
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+Simplify.
+$BR
+$BR
+\( \displaystyle{ \frac{$numerator}{$denominator} } \)
+$BR
+$BR
+\{$ans->ans_rule\}
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+Context("LimitedPolynomial-Strict");
+Context()->variables->are("x"=>Real, "y"=>Real);
+ANS(Formula($ans)->cmp);
+
+
+ENDDOCUMENT();        

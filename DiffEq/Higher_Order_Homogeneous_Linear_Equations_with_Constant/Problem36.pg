@@ -1,0 +1,85 @@
+##DESCRIPTION
+##  Differential Equation
+##ENDDESCRIPTION
+
+##KEYWORDS('Differential equaltion')
+
+## DBsubject('Differential Equation')
+## DBchapter('Higher-Order DE')
+## DBsection('Section 4.3 Linear Equation')
+## Date('03/01/2012')
+## Author('Anna Ghazaryan, Fuli Zhang')
+## Institution('Miami University')
+## TitleText1('A First Course in Differential Equation')
+## EditionText1('9')
+## AuthorText1('Dennis G.Zill')
+## Section1('4.3')
+## Problem1('39')
+
+
+
+##############################
+#  Initialization
+
+DOCUMENT(); 
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"parserAssignment.pl",
+);
+
+TEXT(beginproblem());
+
+
+#############################
+#  Setup
+
+Context("Numeric");
+Context()->variables->add(
+'A'=>"Real",'B'=>"Real",'C'=>"Real",'y'=>"Real",
+);
+Context()->flags->set(
+    formatStudentAnswer=>'parsed',
+    reduceConstants=>0,
+    reduceConstantFunctions=>0,
+);
+Context()->flags->set(
+  tolerance=>0.01,
+  tolType=>"absolute"
+);
+parser::Assignment->Allow;
+
+
+$diffeq = "y'' + y= 0"; # tex
+
+$answer = Formula("y = 0");
+
+
+######################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+Solve the boundary-value problem:\( $diffeq \).
+\(\   y'(0) = 0 \), \(\  y'(\pi/2) = 0 \).
+
+$BR
+$BR
+\{ ans_rule(40) \}
+\{ AnswerFormatHelp("equations") \}
+END_TEXT
+Context()->normalStrings;
+
+
+######################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 1;
+
+ANS( $answer->cmp() );
+
+COMMENT("MathObject version.");
+
+ENDDOCUMENT();

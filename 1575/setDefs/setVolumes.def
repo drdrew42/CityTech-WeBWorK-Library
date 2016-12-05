@@ -1,0 +1,114 @@
+assignmentType      = 
+openDate          = 06/29/2014 at 02:00pm EDT
+reducedScoringDate = 12/31/1969 at 07:00pm EST
+dueDate           = 07/06/2014 at 02:00pm EDT
+answerDate        = 07/13/2014 at 02:00pm EDT
+enableReducedScoring = N
+paperHeaderFile   = defaultHeader
+screenHeaderFile  = defaultHeader
+description       = 
+restrictProbProgression = 
+emailInstructor   = 
+
+problemListV2 
+problem_start
+problem_id = 1
+source_file = Library/Michigan/Chap8Sec1/Q13.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 2
+source_file = Library/Michigan/Chap8Sec1/Q23.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 3
+source_file = Library/UVA-Stew5e/setUVA-Stew5e-C06S02-VolumeSlicing/6-2-47.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 4
+source_file = Library/Michigan/Chap8Sec2/Q25.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 5
+source_file = Library/Michigan/Chap8Sec1/Q11.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 6
+source_file = Library/WHFreeman/Rogawski_Calculus_Early_Transcendentals_Second_Edition/6_Applications_of_the_Integral/6.2_Setting_Up_Integrals-_Volume_Density_Average_Value/6.2.5.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 7
+source_file = Library/WHFreeman/Rogawski_Calculus_Early_Transcendentals_Second_Edition/6_Applications_of_the_Integral/6.2_Setting_Up_Integrals-_Volume_Density_Average_Value/6.2.1.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 8
+source_file = Library/WHFreeman/Rogawski_Calculus_Early_Transcendentals_Second_Edition/6_Applications_of_the_Integral/6.2_Setting_Up_Integrals-_Volume_Density_Average_Value/6.2.23.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 9
+source_file = Library/WHFreeman/Rogawski_Calculus_Early_Transcendentals_Second_Edition/6_Applications_of_the_Integral/6.2_Setting_Up_Integrals-_Volume_Density_Average_Value/6.2.13.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 10
+source_file = Library/WHFreeman/Rogawski_Calculus_Early_Transcendentals_Second_Edition/6_Applications_of_the_Integral/6.2_Setting_Up_Integrals-_Volume_Density_Average_Value/6.2.9.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+

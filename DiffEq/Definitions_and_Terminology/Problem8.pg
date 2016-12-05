@@ -1,0 +1,84 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('Introduction')
+## DBsection('Definitions and Terminology')
+## Date('05/22/2012')
+## Author('Anna Ghazaryan,Fuli Zhang')
+## Institution('Muohio')
+## TitleText1('Differential equations with Boundary-value problem')
+## AuthorText1('Dennis G. Zill')
+## Section1('1.1')
+## Edition('7')
+## Problem1('2')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"unionLists.pl",
+"parserPrime.pl",
+"parserPopUp.pl",
+"answerHints.pl",
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+#Context("Numeric")->variables->add(t=>"Real",u=>"Real",r=>"Real",R=>"Real",k=>"Real");
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+$answer[0] = Formula("3");
+$answer[1] = PopUp(["Choose","Linear","Nonlinear"],"Linear");
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+Determine the order of the given differential equation and state whether the equation is linear or nonlinear.
+
+\(\displaystyle\  x\frac{d^{3}y}{dx^{3}} - (\frac{dy}{dx})^{4}+y = 0\).(You have ONLY ONE attempt!)
+$BR
+$BR
+a) the order of this differential equation is \{ ans_rule(10) \}. 
+$BR
+$BR
+b) the equation is \{ $answer[1]->menu() \}.
+\{ AnswerFormatHelp("formulas") \}
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+$showPartialCorrectAnswers = 0;
+ANS( $answer[0]->cmp() );
+ANS( $answer[1]->cmp() );
+
+ENDDOCUMENT();    
+

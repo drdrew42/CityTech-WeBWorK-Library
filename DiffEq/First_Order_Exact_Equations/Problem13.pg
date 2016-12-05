@@ -1,0 +1,86 @@
+##DESCRIPTION
+##  Differential Equation
+##ENDDESCRIPTION
+
+##KEYWORDS('Differential equaltion')
+
+## DBsubject('Differential Equation')
+## DBchapter('First-Order DE')
+## DBsection('Section 2.4 Exact Equations')
+## Date('02/07/2012')
+## Author('Anna Ghazaryan, Fuli Zhang')
+## Institution('Miami University')
+## TitleText1('A First Course in Differential Equation')
+## EditionText1('9')
+## AuthorText1('Dennis G.Zill')
+## Section1('2.4')
+## Problem1('2')
+
+########################################################################
+#  Initialization
+
+DOCUMENT(); 
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"unionLists.pl",
+"parserPrime.pl",
+"parserPopUp.pl",
+"answerHints.pl",
+);
+
+TEXT(beginproblem());
+
+
+#############################
+#  Setup
+
+Context("Numeric")->variables->add(
+t=>"Real"
+);
+parser::Prime->Enable("t");
+
+
+Context()->flags->set(
+  reduceConstants=>0, # no decimals
+  reduceConstantFunctions=>1, # combine 4+5*2?
+  formatStudentAnswer=>'parsed', # no decimals
+);
+
+$answer[0] = PopUp(["Choose","Yes","No"],"No");
+$answer[1] = PopUp(["Choose","Yes","No"],"Yes");
+
+
+#############################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+Is the following differential equation exact? (You have only one attempt!Submit both answers at the same time)
+$BR
+$BR
+a)\((2x+y)dx-(x+6y)dy=0\) \{ $answer[0]->menu() \}. 
+$BR
+$BR
+b)\((y^{2}cosx-3x^{2}y-2x)dx+(2ysinx-x^{3}+lny)dy=0)\)   \{ $answer[0]->menu() \}.    
+  
+
+END_TEXT
+Context()->normalStrings;
+
+
+############################
+#  Answers
+
+$showPartialCorrectAnswers = 0;
+
+ANS( $answer[0]->cmp() );
+ANS( $answer[1]->cmp() );
+
+
+
+COMMENT("MathObject version.");
+
+ENDDOCUMENT();

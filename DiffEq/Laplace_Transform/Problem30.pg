@@ -1,0 +1,85 @@
+##DESCRIPTION
+##  Differential Equation
+##ENDDESCRIPTION
+
+##KEYWORDS('Differential equaltion')
+
+## DBsubject('Differential Equation')
+## DBchapter('Laplace Transform')
+## DBsection('Section 7.3 Inverse Laplace Transform')
+## Date('04/07/2012')
+## Author('Anna Ghazaryan,Fuli Zhang')
+## Institution('Miami University')
+## TitleText1('A First Course in Differential Equation')
+## EditionText1('9')
+## AuthorText1(7.3.2)
+## Problem1('71')
+
+
+##############################
+#  Initialization
+
+DOCUMENT(); 
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"PGunion.pl",
+"answerHints.pl",
+"parserAssignment.pl",
+"contextInequalities.pl",
+"parserAssignment.pl",
+"parserFunction.pl"
+);
+
+TEXT(beginproblem());
+
+
+#############################
+#  Setup1
+
+Context("Numeric");
+Context()->variables->are(
+t=>"Real",
+s=>"Real"
+);
+parserFunction("h(t)" => "1.5 * sin(e*t) + 5*pi/3 + arctan(t)");
+
+
+
+$answera = Formula("5t/4-5sin(4t)/16-5t/4*h(t-5)+5sin(4(t-5))/16*h(t-5)+25cos(4(t-5))/4*h(t-5)");
+
+
+#############################
+#  Main text1
+
+Context()->texStrings;
+BEGIN_TEXT
+Solve the following problem:
+$BR
+$BR
+A 32-pound weight stretches a spring 2 feet. The weight is released from rest at the equilibrium position. Find the equation of motion if an impressed force \(f(t) = 20t\) acts on
+the system for \(0\leq t < 5\) and is then removed. Ignore any damping forces. Graph \(x(t)\) on the
+interval \([0, 10]\).
+$BR
+$BR
+Use \( h(t-a) \) for the Heaviside function shifted \( a \) units horizontally.
+$BR
+$BR
+\( x(t) = \)
+\{ ans_rule(60) \}
+\{ AnswerFormatHelp("formulas") \}
+
+END_TEXT
+Context()->normalStrings;
+
+
+##############################
+#  Answer evaluation1
+
+$showPartialCorrectAnswers = 1;
+
+ANS( $answera->cmp() );
+
+ENDDOCUMENT();

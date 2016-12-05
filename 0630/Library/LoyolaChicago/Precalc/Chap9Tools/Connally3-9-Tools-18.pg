@@ -1,0 +1,113 @@
+## DESCRIPTION
+## Polynomial and Rational Functions
+
+
+## DBsubject(Algebra)
+## DBchapter(Operations on polynomial and rational expressions)
+## DBsection(Rational expressions: add, subtract)
+## Date(01/01/10)
+## Institution(Fort Lewis College)
+## Author(Paul Pearson)
+## Level(2)
+## MLT(SharedFactor)
+## MO(1)
+## TitleText1('Functions Modeling Change')
+## TitleText2('Functions Modeling Change')
+## TitleText3('Functions Modeling Change')
+## AuthorText1('Connally')
+## AuthorText2('Connally')
+## AuthorText3('Connally')
+## EditionText1('3')
+## EditionText2('4')
+## EditionText3('5')
+## Section1(9.Tools)
+## Section2(11.Skills)
+## Section3('11.Skills')
+## Problem1(18)
+## Problem2(16)
+## Problem3('16')
+## KEYWORDS('polynomial functions','rational functions')
+
+
+####################################
+#  Initialization
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"CofIdaho_macros.pl"
+);
+
+TEXT(beginproblem());
+
+####################################
+#  Setup
+
+Context("Numeric")->variables->are(y=>"Real");
+Context()->{error}{msg}{"Operands of '*' can't be words"} = " ";
+
+$a = random(2,8,2);
+$b = random(3,9,2);
+$c = random(1,9,1);
+
+while ($c == $b/$a) { $c = random(1,9,1); }
+
+$fraction = "\frac{$a y}{y-$c} + \frac{$b}{$c - y} ";
+
+$num = Formula("$a y - $b")->reduce;
+$den = Formula("y - $c")->reduce;
+
+
+####################################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+Perform the indicated operations.
+Express your answer in reduced form.
+$PAR
+$BCENTER
+\[$fraction = \] \{ ans_rule(20) \}
+$ECENTER
+END_TEXT
+Context()->normalStrings;
+
+
+####################################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 1;
+
+$ans = Formula("$num/$den");
+ANS( RationalExpEvaluator($ans,"y") );
+
+$showHint = 2;
+BEGIN_TEXT
+If you don't get the right answer, you can receive a hint after $showHint tries.
+END_TEXT
+
+BEGIN_HINT
+Remember that \(-1(y - $c) = -y + $c \)
+$BR
+And \( -y + $c \) is the same thing as \( $c - y \)
+$BR
+So \( $c - y \) can be rewritten as \( -1(y - $c) \)...
+END_HINT
+
+Context()->texStrings;
+SOLUTION(EV3(<<'END_SOLUTION'));
+$PAR
+$BBOLD SOLUTION $EBOLD
+$PAR
+We have
+\[ \frac{$a y}{y-$c} + \frac{$b}{$c - y} =
+   \frac{$a y}{y-$c} - \frac{$b}{y - $c} =
+   \frac{$a y - $b}{y - $c}.
+ \]
+
+END_SOLUTION
+Context()->normalStrings;
+
+ENDDOCUMENT();

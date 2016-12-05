@@ -1,0 +1,71 @@
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextFraction.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+# (A + 1)/(Ap) - (B + 1)/B + C = 0 => BA + B = [ (AB + A) - ABC ] p
+
+Context("Numeric")->flags->set(reduceConstants=>0, reduceConstantFunctions=>0);
+Context()->variables->are("p"=>Real);
+
+$A = random(2,6,1);
+do { $B = random(2,6,1); } until ( $A != $B );
+$C = random(2,4,1);
+
+$AB = $A*$B;
+$ABC = $AB*$C;
+$A1 = $A+1;
+$B1 = $B+1;
+
+$frac1 = Formula("$A1/($A p)")->reduce;
+$frac2 = Formula("$B1/$B");
+$frac3 = Formula("$C");
+$equals = Formula("0");
+
+Context("LimitedFraction")->flags->set(showMixedNumbers=>0);
+
+$num = $AB + $B;
+$den = $AB + $A - $ABC;
+$ans = Fraction($num, $den)->reduce;
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Solve for p:
+
+\[ $frac1 - $frac2 + $frac3 = $equals \]
+
+$PAR
+\{ans_rule(10)\}
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans->cmp);
+
+ENDDOCUMENT();        

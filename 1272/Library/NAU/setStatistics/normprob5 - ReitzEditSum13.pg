@@ -1,0 +1,80 @@
+##DESCRIPTION
+## DBsubject('Probability')
+## DBchapter('Distributions')
+## DBsection('Normal Distribution')
+## KEYWORDS('')
+## Author('Michael Ratliff')
+## Institution('NAU')
+##ENDDESCRIPTION
+
+# File Created: 7/1/05
+# Location: Northern Arizona University
+# Course: MAT 119 - Finite Mathematics
+
+DOCUMENT();
+
+loadMacros(
+"PG.pl",
+"PGbasicmacros.pl",
+"PGchoicemacros.pl",
+"PGanswermacros.pl",
+"PGauxiliaryFunctions.pl",
+"PGasu.pl",
+"PGnumericalmacros.pl",
+"PGstatisticsmacros.pl",
+);
+
+TEXT(&beginproblem);
+$showPartialCorrectAnswers = 1;
+
+# Usage normal_distr_TABLE(p, mu, sigma)
+# Returns a value b such that the probability of x being in the interval (mu, b) for the normal distribution with mean mu and standard deviation sigma is equal to p
+# NOTE: should match student responses when computed using a standard normal TABLE with z-accuracy of 2 digits after the decimal, and p-accuracy of 4 digits.
+# Requires macros: PGnumericalmacros, PGstatisticsmacros
+sub normal_distr_TABLE {
+
+my $p = shift;
+my $mu = shift;
+my $sigma = shift;
+
+
+# First compute actual (non-rounded) z-value for $p
+my $zactual = normal_distr($p, mean=>0, deviation=>1);
+
+# Now compute two possible (rounded) z-values, above and below zactual, and use them to compute possible (rounded) p-values
+my $zhi = ceil($zactual*100)/100;
+my $phi = round(normal_prob(0, $zhi)*10000)/10000;
+my $zlow = floor($zactual*100)/100;
+my $plow = round(normal_prob(0, $zlow)*10000)/10000;
+
+# Now choose the correct value of $p -- the value closest to the actual p --  and select the corresponding z.  If the two values are equally distant from p, take the average of the corresponding z’s.
+my $ansz = 0;
+if (($phi - $p)<($p - $plow)) {$ansz = $zhi;} 
+if (($phi - $p)>($p - $plow)) {$ansz = $zlow;} 
+if (($phi - $p) eq ($p - $plow)) {$ansz = ($zhi+$zlow)/2;} 
+
+my $ansx = $ansz * $sigma + $mu;
+return $ansx;
+
+} 
+
+
+$mu = random(68,70,.5);
+$sig = random(2,6,1);
+$p = random(10,40,5);
+
+$ans1 = normal_distr_TABLE(.5-$p/100, $mu, $sig);
+
+
+BEGIN_TEXT
+Suppose the heights of men are normally distributed with mean, \(\mu\) = $mu inches, and standard deviation , \(\sigma \) = $sig inches. Suppose admission to a summer basketball camp requires that a camp participant must be in the top $p $PERCENT of men's heights, what is the minimum height that a camp participant can have in order to meet the camp's height admission requirement?
+
+$PAR
+answer: \{ans_rule(20)\}inches
+
+END_TEXT
+
+ANS(num_cmp($ans1));
+
+
+ENDDOCUMENT();       # This should be the last executable line in the problem.

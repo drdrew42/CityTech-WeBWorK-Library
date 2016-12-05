@@ -1,0 +1,173 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject(‘Algebra’)
+## DBchapter(‘Properties of exponents, rational exponents and radicals’)
+## DBsection(‘Properties of exponents’)
+## Date('6/14/2015')
+## Author('K. Andrew Parker')
+## Institution('NYC City Tech')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "parserRadioButtons.pl",
+   "parserPopUp.pl",
+   "scaffold.pl",
+   "niceTables.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer=>"parsed"
+   );
+
+  $sumChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentstring = $ansHash->{preview_text_string};
+     return ($studentstring eq $ansHash->{correct_ans} ? 1 : 0);
+   };
+
+  $numChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentans=$ansHash->{original_student_ans};
+     Value->Error("You're on the right track, but your answer should be just a number.") if ( ($studentans ne $student)&&($student==$correct) );
+     return($studentans eq $ansHash->{correct_ans} ? 1 : 0);
+  };
+
+$hours1 = random(4,9,1);
+$hours2 = random(5,8,1);
+$hours3 = random(4,7,1);
+$sum = Real("$hours1+$hours2+$hours3");
+$form1=Formula("$sum*9");
+$pay=Real("$form1");
+
+$A=random(-5,-2,1);
+$B=random(3,6,1);
+$product=Real($B*$A);
+do { $C = random(5,35,1); } until ( ($C + $product) > 0 && ($C + $product) < 10 );
+$paren=Real("$C+$product");
+$ans=random(3,9,1);
+$D = $paren*$ans;
+
+##############################################################
+#
+#  Text
+#
+#
+
+Scaffold::Begin(
+      can_open => "when_previous_correct",
+      is_open  => "first_incorrect"
+);
+
+Section::Begin( "Part 1: The order of operations" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+It would be great if the order of operations were as simple as just following the order of which operations are more powerful. But sometimes we need to indicate that the weaker operations need to happen $BITALIC before $EITALIC some of the more powerful operations.
+$PAR
+For example, let's say that you worked three days this week. On Monday, you worked $hours1 hours, on Thursday you worked $hours2 hours, and on Friday you worked $hours3 hours. How much did you earn if you're paid $ 9 per hour?
+$PAR
+In this example, we can find the amount earned by first adding up the total number of hours, and then multiplying that total by the hourly wage. But, if we write it out how we just said it: \($hours1 + $hours2 + $hours3 \times 9 \) , we're going to have a problem. If we look at that problem just how it's written, we'd think that \($hours3 \times 9\) would happen first, because multiplication is more powerful than addition. So, we're going to need some way of indicating that we want the addition to happen FIRST.
+$PAR
+That's where parenthesis enter the picture. We are going to use parenthesis around computations to indicate that they need to happen first. This is only necessary when we need to prioritize a weaker operation over a stronger operation that appears elsewhere in our expression.
+$PAR
+Coming back to our example, we want to add $hours1, $hours2 and $hours3 $BITALIC before $EITALIC multiplying by $9. Normally, multiplication would happen before addition, so we will need to use some parenthesis around the additions to show that they are meant to happen first.
+$BR
+\[ ( $hours1 + $hours2 + $hours3 ) \times 9 \]
+$PAR
+Whenever we see parenthesis in a problem, we should think of the contents of the parenthesis as their own separate pre-problem. 
+$PAR
+So, first, separate what's in the parenthesis from the rest of the problem.
+$BR
+What do we get as a result of doing the parenthesis first? \( $hours1 + $hours2 + $hours3 = \) \{ans_rule(5)\}
+$BR
+Rewrite the original expression, but replace the parenthesis with the sum you just calculated. \{ ans_rule(10) \}
+$BR
+Now that the parenthesis have been dealt with, complete the problem. \{ ans_rule(5) \} 
+
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( $sum->cmp(checker=>$numChecker) );
+ANS( $form1->cmp(checker=>$sumChecker) );
+ANS( $pay->cmp(checker=>$numChecker) );
+
+Section::End();
+
+Section::Begin( "Part 3: Practice" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Consider \( $D \div ( $C + $B \times $A ) \) .
+$BR
+There are parenthesis in this expression, so we should deal with their contents separately. That means ignoring everything outside of the parenthesis. 
+$PAR
+We'll start by just looking at \( $C + $B \times $A \). Which operation will come first?
+$BR
+What do we get if perform that as the first operation? \{ans_rule(5)\}
+$BR
+Rewrite \( $C + $B \times $A \) , using the previous result to replace the first operation. \{ans_rule(10)\}
+$PAR
+We should be down to just one operation left. Do it, and get the complete evaluation of \( $C + $B \times $A \) . \{ ans_rule(5) \}
+END_TEXT
+Context()->normalStrings;
+
+
+ANS( $product->cmp(checker=>$numChecker) );
+ANS( Formula("$C+$product")->cmp(checker=>$sumChecker) );
+ANS( $paren->cmp(checker=>$numChecker) );
+
+
+Section::End();
+
+Section::Begin( "Part 4: Practice (cont.)" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+So, we started with \( $D \div ( $C + $B \times $A ) \) and we separated the parenthesis and worked it out separately, finding that \( $C + $B \times $A \) is replaceable with $paren.
+$PAR
+Rewrite \( $D \div ( $C + $B \times $A ) \) , replacing the parenthesis with $paren. \{ ans_rule(10) \}
+$PAR
+Evaluate the expression to find a final value for \( $D \div ( $C + $B \times $A ) \) . \{ ans_rule(5) \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( Formula("$D/$paren")->cmp(checker=>$sumChecker) );
+ANS( Real("$D/$paren")->cmp(checker=>$numChecker) );
+
+Section::End();
+
+
+
+Scaffold::End();
+
+ENDDOCUMENT();        

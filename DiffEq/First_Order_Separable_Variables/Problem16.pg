@@ -1,0 +1,88 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('First Order Differential Equations')
+## DBsection('Separable Equations')
+## Date('05/22/2012')
+## Author('Anna Ghazaryan')
+## Institution('Muohio')
+## TitleText1('Differential equations An introduction to modern methods and applications')
+## AuthorText1('James R.Brannan')
+## Section1('2.2')
+## Problem1('16')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",
+   "MathObjects.pl",
+   "AnswerFormatHelp.pl",
+   "unionLists.pl",
+   "parserPrime.pl",
+   "parserPopUp.pl",
+   "answerHints.pl",
+   "parserImplicitPlane.pl",
+   "PGunion.pl",
+   "answerHints.pl",
+
+
+ );
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric")->variables->add(y=>"Real",c=>"Real");
+
+##############################################################
+#
+#  Text
+#
+#
+$answer = Formula("-((x^2+1)/2)^(1/2)");
+
+
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Solve the given initial-value problem: 
+\(\displaystyle\  y'=\frac{x(x^{2}+1)}{4y^{3}}\), \(\  y(0)=-\frac{1}{\sqrt{2}}\)  .
+
+
+$BR
+$BR
+\(y=\)
+\{ ans_rule(30) \}
+\{ AnswerFormatHelp("formulas") \}
+
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($answer->cmp());
+
+
+
+
+
+ENDDOCUMENT();  

@@ -1,0 +1,85 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('Modeling with First-Order Differential Equations')
+## DBsection('Linear Model')
+## Date('05/28/2012')
+## Author('Anna Ghazaryan, Fuli Zhang')
+## Institution('Muohio')
+## TitleText1('Differential equations with Boundary-value problem')
+## AuthorText1('Dennis G. Zill')
+## Section1('3.1')
+## Edition('7')
+## Problem1('4')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"unionLists.pl",
+"parserPrime.pl",
+"parserPopUp.pl",
+"answerHints.pl",
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+#Context("Numeric")->variables->add(t=>"Real",u=>"Real",r=>"Real",R=>"Real",k=>"Real");
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+
+
+$a = random(3,4,5);
+$b = random(2000,3000,4000);
+$answer[0] = Compute("($b/(400^(10/$a))^($a/($a-10)))");
+
+
+
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+The population of bacteria in a culture grows at a rate proportional to the number of bacteria present at time \(t\). After $a hours it is observed that 400 bacteria are present. After 10 hours $b bacteria are present. What was the initial number of bacteria?
+$BR
+$BR
+\(P_{0}\)= \{ ans_rule(10) \}. 
+\{ AnswerFormatHelp("formulas") \}
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+$showPartialCorrectAnswers = 0;
+ANS( $answer[0]->cmp() );
+
+
+ENDDOCUMENT();    
+

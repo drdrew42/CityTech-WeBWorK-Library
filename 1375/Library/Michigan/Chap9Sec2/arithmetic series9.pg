@@ -1,0 +1,204 @@
+# DESCRIPTION
+# Problem from Calculus, single variable, Hughes-Hallett et al., 4th ed.
+# WeBWorK problem written by Gavin LaRose, <glarose@umich.edu>
+# ENDDESCRIPTION
+
+## KEYWORDS('calculus', 'integral', 'series', 'geometric series')
+## Tagged by glr 02/08/09
+
+## DBsubject('Calculus')
+## DBchapter('Infinite Sequences and Series')
+## DBsection('Geometric Series')
+## Date('')
+## Author('Gavin LaRose')
+## Institution('University of Michigan')
+## TitleText1('Calculus')
+## TitleText2('Calculus')
+## EditionText1('4')
+## EditionText2('5')
+## AuthorText1('Hughes-Hallett')
+## AuthorText2('Hughes-Hallett')
+## Section1('9.2')
+## Section2('9.2')
+## Problem1('5')
+## Problem2('5')
+
+## Textbook tags
+## HHChapter1('Sequences and Series')
+## HHChapter2('Sequences and Series')
+## HHSection1('Geometric Series')
+## HHSection2('Geometric Series')
+
+DOCUMENT();
+loadMacros(
+"PG.pl",
+"PGbasicmacros.pl",
+"PGchoicemacros.pl",
+"PGanswermacros.pl",
+"PGauxiliaryFunctions.pl",
+"MathObjects.pl",
+);
+
+Context("Numeric");
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 0;
+
+$a = list_random(2,3,5,10);
+$x = random(2,5,1);
+$r = random(3,7,1);
+
+# pick a couple of series to work with 
+# $ser[i] = [ "TeXseries", "a", "x", "a_TeX", "x_TeX" ]
+@ser = ( 
+    [ "$a - " . ($a) . " + " . ($a) . " - " . ($a) . 
+	" + " . ($a) . " - \cdots","na", "na" ],
+    [ "$a + " . (2*$a) . "  + " . (3*$a) . " + " .
+	(4*$a) . " + \cdots", "$a", "$a", "$a", "$a" ],
+    [ ".($r+$a).+ " . ($r+2*$a) . " + " . ($r+3*$a) . " + " . ($r+4*$a) . 
+	" + " .($r+5*$a) . " + \cdots", "$r+$a", "$a", "$r+$a", "$a" ],
+      [ "$a x + " . (2*$a) . " x + " . (3*$a) . " x + " . (4*$a) . 
+	" x + \cdots", "$a x", " $a x", "$a x", " $a x" ],
+    [ "$a + {$a\over 2} + {$a\over 3} + {$a\over 4} + \cdots", "na", "na" ],
+    [ "$a + $a  + $a  + $a  + $a  + \cdots", "$a", "0","$a", "0" ],
+);
+
+@which = NchooseK(scalar(@ser), 4);
+
+@sgeom = ();  $i = 0;
+foreach ( @which ) {
+    $sgeom[$i] = new_multiple_choice();
+    $sgeom[$i]->qa("Is this an arithmetic series?", 
+		   ($ser[$_]->[1] ne 'na' ? 'Yes' : 'No'));
+    $sgeom[$i]->extra(($ser[$_]->[1] ne 'na' ? 'No' : 'Yes'));
+    $sgeom[$i]->makeLast('Yes');
+    $i++;
+}
+
+Context()->texStrings;
+BEGIN_TEXT
+
+For each of the following, decide if the given series is an arithmetic
+series.  
+
+$PAR
+${BBOLD}A.$EBOLD
+\( $ser[$which[0]]->[0] \) : 
+$BR
+\{ $sgeom[0]->print_q() \}
+\{ $sgeom[0]->print_a() \}
+$BR
+If this is an arithmetic series, enter
+$BR
+the first term: \{ ans_rule(15) \}
+$BR
+and the difference between successive terms: \{ ans_rule(15) \}
+$BR
+${BITALIC}(Enter $EITALIC ${BBOLD}na$EBOLD ${BITALIC}for the first
+term and ratio if this is not a arithmetic series.)$EITALIC
+
+$PAR
+${BBOLD}B.$EBOLD
+\( $ser[$which[1]]->[0] \) : 
+$BR
+\{ $sgeom[1]->print_q() \}
+\{ $sgeom[1]->print_a() \}
+$BR
+If this is an arithmetic series, enter
+$BR
+the first term: \{ ans_rule(15) \}
+$BR
+and the difference between successive terms: \{ ans_rule(15) \}
+$BR
+${BITALIC}(Enter $EITALIC ${BBOLD}na$EBOLD ${BITALIC}for the first
+term and difference if this is not an arithmetic series.)$EITALIC
+
+$PAR
+${BBOLD}C.$EBOLD
+\( $ser[$which[2]]->[0] \) : 
+$BR
+\{ $sgeom[2]->print_q() \}
+\{ $sgeom[2]->print_a() \}
+$BR
+If this is an arithmetic series, enter
+$BR
+the first term: \{ ans_rule(15) \}
+$BR
+and the difference between successive terms: \{ ans_rule(15) \}
+$BR
+${BITALIC}(Enter $EITALIC ${BBOLD}na$EBOLD ${BITALIC}for the first
+term and ratio if this is not an arithmetic series.)$EITALIC
+
+$PAR
+${BBOLD}B.$EBOLD
+\( $ser[$which[3]]->[0] \) : 
+$BR
+\{ $sgeom[3]->print_q() \}
+\{ $sgeom[3]->print_a() \}
+$BR
+If this is an arithmetic series, enter
+$BR
+the first term: \{ ans_rule(15) \}
+$BR
+and the difference between successive terms: \{ ans_rule(15) \}
+$BR
+${BITALIC}(Enter $EITALIC ${BBOLD}na$EBOLD ${BITALIC}for the first
+term and difference if this is not an arithmetic series.)$EITALIC
+
+END_TEXT
+Context()->normalStrings;
+
+ANS(radio_cmp( $sgeom[0]->correct_ans() ) );
+ANS(fun_cmp( $ser[$which[0]]->[1], 'var'=>['x','na'] ) );
+ANS(fun_cmp( $ser[$which[0]]->[2], 'var'=>['x','na'] ) );
+ANS(radio_cmp( $sgeom[1]->correct_ans() ) );
+ANS(fun_cmp( $ser[$which[1]]->[1], 'var'=>['x','na'] ) );
+ANS(fun_cmp( $ser[$which[1]]->[2], 'var'=>['x','na'] ) );
+ANS(radio_cmp( $sgeom[2]->correct_ans() ) );
+ANS(fun_cmp( $ser[$which[2]]->[1], 'var'=>['x','na'] ) );
+ANS(fun_cmp( $ser[$which[2]]->[2], 'var'=>['x','na'] ) );
+ANS(radio_cmp( $sgeom[2]->correct_ans() ) );
+ANS(fun_cmp( $ser[$which[3]]->[1], 'var'=>['x','na'] ) );
+ANS(fun_cmp( $ser[$which[3]]->[2], 'var'=>['x','na'] ) );
+
+@verb = ();
+@expl = ();
+$i=0;
+foreach ( @which ) {
+    if ( $ser[$_]->[1] ne 'na' ) {
+	$verb[$i] = 'is';
+	$a = $ser[$_]->[3];
+	$x = $ser[$_]->[4];
+	$expl[$i] = " with first term \($a\) and difference \($x\)";
+    } else {
+	$verb[$i] = 'is not';
+	$expl[$i] = '';
+    }
+    $i++;
+}
+
+Context()->texStrings;
+SOLUTION(EV3(<<'END_SOLUTION'));
+$PAR SOLUTION $PAR
+
+${BBOLD}A.$EBOLD
+\( $ser[$which[0]]->[0] \) $verb[0] an arithmetic series$expl[0].
+
+$PAR
+${BBOLD}B.$EBOLD
+\( $ser[$which[1]]->[0] \) $verb[1] an arithmetic series$expl[1].
+
+$PAR
+${BBOLD}C.$EBOLD
+\( $ser[$which[2]]->[0] \) $verb[2] an arithmetic series$expl[2].
+
+$PAR
+${BBOLD}C.$EBOLD
+\( $ser[$which[3]]->[0] \) $verb[3] an arithmetic series$expl[3].
+
+END_SOLUTION
+Context()->normalStrings;
+
+
+COMMENT('MathObject version');
+ENDDOCUMENT();

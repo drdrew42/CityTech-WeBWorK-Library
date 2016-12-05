@@ -1,0 +1,65 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextLimitedRadical.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("LimitedRadical")->flags->set(reduceConstants=>0, reduceConstantFunctions=>0);
+Context()->variables->are(p=>[Real,limits=>[0,2]],y=>[Real,limits=>[0,2]]);
+
+$a = list_random(2,3,5,6,7,10,11,13);
+do { $b = list_random(2,3,5,6,7,10,11,13); } until ( $b != $a );
+
+
+$fac1 = Formula("sqrt($a) - sqrt($b)");
+$fac2 = Formula("sqrt($a) + sqrt($b)");
+
+$ab = $a - $b;
+
+$ans = Formula("$ab");
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Multiply the radical expression and reduce your answer.
+$BR
+Do not use rational exponents. Use "sqrt(...)" instead.
+$PAR
+\[ \large{ \left($fac1\right)\left($fac2\right) } \]
+$PAR
+\{ ans_rule(10) \}
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS( $ans->cmp );
+
+ENDDOCUMENT();        

@@ -1,0 +1,86 @@
+## DESCRIPTION
+## Polynomial and Rational Functions
+## ENDDESCRIPTION
+
+
+## DBsubject(Algebra)
+## DBchapter(Operations on polynomial and rational expressions)
+## DBsection(Rational expressions: add, subtract)
+## Date(01/01/10)
+## Institution(Fort Lewis College)
+## Author(Paul Pearson)
+## Level(2)
+## MLT(SharedFactor)
+## MLTleader(1)
+## MO(1)
+## TitleText1('Functions Modeling Change')
+## AuthorText1('Connally')
+## EditionText1('3')
+## Section1(9.Tools)
+## Problem1(20)
+## KEYWORDS('polynomial functions','rational functions')
+
+
+####################################
+#  Initialization
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl", 
+"MathObjects.pl", 
+"CofIdaho_macros.pl"
+);
+
+TEXT(beginproblem());
+
+####################################
+#  Setup
+
+Context("Numeric");
+Context()->{error}{msg}{"Operands of '*' can't be words"} = " ";
+
+$a = random(3,9,1);
+$b = random(3,9,1);
+$c = random(2,9,1);
+$d = random(3,9,1);
+
+while ( ($d == $c) || ($d == $c + $a/$b) ) { $d = random(3,9,1); }
+
+$cpd = $c + $d;
+$cd = $c * $d;
+$bcpa = $b * $c + $a;
+
+$fraction = "\frac{$a}{x^2 + $cpd x + $cd} + \frac{$b}{x + $d} ";
+$frac1 = Formula("$a/(x^2 + $cpd x + $cd)")->reduce;
+$frac2 = Formula("$b/(x+$d)");
+
+$num = Formula("$b x + $bcpa");
+$den = Formula("(x+$c)(x+$d)");
+
+####################################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+Perform the indicated operations.
+Express your answer in reduced form.
+$BR
+$BR
+$BCENTER
+\[ $frac1 + $frac2 = \] \{ ans_rule(20) \}
+$ECENTER
+END_TEXT
+Context()->normalStrings;
+
+
+####################################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 1;
+
+$ans = Formula("$num/$den");
+ANS( RationalExpEvaluator($ans,"x") );
+
+
+ENDDOCUMENT();

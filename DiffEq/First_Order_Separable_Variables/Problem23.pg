@@ -1,0 +1,88 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('First Order Differential Equations')
+## DBsection('Separable Equations')
+## Date('05/22/2012')
+## Author('Anna Ghazaryan')
+## Institution('Muohio')
+## TitleText1('Differential equations An introduction to modern methods and applications')
+## AuthorText1('James R.Brannan')
+## Section1('2.2')
+## Problem1('23')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",
+   "MathObjects.pl",
+   "AnswerFormatHelp.pl",
+   "unionLists.pl",
+   "parserPrime.pl",
+   "parserPopUp.pl",
+   "answerHints.pl",
+   "parserImplicitPlane.pl",
+   "PGunion.pl",
+   "answerHints.pl",
+
+
+ );
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric")->variables->add(y=>"Real",c=>"Real");
+
+##############################################################
+#
+#  Text
+#
+#
+$answer = Formula("(-1)/(x^2/2+2x-1)");
+
+
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Solve the given initial-value problem: 
+\(\displaystyle\  y'=2y^2+xy^2\), \(\  y(0)=1\)  .
+
+
+$BR
+$BR
+\(y=\)
+\{ ans_rule(30) \}
+\{ AnswerFormatHelp("formulas") \}
+
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($answer ->cmp());
+
+
+
+
+
+ENDDOCUMENT();  

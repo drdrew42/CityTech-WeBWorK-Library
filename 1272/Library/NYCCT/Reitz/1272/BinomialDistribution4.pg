@@ -1,0 +1,77 @@
+## DESCRIPTION
+##   Discrete Probability Distribution, Mean and Standard Deviation, from binomial experiment
+## ENDDESCRIPTION
+
+## DBsubject('Statistics')
+## Date('March 2013')
+## Author('Jonas Reitz')
+## Institution('NYCCT')
+## TitleText1('')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('')
+
+DOCUMENT();        # This should be the first executable line in the problem.
+
+loadMacros(
+"PG.pl",
+"PGbasicmacros.pl",
+"PGchoicemacros.pl",
+"PGanswermacros.pl",
+"PGgraphmacros.pl",
+"contextIntegerFunctions.pl"
+);
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+
+## Select a category and associated simple percent
+@categories = ("heart disease", "cancer", "chronic lower respiratory diseases", "cerebrovascular diseases", "unintentional injuries (accidents)");
+@simplepercent = (24, 23, 6, 5, 5);
+$cat = random(0,scalar(@categories)-1);
+$p = $simplepercent[$cat]/100;
+$q = 1-$p;
+
+
+## randomize parameter n (number of trials)
+## choose n between 8 and 13
+$n = random(8,13);
+
+## choose value of myx1  ("at most x")
+$myx1 = random(4,6);
+
+## initialize probabilities variable - is this necessary?
+@probabilities = (0..$n);
+
+
+
+## compute probabilities
+for ( $x = 0; $x <= $n; $x++ )
+    {
+	$probabilities[$x] = C($n,$x)*$p**$x*$q**($n-$x);
+    }
+
+## compute answer for myx1
+$myans1 = 0;
+for ( $x = 0; $x <= $myx1; $x++ )
+    {
+	$myans1 = $myans1 +$probabilities[$x];
+    }
+
+
+
+
+
+BEGIN_TEXT
+
+About \( $simplepercent[$cat] \)% of deaths in the United States are caused by \( $categories[$cat] \).  If  \( $n \) Americans are chosen at random, find the probability that at most \( $myx1 \) of them will die of  \( $categories[$cat] \):  \{ ans_rule(10) \}.
+
+
+END_TEXT
+## answers
+ANS(num_cmp($myans1, mode=>"arith"));
+
+
+ENDDOCUMENT();       # This should be the last executable line in the problem.

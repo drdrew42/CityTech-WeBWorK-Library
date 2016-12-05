@@ -1,0 +1,417 @@
+##DESCRIPTION
+##  PreAlgebra problem:
+##ENDDESCRIPTION
+
+##KEYWORDS('prealgebra','common core')
+
+## DBsubject('Arithmetic')
+## DBchapter('Integers')
+## DBsection('Multiplication')
+## Date('3/16/2015')
+## Author('Andrew Parker')
+## Institution('NYC CityTech')
+## ProblemTester('')
+## TitleText1('')
+## Publisher('')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "problemRandomize.pl",
+   "parserRadioButtons.pl",
+   "parserPopUp.pl",
+   "scaffold.pl",
+   "niceTables.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+#  Allow for the user to try another version of the problem once they get it correct.
+ProblemRandomize(when=>"Correct",onlyAfterDue=>0);
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer=>"parsed"
+   );
+
+$sumChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentstring = $ansHash->{preview_text_string};
+     return ($studentstring eq $ansHash->{correct_ans} ? 1 : 0);
+};
+
+@ths = ( "zeroth", "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth");
+
+@ords = ("zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine");
+
+## Part 1: Multiplying by 10 ##
+
+$tens = List( Real(10) );
+$i = 1;
+while ( $i < 10 ) {
+  $i = $i + 1;
+  $tens = $tens . List( Real(10*$i) );
+};
+
+$A = random(3,9,1);
+do { $B = random(3,9,1); } until ( $B != $A );
+
+$Aty = Real($A*10);
+$Bty = Real($B*10);
+$AxB = Real($A*$B);
+$AxBty = Real($AxB*10);
+$AxBhund = Real($AxB*100);
+
+$BtyList = List( Real($Bty) );
+$i = 1;
+while ( $i < $A ) {
+  $i = $i + 1;
+  $BtyList = $BtyList . List( Real($Bty*$i) );
+};
+
+$BList = List( Real($B) );
+$i = 1;
+while ( $i < $A ) {
+  $i = $i + 1;
+  $BList = $BList . List( Real($B*$i) );
+};
+
+$Large = random(15,31,2);
+
+## Part 2: Multiplying by 100 ##
+
+$hunds = List( Real(100) );
+$i = 1;
+while ( $i < 10 ) {
+  $i = $i + 1;
+  $hunds = $hunds . List( Real(100*$i) );
+};
+
+$thous = List( Real(1000) );
+$i = 1;
+while ( $i < 10 ) {
+  $i = $i + 1;
+  $thous = $thous . List( Real(1000*$i) );
+};
+
+do { $C = random(3,9,1); } until ( $C != $A && $C != $B );
+do { $D = random(3,9,1); } until ( $D != $C );
+$Chund = Real($C*100);
+$Dty = Real($D*10);
+$CxD = Real($C*$D);
+
+##############################################################
+#
+#  Text
+#
+#
+
+##    to disable arithmetic operations in the answer.  Student must simplify.
+Context()->operators->undefine("-","/","*");
+
+##############################################################
+# Scaffolding
+Scaffold::Begin(
+      can_open => "when_previous_correct",
+      is_open  => "first_incorrect"
+);
+##############################################################
+Section::Begin("Part 1: Multiplying by 10s");
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+In this problem, we're going to investigate what happens when we try to multiply by 10s, 100s, and 1000s. Following the methods we've already learned, you might think that this might mean listing hundreds or thousands of multiples. That's $BITALIC really $EITALIC impractical. So we're going to start looking for patterns in order to make the multiplication of large numbers easier.
+$PAR
+First, let's look at what happens when we multiply \( 10 \times 10 \). 
+$PAR
+Using our previous method, list the first 10 multiples of 10. \{ ans_rule(15) \}
+$PAR
+So what's the result of multiplying \( 10 \times 10 \)? It's the tenth multiple of 10: \{ ans_rule(5) \}
+$PAR
+What's the $ths[$A] multiple of ten? \( $A \times 10 \) = \{ ans_rule(5) \}
+$PAR
+What's the $ths[$B] multiple of ten? \( $B \times 10 \) = \{ ans_rule(5) \}
+$PAR
+Have you started noticing a pattern yet? 
+$PAR
+See if you can multiply \( $Large \times 10 \) without listing all the multiples. \{ ans_rule(5) \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( $tens->cmp(showHints=>1, showLengthHints=>1, ordered=>1) );
+ANS( Real(100)->cmp() );
+ANS( Real($A*10)->cmp() );
+ANS( Real($B*10)->cmp() );
+ANS( Real($Large*10)->cmp() );
+
+Section::End();
+##############################################################
+Section::Begin("Part 2: Multiplying by 100");
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+We're going to take things a step further now, and look at multiples of 100.
+$PAR
+List the first ten multiples of 100. \{ $hunds -> ans_rule() \}
+$PAR
+So what is \( 10 \times 100\) ? \{ ans_rule(5) \}
+$PAR
+What is the $ths[$A] multiple of 100? \($A \times 100 =\) \{ans_rule(5)\}
+$BR
+What is the $ths[$B] multiple of 100? \($B \times 100 =\) \{ans_rule(5)\}
+$BR
+See if you can multiply \($Large \times 100\) without writing out the multiples. \{ans_rule(5)\}
+$PAR
+What do you think we'll get if we multiply \(100 \times 100\) ? \{ans_rule(5)\}
+$BR
+Are you noticing a similar pattern to the one from last section?
+$BR
+How are the patterns similar? How are they different?
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( $hunds->cmp(showHints=>1, showLengthHints=>1, ordered=>1) );
+ANS( Real(1000)->cmp() );
+ANS( Real($A*100)->cmp() );
+ANS( Real($B*100)->cmp() );
+ANS( Real($Large*100)->cmp() );
+ANS( Real(10000)->cmp() );
+
+Section::End();
+
+##############################################################
+Section::Begin("Part 3: Multiplying by 1000");
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+We're going to take it up one more notch, just to be sure you're recognizing all the patterns going on here.
+$PAR
+List the first ten multiples of 1000. \{ $thous -> ans_rule() \}
+$PAR
+So what is \( 10 \times 1000\) ? \{ ans_rule(5) \}
+$PAR
+What is the $ths[$A] multiple of 1000? \($A \times 1000 =\) \{ans_rule(5)\}
+$BR
+What is the $ths[$B] multiple of 1000? \($B \times 1000 =\) \{ans_rule(5)\}
+$BR
+See if you can multiply \($Large \times 1000\) without writing out the multiples. \{ ans_rule(5) \}
+$PAR
+What do you think we'll get if we multiply \( 100 \times 1000 \) ? \{ ans_rule(5) \}
+$BR
+How about multiplying \( 1000 \times 1000 \) ? \{ ans_rule(5) \}
+$PAR
+Are you noticing a similar pattern to the one from last section?
+$BR
+How are the patterns similar? How are they different?
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( $thous->cmp(showHints=>1, showLengthHints=>1, ordered=>1) );
+ANS( Real(10000)->cmp() );
+ANS( Real($A*1000)->cmp() );
+ANS( Real($B*1000)->cmp() );
+ANS( Real($Large*1000)->cmp() );
+ANS( Real(100000)->cmp() );
+ANS( Real(1000000)->cmp() );
+
+Section::End();
+
+##############################################################
+Section::Begin("Part 4: Multiplying multiples of 10");
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Now that we know how to find multiples of 10, 100, and 1000 - and even larger ones by applying the patterns we've discovered - we should look at how to multiply different multiples together.
+$PAR
+But what happens when we want to multiply \( $A \times $Bty \)?
+$PAR
+Write out the first $ords[$A] multiples of $Bty. \{ ans_rule(15) \}
+$PAR
+Compare your previous answer to the first $ords[$A] multiples of $B:
+$BR
+Write out the first $ords[$A] multiples of $B. \{ ans_rule(15) \}
+$PAR
+What could you multiply the multiples of $B by to get the multiples of $Bty? \{ ans_rule(5) \}
+
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( $BtyList->cmp(showHints=>1, showLengthHints=>1, ordered=>1) );
+ANS( $BList->cmp(showHints=>1, showLengthHints=>1, ordered=>1) );
+ANS( Real(10)->cmp() );
+
+Section::End();
+
+##############################################################
+Section::Begin("Part 5: Associative Property of Multiplication");
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+So, hopefully you've noticed that \( $A \times $Bty \) is the same thing as first multiplying \( $A \times $B \) and then multiplying that result by 10.
+$PAR
+We call this the Associative Property of Multiplication, and when there are several multiplications happening together, $BBOLD it allows us to select whichever multiplication we want to happen first. $EBOLD
+$PAR
+In symbolic notation, it looks something like this:
+$BR
+(parenthesis indicate priority)
+$PAR
+\{
+ DataTable(
+  [
+    ['\( $A \times $Bty \)',' '],
+    [' ','replace $Bty with \( $B \times 10 \)'],
+    ['\( $A \times ( $B \times 10 ) \)',' '],
+    [' ','apply the Associative Property of Multiplication to prioritize the first multiplication instead of the second one'],
+    ['\( ( $A \times $B ) \times 10 \)',' '],
+    [' ','compute \( $A \times $B \), because its easy - thats why we prioritized it'],
+    ['\( $AxB \times 10 \)',' '],
+    [' ','now multiply by 10, because its easy - and because thats all thats left'],
+    ['\( $AxBty \)',' '],
+  ], 
+  align => 'c l',
+  columnscss => [ '', 'color:red; ' ]
+ );
+\}
+$PAR
+So, as you can see, the Associative Property of Multiplication allows us to break the multiplication of large numbers into smaller, more manageable pieces.
+$PAR
+Now, if we combine the associative property with the commutative property, we can multiply all sorts of large numbers as follows:
+\{
+ DataTable(
+  [
+    ['\( $Aty \times $Bty \)',' '],
+    [' ','replace $Aty with \( $A \times 10 \) and $Bty with \( $B \times 10 \)'],
+    ['\( ( $A \times 10 ) \times ( $B \times 10 ) \)',' '],
+    [' ','apply the Associative Property of Multiplication'],
+    ['\( $A \times ( 10 \times $B ) \times 10 \)',' '],
+    [' ','apply the Commutative Property of Multiplication'],
+    ['\( $A \times ( $B \times 10 ) \times 10 \)',' '],
+    [' ','apply the Associative Property of Multiplication'],
+    ['\( ( $A \times $B ) \times ( 10 \times 10 ) \)',' '],
+    [' ','compute \( $A \times $B \), because its prioritized'],
+    [ ans_rule(3).' \( \times ( 10 \times 10 ) \)',' '],
+    [' ','compute \( 10 \times 10 \), because its prioritized'],
+    [ ans_rule(3).'\( \times \)'.ans_rule(3),' '],
+    [' ','now do the final multiplication'],
+    [ ans_rule(5),' '],
+  ], 
+  caption => "\( $Aty \times $Bty \)",
+  columnscss => [ '', 'color:red; ' ],
+  captioncss => "font-weight:bold; color:blue;"
+ );
+\}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS($AxB->cmp());
+ANS($AxB->cmp());
+ANS(Real(100)->cmp());
+ANS($AxBhund->cmp());
+
+Section::End();
+##############################################################
+Section::Begin("Part 6: Final Practice");
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+One last practice problem.
+$PAR
+\{
+ DataTable(
+  [
+    ['\( $Chund \times $Dty \)',' '],
+    [' ','replace $Chund with \( $C \times 100 \) and $Dty with \( $D \times 10 \)'],
+    ['\( ( \) '.ans_rule(3).' \(\times 100 ) \times ( \) '.ans_rule(3).' \( \times 10 ) \)',' '],
+    [' ','apply the Associative Property of Multiplication'],
+    [ans_rule(3).' \(\times (\) '.ans_rule(3).' \(\times\) '.ans_rule(3).' \( ) \times\) '.ans_rule(3),' '],
+    [' ','apply the Commutative Property of Multiplication'],
+    [ans_rule(3).' \(\times (\) '.ans_rule(3).' \(\times\) '.ans_rule(3).' \( ) \times\) '.ans_rule(3),' '],
+    [' ','apply the Associative Property of Multiplication'],
+    ['\( (\) '.ans_rule(3).' \( \times \) '.ans_rule(3).' \( ) \times ( \) '.ans_rule(3).' \( \times \) '.ans_rule(3).' \( ) \)',' '],
+    [' ','compute \( $C \times $D \), because its prioritized'],
+    [ ans_rule(3).' \( \times ( \) '.ans_rule(3).' \( \times \) '.ans_rule(3).' \( ) \)',' '],
+    [' ','compute \( 100 \times 10 \), because its prioritized'],
+    [ ans_rule(3).' \( \times \) '.ans_rule(3),' '],
+    [' ','now do the final multiplication'],
+    [ ans_rule(5),' '],
+  ], 
+  caption => "\( $Chund \times $Dty \)",
+  columnscss => [ '', 'color:red; ' ],
+  captioncss => "font-weight:bold; color:blue;"
+ );
+\}
+$PAR
+Once you get this problem right, you can feel free to use any shortcuts you might have discovered along the way. Most of the time, you won't have to write out all these steps.
+
+END_TEXT
+Context()->normalStrings;
+ANS(Real($C)->cmp());
+ANS(Real($D)->cmp());
+ANS(Real($C)->cmp());
+ANS(Real(100)->cmp());
+ANS(Real($D)->cmp());
+ANS(Real(10)->cmp());
+ANS(Real($C)->cmp());
+ANS(Real($D)->cmp());
+ANS(Real(100)->cmp());
+ANS(Real(10)->cmp());
+ANS(Real($C)->cmp());
+ANS(Real($D)->cmp());
+ANS(Real(100)->cmp());
+ANS(Real(10)->cmp());
+ANS(Real($CxD)->cmp());
+ANS(Real(100)->cmp());
+ANS(Real(10)->cmp());
+ANS(Real($CxD)->cmp());
+ANS(Real(1000)->cmp());
+ANS(Real($CxD*1000)->cmp());
+
+Section::End();
+
+Scaffold::End();
+
+##############################################################
+#
+#  Answers
+#
+#
+
+
+ENDDOCUMENT();        
+COMMENT('MathObject version. Not randomized.');

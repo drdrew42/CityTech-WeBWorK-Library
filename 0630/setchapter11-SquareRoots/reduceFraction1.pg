@@ -1,0 +1,43 @@
+##DESCRIPTION
+##   Evaluation of a simple algebraic expression
+##ENDDESCRIPTION
+## Library/ma117DB/set1/srw1_2_7c.pg
+ 
+## DBsubject(Arithmetic)
+## DBchapter(Irrational numbers)
+## DBsection(Simplify radical numbers)
+## Date('2/15/2016')
+## Author('Parker')
+## Institution('City Tech')
+## KEYWORDS('algebra','exponent')
+DOCUMENT();        # This should be the first executable line in the problem.
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"contextFraction.pl",
+);
+
+TEXT(beginproblem());
+$showCorrectPartialAnswers = 1;
+
+$a = random(3,9,2);
+$b = random(2,8,2);
+$a1 = $a**2;
+$b1 = $b**2;
+
+BEGIN_TEXT
+Convert the expression 
+\[\frac{\sqrt{$a1}}{\sqrt{$b1}}\]
+$BR
+into reduced fraction form. $BR
+\{ ans_rule(10) \}
+END_TEXT
+
+Context("LimitedFraction")->flags->set(showMixedNumbers=>0);
+$ans = Fraction($a,$b);
+
+ANS($ans->cmp() );
+
+ENDDOCUMENT();        # This should be the last executable line in the problem.
+COMMENT('MathObjects version');

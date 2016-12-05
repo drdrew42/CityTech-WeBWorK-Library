@@ -1,0 +1,69 @@
+###DESCRIPTION
+## Multiplying Polynomials
+## 
+##ENDDESCRIPTION
+## DBsubject(Algebra)
+## DBchapter(Polynomials, polynomial functions, and factoring)
+## DBsection('Multiplication of Polynomials')
+## KEYWORDS('polynomials')
+## TitleText1('Essentials of Intermediate Algebra')
+## EditionText1('1')
+## AuthorText1('Blitzer')
+## Section1('5.2')
+## Problem1('')
+## Author('RA Cruz, Parker')
+## Institution('The College of Idaho, City Tech')
+## Date('2/15/2016')
+
+DOCUMENT(); # This should be the first executable line in the problem.
+
+loadMacros(
+  "PGstandard.pl",
+  "MathObjects.pl",
+  "contextLimitedPolynomial.pl",
+);
+
+TEXT(beginproblem());
+
+######################################
+#  Setup
+
+$a= random(1,7,1);
+($b2,$b1,$b0)= (random(2,5,1),non_zero_random(-3,3,1),non_zero_random(-5,5,1));
+
+$n1=random(2,3,1);
+$n2=random(4,5,1);
+$n3 = $n2 - random(1,2,1);
+
+$poly1 = Formula("$a*x^$n1")->reduce;
+$poly2 = Formula("$b2*x^$n2 + $b1*x^$n3 + $b0")->reduce;
+
+######################################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+Multiply:  \( $poly1 ( $poly2 ) \)
+$PAR
+Answer:  \{ ans_rule(40) \} 
+END_TEXT
+Context()->normalStrings;
+
+######################################
+#  Answer
+
+Context("LimitedPolynomial-Strict");
+Context()->flags->set(singlePowers=>1);
+
+($c2,$c1,$c0) = ($a*$b2,$a*$b1,$a*$b0);
+($e2,$e1,$e0) = ($n1+$n2,$n1+$n3,$n1);
+$ans = Formula("$c2 x^$e2 + $c1 x^$e1+ $c0 x^$e0")->reduce;
+ANS($ans->cmp); 
+
+$showPartialCorrectAnswers = 1;
+
+######################################
+
+
+COMMENT('MathObject version');
+ENDDOCUMENT();

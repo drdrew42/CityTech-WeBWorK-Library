@@ -1,0 +1,86 @@
+#DESCRIPTION
+##Type of mn+o5-4p57
+#ENDDESCRIPTION
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+"MathObjects.pl",
+"parserPopUp.pl"
+);
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+Context("LimitedNumeric");
+Context()->{error}{msg}{"Can't use '*' in this context"} 
+  = "Multiplication is disabled for this problem. Compute the result for yourself and resubmit your answer.";
+Context()->{error}{msg}{"Can't use '/' in this context"} 
+  = "Division is disabled for this problem. Compute the result for yourself and resubmit your answer.";
+
+$a=random(14,16,3);
+$ans2=random(60,80,10);
+$pages = $ans2*$a;
+$c=random(11,13,2);
+$d=random (60,64,4);
+$ans4=$c*$d;
+$b=random(28,36,4);
+
+$ans6=random(140,160,10);
+$e=$b*$ans6; 
+
+$MULTdiv = PopUp(["?", "Multiply.", "Divide."], "Multiply.");
+$multDIV = PopUp(["?", "Multiply.", "Divide."], "Divide.");
+
+Context()->texStrings;
+BEGIN_TEXT
+$PAR
+ 
+a) A book contains $c sections with $d pages each. 
+ To find the total number of pages in the book we must 
+\{ $MULTdiv->menu() \}.
+$BR
+The book has  \{ans_rule(4)\} pages.
+$PAR
+b) A book company has received an order for $e books. $BR
+ If there are $b books in each box, to find out how many boxes are needed 
+we must 
+\{ $multDIV->menu() \}
+$BR
+The company needs  \{ans_rule(4)\} boxes. 
+$PAR
+c) In a dictionary $a pages are 1 millimeter thick.  To find the thickness of $pages pages we must 
+\{ $multDIV->menu() \}
+$BR
+The thickness is  \{ans_rule(4)\} mm..
+$PAR
+
+END_TEXT
+Context()->normalStrings;
+
+ANS($MULTdiv->cmp);
+ANS(Real($ans4)->cmp);
+ANS($multDIV->cmp);
+ANS(Real($ans6)->cmp);
+ANS($multDIV->cmp);
+ANS(Real($ans2)->cmp);
+
+BEGIN_SOLUTION
+$PAR Solution $PAR
+a)  If each section contains $d pages and we have $c such sections, then the 
+total number of pages$BR will be the product of the number of pages in a section by the number of sections.  Thus we must multiply.$PAR
+b)  If there are $b books in each box, then we split the $e books into groups of
+$b to put them in boxes.$BR That means that we must divide.$PAR
+c)  If we want to know how thick the dictionary is we want to find out how many groups of $a pages it takes to make $BR $pages pages. Thus we must divide. $PAR
+
+END_SOLUTION	
+
+
+COMMENT('MathObject version');
+ENDDOCUMENT();
+
+## DBsubject(Middle school)
+## DBchapter('Multiplication_Division')
+## DBsection('')
+

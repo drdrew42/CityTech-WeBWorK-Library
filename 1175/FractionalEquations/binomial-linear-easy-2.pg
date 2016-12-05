@@ -1,0 +1,66 @@
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextFraction.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+# 1/A + (A-1)/(w - R) = 1 => w = A + R
+
+Context("Numeric")->flags->set(reduceConstants=>0, reduceConstantFunctions=>0);
+Context()->variables->are("w"=>Real);
+
+$A = random(3,8,1);
+$R = random(-1,1,2)*random(2,9,1);
+
+$A1 = $A - 1;
+$ApR = $A + $R;
+
+$Lfrac1 = Formula("1/$A");
+$Lfrac2 = Formula("$A1/(w - $R)")->reduce;
+$LHS = Formula("$Lfrac1 + $Lfrac2");
+$RHS = Formula("1")->reduce;
+
+Context("LimitedFraction")->flags->set(showMixedNumbers=>0);
+
+$ans = Fraction("$ApR")->reduce;
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Solve for w:
+
+\[ $LHS = $RHS \]
+
+$PAR
+w = \{ans_rule(10)\}
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans->cmp);
+
+ENDDOCUMENT();        

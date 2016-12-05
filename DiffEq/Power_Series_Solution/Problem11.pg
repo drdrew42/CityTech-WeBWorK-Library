@@ -1,0 +1,86 @@
+##DESCRIPTION
+##  Differential Equation
+##ENDDESCRIPTION
+
+##KEYWORDS('Differential equaltion')
+
+## DBsubject('Differential Equation')
+## DBchapter('Laplace Transform')
+## DBsection('Section 7.6 Inverse Laplace Transform')
+## Date('04/15/2012')
+## Author('Anna Ghazaryan,Fuli Zhang')
+## Institution('Miami University')
+## TitleText1('A First Course in Differential Equation')
+## EditionText1('9')
+## AuthorText1(6.1)
+## Problem1('19')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",
+   "MathObjects.pl",
+   "AnswerFormatHelp.pl",
+   "unionLists.pl",
+   "parserPrime.pl",
+   "parserPopUp.pl",
+   "answerHints.pl",
+   "parserImplicitPlane.pl",
+
+ );
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric")->variables->add(y=>"Real",c=>"Real");
+
+##############################################################
+#
+#  Text
+#
+#
+$answera = Formula("-x^2/2-x^(4)/8-7x^(6)/240");
+$answerb = Formula("x^(3)/6+x^(5)/24+x^(7)/112");
+
+
+
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Solve the differential equations by the Power Series method: 
+\(\displaystyle y''-2xy'+y=0\).(Please write three terms in each blank)
+
+$BR
+$BR
+\(y= C_0(1+\) \{ ans_rule(30) \} \(+...)\)+ \(C_1(x+\) \{ ans_rule(30) \} \(+...)\) \{ AnswerFormatHelp("formulas") \}
+
+
+
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+$showPartialCorrectAnswers = 1;
+
+ANS( $answera->cmp() );
+ANS( $answerb->cmp() );
+
+COMMENT("MathObject version.");
+
+ENDDOCUMENT();

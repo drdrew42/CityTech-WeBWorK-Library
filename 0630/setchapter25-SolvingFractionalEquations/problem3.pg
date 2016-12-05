@@ -1,0 +1,75 @@
+##DESCRIPTION
+##Arithmetic
+##ENDDESCRIPTION
+## DBsubject(Algebra)
+## DBchapter(Rational equations and functions)
+## DBsection(Rational equations)
+## Institution(Univeristy of Utah)
+## Author(Utah ww group)
+## MLT(Reciprocals)
+## Level(1)
+## TitleText1('Precalculus')
+## AuthorText1('Ron Larson and Robert  Hostetler')
+## EditionText1('7')
+## Section1('.')
+## Problem1('')
+## KEYWORDS('algebra')
+
+## Adapted from Library/Utah/Trigonometry/set2_Algebra/s2p7.pg
+
+DOCUMENT();        # This should be the first executable line in the problem.
+
+loadMacros(
+"PG.pl",
+"PGbasicmacros.pl",
+"PGchoicemacros.pl",
+"PGanswermacros.pl",
+"PGauxiliaryFunctions.pl",
+"MathObjects.pl",
+"contextFraction.pl"
+);
+
+TEXT(beginproblem());
+Context("LimitedFraction")->flags->set(showMixedNumbers=>0);
+
+$a = random(2,10,2);
+$b = random(1,9,2);
+$c = random(2,9,1);
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+The solution of the equation
+\[ \frac{1}{x-$a} = \frac{$c}{x+$b} \]
+$PAR
+is \(x = \) \{ ans_rule(20) \}.
+
+END_TEXT
+Context()->normalStrings;
+
+$ans = Fraction($c*$a+$b,$c-1);
+
+ANS($ans->cmp);
+
+Context()->texStrings;
+BEGIN_SOLUTION
+$BR $BBOLD Solution:$EBOLD 
+$BR
+This problem is a basic proportion, starting with the equality of two fractions.
+$BR
+We multiply both sides by the LCD of the two fractions.
+$BR
+The LCD of \(x-$a\) and \(x+$b\) is just their product, because they have no common factor.
+$BR
+After multiplying both sides by \( (x-$a)(x+$b) \) we have:
+\[\frac{(x-$a)(x+$b)}{x-$a} = \frac{$c(x-$a)(x+$b)}{x + $b}\]
+Each fraction has a common factor shared between their respective numerators and denomninators, so we can reduce both fractions. After reducing:
+\[ x+$b = $c(x-$a)\]
+This is just a linear equation which we can then solve to find that 
+\( x = $ans \)
+END_SOLUTION
+Context()->normalStrings;
+
+COMMENT("MathObject version");
+ENDDOCUMENT();        # This should be the last executable line in the problem.

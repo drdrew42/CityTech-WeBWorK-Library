@@ -1,0 +1,87 @@
+##DESCRIPTION
+##  Differential Equation
+##ENDDESCRIPTION
+
+##KEYWORDS('Differential equaltion')
+
+## DBsubject('Differential Equation')
+## DBchapter('Higher-Order DE')
+## DBsection('Section 4.1 Preliminary Theory-Linear Equation')
+## Date('02/23/2012')
+## Author('Anna Ghazaryan,Fuli Zhang')
+## Institution('Miami University')
+## TitleText1('A First Course in Differential Equation')
+## EditionText1('9')
+## AuthorText1('Dennis G.Zill')
+## Section1('4.1')
+## Problem1('40')
+
+
+
+##############################
+#  Initialization
+
+DOCUMENT(); 
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"parserMultiAnswer.pl",
+);
+
+TEXT(beginproblem());
+
+
+#############################
+#  Setup
+
+Context("Numeric")->variables->add(y=>"Real",c=>"Real");
+
+
+$f = Formula("e^(x+2)")->reduce;
+$g = Formula("e^(x-3)")->reduce;
+
+$multians = MultiAnswer(Real(1),Real(c))->with(
+  singleResult => 1,
+  checker => sub {
+      my ( $correct, $student, $self ) = @_;
+      my ( $Astu, $Bstu ) = @{$student};
+      return ($Bstu==-$Astue^(5) && $Astu!=0 );
+
+  }
+);
+
+
+
+######################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+Are the functions \( f\)and \( g\) given below linearly independent?(You have four attempts!Submit all answers at the same time)
+\[ 
+f(x) = $f, \ \ \ \ g(x) = $g,  
+\]
+If they are independent, enter all zeroes.  If they are 
+not linearly independent, find a nontrivial solution to the
+equation below.  Be sure you can justify your answer.  
+$BR
+$BR
+\{ $multians->ans_rule(5) \}
+\( \left( $f \right) + \)
+\{ $multians->ans_rule(5) \}
+\( \left( $g \right)= 0. \)
+END_TEXT
+Context()->normalStrings;
+
+########################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 1;
+
+ANS( $multians->cmp() );
+
+
+COMMENT("MathObject version.");
+
+ENDDOCUMENT();

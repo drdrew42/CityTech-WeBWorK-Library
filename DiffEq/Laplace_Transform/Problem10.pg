@@ -1,0 +1,84 @@
+##DESCRIPTION
+##  Differential Equation
+##ENDDESCRIPTION
+
+##KEYWORDS('Differential equaltion')
+
+## DBsubject('Differential Equation')
+## DBchapter('Laplace Transform')
+## DBsection('Section 7.2 Laplace Transform')
+## Date('04/07/2012')
+## Author('Anna Ghazaryan,Fuli Zhang')
+## Institution('Miami University')
+## TitleText1('A First Course in Differential Equation')
+## EditionText1('9')
+## AuthorText1('Dennis G.Zill')
+## Section1('7.2')
+## Problem1('34')
+##############################
+#  Initialization
+
+DOCUMENT(); 
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"parserAssignment.pl",
+"unionLists.pl",
+);
+
+TEXT(beginproblem());
+
+
+#############################
+#  Setup
+
+Context("Numeric");
+Context()->variables->add(
+t=>"Real",B=>"Real",C=>"Real",y=>"Real",
+'a'=>'Parameter','b'=>'Parameter'
+);
+
+
+$diffeq = "y' - y = 2cos5t"; # tex
+
+$ygeneral = Formula("e^(t)/13-cos(5t)/13+5sin(5t)/13");
+
+
+######################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+Solve the initial-value problem to the 
+differential equation by Laplace Transform.
+$BR
+$BR
+\(\ $diffeq \),  
+\( y(0) = 0 \).
+
+$BR
+$BR
+\( y = \)
+\{ ans_rule(60) \}
+\{ AnswerFormatHelp("formulas") \}
+
+
+END_TEXT
+Context()->normalStrings;
+
+
+######################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 1;
+
+
+
+
+ANS( $ygeneral->cmp() );
+
+COMMENT("MathObject version.");
+
+ENDDOCUMENT();

@@ -1,0 +1,107 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "PGML.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(
+  reduceConstants=>0,
+  reduceConstantFunctions=>0,
+  tolType=>'absolute',
+  tolerance=>0.0005
+);
+
+Parser::Number::NoDecimals();
+
+%unit = (
+  6 => {
+    x => Formula("sqrt(3)/2"),
+    nx => Formula("-(sqrt(3)/2)"),
+    y => Formula("1/2"),
+    ny => Formula("-(1/2)"),
+    t => Formula("1/sqrt(3)"),
+    nt => Formula("-(1/sqrt(3))"),
+  },
+  3 => {
+    x => Formula("1/2"),
+    nx => Formula("-(1/2)"),
+    y => Formula("sqrt(3)/2"),
+    ny => Formula("-(sqrt(3)/2)"),
+    t => Formula("sqrt(3)"),
+    nt => Formula("-sqrt(3)")
+  },
+  4 => {
+    x => Formula("sqrt(2)/2"),
+    nx => Formula("-(sqrt(2)/2)"),
+    y => Formula("sqrt(2)/2"),
+    ny => Formula("-(sqrt(2)/2)"),
+    t => Formula("1"),
+    nt => Formula("-1")
+  }
+);
+
+$denom = list_random(3,4,6);
+
+$x = $unit{$denom}{x};
+$nx = $unit{$denom}{nx};
+$y = $unit{$denom}{y};
+$ny = $unit{$denom}{ny};
+$t = $unit{$denom}{t};
+$nt = $unit{$denom}{nt};
+
+$reference = Formula("pi/$denom");
+
+@n = ( 1, $denom-1, $denom+1, 2*$denom-1, 2*$denom+1, -$denom+1, -$denom-1, -2*$denom+1 );
+
+@angle = ( $reference );
+for my $i (1..7) {
+  $angle[$i] = Formula("( $n[$i] pi )/ $denom");
+};
+
+@ans = ($y, $y, $ny, $ny, $y, $ny, $y, $y);
+
+##############################################################
+#
+#  Text
+#
+#
+
+BEGIN_PGML
+
+Without using a calculator, state the _exact_ value of the following trig functions for the specified angle.
+
+a) [`` \sin([$angle[0]]) = ``] [__________]{$ans[0]}
+
+a) [`` \sin([$angle[1]]) = ``] [__________]{$ans[1]}
+
+a) [`` \sin([$angle[2]]) = ``] [__________]{$ans[2]}
+
+a) [`` \sin([$angle[3]]) = ``] [__________]{$ans[3]}
+
+a) [`` \sin([$angle[4]]) = ``] [__________]{$ans[4]}
+
+a) [`` \sin([$angle[5]]) = ``] [__________]{$ans[5]}
+
+a) [`` \sin([$angle[6]]) = ``] [__________]{$ans[6]}
+
+a) [`` \sin([$angle[7]]) = ``] [__________]{$ans[7]}
+
+END_PGML
+
+ENDDOCUMENT();        

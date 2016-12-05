@@ -1,0 +1,14 @@
+
+openDate          = 05/30/2012 at 06:16pm EDT
+dueDate           = 06/06/2012 at 11:59pm EDT
+answerDate        = 06/07/2012 at 12:01pm EDT
+paperHeaderFile   = local/opt/webwork/webwork2/conf/snippets/ReitzHeaderBASIC.pg
+screenHeaderFile  = local/opt/webwork/webwork2/conf/snippets/ReitzHeaderBASIC.pg
+problemList       = 
+Library/Utah/Intermediate_Algebra/set1_WebWork_Demo/s1p3.pg, 2, -1 
+Library/Utah/Intermediate_Algebra/set1_WebWork_Demo/s1p5.pg, 2, -1 
+Library/Utah/Intermediate_Algebra/set1_WebWork_Demo/s1p7.pg, 2, -1 
+Library/Utah/Intermediate_Algebra/set1_WebWork_Demo/s1p8.pg, 5, -1 
+Library/Utah/Intermediate_Algebra/set1_WebWork_Demo/s1p13.pg, 5, -1 
+Library/ASU-topics/setIntroduction_to_WeBWorK/prob2.pg, 5, -1 
+

@@ -1,0 +1,85 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('Higher-Order Differential Equations')
+## DBsection('Undetermined Coefficients')
+## Date('05/28/2012')
+## Author('Anna Ghazaryan,Fuli Zhang')
+## Institution('Muohio')
+## TitleText1('Differential equations with Boundary-value problem')
+## AuthorText1('Dennis G. Zill')
+## Section1('4.4')
+## Edition('7')
+## Problem1('29')
+
+########################################################################
+DOCUMENT(); 
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"parserAssignment.pl",
+"unionLists.pl",
+);
+
+TEXT(beginproblem());
+
+
+#############################
+#  Setup
+
+
+
+Context("Numeric");
+Context()->variables->add(
+A=>"Real",B=>"Real",C=>"Real",y=>"Real",
+'a'=>'Parameter','b'=>'Parameter'
+);
+
+$a = -random(8,10,12);
+
+
+
+$diffeq = "5y'' + y' = -6x"; # tex
+
+$ygeneral = Formula("(150-5*$a)e^(-x/5)+ (5*$a-150)-3x^2+30x");
+
+
+######################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+Solve the initial-value problem to the 
+differential equation\(\ $diffeq \).  
+\( y(0) = 0 \) and 
+\( y'(0) = $a \).
+
+$BR
+$BR
+\( y = \)
+\{ ans_rule(60) \}
+\{ AnswerFormatHelp("formulas") \}
+
+
+END_TEXT
+Context()->normalStrings;
+
+
+######################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 1;
+
+
+
+
+ANS( $ygeneral->cmp() );
+
+COMMENT("MathObject version.");
+
+ENDDOCUMENT();

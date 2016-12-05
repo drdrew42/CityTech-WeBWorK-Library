@@ -1,0 +1,82 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('Modeling with First-Order Differential Equations')
+## DBsection('Linear Model')
+## Date('05/28/2012')
+## Author('Anna Ghazaryan, Fuli Zhang')
+## Institution('Muohio')
+## TitleText1('Differential equations with Boundary-value problem')
+## AuthorText1('Dennis G. Zill')
+## Section1('3.1')
+## Edition('7')
+## Problem1('1')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"unionLists.pl",
+"parserPrime.pl",
+"parserPopUp.pl",
+"answerHints.pl",
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+#Context("Numeric")->variables->add(t=>"Real",u=>"Real",r=>"Real",R=>"Real",k=>"Real");
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+
+
+$a = random(3,4,5,6,7);
+$answer = Compute("$a*ln(3)/ln(2)");
+
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+The population of a community is known to increase at a rate proportional to the number of people present at time \(t\). If an initial population \(P_{0}\) has doubled in $a years, how long will it take to triple?
+
+$BR
+$BR
+\(t\)= \{ ans_rule(10) \}. 
+\{ AnswerFormatHelp("formulas") \}
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+$showPartialCorrectAnswers = 0;
+ANS( $answer->cmp() );
+
+ENDDOCUMENT();    
+

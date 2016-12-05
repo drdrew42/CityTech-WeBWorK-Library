@@ -1,0 +1,93 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject('Algebra')
+## DBchapter('Rational equations and functions')
+## DBsection('Simplifying')
+## Date('2/15/2016')
+## Author('Parker')
+## Institution('City Tech')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextLimitedPolynomial.pl",
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->variables->are("x"=>Real, "y"=>Real);
+Context()->noreduce('x^(-1)','(-x)-y');
+
+$dcoeff=non_zero_random(-10,10,1);
+$dxexp=random(1,9,1);
+$dyexp=random(1,9,1);
+
+$anscoeff1=non_zero_random(-10,10,1);
+$anscoeff2=non_zero_random(-10,10,1);
+$ansxexp1=0;
+$ansxexp2=random(1,9,1);
+$ansyexp1=random(1,9,1);
+$ansyexp2=0;
+
+$ncoeff1 = $anscoeff1*$dcoeff;
+$ncoeff2 = $anscoeff2*$dcoeff;
+$nxexp1 = $ansxexp1+$dxexp;
+$nxexp2 = $ansxexp2+$dxexp;
+$nyexp1 = $ansyexp1+$dyexp;
+$nyexp2 = $ansyexp2+$dyexp;
+
+$denominator = Formula("$dcoeff*x**$dxexp*y**$dyexp")->reduce;
+$numerator = Formula("$ncoeff1*x**$nxexp1*y**$nyexp1 + $ncoeff2*x**$nxexp2*y**$nyexp2")->reduce;
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+Simplify.
+$BR
+$BR
+\( \displaystyle{ \frac{$numerator}{$denominator} } \)
+$BR
+$BR
+\{ans_rule(20)\}
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+Context("LimitedPolynomial-Strict");
+Context()->variables->are("x"=>Real, "y"=>Real);
+$ans = Formula("$anscoeff1*y**$ansyexp1 + $anscoeff2*x**$ansxexp2")->reduce;
+
+ANS($ans->cmp);
+
+
+ENDDOCUMENT();        

@@ -1,0 +1,106 @@
+##KEYWORDS('Differential equaltion')
+
+## DBsubject('Differential Equation')
+## DBchapter('Modeling of First-order of DE')
+## DBsection('Section 3.1 Linear Models')
+## Date('01/23/2012')
+## Author('Anna Ghazaryan, Fuli Zhang')
+## Institution('Miami University')
+## TitleText1('A First Course in Differential Equation')
+## EditionText1('9')
+## AuthorText1('Dennis G.Zill')
+## Section1('3.1')
+## Problem1('41')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",
+   "MathObjects.pl",
+   "AnswerFormatHelp.pl",
+   "unionLists.pl",
+   "parserPrime.pl",
+   "parserPopUp.pl",
+   "answerHints.pl",
+   "parserImplicitPlane.pl",
+
+ );
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric")->variables->add(y=>"Real",k1=>"Real",t=>"Real",P0=>"Real",k2=>"Real");
+
+##############################################################
+#
+#  Text
+#
+#
+$answer[0] = Formula("P0*e^((k1-k2)t)")->reduce;
+$answer[1] = Formula("inf")->reduce;
+$answer[2] = Formula("P0")->reduce;
+$answer[3] = Formula("0")->reduce;
+
+
+
+
+
+
+Context()->texStrings;
+BEGIN_TEXT
+Solve the following problem: 
+$BR
+$BR
+Question:$BR In one model of the changing population \(P(t)\)of a comunity, it is assumed that \(\displaystyle\frac{dP}{dt}=\displaystyle\frac{dB}{dt}-\displaystyle\frac{dD}{dt}\),where \(dB/dt\) and \(dD/dt\) are the birth and death rates, respectively. Solve for \(P(t)\) if \(dB/dt=k_1P\) and \(dD/dt=k_2P\).\((P_0=P(0))\)What happens with the population when \(k_1>k_2\),when \(k_2>k_1\),and when  \(k_1=k_2\).Enter P0 as \(P_0\)
+
+
+$BR
+$BR
+\(\displaystyle \ P=\) \{ans_rule(30)\}
+$BR
+$BR
+If \(k_1>k_2\),\(\displaystyle \ P=\) \{ans_rule(15)\},when \(t=\inf\)
+$BR
+$BR
+If \(k_1=k_2\),\(\displaystyle \ P=\) \{ans_rule(15)\},for every \(t\)
+$BR
+$BR
+If \(k_1<k_2\),\(\displaystyle \ P=\) \{ans_rule(15)\},when \(t=\inf\)
+ 
+\{ AnswerFormatHelp("formulas") \}
+
+
+
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+ANS( $answer[0]->cmp() );
+ANS( $answer[1]->cmp() );
+ANS( $answer[2]->cmp() );
+ANS( $answer[3]->cmp() );
+
+
+
+
+
+
+
+
+ENDDOCUMENT();    

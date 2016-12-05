@@ -1,0 +1,114 @@
+assignmentType      = default
+openDate          = 09/17/2015 at 04:29am EDT
+reducedScoringDate = 12/31/1969 at 07:00pm EST
+dueDate           = 09/25/2015 at 01:00am EDT
+answerDate        = 09/25/2015 at 01:00am EDT
+enableReducedScoring = N
+paperHeaderFile   = local/Reitz/CombinedHeaderFile-Reitz.pg
+screenHeaderFile  = local/Reitz/CombinedHeaderFile-Reitz.pg
+description       = 
+restrictProbProgression = 
+emailInstructor   = 
+
+problemListV2 
+problem_start
+problem_id = 1
+source_file = local/Reitz/2070/MAT320_0101.pg
+value = 2
+max_attempts = -1
+showMeAnother = -1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 2
+source_file = local/Reitz/2070/propositiontf.pg
+value = 5
+max_attempts = -1
+showMeAnother = -1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 3
+source_file = local/Reitz/2070/ur_dis_2_1.pg
+value = 4
+max_attempts = -1
+showMeAnother = -1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 4
+source_file = Library/SDSU/Discrete/Logic/formallogicA1.pg
+value = 2
+max_attempts = -1
+showMeAnother = -1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 5
+source_file = Library/SDSU/Discrete/Logic/formallogicA2.pg
+value = 2
+max_attempts = -1
+showMeAnother = -1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 6
+source_file = Library/SDSU/Discrete/Logic/formallogicB4.pg
+value = 2
+max_attempts = -1
+showMeAnother = -1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 7
+source_file = Library/SDSU/Discrete/Logic/ttlogicequivA7.pg
+value = 5
+max_attempts = -1
+showMeAnother = -1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 8
+source_file = Library/ASU-topics/setDiscrete/katie3.pg
+value = 7
+max_attempts = -1
+showMeAnother = -1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 9
+source_file = Library/Rochester/setDiscrete1Logic/ur_dis_1_8.pg
+value = 6
+max_attempts = -1
+showMeAnother = -1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 10
+source_file = Library/ASU-topics/setDiscrete/katie5.pg
+value = 8
+max_attempts = -1
+showMeAnother = -1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+

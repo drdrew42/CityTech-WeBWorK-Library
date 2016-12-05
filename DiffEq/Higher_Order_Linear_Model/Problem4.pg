@@ -1,0 +1,91 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('Modeling with Higher-Order Differential Equations')
+## DBsection('Linear Models')
+## Date('05/28/2012')
+## Author('Anna Ghazaryan,Fuli Zhang')
+## Institution('Muohio')
+## TitleText1('Differential equations with Boundary-value problem')
+## AuthorText1('Dennis G. Zill')
+## Section1('5.1')
+## Edition('7')
+## Problem1('6')
+
+########################################################################
+
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",
+   "MathObjects.pl",
+   "AnswerFormatHelp.pl",
+   "unionLists.pl",
+   "parserPrime.pl",
+   "parserPopUp.pl",
+   "answerHints.pl",
+   "parserImplicitPlane.pl",
+
+ );
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric")->variables->add(y=>"Real",t=>"Real");
+
+##############################################################
+#
+#  Text
+#
+#
+
+
+$a = random(40,50,60);
+$b = 8* $a;
+
+$answer[0] = Formula("-5sin(2t)");
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Solve the following problem: 
+$BR
+Question:$BR A force of $b newtons stretches a spring 2 meters. A mass of $a kilograms is attached to the end of the spring and is initially released from the equilibrium position with an upward velocity of 10m/s. Find the equation of motion.(Use t as independent variable)
+$BR
+$BR
+\(\displaystyle \ x=\) \{ans_rule(30)\}
+ 
+\{ AnswerFormatHelp("formulas") \}
+
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+ANS( $answer[0]->cmp() );
+
+
+
+
+
+
+
+
+ENDDOCUMENT();   

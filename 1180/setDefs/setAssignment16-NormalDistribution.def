@@ -1,0 +1,10 @@
+
+openDate          = 06/25/2012 at 01:10am EDT
+dueDate           = 07/02/2012 at 11:59pm EDT
+answerDate        = 07/03/2012 at 12:01am EDT
+paperHeaderFile   = local/opt/webwork/webwork2/conf/snippets/ReitzHeaderBASIC.pg
+screenHeaderFile  = local/opt/webwork/webwork2/conf/snippets/ReitzHeaderBASIC.pg
+problemList       = 
+local/Library/ASU-topics/setStat/dueck6_3_5-REITZTOLERANCEUPDATE.pg, 6, -1 
+local/Library/ASU-topics/setStat/dueck6_3_3-REITZTOLERANCEUPDATE.pg, 6, -1 
+

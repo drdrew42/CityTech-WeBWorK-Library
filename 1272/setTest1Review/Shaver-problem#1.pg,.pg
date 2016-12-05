@@ -1,0 +1,52 @@
+# DESCRIPTION
+# ENDDESCRIPTION
+
+## DBsubject('Elementary School')
+## DBchapter('Word Problems')
+## DBsection('Simple')
+## KEYWORDS('animals', 'legs')
+## Author('Nandor Sieben')
+## Institution('NAU')
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+);
+
+Context("Numeric");
+
+$a = list_random(1,2,3,4,5,6,7,8,9,10,11,12,13);
+do {$b = list_random(1,2,3,4,5,6,7,8,9,10,11,12,13)} until ($b != $a);
+
+
+$cow = "cows";
+$cow = "cow" if ($c==1); 
+$duck = "ducks";
+$duck = "duck" if ($d==1); 
+
+$ans = Formula("4*$c + 2*$d");
+
+TEXT(beginproblem());
+Context()->texStrings;
+
+BEGIN_TEXT
+The Test 1 review problems are posted in the Piazza discussion board. You can also get a copy of the problems from the Resources link on Piazza.
+$PAR
+
+For this problem you must go and enter a student answer (at least start the answer) for the following two randomly selected problems.
+$PAR
+PLEASE NOTE: If someone else has already started an answer for your problem, you may either edit that answer or you may choose another problem that has not been answered yet. You should enter below the numbers of the problems that you actually answered (or edited the answer).
+$PAR
+Enter or edit the student answers to problem $a and to problem $b in the Piazza discussion board.
+$BR
+The numbers you put below will not be checked by WeBWorK: the professor will be checking them later!
+$BR
+I entered or edited the student answer to problem \{ans_rule(2)\} and to problem \{ans_rule(2)\}.
+
+END_TEXT
+
+Context()->normalStrings;
+
+
+ENDDOCUMENT();

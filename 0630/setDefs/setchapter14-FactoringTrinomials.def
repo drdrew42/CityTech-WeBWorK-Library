@@ -1,0 +1,254 @@
+assignmentType      = default
+openDate          = 03/07/2016 at 12:12pm EST
+reducedScoringDate = 10/29/2015 at 02:00pm EDT
+dueDate           = 03/18/2016 at 12:12pm EDT
+answerDate        = 03/18/2016 at 12:12pm EDT
+enableReducedScoring = N
+paperHeaderFile   = defaultHeader
+screenHeaderFile  = defaultHeader
+description       = 
+restrictProbProgression = 
+emailInstructor   = 
+
+problemListV2 
+problem_start
+problem_id = 1
+source_file = Library/CollegeOfIdaho/setAlgebra_05_04_FactoringTrinomials/54IntAlg_03_FactorTrinomial.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 2
+source_file = Library/CollegeOfIdaho/setAlgebra_05_04_FactoringTrinomials/54IntAlg_02_FactorTrinomial.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 3
+source_file = Library/CollegeOfIdaho/setAlgebra_05_04_FactoringTrinomials/54IntAlg_01_FactorTrinomial.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 4
+source_file = Library/CollegeOfIdaho/setAlgebra_05_04_FactoringTrinomials/54IntAlg_07_FactorTrinomial.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 5
+source_file = Library/CollegeOfIdaho/setAlgebra_05_04_FactoringTrinomials/54IntAlg_11_FactorTrinomial.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 6
+source_file = Library/CollegeOfIdaho/setAlgebra_05_04_FactoringTrinomials/54IntAlg_04_FactorTrinomial.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 7
+source_file = Library/CollegeOfIdaho/setAlgebra_05_06_Factoring/56IntAlg_02_Factor.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 8
+source_file = Library/CollegeOfIdaho/setAlgebra_05_05_FactoringSpecialForms/55IntAlg_20_FactorSpecial.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 9
+source_file = Library/CollegeOfIdaho/setAlgebra_05_04_FactoringTrinomials/54IntAlg_08_FactorTrinomial.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 10
+source_file = Library/CollegeOfIdaho/setAlgebra_05_04_FactoringTrinomials/54IntAlg_10_FactorTrinomial.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 11
+source_file = Library/CollegeOfIdaho/setAlgebra_05_04_FactoringTrinomials/54IntAlg_05_FactorTrinomial.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 12
+source_file = Library/FortLewis/Algebra/2-3-Expanding-and-factoring/MCH1-2-3-28-Expanding-and-factoring-old.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 13
+source_file = Library/FortLewis/Algebra/2-3-Expanding-and-factoring/MCH1-2-3-30-Expanding-and-factoring.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 14
+source_file = Library/FortLewis/Algebra/2-3-Expanding-and-factoring/MCH1-2-3-48-Expanding-and-factoring.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 15
+source_file = Library/FortLewis/Algebra/2-3-Expanding-and-factoring/MCH1-2-3-28-Expanding-and-factoring.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 16
+source_file = Library/FortLewis/Algebra/2-3-Expanding-and-factoring/MCH1-2-3-26-Expanding-and-factoring.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 17
+source_file = Library/FortLewis/Algebra/2-3-Expanding-and-factoring/MCH1-2-3-32-Expanding-and-factoring.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 18
+source_file = Library/CollegeOfIdaho/setAlgebra_05_06_Factoring/56IntAlg_30_Factor.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 19
+source_file = Library/CollegeOfIdaho/setAlgebra_05_06_Factoring/56IntAlg_15_Factor.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 20
+source_file = Library/CollegeOfIdaho/setAlgebra_05_06_Factoring/56IntAlg_05_Factor.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 21
+source_file = Library/CollegeOfIdaho/setAlgebra_05_06_Factoring/56IntAlg_06_Factor.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 22
+source_file = Library/CollegeOfIdaho/setAlgebra_05_06_Factoring/56IntAlg_14_Factor.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 23
+source_file = Library/CollegeOfIdaho/setAlgebra_05_04_FactoringTrinomials/54IntAlg_16_FactorTrinomial.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 24
+source_file = Library/CollegeOfIdaho/setAlgebra_05_04_FactoringTrinomials/54IntAlg_15_FactorTrinomial.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+

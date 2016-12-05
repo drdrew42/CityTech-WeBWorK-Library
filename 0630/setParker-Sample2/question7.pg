@@ -1,0 +1,72 @@
+##DESCRIPTION
+##  Parker - Sample Exam 1 
+##ENDDESCRIPTION
+
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextFraction.pl",
+   "contextLimitedNumeric.pl",
+   "contextLimitedPolynomial.pl",
+   "contextScientificNotation.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("ScientificNotation");
+
+$ans1=ScientificNotation(7.5 * 10 ** 4);
+$ans2=ScientificNotation(3.0 * 10 ** 5);
+$ans3=ScientificNotation(1.2 * 10 ** 14);
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Compute and write your answer in Scientific Notation:
+$BR
+YOU MUST USE A DECIMAL POINT AND AT LEAST ONE DIGIT AFTER THE DECIMAL - EVEN IF THAT DIGIT IS ZERO.
+$PAR
+
+\( (2.5 \times 10^7)(3 \times 10^{-3}) \) = \{ ans_rule(15) \}
+$PAR
+
+\( \dfrac{4.5 \times 10^{12}}{1.5 \times 10^7} \) = \{ ans_rule(15) \}
+$PAR
+
+\( \dfrac{(6 \times 10^{12})(3.2 \times 10^8)}{(1.6 \times 10^7)} \) = \{ ans_rule(15) \}
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans1->cmp);
+ANS($ans2->cmp);
+ANS($ans3->cmp);
+
+
+ENDDOCUMENT();        

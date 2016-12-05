@@ -1,0 +1,70 @@
+#DESCRIPTION
+##Type of
+#ENDDESCRIPTION
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+"MathObjects.pl",
+"contextFraction.pl",
+);
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+Context("Numeric");
+$a=random(2,4,1);
+$ans1=random(3,5,1);
+$b=$a*$ans1; 
+
+$c1=random(4,8,2);
+$c2=random(5,7,2);
+Context("LimitedFraction");
+$c=Compute("$c1/$c2");
+
+$d1=random(3,7,2);
+$d=Compute("$d1/4");
+$ans2=$d/$c;
+$ans2 = Fraction($ans2);
+
+Context("Numeric");
+$e=random(5,9,2)/20;
+$f=random(11,19,2)/40;
+
+$ans3=$f/$e;
+
+BEGIN_TEXT
+In each of the following equations, solve to find the value of x.
+$PAR
+a)  If \($a x= $b\) then \(x= \) \{ans_rule(3)\}
+$PAR
+b)  If \( \frac{$c1}{$c2} y= \frac{$d1}{4}\) then \(y= \) \{ans_rule(3)\}
+$PAR
+c)  If \($e z= $f\) then \(z= \) \{ans_rule(3)\}
+
+END_TEXT
+
+	ANS(Real($ans1)->cmp);
+	ANS($ans2->cmp(studentsMustReduceFractions=>1));
+	ANS(Real($ans3)->cmp);
+
+BEGIN_SOLUTION
+
+$PAR Solution $PAR
+
+a)  \($a x= $b\).  Divide both sides by $a.
+$PAR
+b) \( \frac{$c1}{$c2} y= \frac{$d1}{4} \). Divide both sides by \( \frac{$c1}{$c2} \).
+$BR
+Remember that \( \frac{$d1}{4} \div \frac{$c1}{$c2} \) is the same as \( \frac{$d1}{4} \times \frac{$c2}{$c1} \).
+$PAR
+c) \($e z= $f\). Divide both sides by \($e\).
+END_SOLUTION
+
+ENDDOCUMENT();
+## DBsubject(Algebra)
+## DBchapter(Algebra of real numbers and simplifying expressions)
+## DBsection(Solving linear equations in one variable)
+## Level(2)
+## MO(1)

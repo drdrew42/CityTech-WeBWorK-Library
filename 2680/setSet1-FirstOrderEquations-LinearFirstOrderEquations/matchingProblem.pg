@@ -1,0 +1,104 @@
+##DESCRIPTION
+##  matching differential equations to solutions
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equation',)
+
+## DBsubject('')
+## DBchapter('')
+## DBsection('')
+## Date('31/8/2105')
+## Author('Kate Poirier')
+## Institution('NYCCT')
+## TitleText1('')
+## EditionText1('')
+## AuthorText1('Trench')
+## Section1('1.2')
+## Problem1('')
+
+########################################################################
+
+DOCUMENT();  
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGchoicemacros.pl",
+"PGgraders.pl",
+"unionTables.pl",
+);
+
+$a = random(1,9,1);
+$b = random(2,9,1);
+ $a1=Formula("$a-1")->reduce;
+ $b2=Formula("$b^2")->reduce;
+$c = random(1,9,1);
+$d = random(1,9,1);
+$e = non_zero_random(1,9,1);
+$f = non_zero_random(1,9,1);
+$g = random(1,9,1);
+$h = random(1,9,1);
+$i = random(1,9,1);
+$i = random(-9,9,1);
+$A=Formula("$d^2")->reduce;
+$B=Formula("($c/$d-1)*$d^2")->reduce;
+$C=Formula("($c/$d)*($c/$d-1)*$d^2")->reduce;
+
+TEXT(beginproblem());
+#
+#  Create a matching list and use popups
+#
+$ml = new_match_list();
+$ml->rf_print_q(~~&pop_up_list_print_q);
+$ml->ra_pop_up_list([
+"No answer" => "?",
+"A" => "A", "B" => "B", "C" => "C", 
+]);
+
+#
+#  Add correct questions and answers
+#
+$ml->qa(
+"\(y'= $a x^{$a1}e^{x^{$a}} \)", "\(y=e^{x^{$a}}\)",
+"\(y''=-$b2^2 y\)", "\(y=\sin($b x) + \cos($b x) \)",
+"\( $A x^2y''+$B xy'+$C y=0\)", "\( y=x^{{-$c}/{$d}} \)",
+
+);
+$ml->choose(3);
+
+
+Context()->texStrings;
+BEGIN_TEXT
+Match each differential equation with its solution.
+\{ ColumnMatchTable($ml, valign=>'TOP') \}
+END_TEXT
+Context()->normalStrings;
+
+$showPartialCorrectAnswers = 0;
+
+#
+#  Incremental grader
+#
+#install_problem_grader(~~&custom_problem_grader_fluid);
+#$ENV{'grader_numright'} = [2,4,6];
+#$ENV{'grader_scores'} = [0.3,0.6,1];
+#$ENV{'grader_message'} = "You can earn " .
+#"30% partial credit for 2 - 3 correct answers, and ".
+#"60% partial credit for 4 - 5 correct answers.";
+
+#
+#  All or nothing grader
+#  
+ install_problem_grader(~~&std_problem_grader);
+
+ANS( str_cmp( $ml->ra_correct_ans ) );
+
+@correct = @{$ml->ra_correct_ans()};
+$answerstring = join(", ", @correct);
+Context()->texStrings;
+
+Context()->normalStrings;
+
+COMMENT('MathObject version.');
+
+ENDDOCUMENT();

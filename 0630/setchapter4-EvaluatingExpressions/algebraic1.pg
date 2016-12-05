@@ -1,0 +1,99 @@
+## DESCRIPTION
+## Algebraic expressions
+## ENDDESCRIPTION
+## /Library/FortLewis/Algebra/1-1-Expressions/MCH1-1-1-04-Expressions.pg
+
+
+## BookTitle('Algebra: Form and Function')
+## BookChapter('The Key Concepts of Algebra')
+## DBsubject(Algebra)
+## DBchapter(Algebra of real numbers and simplifying expressions)
+## DBsection(Evaluating expressions)
+## Date(01/01/10)
+## Institution(Fort Lewis College)
+## Author(Paul Pearson)
+## Level(2)
+## MO(1)
+## TitleText1('Algebra: Form and Function')
+## AuthorText1('McCallum, Connally, and Hughes-Hallett')
+## EditionText1('1')
+## Section1('1.1')
+## Problem1('4')
+## KEYWORDS('Expressions')
+
+
+########################################
+#  Initialization
+
+DOCUMENT();   
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"PGcourse.pl",    
+);     
+
+TEXT(beginproblem());
+
+#######################################
+#  Set-up
+
+Context("Numeric");
+#Context()->variables->add(t=>"Real");
+
+$a = random(1,4,1);
+$b = random(2,9,1);
+$c = random(-9,-5,1);
+
+while ( abs($a+$c) == 1 ) { $c = random(-9,-5,1); }
+
+$absapc = abs($a + $c);
+
+$f = Formula("((x + $a)**2 / $absapc) - $b");
+
+$answer = $f->eval(x=>$c);
+
+################################################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Evaluate the expression 
+\( \displaystyle \frac{1}{$absapc} \big( x + $a \big)^2 - $b \) 
+when \( x = $c \).
+$BR
+$BR
+\{ ans_rule(10) \}
+\{ AnswerFormatHelp("number") \}
+
+END_TEXT
+
+Context()->normalStrings;
+
+################################################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 0;
+
+Context("LimitedNumeric");
+Context()->{error}{msg}{"Can't use '+' in this context"} 
+  = "Addition is disabled for this problem. Compute the result for yourself and resubmit your answer.";
+Context()->{error}{msg}{"Can't use '-' in this context"} 
+  = "Subtraction is disabled for this problem. Compute the result for yourself and resubmit your answer.";
+Context()->{error}{msg}{"Can't use '*' in this context"} 
+  = "Multiplication is disabled for this problem. Compute the result for yourself and resubmit your answer.";
+Context()->{error}{msg}{"Can't use '/' in this context"} 
+  = "Division is disabled for this problem. Compute the result for yourself and resubmit your answer.";
+Context()->{error}{msg}{"Can't use '^' in this context"} 
+  = "Exponents are disabled for this problem. Compute the result for yourself and resubmit your answer.";
+Context()->{error}{msg}{"Can't use '**' in this context"} 
+  = "Exponents are disabled for this problem. Compute the result for yourself and resubmit your answer.";
+$answer=Real($answer);
+
+ANS($answer->cmp());
+
+
+;
+ENDDOCUMENT();

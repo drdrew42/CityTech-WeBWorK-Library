@@ -1,0 +1,33 @@
+
+openDate          = 08/17/2012 at 05:44pm EDT
+dueDate           = 08/24/2012 at 05:44pm EDT
+answerDate        = 08/31/2012 at 05:44pm EDT
+paperHeaderFile   = defaultHeader
+screenHeaderFile  = defaultHeader
+problemList       = 
+Library/ASU-topics/setUnitCircle/srw5_2_1.pg, 1, -1 
+Library/NAU/setTrigAngles/Radian.pg, 1, -1 
+Library/NAU/setTrigAngles/QuadrantRadians.pg, 1, -1 
+Library/NAU/setTrigOtherFunctions/EvalOtherRad.pg, 1, -1 
+Library/NAU/setSineCosine/SinCosRad.pg, 1, -1 
+Library/Union/setTrigBasicValues/ur_tr_1_3a.pg, 1, -1 
+Library/Union/setTrigBasicValues/ur_tr_1_5.pg, 1, -1 
+Library/Union/setTrigBasicValues/ur_tr_1_6d.pg, 1, -1 
+Library/Union/setTrigBasicValues/ur_tr_1_6b.pg, 1, -1 
+Library/Union/setTrigBasicValues/ur_tr_1_3.pg, 1, -1 
+Library/LoyolaChicago/Precalc/Chap6Sec1/Q10.pg, 1, -1 
+Library/LoyolaChicago/Precalc/Chap6Sec1/Q02.pg, 1, -1 
+Library/LoyolaChicago/Precalc/Chap6Review/Q28.pg, 1, -1 
+Library/LoyolaChicago/Precalc/Chap6Review/Q18.pg, 1, -1 
+Library/LoyolaChicago/Precalc/Chap6Sec5/Q06b.pg, 1, -1 
+Library/LoyolaChicago/Precalc/Chap6Sec5/Q02.pg, 1, -1 
+Library/LoyolaChicago/Precalc/Chap6Sec5/Q24.pg, 1, -1 
+Library/LoyolaChicago/Precalc/Chap6Sec5/Q18.pg, 1, -1 
+Library/ASU-topics/setTrigGraphs/p3.pg, 1, -1 
+Library/ASU-topics/setTrigGraphs/p4.pg, 1, -1 
+Library/ASU-topics/setTrigGraphs/p2.pg, 1, -1 
+Library/Rochester/setTrig05Graphs/srw5_3_33.pg, 1, -1 
+Library/Rochester/setTrig05Graphs/srw5_3_11.pg, 1, -1 
+Library/Rochester/setTrig05Graphs/srw5_3_17.pg, 1, -1 
+Library/Rochester/setTrig05Graphs/srw5_3_23.pg, 1, -1 
+

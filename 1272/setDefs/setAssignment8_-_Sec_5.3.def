@@ -1,0 +1,12 @@
+
+openDate          = 06/17/2013 at 08:00am EDT
+dueDate           = 06/25/2013 at 01:00am EDT
+answerDate        = 06/25/2013 at 01:00am EDT
+paperHeaderFile   = local/opt/webwork/webwork2/conf/snippets/JREITZDefaultsetHeader.pg
+screenHeaderFile  = local/opt/webwork/webwork2/conf/snippets/JREITZDefaultsetHeader.pg
+problemList       = 
+local/Library/NAU/setStatistics/normprob5 - ReitzEditSum13.pg, 3, -1 
+local/Library/NYCCT/Reitz/1272/normprob2.pg, 3, -1 
+local/Library/Rochester/setProbability10NormalDist/ur_pb_10_16-ReitzEditSum13.pg, 5, -1 
+Library/Rochester/setProbability10NormalDist/ur_pb_10_12.pg, 5, -1 
+

@@ -1,0 +1,80 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('Introduction')
+## DBsection('Nature of Solutions')
+## Date('06/08/2012')
+## Author('Anna Ghazaryan, Fuli Zhang')
+## Institution('Muohio')
+## TitleText1('Differential equations Theory Technique and Practice')
+## AuthorText1('George F. Simmons')
+## Section1('1.2')
+## Problem1('2,b')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"unionLists.pl",
+"parserPrime.pl",
+"parserPopUp.pl",
+"answerHints.pl",
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+#Context("Numeric")->variables->add(r=>"Real");
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+
+$answer[0] = Formula("1/2 e^(x^(2))");
+
+
+Context()->texStrings;
+BEGIN_TEXT
+$BR
+Let \( y'= xe^{x^{2}}\).
+$BR
+$BR
+Find the general solution of the following differential equation.
+$BR
+$BR
+\( y = \) 
+\{ ans_rule(20) \} +constant
+\{ AnswerFormatHelp("formulas") \}
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+$showPartialCorrectAnswers = 0;
+ANS( $answer[0]->cmp() );
+
+
+ENDDOCUMENT();    

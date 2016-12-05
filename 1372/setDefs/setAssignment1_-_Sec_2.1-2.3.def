@@ -1,0 +1,18 @@
+
+openDate          = 01/31/2013 at 08:00am EST
+dueDate           = 02/13/2013 at 01:00am EST
+answerDate        = 02/13/2013 at 01:01am EST
+paperHeaderFile   = local/opt/webwork/webwork2/conf/snippets/JREITZDefaultsetHeader.pg
+screenHeaderFile  = local//opt/webwork/webwork2/conf/snippets/JREITZDefaultsetHeader.pg
+problemList       = 
+Library/maCalcDB/setStatistics1Data/ur_stt_1_1.pg, 4, -1 
+Library/NAU/setStatistics/easy_histogram.pg, 3, -1 
+Library/maCalcDB/setStatistics1Data/ur_stt_1_4.pg, 6, -1 
+Library/maCalcDB/setStatistics1Data/ur_stt_1_5.pg, 6, -1 
+Library/ASU-topics/setStat/gust11.pg, 1, -1 
+Library/ASU-topics/setStat/kolossa14.pg, 1, -1 
+Library/UVA-Stat/setStat212-Homework01/stat212-HW01-17.pg, 6, -1 
+Library/UVA-Stat/setStat212-Homework01/stat212-HW01-18.pg, 6, -1 
+Library/UVA-Stat/setStat212-Homework02/stat212-HW02-10.pg, 1, -1 
+Library/ASU-topics/setStat/kolossa11.pg, 1, -1 
+

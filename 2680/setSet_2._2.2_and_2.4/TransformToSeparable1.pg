@@ -1,0 +1,90 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('')
+## DBsection('')
+## Date('9/8/2015')
+## Author('')
+## Institution('')
+## TitleText1('Elementary Differential Equations')
+## EditionText1('')
+## AuthorText1('Trench')
+## Section1('2.4')
+## Problem1('25')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+
+Context("Numeric");
+Context()->variables->{namePattern} = qr/[a-z][a-z0-9_]*'*/i;
+Context()->variables->are( y => "Real", t => "Real", c => "Real", "y'" => "Real", "x" => "Real" );
+$a = Real(non_zero_random(3,6,1));
+$a1= Formula("2-$a");
+$a2= Formula("2+$a");
+$a3= Formula("1+$a");
+$k = Real(non_zero_random(2,4,1));
+$b = Real(non_zero_random(2,9,1));
+$b1=Formula("$b-1");
+$c = Real(non_zero_random(2,9,1));
+$d = Real(non_zero_random(2,9,1));
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+Find the general solution to the differential equation by transforming into a separable equation.
+\[ y' = \frac{y^2 + $a1 x - $a x^2}{x^2}\]
+$BR 
+General solution: \(y = \) \{ans_rule(50)\}
+$BR
+$BR
+$BR
+Find the solution that cannot be found by the above method.
+$BR
+$BR  
+Solution: \(y = \) \{ans_rule(50)\}
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS(Formula("($a*x + c*x^($a2))/(1-c*x^($a3))") ->cmp);
+ANS(Formula("-x") ->cmp);
+
+
+
+ENDDOCUMENT();        

@@ -1,0 +1,314 @@
+assignmentType      = default
+openDate          = 02/07/2012 at 03:14pm EST
+reducedScoringDate = 12/31/1969 at 07:00pm EST
+dueDate           = 03/15/2012 at 04:14pm EDT
+answerDate        = 03/15/2012 at 04:14pm EDT
+enableReducedScoring = N
+paperHeaderFile   = hardHeader.pg
+screenHeaderFile  = setHeader.pg
+description       = 
+restrictProbProgression = 
+emailInstructor   = 
+
+problemListV2 
+problem_start
+problem_id = 1
+source_file = Library/CollegeOfIdaho/setAlgebra_05_01_IntroPolynomials/51IntAlg_19_PolyAddSub.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 2
+source_file = Library/CollegeOfIdaho/setAlgebra_05_01_IntroPolynomials/51IntAlg_20_PolyAddSub.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 3
+source_file = Library/CollegeOfIdaho/setAlgebra_05_01_IntroPolynomials/51IntAlg_15_PolyAddSub.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 4
+source_file = Library/CollegeOfIdaho/setAlgebra_05_01_IntroPolynomials/51IntAlg_21_PolyAddSub.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 5
+source_file = Library/CollegeOfIdaho/setAlgebra_05_01_IntroPolynomials/51IntAlg_23_PolyAddSub.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 6
+source_file = Library/CollegeOfIdaho/setAlgebra_05_01_IntroPolynomials/51IntAlg_16_PolyAddSub.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 7
+source_file = Library/CollegeOfIdaho/setAlgebra_05_01_IntroPolynomials/51IntAlg_14_PolyAddSub.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 8
+source_file = Library/CollegeOfIdaho/setAlgebra_05_01_IntroPolynomials/51IntAlg_22_PolyAddSub.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 9
+source_file = Library/CollegeOfIdaho/setAlgebra_05_02_MultiplyPolynomials/52IntAlg_09_MultPoly.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 10
+source_file = Library/CollegeOfIdaho/setAlgebra_05_02_MultiplyPolynomials/52IntAlg_03_MultPoly.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 11
+source_file = Library/CollegeOfIdaho/setAlgebra_05_02_MultiplyPolynomials/52IntAlg_15_MultPoly.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 12
+source_file = Library/CollegeOfIdaho/setAlgebra_05_02_MultiplyPolynomials/52IntAlg_12_MultPoly.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 13
+source_file = Library/CollegeOfIdaho/setAlgebra_05_02_MultiplyPolynomials/52IntAlg_06_MultPoly.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 14
+source_file = Library/CollegeOfIdaho/setAlgebra_05_02_MultiplyPolynomials/52IntAlg_24_MultPoly.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 15
+source_file = Library/CollegeOfIdaho/setAlgebra_05_02_MultiplyPolynomials/52IntAlg_04_MultPoly.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 16
+source_file = Library/CollegeOfIdaho/setAlgebra_05_02_MultiplyPolynomials/52IntAlg_18_MultPoly.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 17
+source_file = Library/CollegeOfIdaho/setAlgebra_05_02_MultiplyPolynomials/52IntAlg_21_MultPoly.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 18
+source_file = Library/CollegeOfIdaho/setAlgebra_05_02_MultiplyPolynomials/52IntAlg_08_MultPoly.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 19
+source_file = Library/CollegeOfIdaho/setAlgebra_05_02_MultiplyPolynomials/52IntAlg_19_MultPoly.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 20
+source_file = Library/CollegeOfIdaho/setAlgebra_05_02_MultiplyPolynomials/52IntAlg_16_MultPoly.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 21
+source_file = Library/CollegeOfIdaho/setAlgebra_05_02_MultiplyPolynomials/52IntAlg_10_MultPoly.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 22
+source_file = Library/CollegeOfIdaho/setAlgebra_05_02_MultiplyPolynomials/52IntAlg_20_MultPoly.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 23
+source_file = Library/CollegeOfIdaho/setAlgebra_05_02_MultiplyPolynomials/52IntAlg_14_MultPoly.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 24
+source_file = Library/CollegeOfIdaho/setAlgebra_05_02_MultiplyPolynomials/52IntAlg_22_MultPoly.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 25
+source_file = Library/CollegeOfIdaho/setAlgebra_05_02_MultiplyPolynomials/52IntAlg_07_MultPoly.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 26
+source_file = Library/CollegeOfIdaho/setAlgebra_05_02_MultiplyPolynomials/52IntAlg_26_MultPoly.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 27
+source_file = Library/CollegeOfIdaho/setAlgebra_05_02_MultiplyPolynomials/52IntAlg_05_MultPoly.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 28
+source_file = Library/CollegeOfIdaho/setAlgebra_05_02_MultiplyPolynomials/52IntAlg_23_MultPoly.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 29
+source_file = Library/CollegeOfIdaho/setAlgebra_05_02_MultiplyPolynomials/52IntAlg_25_MultPoly.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 30
+source_file = Library/CollegeOfIdaho/setAlgebra_05_02_MultiplyPolynomials/52IntAlg_11_MultPoly.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+

@@ -1,0 +1,98 @@
+##DESCRIPTION
+##  Differential equations Separation of variables
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equation')
+
+## DBsubject('Differential Equations')
+## DBchapter('')
+## DBsection('')
+## Date('9/2/2015')
+## Author('Poirier')
+## Institution('NYCCT')
+## TitleText1('Elementary Differential Equations')
+## EditionText1('1.01')
+## AuthorText1('Trench')
+## Section1('2.2')
+## Problem1('')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->variables->{namePattern} = qr/[a-z][a-z0-9_]*'*/i;
+Context()->variables->are( y => "Real", t => "Real", c => "Real", "y'" => "Real", "x" => "Real" );
+$a = Real(non_zero_random(2,9,1));
+$a1= Formula("$a+1");
+$k = Real(non_zero_random(2,4,1));
+$b=Formula("2*$k +1");
+$b1=Formula("$b-1");
+$c = Real(non_zero_random(2,9,1));
+$d = Real(non_zero_random(2,9,1));
+
+$Hy = Formula("y^2+y");
+$Gx = Formula("1/($a1) x^($a1)");
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+Solve the initial value problem implicitly as \(H(y) = G(x) + c\).
+
+\[ y' = \frac{x^{$a}}{1+2y}, \quad y($b) = 0\]
+
+\(H(y) = \) \{ans_rule(30)\}
+
+$BR
+
+\(G(x) = \) \{ans_rule(30)\}
+
+$BR
+
+\(c=\) \{ans_rule(30)\}
+
+$BR
+
+(Hint: neither \(H(y)\) nor \(G(x)\) should have a non-zero constant term.)
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($Hy ->cmp);
+ANS($Gx ->cmp);
+ANS(Formula("-1/($a1)*($b)^($a1)") ->cmp);
+
+
+
+ENDDOCUMENT();        

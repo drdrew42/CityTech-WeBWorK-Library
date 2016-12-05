@@ -1,0 +1,87 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('Modeling with First-Order Differential Equations')
+## DBsection('Linear Model')
+## Date('05/28/2012')
+## Author('Anna Ghazaryan, Fuli Zhang')
+## Institution('Muohio')
+## TitleText1('Differential equations with Boundary-value problem')
+## AuthorText1('Dennis G. Zill')
+## Section1('3.1')
+## Edition('7')
+## Problem1('27')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"unionLists.pl",
+"parserPrime.pl",
+"parserPopUp.pl",
+"answerHints.pl",
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#Setup 
+
+Context("Numeric");
+Context()->variables->are(
+x=>"Real",
+t=>"Real",Deltat=>"Real",
+c=>"Real",
+);
+
+##############################################################
+#
+#  Text
+#
+#
+
+
+
+
+
+$answer[0] = Compute("64.38");
+
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+A large tank is partially filled with 100 gallons of fluid in which 10 pounds of salt is dissolved. Brine containing 1/2 pound of salt per gallon is pumped into the tank at a rate of 6 gal/min. The well-mixed solution is then pumped out at a slower rate of 4 gal/min. Find the number of pounds of salt in the tank after 30 minutes.
+$BR
+$BR
+ \(A(30)=\)\{ans_rule(15)\} pounds.
+
+ 
+\{ AnswerFormatHelp("formulas") \}
+
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+$showPartialCorrectAnswers = 0;
+ANS( $answer[0]->cmp() );
+
+
+ENDDOCUMENT();lim 

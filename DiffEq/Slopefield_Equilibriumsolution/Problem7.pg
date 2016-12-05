@@ -1,0 +1,140 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('First-order differential equations')
+## DBsection('Solution curves without a solution)
+## Date('05/28/2012')
+## Author('Anna Ghazaryan')
+## Institution('Muohio')
+## TitleText1('Differential equations with Boundary-value problem')
+## AuthorText1('Dennis G.Zill')
+## Section1('2.1')
+## Edition('7')
+## Problem1('8')
+
+###############################################################
+
+
+
+DOCUMENT(); 
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGgraphmacros.pl",
+"unionTables.pl",
+);
+
+TEXT(beginproblem());
+
+$refreshCachedImages = 1;
+
+#############################
+#  Setup
+
+Context("Numeric");
+Context()->variables->add(y=>"Real",k=>"Real");
+
+#
+#  Graph canvas setup
+#
+$htmlsize = 400;
+$texsize  = 600;
+
+$gr = init_graph(-5,-5,5,5,axes=>[0,0],size=>[$htmlsize,$htmlsize],grid=>[12,12]);
+$gr->lb('reset');
+foreach my $i (1,2,3,4) {
+  $gr->lb( new Label( $i,-0.1, $i,'black','center','middle'));
+  $gr->lb( new Label(-$i,-0.1,-$i,'black','center','middle'));
+  $gr->lb( new Label(-0.05, $i, $i,'black','right','middle'));
+  $gr->lb( new Label(-0.05,-$i,-$i,'black','right','middle'));
+}
+$gr->lb( new Label(2.75,0.1,'x','black','center','middle'));
+$gr->lb( new Label(0.1,2.75,'y','black','center','middle'));
+$gr->new_color("dodgerblue",30, 144, 255); 
+
+
+#
+#  
+#
+$dx = sub{my ($x,$y) = @_; $y; };
+$dy = sub{my ($x,$y) = @_; 1; };
+ 
+
+$vf = new VectorField( $dx, $dy, $gr );
+
+$vectorscale = 0.15;
+
+$vf->arrow_weight(2);
+$vf->arrow_color("dodgerblue");
+$vf->dot_radius(0);
+$vf->dot_color("dodgerblue");
+$vf->x_steps(24); 
+$vf->y_steps(24); 
+$vf->rf_arrow_length( sub{
+  my($dx,$dy)=@_;
+  return(0) if sqrt($dx**2 + $dy**2)==0;
+  $vectorscale*1/sqrt($dx**2 + $dy**2);
+});
+
+
+
+$answer[0] = Formula("-1.5");
+$answer[1] = Formula("2");
+$answer[2] = Formula("-2");
+$answer[3] = Formula("-2");
+
+
+#############################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+\{ 
+ColumnTable(
+"Consider the slope field shown.
+$BR
+$BR  
+(a) For the solution that satisfies 
+\( y(0) = 1 \), sketch the solution curve 
+and estimate the following:
+$BR
+\( y(-1) \approx \) ".ans_rule(10)."
+and
+\( y(1) \approx \) ".ans_rule(10)."
+$BR
+$BR  
+(b) For the solution that satisfies 
+\( y(-2) = -1 \), sketch the solution curve
+and estimate the following:
+$BR
+\( y(-4) \approx \) ".ans_rule(10)."
+and
+\( y(-1) \approx \) ".ans_rule(10)
+
+,
+$BCENTER.
+image(insertGraph($gr),width=>$htmlsize,height=>$htmlsize,tex_size=>$texsize).
+$ECENTER
+,
+indent => 0, separation => 30, valign => "TOP"
+);
+\}
+END_TEXT
+Context()->normalStrings;
+
+
+############################
+#  Answers
+
+$showPartialCorrectAnswers = 1;
+
+foreach my $i (0..3) {
+  ANS( $answer[$i]->cmp(tolType=>absolute, tolerance=>0.5) );
+}
+COMMENT("MathObject version.");
+
+ENDDOCUMENT();

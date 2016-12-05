@@ -1,0 +1,108 @@
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "PGML.pl",
+   "contextLimitedPowers.pl"
+);
+
+###########################
+#
+# Subclass the numeric functions
+#
+package my::Function::numeric;
+our @ISA = ('Parser::Function::numeric');
+
+#
+# Override log() to return a special value (usually 1) when evaluated
+# effectively eliminating it from the product.
+#
+sub log {
+  my $self = shift;
+  my $value = $self->context->flag("setLog");
+  return $value+1 if $value && $_[0] == 10; # force log(10) to be incorrect
+  return $value if $value;
+  return $self->SUPER::log(@_);
+}
+
+#
+# end of subclass
+#
+package main;
+
+###########################
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(reduceConstants=>0, reduceConstantFunctions=>0);
+Context()->functions->set(log=>{class=>'my::Function::numeric'});
+Context()->variables->are(x => ["Real", limits => [0.1,2]],y => ["Real", limits => [0.1,2]],z => ["Real", limits => [0.1,2]]);
+
+$logCheck = sub {
+  my ($correct,$student,$ans) = @_;
+  return 0 if $ans->{isPreview} || $correct != $student;
+  #
+  #  Get parsed formula for student and correct answers
+  #
+  $student = $ans->{student_formula};
+  $correct = $correct->{original_formula} if defined $correct->{original_formula};
+  #
+  # check if equal when logs are replaced by 1
+  #
+  Context()->flags->set(setLog => 1);
+  delete $correct->{test_values}, $student->{test_values};
+  my $OK = ($correct == $student);
+  Context()->flags->set(setLog => 0);
+  delete $correct->{test_values}, $student->{test_values};
+  Value::Error("Your answer doesn't seem to be written as a single logarithm.") unless $OK;
+  return $OK;
+};
+
+LimitedPowers::OnlyPositiveIntegers();
+
+
+$m = random(3,9,2);
+do { $n = random(3,9,2); } until ($m != $n);
+
+
+$exp1 = Formula("log( ( x^$m z^$n )/ sqrt(y) )");
+$exp2 = Formula("log( sqrt(x) / ( y^$n z^$m) )");
+$exp3 = Formula("log( sqrt(x^$n / (y^$m z^$n)) )");
+
+$ans1 = Formula("$m log(x)+ $n log(z)- (1/2) log(y)");
+$ans2 = Formula("(1/2) log(x)-$n log(y)-$m log(z)");
+$ans3 = Formula("($n/2) log(x)-($m/2) log(y)-($n/2) log(z)");
+
+##############################################################
+#
+#  Text
+#
+#
+
+BEGIN_PGML
+
+Condense the following expressions into a single logarithm by applying the properties of logarithms.
+
+>> [`` [$ans1] = ``] [____________]{$exp1->cmp(checker=>$logCheck)} <<
+
+>> [`` [$ans2] = ``] [____________]{$exp2->cmp(checker=>$logCheck)} <<
+
+>> [`` [$ans3] = ``] [____________]{$exp3->cmp(checker=>$logCheck)} <<
+
+* You are only allowed to use integer exponents.
+* Use _sqrt(...)_ to deal with fractional exponents.
+* Make sure your final answer is written as a single logarithm.
+END_PGML
+
+ENDDOCUMENT();        

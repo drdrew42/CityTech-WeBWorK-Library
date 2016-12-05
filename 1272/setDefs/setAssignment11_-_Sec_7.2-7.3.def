@@ -1,0 +1,12 @@
+
+openDate          = 06/24/2013 at 08:00am EDT
+dueDate           = 07/02/2013 at 01:00am EDT
+answerDate        = 07/02/2013 at 01:00am EDT
+paperHeaderFile   = local/opt/webwork/webwork2/conf/snippets/JREITZDefaultsetHeader.pg
+screenHeaderFile  = local/opt/webwork/webwork2/conf/snippets/JREITZDefaultsetHeader.pg
+problemList       = 
+local/Library/NYCCT/Reitz/1272/HypothesisTesting1.pg, 8, -1 
+Library/Rochester/setStatistics4HypothesisTesting/ur_stt_4_7.pg, 8, -1 
+local/Library/NYCCT/Reitz/1272/kolossa37-HypothesisTestingSmallSample-ReitzEdit.pg, 8, -1 
+local/Library/NYCCT/Reitz/1272/kolossa38-HypothesisTestingSmallSample-ReitzEdit.pg, 8, -1 
+

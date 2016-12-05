@@ -1,0 +1,101 @@
+###DESCRIPTION
+## Polynomials
+## 
+##ENDDESCRIPTION
+## DBsubject(Algebra)
+## DBchapter(Polynomials, polynomial functions, and factoring)
+## DBsection('Introduction to Polynomials and Polynomial Functions')
+## KEYWORDS('polynomials')
+## TitleText1('Essentials of Intermediate Algebra')
+## EditionText1('1')
+## AuthorText1('Blitzer')
+## Section1('5.1')
+## Problem1('')
+## Author('RA Cruz, Parker')
+## Institution('The College of Idaho, City Tech')
+## Date('2/15/2016')
+
+DOCUMENT(); # This should be the first executable line in the problem.
+
+loadMacros(
+  "PGstandard.pl",
+  "PGchoicemacros.pl",
+  "MathObjects.pl"
+);
+
+TEXT(beginproblem());
+
+######################################
+#  Setup
+
+$a= non_zero_random(-3,3,1);  
+$b= random(-3,3,1);  
+$c= random(1,5,1);
+
+$p = Formula("$a x^3+$b x^2+$c x"); #Use this to build the polynomial
+
+$input1 = list_random(-3,-2,2,3);   #Input2 is a zero of the polynomial.
+$input2 = -1*$input1 + non_zero_random(-1,1,2);
+
+$d= $p->eval(x=>$input2);
+$f = Compute($p - $d)->reduce('(-x)-y'=>0,'(-x)*y'=>0);
+$poly = $f->TeX;
+
+#----Scramble the input
+@input = ($input1, $input2, 0);
+@slice = NchooseK(3,3);
+@x = @input[@slice];      #Want one positive, negative and zero
+                        
+######################################
+#  Main text
+
+BEGIN_TEXT
+Evaluate the following for the function
+
+ \[ f(x) =  $poly   \]
+
+$BR
+$BR
+a) \( f($x[0]) \) = \{ans_rule(15)\}
+$BR
+$BR
+b) \( f($x[1]) \) = \{ans_rule(15)\}
+$BR
+$BR
+c) \( f($x[2]) \) = \{ans_rule(15)\}
+$BR
+END_TEXT
+
+######################################
+#  Answer
+
+Context("LimitedNumeric");
+Context()->{error}{msg}{"Can't use '+' in this context"} 
+  = "Addition is disabled for this problem. Compute the result for yourself and resubmit your answer.";
+Context()->{error}{msg}{"Can't use '-' in this context"} 
+  = "Subtraction is disabled for this problem. Compute the result for yourself and resubmit your answer.";
+Context()->{error}{msg}{"Can't use '*' in this context"} 
+  = "Multiplication is disabled for this problem. Compute the result for yourself and resubmit your answer.";
+Context()->{error}{msg}{"Can't use '/' in this context"} 
+  = "Division is disabled for this problem. Compute the result for yourself and resubmit your answer.";
+Context()->{error}{msg}{"Can't use '^' in this context"} 
+  = "Exponents are disabled for this problem. Compute the result for yourself and resubmit your answer.";
+Context()->{error}{msg}{"Can't use '**' in this context"} 
+  = "Exponents are disabled for this problem. Compute the result for yourself and resubmit your answer.";
+
+$ans_a = $f->eval(x=>$x[0]);
+ANS(Real($ans_a)->cmp);
+
+$ans_b = $f->eval(x=>$x[1]);
+ANS(Real($ans_b)->cmp);
+
+$ans_c = $f->eval(x=>$x[2]);
+ANS(Real($ans_c)->cmp);
+
+$showPartialCorrectAnswers = 1;
+
+######################################
+
+
+COMMENT('MathObject version');
+ENDDOCUMENT();

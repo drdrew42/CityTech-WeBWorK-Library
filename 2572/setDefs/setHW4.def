@@ -1,0 +1,20 @@
+
+openDate          = 02/26/2013 at 08:28am EST
+dueDate           = 03/05/2013 at 08:28am EST
+answerDate        = 03/12/2013 at 09:28am EDT
+paperHeaderFile   = defaultHeader
+screenHeaderFile  = defaultHeader
+problemList       = 
+Library/ASU-topics/setStat/dueck5_2_2.pg, 1, -1 
+Library/ASU-topics/setStat/dueck5_3_5.pg, 1, -1 
+Library/ASU-topics/setStat/dueck5_1_5.pg, 1, -1 
+Library/ASU-topics/setStat/dueck5_2_5.pg, 1, -1 
+Library/ASU-topics/setStat/dueck5_3_6.pg, 1, -1 
+Library/NAU/setProbability/compprob4.pg, 1, -1 
+Library/NAU/setProbability/samplespace.pg, 1, -1 
+local/HW4/compprob7.pg, 1, -1 
+Library/NAU/setProbability/and_or.pg, 1, -1 
+Library/NAU/setProbability/sspaces1.pg, 1, -1 
+Library/NAU/setProbability/dice.pg, 1, -1 
+Library/NAU/setProbability/card.pg, 1, -1 
+

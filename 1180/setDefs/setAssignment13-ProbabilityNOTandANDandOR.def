@@ -1,0 +1,14 @@
+
+openDate          = 06/18/2012 at 07:01am EDT
+dueDate           = 06/25/2012 at 11:59pm EDT
+answerDate        = 06/26/2012 at 12:01am EDT
+paperHeaderFile   = local/opt/webwork/webwork2/conf/snippets/ReitzHeaderBASIC.pg
+screenHeaderFile  = local/opt/webwork/webwork2/conf/snippets/ReitzHeaderBASIC.pg
+problemList       = 
+Library/Rochester/setProbability3Events/p3.pg, 5, -1 
+Library/Rochester/setProbability3Events/p4.pg, 6, -1 
+Library/ASU-topics/setStat/dueck5_2_4.pg, 5, -1 
+Library/NAU/setProbability/compprob5.pg, 6, -1 
+Library/Rochester/setProbability3Events/ur_pb_3_7.pg, 5, -1 
+Library/ASU-topics/setProbability/cond12.pg, 8, -1 
+

@@ -1,0 +1,93 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject('Arithmetic')
+## DBchapter('Integers')
+## DBsection('Division')
+## Date('6/10/2015')
+## Author('K. Andrew Parker')
+## Institution('NYC City Tech')
+## TitleText1('')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "parserPopUp.pl",
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+# Allow students to "Show Me Another" after finishing correctly
+# ProblemRandomize(when=>"Correct",onlyAfterDue=>0);
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer=>"parsed"
+   );
+
+ @prime = ( 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 );
+
+ $X = Real($prime[random(0,1,1)]);
+ $Y = Real($prime[random(0,2,1)]);
+ $Z = Real($prime[random(2,4,1)]);
+ $XYZList = List( $X, $Y, $Z );
+ $XYZ = Real($X*$Y*$Z);
+ $XY = Real($X*$Y);
+ $XYList = List( $Y, $X );
+ $ZList = List( $Z );
+ $YESNoMC = PopUp(["?", "Yes.", "No."], "Yes.");
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+What is \( $XYZ \div $XY \) ?
+$PAR
+First, do a factor tree and list the prime factors of $XYZ : \{ans_rule(10)\}
+$PAR
+Then, do a factor tree and list the prime factors of $XY : \{ans_rule(5)\}
+$PAR
+List the factors that are missing from $XY 's list: \{ ans_rule(5)\}
+$PAR
+Multiply together the list of missing primes: \{ans_rule(5)\}
+$PAR
+Check your work. Does your final answer multiply with $XY to make $XYZ ? \{ $YESNoMC->menu() \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( $XYZList->cmp(showLengthHints=>1, ordered=>0) );
+ANS( $XYList->cmp(showLengthHints=>1, ordered=>0) );
+ANS( $ZList->cmp(showLengthHints=>1, ordered=>0) );
+ANS( $Z->cmp() );
+ANS( $YESNoMC->cmp() );
+
+ENDDOCUMENT();        

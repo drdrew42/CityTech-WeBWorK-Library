@@ -1,0 +1,93 @@
+#DESCRIPTION
+##Type of
+#ENDDESCRIPTION
+## Date('2/12/2016')
+## Author('Parker')
+## Institution('City Tech')
+
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+"MathObjects.pl",
+"contextScientificNotation.pl",
+);
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+@VeryPrecise=(zeroLevel=>1E-100,zeroLevelTol=> 1E-100);
+Context("Numeric")->flags->set(@VeryPrecise);
+
+$n1 = random(3,8,1);
+$N = $n1+2;
+Context()->flags->set(format => "%.${N}f"); #make sure the decimal is displayed properly
+$a1 = (random(210,990,10)+random(1,9,1))/100; 
+$d1 = $a1*100; #for use in solution
+$real1 = Real("$a1*10**(-$n1)");
+
+$n2 = random(3,8,1);
+$a2 = random(226,981,17)/100;
+$d2 = $a2*100; #for use in solution
+$real2 = Real("$a2*10**($n2)");
+
+$n3 = random(5,11,1);
+$a3 = random(17,97,5)/10;
+$d3 = $a3*10; #for use in solution
+$real3 = Real("$a3*10**($n3)");
+
+Context()->texStrings; 
+BEGIN_TEXT
+
+1)  Write \($real1\) in scientific notation: \{ans_rule(10)\} $PAR
+
+END_TEXT
+Context()->flags->set(format => "%.1f"); # keep students from "counting the zeros"
+BEGIN_TEXT
+
+2)  Write \($real2\) in scientific notation: \{ans_rule(10)\} $PAR
+3)  Write \($a3 \times 10^{$n3}\) in standard notation: \{ans_rule(10)\} $PAR
+
+END_TEXT 
+Context()->normalStrings;
+
+Context("ScientificNotation");
+Context()->operators->add(
+  '*' => {precedence => 3, associativity => 'left', type => 'bin',
+    TeX => '\times ', class => 'ScientificNotation::BOP::x'},
+);
+$sn1 = ScientificNotation($real1);
+$sn2 = ScientificNotation($real2);
+
+ANS($sn1->cmp());
+ANS($sn2->cmp());
+ANS($real3->cmp());
+
+Context()->flags->set(format => "%.${N}f#"); #make sure the decimal is displayed properly
+Context()->texStrings;
+BEGIN_SOLUTION
+
+$PAR Solution: $PAR
+1) First, $real1 is a very tiny number - so we already know that in scientific notation, our exponent of ten MUST be negative. Then we identify the significant digits for this number: $d1. Proper scientific notation dictates that we must have one (and ONLY one) non-zero digit before the decimal point - so our goal is to get our significant digits to look like $a1. How many decimal places did our digits shift in order to go from $real1 to $a1? It counts out to a $n1 decimal place shift. So our final result is \( $a1 \times 10^{$n1} \).
+$PAR
+2) $real2 is a large number - so the exponent of ten will be positive.$BR
+Identify the significant digits: $d2 $BR
+Determine where we want the decimal place to end up for scientific notation: $a2 $BR
+Count the shift in decimal places: $n2 $BR
+Final result: \( $a2 \times 10^$n2 \)
+$PAR
+3) \( $a3 \times 10^$n3 \) suggests that we are talking about a much larger number than just $a3 $BR Each time we multiply by ten, the significant digits shift to the next higher decimal place. $BR If we repeat this $n3 times, we end up with $real3
+  
+END_SOLUTION
+
+COMMENT('MathObject version');
+ENDDOCUMENT();
+## DBsubject(Algebra)
+## DBchapter(Algebra of real numbers and simplifying expressions)
+## DBsection(Scientific notation)
+## MO(1)
+
+
+
+

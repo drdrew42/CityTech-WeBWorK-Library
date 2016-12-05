@@ -1,0 +1,83 @@
+##DESCRIPTION
+##  Differential Equation
+##ENDDESCRIPTION
+
+##KEYWORDS('Differential equaltion')
+
+## DBsubject('Differential Equation')
+## DBchapter('Higher-Order DE')
+## DBsection('Section 4.2 Reduction of Order')
+## Date('02/23/2012')
+## Author('Anna Ghazaryan,Fuli Zhang')
+## Institution('Miami University')
+## TitleText1('A First Course in Differential Equation')
+## EditionText1('9')
+## AuthorText1('Dennis G.Zill')
+## Section1('4.2')
+## Problem1('7')
+
+
+
+##############################
+#  Initialization
+
+DOCUMENT(); 
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"parserMultiAnswer.pl",
+);
+
+TEXT(beginproblem());
+
+
+#############################
+#  Setup
+
+Context("Numeric")->variables->add(y=>"Real",c1=>"Real",c2=>"Real");
+
+
+$answer= Formula("xe^(2x/3)");
+
+
+
+######################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+Use the formula the reduction of order method to find a second solution\(\ y_2(x)\ \)(barest form) of the given differential equation with the given first solution\(\ y_1(x)\ \). Form the general solution.
+$BR
+$BR
+\(9y''-12y'+4y=0\),\(\ \ \ y_1(x)=e^{2x/3}\)
+$BR
+$BR
+\(y(x)=C_1e^{2x/3}+C_2\)\{ ans_rule(15) \}
+
+END_TEXT
+Context()->normalStrings;
+
+########################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 1;
+
+ANS(  $answer->cmp(checker => sub {
+      my ( $correct, $student, $self ) = @_;
+      my $context = Context()->copy;
+      return 0 if $student == 0;
+      $context->flags->set(no_parameters=>0);
+      $context->variables->add('C0'=>'Parameter');
+      my $c0 = Formula($context,'C0');
+      $student = Formula($context,$student);
+      $correct = Formula($context,"$c0 * $answer");
+      return $correct == $student;}
+    
+ ));
+
+
+
+COMMENT("MathObject version.");
+
+ENDDOCUMENT();

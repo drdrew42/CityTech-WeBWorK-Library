@@ -1,0 +1,128 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject('Algebra')
+## DBchapter('Fundamentals')
+## DBsection('Real Numbers')
+## Date('6/3/2002')
+## Author('')
+## Institution('')
+## TitleText1('Precalculus')
+## EditionText1('3')
+## AuthorText1('Stewart, Redlin, Watson')
+## Section1('1.1')
+## Problem1('22')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "parserImplicitEquation.pl",
+   "contextFraction.pl",
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->variables->are( x => "Real", y => "Real", c => "Real" );
+Context()->variables->set(x => {limits => [10,12]});
+
+$m = Real(random(2,8,2));
+$n = Real(random(2,8,2));
+$p = $n + 1;
+$y0 = Real(non_zero_random(0,10,0.1));
+$c = Real(($y0)**($n+1));
+$hom = Formula("($m x ^ ($m - 1))/(y^($n) + x^($m) y^($n))");
+$gen = Formula("(ln( 1 + x ^ $m ) + c)^(1 / ($n + 1))"); 
+$sol = Formula("(ln( 1 + x ^ $m ) + $c)^(1 / ($n + 1))");
+$int = Interval("(-inf,inf)");
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+Separate the following differential equation and integrate to find the general solution:
+$BR
+\( $p y' = $hom \)
+$BR
+$BR
+Then give the particular solution that satisfies the initial condition \(y(0) = $y0\) and state the interval on which this solution is valid.
+$BR
+$BR
+General Solution (explicitly): \(y(x)=\) \{$gen->ans_rule\}
+$BR
+Particular Solution (explicitly): \(y(x)=\) \{$sol->ans_rule\}
+$BR
+Interval of Validity: \{$int->ans_rule\}
+$BR
+END_TEXT
+
+$showHint = 5;
+BEGIN_TEXT
+$PAR
+If you don't get this in $showHint tries, you can get a hint.
+END_TEXT
+BEGIN_HINT
+Make sure you've adjusted to the variables appearing in this problem: \(y\) is dependent upon \(x\) as the independent variable.
+$BR
+$BR
+END_HINT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+#ANS($mu->cmp);
+ANS($gen->cmp( checker=>sub {
+ my($correct,$student,$ansHash)=@_;
+
+ my $dstudent=$student->D('x');
+ my $lhs=Formula("$p * $dstudent");
+ my $rhs=Formula("($m * x ^ ($m - 1))/(($student)^($n) * ( 1 + x^($m) ))");
+
+ my $studentC=Formula("($student)^($n + 1) - ln(1 + x^($m))");
+ my $dstudentC=$studentC->D('c');
+ my $ddstudentC=$dstudentC->D('c');
+
+ if (($lhs==$rhs) && ($ddstudentC==Formula("0"))) {
+  if ($dstudentC != Formula("0")) {
+   return 1}
+  else {
+   Value->Error("Your answer is not the most general solution, you should have 'c' in your answer as a parameter for the general family of solutions.")}
+  }
+ else {
+  return 0};
+}));
+ANS($sol->cmp);
+ANS($int->cmp);
+# relative tolerance --3.1412 is incorrect but 3.1413 is correct
+# default tolerance is .01 or one percent.
+
+
+ENDDOCUMENT();        

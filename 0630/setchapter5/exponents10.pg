@@ -1,0 +1,71 @@
+##DESCRIPTION
+## Simplify Exponents
+## 
+##ENDDESCRIPTION
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of exponents)
+## Date('2/12/2016')
+## Author('Parker')
+## Institution('City Tech')
+## KEYWORDS('real numbers','algebraic expressions')
+##Library/CollegeOfIdaho/setAlgebra_01_06_Exponents/16IntAlg_04_Exponents.pg
+## Fixed unsimplified monomials being marked correct
+
+DOCUMENT();        # This should be the first executable line in the problem.
+
+loadMacros(
+  "PGstandard.pl",
+  "MathObjects.pl",
+  "contextLimitedPolynomial.pl",
+  "answerHints.pl"
+);
+
+TEXT(beginproblem());
+
+######################################
+#  Setup
+
+Context("LimitedPolynomial-Strict");
+@alphabet = ("a","b","x","y");
+$choose = random(0,2,2);
+$var1 = $alphabet[ $choose ];
+$var2 = $alphabet[ $choose + 1 ];
+Context()->variables->are($var1=>'Real',
+                          $var2=>'Real');
+
+$n = random(2,15,1);
+$m = random(2,15,1);
+$nn = random(2,15,1);
+$mm = random(2,15,1);
+$num1 = random(2,10,1);
+$num2 = random(2,10,1);
+
+######################################
+#  Main text
+
+BEGIN_TEXT
+Multiply using the product rule, and write your answer using positive exponents only: 
+$PAR
+\(($num1 $var1^{$n} $var2^{$nn})($num2 $var1^{$m} $var2^{$mm}) \) =  \{ ans_rule(20) \}
+END_TEXT
+
+######################################
+#  Answers
+
+# Context()->operators->set(@LimitedPowers::OnlyPositiveIntegers);
+
+$ans_coeff = $num1*$num2;
+$ans_exp1 = $n+$m;
+$ans_exp2 = $nn+$mm;
+$ans=Formula(" $ans_coeff*$var1^($ans_exp1)*$var2^($ans_exp2)")->reduce;
+
+ANS($ans->cmp);
+
+$showPartialCorrectAnswers = 1;
+
+######################################
+
+
+COMMENT('MathObject version');
+ENDDOCUMENT();

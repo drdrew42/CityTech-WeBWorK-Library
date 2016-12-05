@@ -1,0 +1,91 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('Modeling with First-Order Differential Equations')
+## DBsection('Linear Model')
+## Date('05/28/2012')
+## Author('Anna Ghazaryan, Fuli Zhang')
+## Institution('Muohio')
+## TitleText1('Differential equations with Boundary-value problem')
+## AuthorText1('Dennis G. Zill')
+## Section1('3.1')
+## Edition('7')
+## Problem1('31')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"unionLists.pl",
+"parserPrime.pl",
+"parserPopUp.pl",
+"answerHints.pl",
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#Setup 
+
+Context("Numeric");
+Context()->variables->are(
+x=>"Real",
+t=>"Real",Deltat=>"Real",
+c=>"Real",
+);
+
+##############################################################
+#
+#  Text
+#
+#
+
+
+$a=random(100,200,300);
+
+
+$answer[0] = Compute("$a/10000-$a/10000e^(-50t)");
+$answer[1] = Compute("$a/200e^(-50t)");
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+A $a-volt electromotive force is applied to an \(RC\) series circuit in which the resistance is 200 ohms and the capacitance is \(10^{-4}\) farad. Find the charge \(q(t)\)  on the capacitor if \( q(0)=0\). Determine the current \(i(t)\).
+$BR
+$BR
+ \(q(t)=\)\{ans_rule(15)\} if\(q(0)=0\).
+$BR
+$BR
+ \(i(t)\)=\{ans_rule(15)\}.
+
+ 
+\{ AnswerFormatHelp("formulas") \}
+
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+$showPartialCorrectAnswers = 0;
+ANS( $answer[0]->cmp() );
+ANS( $answer[1]->cmp() );
+
+
+ENDDOCUMENT();lim 

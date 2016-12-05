@@ -1,0 +1,78 @@
+##DESCRIPTION
+##  Differential Equation
+##ENDDESCRIPTION
+
+##KEYWORDS('Differential equaltion')
+
+## DBsubject('Differential Equation')
+## DBchapter('Laplace Transform')
+## DBsection('Section 7.2 Inverse Laplace Transform')
+## Date('04/07/2012')
+## Author('Anna Ghazaryan,Fuli Zhang')
+## Institution('Miami University')
+## TitleText1('A First Course in Differential Equation')
+## EditionText1('9')
+## AuthorText1('Zill')
+## Section1('7.2')
+## Problem1('5')
+
+
+##############################
+#  Initialization
+
+DOCUMENT(); 
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"PGunion.pl",
+"answerHints.pl",
+"parserAssignment.pl",
+"contextInequalities.pl"
+);
+
+TEXT(beginproblem());
+
+
+#############################
+#  Setup1
+
+Context("Numeric");
+Context()->variables->are(
+t=>"Real",
+s=>"Real"
+);
+
+
+
+$Fs = Formula("(s+1)^(3)/s^(4)");
+
+$answera = Formula("1+3t+3t^2/2+t^(3)/6");
+
+
+#############################
+#  Main text1
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Find the Inverse Laplace transform \( f(t) = {\mathcal L}^{-1} $LBRACE F(s) $RBRACE \) of the function \( \displaystyle F(s) = $Fs \).
+$BR
+$BR
+\( \displaystyle f(t) = {\mathcal L}^{-1} \left$LBRACE $Fs \right$RBRACE = \)
+\{ ans_rule(40) \}
+\{ AnswerFormatHelp("formulas") \}
+
+END_TEXT
+Context()->normalStrings;
+
+
+##############################
+#  Answer evaluation1
+
+$showPartialCorrectAnswers = 1;
+
+ANS( $answera->cmp() );
+
+ENDDOCUMENT();

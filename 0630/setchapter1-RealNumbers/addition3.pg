@@ -1,0 +1,187 @@
+##DESCRIPTION
+##  PreAlgebra problem:
+##ENDDESCRIPTION
+
+##KEYWORDS('prealgebra','common core')
+
+## DBsubject('Arithmetic')
+## DBchapter('Integers')
+## DBsection('Addition/subtraction')
+## Date('3/1/2015')
+## Author('Andrew Parker')
+## Institution('NYC CityTech')
+## ProblemTester('')
+## TitleText1('')
+## Publisher('')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "problemRandomize.pl",
+   "parserPopUp.pl",
+   "scaffold.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+#  Allow for the user to try another version of the problem once they get it correct.
+ProblemRandomize(when=>"Correct",onlyAfterDue=>0);
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 0;
+
+##############################################################
+#
+#  Setup
+#
+#
+
+## Part 1: Starting with money ##
+
+  $popup1a = PopUp(["?", "1+1", "1+(-1)", "(-1)+1", "(-1)+(-1)"], "1+1");
+  $popup1b = PopUp(["?", "More.", "Less."], "More.");
+  $popup1c = PopUp(["?", "Yes.", "No."], "No.");
+  $popup2a = PopUp(["?", "1+1", "1+(-1)", "(-1)+1", "(-1)+(-1)"], "1+(-1)");
+  $popup2b = PopUp(["?", "More.", "Less."], "Less.");
+  $popup2c = PopUp(["?", "Yes.", "No."], "Yes.");
+
+## Part 2: Starting with debt ##
+
+  $popup3a = PopUp(["?", "1+1", "1+(-1)", "(-1)+1", "(-1)+(-1)"], "(-1)+1");
+  $popup3b = PopUp(["?", "More.", "Less."], "Less.");
+  $popup3c = PopUp(["?", "Yes.", "No."], "Yes.");
+  $popup4a = PopUp(["?", "1+1", "1+(-1)", "(-1)+1", "(-1)+(-1)"], "(-1)+(-1)");
+  $popup4b = PopUp(["?", "More.", "Less."], "More.");
+  $popup4c = PopUp(["?", "Yes.", "No."], "No.");
+
+##############################################################
+#
+#  Text
+#
+#
+
+##    to disable arithmetic operations in the answer.  Student must simplify.
+Context()->operators->undefine("+","-","*","/");
+
+##############################################################
+# Scaffolding
+Scaffold::Begin(
+      can_open => "when_previous_correct",
+      is_open  => "first_incorrect"
+);
+##############################################################
+Section::Begin("Part 1: Starting with money");
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Studying mathematics will help you learn shortcuts to make these kinds of calculations very quickly – but it is essential that your answers make sense, because there is no point in using shortcuts if they don’t get you to the right answer. 
+$PAR
+So let’s look now at how positive and negative numbers work with addition.
+$PAR
+When you first learned to add, I’ll bet you started by using a method of counting. For instance, if you were asked to add 5 + 3: you’d start with 5 and count up three more numbers from 5 - then 6, 7, 8 – so that you knew 5 + 3 was 8. Addition is all about counting. But things get slightly more complex when we throw negative numbers into the mix, so let’s start by looking at the four different combinations that arise from adding positive and negative numbers one dollar at a time.
+$PAR
+If we start with a dollar, one of two different things can happen – either we find another dollar, or we spend a dollar.
+$PAR
+$PAR
+(a) If we start with a dollar and earn another dollar, how should we represent this symbolically? \{ $popup1a->menu() \}
+$BR
+So, if we start out with money and earn more money, will we end up with more or less money than we started with? \{ $popup1b->menu() \}
+$BR
+If we start with money, is it possible to earn enough additional money that we end up in debt? \{ $popup1c->menu() \}
+$PAR
+(b) If we start with a dollar and then accrue a debt of a dollar, how should we represent this symbolically? \{ $popup2a->menu() \}
+$BR
+So, if we start out with money and then accrue debt, will we end up with more or less money than we started with? \{ $popup2b->menu() \}
+$BR
+If we start with money, is it possible to accrue enough additional debt that we end up in debt? \{ $popup2c->menu() \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( $popup1a->cmp() );
+ANS( $popup1b->cmp() );
+ANS( $popup1c->cmp() );
+ANS( $popup2a->cmp() );
+ANS( $popup2b->cmp() );
+ANS( $popup2c->cmp() );
+
+Section::End();
+##############################################################
+Section::Begin("Part 2: Starting with debt");
+
+Context()->texStrings;
+BEGIN_TEXT
+$PAR
+Or, we can start out by owing a dollar, and again one of two different things could happen – either we find a dollar or we give a dollar away.
+$PAR
+$PAR
+(a) If we start by owing a dollar and then we earn a dollar, how should we represent this symbolically? \{ $popup3a->menu() \}
+$BR
+So, if we start out with debt and then earn money, will we end up with more or less debt than we started with? \{ $popup3b->menu() \}
+$BR
+If we start out in debt, is it possible to earn enough additional money that we end up with money leftover? \{ $popup3c->menu() \}
+$PAR
+(b) If we start by owing a dollar and then accrue a debt of another dollar, how should we represent this symbolically? \{ $popup4a->menu() \}
+$BR
+So, if we start out in debt and then accrue more debt, will we end up with more or less debt than we started with? \{ $popup4b->menu() \}
+$BR
+If we start in debt, is it possible to accrue enough additional debt that we end up with money leftover? \{ $popup4c->menu() \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( $popup3a->cmp() );
+ANS( $popup3b->cmp() );
+ANS( $popup3c->cmp() );
+ANS( $popup4a->cmp() );
+ANS( $popup4b->cmp() );
+ANS( $popup4c->cmp() );
+
+Section::End();
+
+##############################################################
+Section::Begin("Part 3: Computation");
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+What do we end up with when we add \( 1 + 1 \)? \{ ans_rule(5) \}
+$PAR
+What do we end up with when we add \( 1 + (-1) \)? \{ ans_rule(5) \}
+$PAR
+What do we end up with when we add \( (-1) + 1 \)? \{ ans_rule(5) \}
+$PAR
+What do we end up with when we add \( (-1) + (-1) \)? \{ ans_rule(5) \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( Real(2)->cmp() );
+ANS( Real(0)->cmp() );
+ANS( Real(0)->cmp() );
+ANS( Real(-2)->cmp() );
+
+Section::End();
+
+Scaffold::End();
+
+##############################################################
+#
+#  Answers
+#
+#
+
+
+ENDDOCUMENT();        
+COMMENT('MathObject version. Not randomized.');

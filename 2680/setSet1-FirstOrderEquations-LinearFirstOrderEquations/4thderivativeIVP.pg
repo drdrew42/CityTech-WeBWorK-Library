@@ -1,0 +1,53 @@
+## DBsubject('Differential Equations')
+## DBchapter('')
+## DBsection('')
+## Date('9/1/2015')
+## Author('Poirier')
+## Institution('NYCCT')
+## TitleText1('Elementary Differential Equations')
+## EditionText1('')
+## AuthorText1('Trench')
+## Section1('1.2')
+## Problem1('')
+
+DOCUMENT();      
+loadMacros(
+   "PGstandard.pl",     
+   "MathObjects.pl",
+);
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+Context("Numeric");
+$pi = Real("pi");
+$a = random(1,9,1);
+$b = random(2,9,1);
+$a1=Formula("$a-1")->reduce;
+$A=Formula("($a)^4")->reduce;
+$c = random(1,9,1);
+$d = random(1,9,1);
+$e = non_zero_random(1,9,1);
+$f = non_zero_random(1,9,1);
+$C1=Formula("$e-1/$a")->reduce;
+$C2=Formula("$d-1/($a)^2")->reduce;
+$C3=Formula("$c-(1/($a)^3)")->reduce;
+$C4=Formula("$b-(1/($a)^4)")->reduce;
+$b2=Formula("$b^2")->reduce;
+
+
+
+Context()->texStrings;
+
+BEGIN_TEXT
+Solve the initial value problem.
+\[y^{(4)} = e^{$a x}; \quad y(0) = $b, \quad y'(0) = $c, \quad y''(0) = $d, \quad y'''(0)= $e \]
+\(y=\)\{ans_rule(50)\}
+END_TEXT
+
+Context()->normalStrings;
+
+ANS((Formula("1/($A)e^($a x) + ($C1)/6 x^3 + ($C2)/2 x^2 + $C3*x + ($C4 )"))->cmp);
+#ANS((Formula("1/($A)e^($a x) + ($C1) x^3"))->cmp);
+
+
+ENDDOCUMENT();        

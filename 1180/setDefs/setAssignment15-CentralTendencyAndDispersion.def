@@ -1,0 +1,12 @@
+
+openDate          = 06/25/2012 at 01:00am EDT
+dueDate           = 07/02/2012 at 11:59pm EDT
+answerDate        = 07/03/2012 at 12:01am EDT
+paperHeaderFile   = local/opt/webwork/webwork2/conf/snippets/ReitzHeaderBASIC.pg
+screenHeaderFile  = local/opt/webwork/webwork2/conf/snippets/ReitzHeaderBASIC.pg
+problemList       = 
+Library/ASU-topics/setStat/kolossa14.pg, 6, -1 
+Library/NAU/setStatistics/CenterMeasures.pg, 6, -1 
+Library/UVA-Stat/setStat212-Homework02/stat212-HW02-12.pg, 6, -1 
+Library/NAU/setStatistics/easy_MeanStdDev.pg, 6, -1 
+

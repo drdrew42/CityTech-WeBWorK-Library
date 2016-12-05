@@ -1,0 +1,104 @@
+assignmentType      = default
+openDate          = 03/02/2016 at 07:57pm EST
+reducedScoringDate = 12/31/1969 at 07:00pm EST
+dueDate           = 03/18/2016 at 11:59pm EDT
+answerDate        = 03/19/2016 at 11:59pm EDT
+enableReducedScoring = N
+paperHeaderFile   = setDemo/paperHeaderFile1.pg
+screenHeaderFile  = setDemo/screenHeaderFile1.pg
+description       = 
+restrictProbProgression = 0
+emailInstructor   = 0
+
+problemListV2 
+problem_start
+problem_id = 1
+source_file = Library/maCalcDB/setVmultivariable3ParDer/UR_VC_5_10.pg
+value = 5
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 2
+source_file = Library/maCalcDB/setVmultivariable3ParDer/UR_VC_5_11.pg
+value = 5
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 3
+source_file = Library/maCalcDB/setVmultivariable3ParDer/UR_VC_5_14.pg
+value = 5
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 4
+source_file = Library/maCalcDB/setVmultivariable3ParDer/UR_VC_5_12.pg
+value = 5
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 5
+source_file = Library/272/setStewart14_3/problem_3.pg
+value = 5
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 6
+source_file = Library/272/setStewart14_3/problem_5.pg
+value = 5
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 7
+source_file = Library/WHFreeman/Rogawski_Calculus_Early_Transcendentals_Second_Edition/14_Differentiation_in_Several_Variables/14.3_Partial_Derivatives/14.3.67.pg
+value = 5
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 8
+source_file = Library/WHFreeman/Rogawski_Calculus_Early_Transcendentals_Second_Edition/14_Differentiation_in_Several_Variables/14.3_Partial_Derivatives/14.3.68.pg
+value = 5
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 9
+source_file = Library/Michigan/Chap14Sec2/Q45.pg
+value = 5
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+

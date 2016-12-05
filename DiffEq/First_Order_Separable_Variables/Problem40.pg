@@ -1,0 +1,88 @@
+##DESCRIPTION
+##  Differential Equation
+##ENDDESCRIPTION
+
+##KEYWORDS('Differential equaltion')
+
+## DBsubject('Differential Equation')
+## DBchapter('First-Order DE')
+## DBsection('Section 2.2 Separable Variables')
+## Date('01/17/2012')
+## Author('Anna Ghazaryan, Fuli Zhang')
+## Institution('Miami University')
+## TitleText1('A First Course in Differential Equation')
+## EditionText1('9')
+## AuthorText1('Dennis G.Zill')
+## Section1('2.2')
+## Problem1('26')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",
+   "MathObjects.pl",
+   "AnswerFormatHelp.pl",
+   "unionLists.pl",
+   "parserPrime.pl",
+   "parserPopUp.pl",
+   "answerHints.pl",
+   "parserImplicitPlane.pl",
+
+ );
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric")->variables->add(y=>"Real",c=>"Real",t=>"Real");
+
+##############################################################
+#
+#  Text
+#
+#
+$answer[0] = Formula("2e^(-2t)+1/2")->reduce;
+
+
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Solve the given initial-value problem: 
+\(\displaystyle\frac{dy}{dt} +2y =1\),  \(\  y(0)=\displaystyle\frac{5}{2}\)  .
+
+$BR
+$BR
+\(y=\)
+\{ ans_rule(30) \}
+\{ AnswerFormatHelp("formulas") \}
+
+
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($answer[0] ->cmp());
+
+
+
+
+
+
+ENDDOCUMENT();        

@@ -1,0 +1,79 @@
+##DESCRIPTION
+##  Parker - Sample Exam 1 
+##ENDDESCRIPTION
+
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextFraction.pl",
+   "contextLimitedNumeric.pl",
+   "contextLimitedPolynomial.pl",
+   "contextPolynomialFactors.pl",
+   "contextLimitedPowers.pl",
+   "contextScientificNotation.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("LimitedPolynomial-Strict")->variables->are(x=>"Real",y=>"Real",a=>"Real",b=>"Real");
+
+$p[0] = 15;
+$p[1] = 10;
+$p[2] = -21;
+$p[3] = -14;
+$expanded = Formula("$p[0]ax + $p[1]ab + $p[2]xy + $p[3]by")->reduce;
+
+Context("PolynomialFactors-Strict")->variables->are(x=>"Real",y=>"Real",a=>"Real",b=>"Real");
+Context()->flags->set(singleFactors=>0);
+LimitedPowers::OnlyIntegers(
+minPower => 0, maxPower => 1,
+);
+$a=5;
+$b=2;
+$x=3;
+$y=-7;
+$factored = Compute("($a*a + $y*y)($x*x + $b*b)");
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Factor by grouping:
+$BR
+$PAR
+
+\( $expanded \) = \{ ans_rule(15) \}
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($factored->cmp);
+
+
+ENDDOCUMENT();        

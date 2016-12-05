@@ -1,0 +1,98 @@
+## DESCRIPTION
+## Determine the percentage shaded & un-shaded
+## ENDDESCRIPTION
+
+## DBsubject('Arithmetic')
+## DBchapter('Percents')
+## DBsection('Interpreting Percents')
+## Author('Andrew Parker')
+## Date('4/5/2015')
+## Institution('NYCCT')
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+"MathObjects.pl",
+"PGgraphmacros.pl",
+"PGauxiliaryFunctions.pl"
+);	
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+########
+# Setup  #
+########
+
+Context("Numeric");
+
+ $tens = random(0,9,1);
+ $units = random(1,9,1);
+ $answer = Real(10*$tens+$units);
+ $compans = 100-$answer;
+
+# Variables for image
+
+ $SIZE=200;
+ $pxtens = $tens/10 * $SIZE;
+ $pxtensunits=($tens+1)/10 * $SIZE;
+ $pxunits=$units/10 * $SIZE;
+ @points = ( [0,0], [0,$pxtensunits], [$pxunits,$pxtensunits], [$pxunits,$pxtens], [$SIZE,$pxtens], [$SIZE,0] );
+
+# Create the image
+
+ $graph = init_graph(0,0,10,10,size=>[$SIZE,$SIZE]);
+ $blue = $graph->im->colorAllocate(100,100,255);
+
+# Shade the appropriate area
+# GD::Polygon requires pixel addressing, not coordinate-wise
+
+ $shade = new GD::Polygon;
+ foreach $pt (@points) {
+    $shade->addPt($pt->[0],$pt->[1])
+ }
+ $graph->im->filledPolygon($shade,$blue);
+
+# overlay grid
+# PGgraphmacros uses coordinate addressing
+
+for( $xy=0; $xy<11; $xy++ ) {
+  $graph -> moveTo( $xy, 0 );
+  $graph -> lineTo( $xy, 10, 'black' );
+  $graph -> moveTo( 0, $xy );
+  $graph -> lineTo( 10, $xy, 'black' );
+ }
+
+#######
+# Text  #
+#######
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+\{ image( insertGraph($graph), height=>$SIZE, width=>$SIZE ) \}
+$PAR
+
+$PAR
+What percentage of the graph is shaded? \{ ans_rule(5) \}%
+$PAR
+What percentage of the graph is not shaded? \{ ans_rule(5) \}%
+
+END_TEXT
+Context()->normalStrings;
+
+##########
+# Answers  #
+##########
+
+ANS( $answer->cmp() );
+ANS( $compans->cmp() );
+
+BEGIN_SOLUTION
+
+END_SOLUTION
+
+COMMENT('MathObject version');
+ENDDOCUMENT();

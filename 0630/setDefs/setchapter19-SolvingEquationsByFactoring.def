@@ -1,0 +1,124 @@
+assignmentType      = default
+openDate          = 03/28/2016 at 11:34am EDT
+reducedScoringDate = 10/29/2015 at 02:00pm EDT
+dueDate           = 04/04/2016 at 11:34am EDT
+answerDate        = 04/04/2016 at 11:34am EDT
+enableReducedScoring = N
+paperHeaderFile   = defaultHeader
+screenHeaderFile  = defaultHeader
+description       = 
+restrictProbProgression = 
+emailInstructor   = 
+
+problemListV2 
+problem_start
+problem_id = 1
+source_file = Library/CollegeOfIdaho/setAlgebra_05_07_PolyEqAndApplications/57IntAlg_11_PolyEq.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 2
+source_file = Library/CollegeOfIdaho/setAlgebra_05_07_PolyEqAndApplications/57IntAlg_09_PolyEq.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 3
+source_file = Library/CollegeOfIdaho/setAlgebra_05_07_PolyEqAndApplications/57IntAlg_02_PolyEq.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 4
+source_file = Library/CollegeOfIdaho/setAlgebra_05_07_PolyEqAndApplications/57IntAlg_23_PolyEq.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 5
+source_file = local/Library/CollegeOfIdaho/setAlgebra_05_07_PolyEqAndApplications/57IntAlg_12_PolyEq.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 6
+source_file = Library/CollegeOfIdaho/setAlgebra_05_07_PolyEqAndApplications/57IntAlg_22_PolyEq.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 7
+source_file = local/setchapter19-SolvingEquationsByFactoring/AC1.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 8
+source_file = local/setchapter19-SolvingEquationsByFactoring/AC2.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 9
+source_file = local/setchapter19-SolvingEquationsByFactoring/AC3.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 10
+source_file = local/setchapter19-SolvingEquationsByFactoring/AC4.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 11
+source_file = local/setchapter19-SolvingEquationsByFactoring/AC5.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+

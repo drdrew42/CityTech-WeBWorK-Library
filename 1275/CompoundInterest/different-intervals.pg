@@ -1,0 +1,64 @@
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "PGML.pl",
+   "contextCurrency.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Currency");
+
+$principal = random(15000,35000,1000);
+$principal = Currency("$principal")->with(trimTrailingZeros=>1);
+@interval = ("annually","quarterly", "monthly", "weekly", "daily");
+@numInt = (1,4,12,52,365);
+
+$years = random(3,7,1);
+$r = random(4,9,0.25);
+
+@A = ();
+for my $i (0..4) {
+  my $n = $numInt[$i];
+  $A[$i] = Currency("$principal*(1+$r/(100*$n))^($n*$years)");
+};
+
+##############################################################
+#
+#  Text
+#
+#
+
+BEGIN_PGML
+
+Suppose an investor deposits [$principal] into a savings account for [$years] years at [$r]% interest. Find the total amount of money in the account if the interest is:
+
+1. Compounded [$interval[0]], then the investment is worth [__________]{$A[0]->cmp(promoteReals=>1)} after [$years] years.
+1. Compounded [$interval[1]], then the investment is worth [__________]{$A[1]->cmp(promoteReals=>1)} after [$years] years.
+1. Compounded [$interval[2]], then the investment is worth [__________]{$A[2]->cmp(promoteReals=>1)} after [$years] years.
+1. Compounded [$interval[3]], then the investment is worth [__________]{$A[3]->cmp(promoteReals=>1)} after [$years] years.
+1. Compounded [$interval[4]], then the investment is worth [__________]{$A[4]->cmp(promoteReals=>1)} after [$years] years.
+
+* **Round your answers to the nearest cent.**
+END_PGML
+
+##############################################################
+#
+#  Answers
+#
+#
+
+
+
+ENDDOCUMENT();        

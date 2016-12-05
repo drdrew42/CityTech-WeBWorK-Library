@@ -1,0 +1,82 @@
+## DESCRIPTION
+## Algebraic fractions
+## ENDDESCRIPTION
+
+
+## BookTitle('Algebra: Form and Function')
+## BookChapter('Rules for Expressions and the Reasons for Them')
+## DBsubject(Algebra)
+## DBchapter(Operations on polynomial and rational expressions)
+## DBsection(Simplify rational expressions)
+## Date(01/01/10)
+## Institution(Fort Lewis College)
+## Author(Paul Pearson)
+## Level(2)
+## MO(1)
+## TitleText1('Algebra: Form and Function')
+## AuthorText1('McCallum, Connally, and Hughes-Hallett')
+## EditionText1('1')
+## Section1('2.4')
+## Problem1('4')
+## KEYWORDS('Algebraic fractions')
+
+
+##################################
+#  Initialization
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"PGunion.pl",
+"MathObjects.pl",
+"PGcourse.pl",
+"CofIdaho_macros.pl",
+);
+
+TEXT(beginproblem());
+
+
+###################################
+# Setup
+
+Context("Numeric");
+Context()->{error}{msg}{"Operands of '*' can't be words"} = " ";
+
+$a = random(3,7,1);
+$b = random(3,7,1);
+while ($a == $b) { $b = random(3,7,1); }
+$c = random(1,8,1);
+
+$apb = $a + $b;
+$ac = $a*$c;
+
+$frac1 = Formula("$a/x");
+$frac2 = Formula("$b/(x-$c)");
+
+$num = Formula("$apb * x - $ac")->reduce;
+$den = Formula("x*(x-$c)")->reduce;
+
+###################################
+# Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+Write the expression as a single fraction.  Simplify your answer.
+$BR
+$BR
+$BCENTER
+\[ $frac1 + $frac2 = \] \{ ans_rule(20) \}
+$ECENTER
+END_TEXT
+Context()->normalStrings;
+
+###################################
+# Answers
+
+$showPartialCorrectAnswers = 1;
+
+$ans = Formula("$num/$den");
+ANS( RationalExpEvaluator($ans,"x") );
+
+ENDDOCUMENT();

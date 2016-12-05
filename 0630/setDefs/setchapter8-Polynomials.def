@@ -1,0 +1,114 @@
+assignmentType      = default
+openDate          = 02/22/2016 at 10:16am EST
+reducedScoringDate = 10/29/2015 at 02:00pm EDT
+dueDate           = 02/29/2016 at 10:16am EST
+answerDate        = 02/29/2016 at 10:16am EST
+enableReducedScoring = N
+paperHeaderFile   = defaultHeader
+screenHeaderFile  = defaultHeader
+description       = Degree, leading coefficients.<n>Evaluation.<n>Functional notation.
+restrictProbProgression = 
+emailInstructor   = 
+
+problemListV2 
+problem_start
+problem_id = 1
+source_file = Library/CollegeOfIdaho/setAlgebra_05_01_IntroPolynomials/51IntAlg_02_Polynomial.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 2
+source_file = Library/CollegeOfIdaho/setAlgebra_05_01_IntroPolynomials/51IntAlg_03_Polynomial.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 3
+source_file = Library/CollegeOfIdaho/setAlgebra_05_01_IntroPolynomials/51IntAlg_04_Polynomial.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 4
+source_file = Library/CollegeOfIdaho/setAlgebra_05_01_IntroPolynomials/51IntAlg_01_Polynomial.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 5
+source_file = Library/CollegeOfIdaho/setAlgebra_01_01_AlgebraicExpressions/11IntAlg_06_AlgebraicExpressions.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 6
+source_file = Library/CollegeOfIdaho/setAlgebra_01_01_AlgebraicExpressions/11IntAlg_05_AlgebraicExpressions.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 7
+source_file = Library/CollegeOfIdaho/setAlgebra_01_01_AlgebraicExpressions/11IntAlg_04_AlgebraicExpressions.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 8
+source_file = local/Library/CollegeOfIdaho/setAlgebra_05_01_IntroPolynomials/51IntAlg_10_Polynomial.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 9
+source_file = local/Library/CollegeOfIdaho/setAlgebra_05_01_IntroPolynomials/51IntAlg_09_Polynomial.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 10
+source_file = local/Library/CollegeOfIdaho/setAlgebra_05_01_IntroPolynomials/51IntAlg_08_Polynomial.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+

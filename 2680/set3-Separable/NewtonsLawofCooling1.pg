@@ -1,0 +1,91 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject('Algebra')
+## DBchapter('Fundamentals')
+## DBsection('Real Numbers')
+## Date('6/3/2002')
+## Author('')
+## Institution('')
+## TitleText1('Precalculus')
+## EditionText1('3')
+## AuthorText1('Stewart, Redlin, Watson')
+## Section1('1.1')
+## Problem1('22')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "parserImplicitEquation.pl",
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->variables->are( t => "Real" );
+Context()->flags->set(
+  tolerance => 0.00001,
+  tolType => "absolute",
+);
+
+$T = random(15,25,1);
+$C = $T+5;
+$k = Real(-1/60*ln($T/$C));
+$t = Real(ln(($T-10)/$C)/(-$k));
+$u = Formula("$T - $C*e^(-$k*t)")->reduce;
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+Andrew has a frozen (-5 C) pot roast, and needs to defrost it (10 C) before putting it in the oven. His apartment has a room temperature of $T C. If it takes one hour for the roast to reach 0 C, how long does he have to wait before he can put it in the oven?
+
+$BR
+What is the function describing the temperature of the pot roast?
+$BR
+\(u(t) =\) \{$u->ans_rule\}
+$BR
+$BR
+How long does it take the pot roast to defrost (in minutes)?
+$BR 
+\{$t->ans_rule\}
+END_TEXT
+
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($u->cmp);
+ANS($t->cmp);
+
+
+ENDDOCUMENT();        

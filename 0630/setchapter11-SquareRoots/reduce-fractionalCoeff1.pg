@@ -1,0 +1,143 @@
+##DESCRIPTION
+##  Algebra: exponents and radicals 
+##ENDDESCRIPTION
+
+
+## DBsubject(Arithmetic)
+## DBchapter(Irrational numbers)
+## DBsection(Simplify radical numbers)
+## Date('2/15/2016')
+## Author('Parker')
+## Institution('City Tech')
+## KEYWORDS('algebra', 'radicals', 'fraction', 'exponents')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextLimitedPowers.pl"
+);
+
+
+########################################################################
+
+$showPartialCorrectAnswers = 0;
+
+TEXT(beginproblem());
+
+   # code essentially from Davide Cervone 4/25/10
+    ###########################
+    #
+    # Subclass the numeric functions
+    #
+    package my::Function::numeric;
+    our @ISA = ('Parser::Function::numeric');
+
+    #
+    # Override sqrt() to return a special value (usually 1) when evaluated
+    # effectively eliminating it from the product.
+    #
+    sub sqrt {
+      my $self = shift;
+      my $value = $self->context->flag("setSqrt");
+ 
+ return $value+2 if $value && $_[0] == 1; # force sqrt(1) to be incorrect
+      return $value if $value;
+      return $self->SUPER::sqrt(@_);
+    }
+
+    #
+    # end of subclass
+    #
+package main;
+
+    Context("Numeric")->variables->are(
+      x => ["Real", limits => [0,2]],    # only needed if x is used in the square roots
+    );
+    #
+    # make sqrt() use our subclass
+    #
+    Context()->functions->set(sqrt=>{class=>'my::Function::numeric'});
+    Context()->flags->set(reduceConstantFunctions=>0);
+    #
+   #
+    # Don't allow fractional powers (avoids 1/2 power)
+    # [Could subclass exponentiation to handle that as well]
+    #
+    LimitedPowers::OnlyPositiveIntegers();
+
+$reducedSqrt = sub  {
+      my ($correct,$student,$ans) = @_;
+      return 0 if $ans->{isPreview} || $correct != $student;
+      #
+      #  Get parsed formula for student and correct answers
+      #
+      $student = $ans->{student_formula};
+      $correct = $correct->{original_formula} if defined $correct->{original_formula};
+      #
+      # check if equal when sqrt's are replaced by 1
+      #
+      Context()->flags->set(setSqrt => 1);
+      delete $correct->{test_values}, $student->{test_values};
+      my $OK = ($correct == $student);
+      Context()->flags->set(setSqrt => 0);
+      #
+      Value::Error("Check to see if your answer is simplified.") unless $OK;
+      return $OK;
+    };
+
+########################################################################
+
+Context()->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer => "reduced"
+  );
+
+$a = list_random(1,2,3,5,7);
+
+$b = Compute("$a+1");
+$c = Compute("$a+2");
+$d = Compute("$c^2*5");
+
+$numerator = Real("$a*$c");
+$denominator = Real("$b");
+$radical = Real("5");
+$ans1 = Formula("$c*sqrt(5)");
+$ans2 = Formula("$numerator/$denominator * sqrt($radical)");
+
+########################################################################
+
+Context()->texStrings;
+BEGIN_TEXT
+Change the radical
+\[
+\sqrt{$d}
+\]
+into simplest radical form.
+$PAR
+Answer: \{$ans1->ans_rule\}
+$HR
+Change the radical
+\[
+\frac{$a}{$b}\sqrt{$d}
+\]
+into simplest radical form.
+$PAR
+Answer: \{$ans2->ans_rule\}
+\{ 
+ knowlLink("click for hint", value=>escapeSolutionHTML(EV3P('Hint: What do you get when you multiply your previous answer by \\( \\frac{$a}{$b} \\)?
+' )), base64=>1); 
+\}
+END_TEXT
+Context()->normalStrings;
+
+########################################################################
+
+ANS( $ans1->cmp(checker=>$reducedSqrt) );
+ANS( $ans2->cmp(checker=>$reducedSqrt) );
+
+ENDDOCUMENT();        

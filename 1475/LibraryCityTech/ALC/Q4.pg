@@ -1,0 +1,77 @@
+# DESCRIPTION
+# 
+# WeBWorK problem written by Kate Poirier <kpoirier@citytech.cuny.edu>
+# ENDDESCRIPTION
+
+## Tagged by glr 10/24/08
+
+## Author('Kate Poirier');
+## DBsubject(Calculus)
+## DBchapter(Definite integral)
+## DBsection(Definite integral)
+## Institution(NYCCT-CUNY)
+## MLT()
+## MLTleader(1)
+## Level(3)
+## MO(1)
+## TitleText1('')
+## AuthorText1('')
+## EditionText1('')
+## Section1('')
+## Problem1('')
+## TitleText2('')
+## AuthorText2('')
+## EditionText2('')
+## Section2('')
+## Problem2('')
+## TitleText3('')
+## AuthorText3('')
+## EditionText3('')
+## Section3('')
+## Problem3('')
+## KEYWORDS('')
+
+
+
+
+DOCUMENT();
+loadMacros(
+"PG.pl",
+"PGbasicmacros.pl",
+"PGchoicemacros.pl",
+"PGanswermacros.pl",
+"PGauxiliaryFunctions.pl",
+"MathObjects.pl",
+);
+
+Context("Numeric");
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+
+$ans = Compute(25*pi/2);
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Evaluate the integral.
+$PAR
+Hint: This integral is easy to evaluate if you sketch the graph of the function first.
+
+$PAR
+\( \int_0^{10} \sqrt{25-(x-5)^2} dx \)
+$PAR
+
+
+ \{ ans_rule(35) \}
+
+END_TEXT
+Context()->normalStrings;
+ANS( $ans->cmp() );
+
+
+
+
+;
+ENDDOCUMENT();

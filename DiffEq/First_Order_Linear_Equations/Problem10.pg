@@ -1,0 +1,87 @@
+##DESCRIPTION
+##  Differential Equation
+##ENDDESCRIPTION
+
+##KEYWORDS('Differential equaltion')
+
+## DBsubject('Differential Equation')
+## DBchapter('First-Order DE')
+## DBsection('Section 2.3 Linear Equations')
+## Date('01/30/2012')
+## Author('Anna Ghazaryan, Fuli Zhang')
+## Institution('Miami University')
+## TitleText1('A First Course in Differential Equation')
+## EditionText1('9')
+## AuthorText1('Dennis G.Zill')
+## Section1('2.3')
+## Problem1('19')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",
+   "MathObjects.pl",
+   "AnswerFormatHelp.pl",
+   "unionLists.pl",
+   "parserPrime.pl",
+   "parserPopUp.pl",
+   "answerHints.pl",
+   "parserImplicitPlane.pl",
+
+ );
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric")->variables->add(y=>"Real",c=>"Real");
+
+##############################################################
+#
+#  Text
+#
+#
+$answer[0] = Formula("x^(2)e^(-x)/(x+1)+e^(-x)/(x+1)")->reduce;
+
+
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Solve the given initial-value problem: 
+\(\displaystyle\  (x+1)\frac{dy}{dx}+(x+2)y = 2xe^{-x}\), \(\displaystyle\  y(0)=1\)  .
+
+
+$BR
+$BR
+\(y=\)
+\{ ans_rule(30) \}
+\{ AnswerFormatHelp("formulas") \}
+
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($answer[0] ->cmp());
+
+
+
+
+
+ENDDOCUMENT();    

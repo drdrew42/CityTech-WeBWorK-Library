@@ -1,0 +1,236 @@
+##DESCRIPTION
+##  Numerical methods for differential equations
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equation,' Euler's semilinear method')
+
+## DBsubject('Differential Equations')
+## DBchapter('')
+## DBsection('')
+## Date('9/28/2015')
+## Author('Poirier')
+## Institution('NYCCT')
+## TitleText1('Elementary Differential Equations')
+## EditionText1('')
+## AuthorText1('Trench')
+## Section1('3.1')
+## Problem1('16')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+
+$pi = Real("pi");
+$a = Real(non_zero_random(1,9,1));
+$h= Real(non_zero_random(0.1,0.5,1));
+$b=Formula("1+(10*($h))");
+
+
+$x0=1;
+$u0=$a;
+$y0=Formula("($u0)/($x0)");
+
+$x1=Formula("1+$h");
+$u1=Formula("$u0+$h*sin($x0)/($x0)");
+$y1=Formula("($u1)/($x1)");
+
+$x2=Formula("1+2*$h");
+$u2=Formula("$u1+$h*sin($x1)/($x1)");
+$y2=Formula("($u2)/($x2)");
+
+$x3=Formula("1+3*$h");
+$u3=Formula("$u2+$h*sin($x2)/($x2)");
+$y3=Formula("($u3)/($x3)");
+
+$x4=Formula("1+4*$h");
+$u4=Formula("$u3+$h*sin($x3)/($x3)");
+$y4=Formula("($u4)/($x4)");
+
+$x5=Formula("1+5*$h");
+$u5=Formula("$u4+$h*sin($x4)/($x4)");
+$y5=Formula("($u5)/($x5)");
+
+$x6=Formula("1+6*$h");
+$u6=Formula("$u5+$h*sin($x5)/($x5)");
+$y6=Formula("($u6)/($x6)");
+
+$x7=Formula("1+7*$h");
+$u7=Formula("$u6+$h*sin($x6)/($x6)");
+$y7=Formula("($u7)/($x7)");
+
+$x8=Formula("1+8*$h");
+$u8=Formula("$u7+$h*sin($x7)/($x7)");
+$y8=Formula("($u8)/($x8)");
+
+$x9=Formula("1+9*$h");
+$u9=Formula("$u8+$h*sin($x8)/($x8)");
+$y9=Formula("($u9)/($x9)");
+
+$x10=Formula("1+10*$h");
+$u10=Formula("$u9+$h*sin($x9)/($x9)");
+$y10=Formula("($u10)/($x10)");
+
+$x11=Formula("1+11*$h");
+$u11=Formula("$u10+$h*sin($x10)/($x10)");
+$y11=Formula("($u11)/($x11)");
+
+
+
+
+
+
+
+
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+Use Euler's semilinear method to find the approximate solution to the initial value problem on the interval \([1, $b]\) with step size $h.
+
+\[y'+ \frac{1}{x} y = \frac{\sin(x)}{x^2}, \quad y(1) = $a\]
+
+\(x_0=\)\{ ans_rule(8) \}
+\(u_0=\)\{ ans_rule(8) \}
+\(y_0=\)\{ ans_rule(8) \}
+
+$PAR
+
+\(x_1=\)\{ ans_rule(8) \}
+\(u_1=\)\{ ans_rule(8) \}
+\(y_1=\)\{ ans_rule(8) \}
+
+$PAR
+
+\(x_2=\)\{ ans_rule(8) \}
+\(u_2=\)\{ ans_rule(8) \}
+\(y_2=\)\{ ans_rule(8) \}
+
+$PAR
+
+\(x_3=\)\{ ans_rule(8) \}
+\(u_3=\)\{ ans_rule(8) \}
+\(y_3=\)\{ ans_rule(8) \}
+
+$PAR
+
+\(x_4=\)\{ ans_rule(8) \}
+\(u_4=\)\{ ans_rule(8) \}
+\(y_4=\)\{ ans_rule(8) \}
+
+$PAR
+
+\(x_5=\)\{ ans_rule(8) \}
+\(u_5=\)\{ ans_rule(8) \}
+\(y_5=\)\{ ans_rule(8) \}
+
+$PAR
+
+\(x_6=\)\{ ans_rule(8) \}
+\(u_6=\)\{ ans_rule(8) \}
+\(y_6=\)\{ ans_rule(8) \}
+
+$PAR
+
+\(x_7=\)\{ ans_rule(8) \}
+\(u_7=\)\{ ans_rule(8) \}
+\(y_7=\)\{ ans_rule(8) \}
+
+$PAR
+
+\(x_8=\)\{ ans_rule(8) \}
+\(u_8=\)\{ ans_rule(8) \}
+\(y_8=\)\{ ans_rule(8) \}
+
+$PAR
+
+\(x_9=\)\{ ans_rule(8) \}
+\(u_9=\)\{ ans_rule(8) \}
+\(y_9=\)\{ ans_rule(8) \}
+
+$PAR
+
+\(x_{10}=\)\{ ans_rule(8) \}
+\(u_{10}=\)\{ ans_rule(8) \}
+\(y_{10}=\)\{ ans_rule(8) \}
+
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS(Compute($x0)->cmp());
+ANS(Compute($u0)->cmp());
+ANS(Compute($y0)->cmp());
+
+ANS(Compute($x1)->cmp());
+ANS(Compute($u1)->cmp());
+ANS(Compute($y1)->cmp());
+
+ANS(Compute($x2)->cmp());
+ANS(Compute($u2)->cmp());
+ANS(Compute($y2)->cmp());
+
+ANS(Compute($x3)->cmp());
+ANS(Compute($u3)->cmp());
+ANS(Compute($y3)->cmp());
+
+ANS(Compute($x4)->cmp());
+ANS(Compute($u4)->cmp());
+ANS(Compute($y4)->cmp());
+
+ANS(Compute($x5)->cmp());
+ANS(Compute($u5)->cmp());
+ANS(Compute($y5)->cmp());
+
+ANS(Compute($x6)->cmp());
+ANS(Compute($u6)->cmp());
+ANS(Compute($y6)->cmp());
+
+ANS(Compute($x7)->cmp());
+ANS(Compute($u7)->cmp());
+ANS(Compute($y7)->cmp());
+
+ANS(Compute($x8)->cmp());
+ANS(Compute($u8)->cmp());
+ANS(Compute($y8)->cmp());
+
+ANS(Compute($x9)->cmp());
+ANS(Compute($u9)->cmp());
+ANS(Compute($y9)->cmp());
+
+ANS(Compute($x10)->cmp());
+ANS(Compute($u10)->cmp());
+ANS(Compute($y10)->cmp());
+
+
+
+
+
+ENDDOCUMENT();        

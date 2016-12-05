@@ -1,0 +1,20 @@
+
+openDate          = 03/04/2013 at 04:31pm EST
+dueDate           = 03/11/2013 at 10:00am EDT
+answerDate        = 03/18/2013 at 10:00am EDT
+paperHeaderFile   = defaultHeader
+screenHeaderFile  = defaultHeader
+problemList       = 
+Library/Rochester/setAlgebra38Counting/sw10_1_1.pg, 1, -1 
+Library/Rochester/setAlgebra38Counting/outfits.pg, 1, -1 
+Library/UMN/algebraKaufmannSchwitters/ks_15_1_37.pg, 1, -1 
+Library/NAU/setProbability/counting2.pg, 1, -1 
+Library/Rochester/setAlgebra38Counting/sw10_2_17.pg, 1, -1 
+Library/Rochester/setAlgebra38Counting/sw10_2_40.pg, 1, -1 
+Library/Rochester/setAlgebra39Probability/prob2.pg, 1, -1 
+Library/Rochester/setAlgebra39Probability/cards2.pg, 1, -1 
+Library/ASU-topics/setProbability/events8.pg, 1, -1 
+Library/ASU-topics/setProbability/events7.pg, 1, -1 
+Library/NAU/setProbability/compprob9.pg, 1, -1 
+Library/NAU/setProbability/Bayes2.pg, 1, -1 
+

@@ -1,0 +1,137 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('Systems of Linear Differential Equations')
+## DBsection('Preliminary")
+## Date('06/11/2012')
+## Author('Anna Ghazaryan,Fuli Zhang')
+## Institution('Muohio')
+## TitleText1('Differential equations with Boundary-value problem')
+## AuthorText1('Dennis G. Zill')
+## Section1('8.1')
+## Edition('7')
+## Problem1('7')
+
+###############################################################
+DOCUMENT(); 
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGmatrixmacros.pl",
+"parserPopUp.pl",
+);
+
+TEXT(beginproblem());
+
+
+#############################
+#  Setup
+
+Context("Numeric");
+Context()->variables->{namePattern} = qr/[a-z][a-z0-9_]*'*/i;
+Context()->variables->add(
+"x'"=>"Real","y"=>Real,"z"=>"Real","z'"=>"Real","y'"=>"Real",t=>"Real",
+);
+
+$a = random(1,7,1);
+$b = random(1,7,1);
+$c = random(1,7,1);
+$d = random(1,7,1);
+
+$a11 = Formula("$a");
+$a12 = Formula("0");
+$a13 = Formula("0");
+$a21 = Formula("0");
+$a22 = Formula("$d t");
+$a23 = Formula("0");
+$a31 = Formula("$c e^(3t)");
+$a32 = Formula("$d sin(t)");
+$a33 = Formula("$a"); 
+
+$f1 = Formula("$c ");
+$f2 = Formula("$a t");
+$f3 = Formula("0");
+
+$xp = Formula("x'");
+$yp = Formula("y'");
+$zp = Formula("z'");
+
+
+######################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+Write the system 
+\( x' = $a11 x - $f1 \), 
+\( y' = $a22 y + $f2 \),
+\( z' = $a33 z - $a31 x + $a32 y  \)
+in the form 
+$PAR
+\[ 
+\frac{d}{dt} \left\lbrack\begin{array}{c} x \\ y\\ z \end{array}\right\rbrack 
+= 
+P(t) \left\lbrack\begin{array}{c} x \\ y \\z \end{array}\right\rbrack + \vec{f}(t).
+\]
+$BR
+$BR
+Use prime notation for derivatives and write 
+\( x \) and \( x' \), etc., instead of 
+\( x(t) \), \( x'(t) \), or \( \frac{dx}{dt} \).
+$PAR
+$BCENTER
+\{ 
+mbox(
+  display_matrix([[ans_rule(10)], [ans_rule(10)],[ans_rule(10)]], align=>'c'),
+  " =",
+  display_matrix([[ans_rule(10),ans_rule(10),ans_rule(10)], [ans_rule(10),ans_rule(10),ans_rule(10)], [ans_rule(10),ans_rule(10),ans_rule(10)]], align=>'ccc'),
+  display_matrix([[ans_rule(10)], [ans_rule(10)],[ans_rule(10)]], align=>'c'),
+  " +",
+  display_matrix([[ans_rule(10)], [ans_rule(10)],[ans_rule(10)]], align=>'c'),
+);
+\}
+$ECENTER
+$PAR
+
+END_TEXT
+Context()->normalStrings;
+
+
+######################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 1;
+
+ANS( Compute("x'")->cmp() );
+ANS( Compute("y'")->cmp() );
+ANS( Compute("z'")->cmp() );
+
+ANS( $a11->cmp() );
+ANS( $a12->cmp() );
+ANS( $a13->cmp() );
+ANS( $a21->cmp() );
+ANS( $a22->cmp() );
+ANS( Formula("-$a23")->cmp() );
+ANS( Formula("-$a31")->cmp() );
+ANS( $a32->cmp() );
+ANS( $a33->cmp() );
+
+
+ANS( Compute("x")->cmp() );
+ANS( Compute("y")->cmp() );
+ANS( Compute("z")->cmp() );
+
+ANS( Formula("-$f1")->cmp() );
+
+ANS( $f2->cmp() );
+ANS( $f3->cmp() );
+
+COMMENT("MathObject version.");
+
+ENDDOCUMENT();
+
+

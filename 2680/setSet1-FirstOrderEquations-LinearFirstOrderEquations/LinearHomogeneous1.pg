@@ -1,0 +1,64 @@
+##DESCRIPTION
+##   
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equation' 'linear')
+
+## DBsubject('Differential equations')
+## DBchapter('')
+## DBsection('')
+## Date('9/1/2015')
+## Author('Poirier')
+## Institution('NYCCT')
+## TitleText1('Elementary Differential Equations')
+## EditionText1('')
+## AuthorText1('Trench')
+## Section1('2.1')
+## Problem1('')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->variables->{namePattern} = qr/[a-z][a-z0-9_]*'*/i;
+Context()->variables->are( y => "Real", t => "Real", c => "Real", "y'" => "Real", "x" => "Real" );
+
+$pi = Real("pi");
+
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Find the general solution of the differential equation.
+\[xy'  + \ln(x)y = 0.\]
+
+
+\(y=\)\{ans_rule(50)\}
+END_TEXT
+Context()->normalStrings;
+
+
+#ANS(Formula("c*e^(-1/2*((log(x))^2"))->cmp);
+ANS(Formula("c*e^((-1/2)*((log(x))^2))")->cmp);
+
+
+ENDDOCUMENT();        

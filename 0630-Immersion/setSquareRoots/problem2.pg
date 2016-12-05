@@ -1,0 +1,179 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject(‘Algebra’)
+## DBchapter(‘Properties of exponents, rational exponents and radicals’)
+## DBsection(‘Properties of exponents’)
+## Date('7/5/2015')
+## Author('K. Andrew Parker')
+## Institution('NYC City Tech')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "parserPopUp.pl",
+   "scaffold.pl",
+   "niceTables.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer=>"parsed"
+   );
+
+  $sumChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentstring = $ansHash->{preview_text_string};
+     return ($studentstring eq $ansHash->{correct_ans} ? 1 : 0);
+   };
+
+  $formChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentstring = $ansHash->{student_formula};
+     my $correctans = $ansHash->{correct_ans};
+     $studentstring =~ tr/()//d;
+     $correctans =~ tr/()//d;
+     return ( $student==$correct && $studentstring eq $correctans ? 1 : 0);
+   };
+
+
+  $numChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentans=$ansHash->{student_formula};
+     Value->Error("You're on the right track, but your answer should be just a number.") if ( ($studentans ne $student)&&($student==$correct) );
+     return($studentans eq $ansHash->{correct_ans} ? 1 : 0);
+  };
+
+
+@prime = ( 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 );
+
+do{ $badRad1 = random(27,79,2); } until ( $badRad1 != 49 );
+$badRad2Num = $prime[random(0,3,1)];
+$badRad2Den = $prime[random(4,9,1)];
+do{ $badRad3 = random(27,79,2)/10; } until ( $badRad3 != 4.9 );
+
+$p1 = $prime[random(0,3,1)];
+$p2 = $prime[random(0,2,1)];
+$simplifyRad = $p1**2*$p2;
+$simplifyList = List( $p1, $p1, $p2 );
+$simplifyListRad = List( sqrt($p1), sqrt($p1), sqrt($p2) );
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+Scaffold::Begin(
+      can_open => "when_previous_correct",
+      is_open  => "first_incorrect"
+);
+
+
+Section::Begin( "Part 1: Calculations with bad radicals" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Just because we can't calculate the exact value of a "bad radical" doesn't mean that we can't still do calculations with them.
+$PAR
+We still know that the square of \( \sqrt{7} \) is going to be 7.
+$BR
+In symbols, we're saying: \( ( \sqrt{7} )^2 = 7 \).
+$BR
+And if we write what the exponent means in terms of multiplication: \( \sqrt{7} \times \sqrt{7} = 7 \) 
+$PAR
+This works because it's exactly what it means for the square root to be the opposite of squaring.
+$PAR
+Try the following:
+$BR
+\( (\sqrt{$badRad1})^2 = \) \{ ans_rule(5) \}
+$BR
+$PAR
+\( \sqrt{\dfrac{$badRad2Num}{$badRad2Den}} \times \sqrt{\dfrac{$badRad2Num}{$badRad2Den}} = \) \{ ans_rule(5) \}
+$PAR
+$BR
+\( \sqrt{$badRad3} \times \sqrt{$badRad3} = \) \{ ans_rule(5) \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( Real($badRad1)->cmp(checker=>$numChecker) );
+ANS( Formula("$badRad2Num/$badRad2Den")->cmp(checker=>$formChecker) );
+ANS( Real($badRad3)->cmp(checker=>$numChecker) );
+
+Section::End();
+
+Section::Begin( "Part 2: Reducing bad radicals" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Sometimes, "bad" radicals are hiding some of these repeated factors that work out to be nice, non-radical values.
+$PAR
+Radicals play very well with prime factorization.
+$PAR
+For example, let's look at \( \sqrt{45} \).
+$BR
+If we do a factor tree for 45, we know that 45 factors as \( 3 \times 3 \times 5 \). So \( \sqrt{45} = \sqrt{3 \times 3 \times 5} \)
+$BR
+It just so happens that \( \sqrt{3 \times 3 \times 5} = \sqrt{3} \times \sqrt{3} \times \sqrt{5} \).
+$PAR
+So, in general, if we find the prime factorization of the RADICAND, then we know how to factor the RADICAL.
+$BR
+In this case, our list of radical prime factors is: \( \sqrt{3}, \sqrt{3}, \sqrt{5} \)
+$PAR
+Why does this help us? To look at \( \sqrt{3} \times \sqrt{3} \times \sqrt{5} \) instead of \( \sqrt{3 \times 3 \times 5} \)?
+$BR
+Hopefully, the \( \sqrt{3} \times \sqrt{3} \) part of the expression is standing out to you.
+$PAR
+We know, because of the meaning of square root, that \( \sqrt{3} \times \sqrt{3} = 3\).
+$PAR
+So in our expression, \( \sqrt{3} \times \sqrt{3} \times \sqrt{5} \), if we replace \( \sqrt{3} \times \sqrt{3} \) with 3, we'll get:
+$BR
+\[ 3 \times \sqrt{5} \]
+$PAR
+Now you try it with \( \sqrt{$simplifyRad} \)
+$BR
+Do a factor tree for $simplifyRad and list the prime factors: \{ ans_rule(10) \}
+$BR
+Now list the prime RADICAL factors for \( \sqrt{$simplifyRad} \): \{ ans_rule(20) \}
+$BR
+You should see one of the prime radical factors repeated twice. What do we get if we multiply the repeated radical factors together? \{ ans_rule(5) \}
+$BR
+What is the simplified version of \( \sqrt{$simplifyRad} \)? \{ ans_rule(10) \}
+END_TEXT
+Context()->normalStrings;
+
+ANS( $simplifyList->cmp(showLengthHints=>1, ordered=>0) );
+ANS( $simplifyListRad->cmp(showLengthHints=>1, ordered=>0) );
+ANS( Real($p1)->cmp(checker=>$numChecker) );
+ANS( Formula("$p1*sqrt($p2)")->cmp(checker=>$formChecker) );
+
+Section::End();
+Scaffold::End();
+
+ENDDOCUMENT();        

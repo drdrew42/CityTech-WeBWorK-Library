@@ -1,0 +1,71 @@
+##DESCRIPTION
+##  Parker - Sample Exam 1 
+##ENDDESCRIPTION
+
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextFraction.pl",
+   "contextLimitedNumeric.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("LimitedFraction");
+
+$ans1 = Real("-11");
+$ans2 = Fraction(-7,2);
+$ans3 = Real("-17");
+$ans4 = Fraction(-2,15);
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+\( 10-3[(-4+1)^2-2] \) = \{$ans1->ans_rule\}
+
+$PAR
+\( \dfrac{(3-6)^2}{18}-4 \) = \{$ans2->ans_rule\}
+
+$PAR
+\(-2(-5)+(-3)^3\) = \{$ans3->ans_rule\}
+
+$PAR
+\(\dfrac{-1}{5}+\dfrac{1}{3}-\dfrac{4}{15}\) = \{$ans4->ans_rule\}
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans1->cmp);
+ANS($ans2->cmp);
+ANS($ans3->cmp);
+ANS($ans4->cmp);
+
+
+ENDDOCUMENT();        

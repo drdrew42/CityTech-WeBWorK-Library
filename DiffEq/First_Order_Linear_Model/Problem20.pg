@@ -1,0 +1,98 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('Modeling with First-Order Differential Equations')
+## DBsection('Linear Model')
+## Date('05/28/2012')
+## Author('Anna Ghazaryan, Fuli Zhang')
+## Institution('Muohio')
+## TitleText1('Differential equations with Boundary-value problem')
+## AuthorText1('Dennis G. Zill')
+## Section1('3.1')
+## Edition('7')
+## Problem1('33')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"unionLists.pl",
+"parserPrime.pl",
+"parserPopUp.pl",
+"answerHints.pl",
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#Setup 
+
+Context("Numeric");
+Context()->variables->are(
+x=>"Real",
+t=>"Real",Deltat=>"Real",
+c=>"Real",
+);
+
+##############################################################
+#
+#  Text
+#
+#
+
+
+
+
+
+$answer[0] = Compute("60-60e^(-t/10)");
+$answer[1] = Compute("60(e^(2)-1)e^(-t/10)");
+
+
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+An electromotive force  \( \ E(t) = \left\lbrace \begin{array}{l l} 120, & \mbox{ if }  0\leq t \leq 20 \\  0, & \mbox{ if } t>20 \end{array} \right. \)is applied to an \(LR\) series circuit in which the inductance is 20 henries and resistance is 2 ohms. Find the current \(i(t)\) if \(i(0)=0\).
+
+$BR
+$BR
+ \( \ i(t) = \) \{ans_rule(15)\}  ,\(if\  0\leq t \leq 20\).
+$BR
+$BR
+ \( \ i(t) =\) \{ans_rule(15)\}. ,\(if\   t > 20\).
+
+
+
+ 
+\{ AnswerFormatHelp("formulas") \}
+
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+$showPartialCorrectAnswers = 0;
+ANS( $answer[0]->cmp() );
+ANS( $answer[1]->cmp() );
+
+
+
+
+ENDDOCUMENT();lim 

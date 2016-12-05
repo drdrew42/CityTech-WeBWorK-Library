@@ -1,0 +1,133 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject('Algebra')
+## DBchapter('Fundamentals')
+## DBsection('Real Numbers')
+## Date('6/3/2002')
+## Author('')
+## Institution('')
+## TitleText1('Precalculus')
+## EditionText1('3')
+## AuthorText1('Stewart, Redlin, Watson')
+## Section1('1.1')
+## Problem1('22')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "parserImplicitEquation.pl",
+   "contextFraction.pl",
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->variables->are( x => "Real", y => "Real", c => "Real" );
+do {
+$r1 = Real(random(-9,-1,1));
+$r2 = Real(random(1,9,1));
+$a = Real( $r1 + $r2 );
+} until ( $a != 0 );
+$y0 = Real( 1 / ($r1*$r2) );
+$c = Real($r1*$r2);
+#$c = Real(non_zero_random(-9,9,1));
+#$m = Real(2 * non_zero_random(-5,5,1));
+#$n = Real(random(2,6,1));
+#$p = Real(random(2,10,1));
+$q = Formula("( $a - 2x ) * y ^ 2");
+#$y0 = Real(random(-10,10,0.1));
+$gen = Formula("1 / ( x ^ 2 - $a * x + c )"); 
+$sol = Formula("1 / ( x ^ 2 - $a * x + $c )");
+$int = Interval( ($r1,$r2) );
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+Separate the following differential equation and integrate to find the general solution:
+$BR
+\( y' = $q \)
+$BR
+$BR
+Then give the particular solution that satisfies the initial condition \(y(0) = \frac{1}{$c}\) and state the interval on \(x\) for which this solution is valid.
+$BR
+$BR
+General Solution (explicitly): \(y(x)=\) \{$gen->ans_rule\}
+$BR
+Particular Solution (explicitly): \(y(x)=\) \{$sol->ans_rule\}
+$BR
+Interval of Validity: \{$int->ans_rule\}
+$BR
+END_TEXT
+
+$showHint = 5;
+BEGIN_TEXT
+$PAR
+If you don't get this in $showHint tries, you can get a hint.
+END_TEXT
+BEGIN_HINT
+Make sure you've adjusted to the variables appearing in this problem: \(y\) is dependent upon \(x\) as the independent variable.
+$BR
+$BR
+END_HINT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+#ANS($mu->cmp);
+ANS($gen->cmp( checker=>sub {
+ my($correct,$student,$ansHash)=@_;
+
+ my $dstudent=$student->D('x');
+ my $lhs=Formula("$dstudent");
+ my $rhs=Formula("($a-2x)*($student)^2");
+
+ my $studentC=Formula("1/$student - x^2 + $a*x");
+ my $dstudentC=$studentC->D('c');
+ my $ddstudentC=$dstudentC->D('c');
+
+ if (($lhs==$rhs) && ($ddstudentC==Formula("0"))) {
+  if ($dstudentC != Formula("0")) {
+   return 1}
+  else {
+   Value->Error("Your answer is not the most general solution, you should have 'c' in your answer as a parameter for the general family of solutions.")}
+  }
+ else {
+  return 0};
+}));
+ANS($sol->cmp);
+ANS($int->cmp);
+# relative tolerance --3.1412 is incorrect but 3.1413 is correct
+# default tolerance is .01 or one percent.
+
+
+ENDDOCUMENT();        

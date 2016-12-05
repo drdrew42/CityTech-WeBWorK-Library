@@ -1,0 +1,91 @@
+## DESCRIPTION
+##  Sampling Distribution of x_bar
+## ENDDESCRIPTION
+
+## DBsubject('Statistics')
+## Date('March 2013')
+## Author('Jonas Reitz')
+## Institution('NYCCT')
+## TitleText1('')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('')
+
+DOCUMENT();        # This should be the first executable line in the problem.
+
+loadMacros(
+"PG.pl",
+"PGbasicmacros.pl",
+"PGchoicemacros.pl",
+"PGanswermacros.pl",
+"PGgraphmacros.pl",
+"contextIntegerFunctions.pl",
+"PGnumericalmacros.pl",
+"PGstatisticsmacros.pl",
+"PGauxiliaryFunctions.pl"
+);
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+
+## randomize parameter n (number of trials)
+## need to make sure either than n>=30, or state in the text that the original population is normally distributed
+$n = random(8,22);
+
+## randomize mean and standard deviation - original population
+$mu = random(20,30,0.1);
+$sigma = random(6,10,0.001);
+
+## compute mean mu_xbar and standard deviation sigma_xbar - for sampling distribution
+$mu_xbar = $mu;
+$sigma_xbar = $sigma/sqrt($n);
+
+## choose x bounds
+## we will make sure corresponding values of z lie between z=-3.49 and z=3.49 
+## we will choose x's between these values to ensure we can use the table
+## first compute bounds for x-values corresponding to z +- 3.49 --
+$xtablebound[0] = ceil($mu_xbar - 3.49*$sigma_xbar);
+$xtablebound[1] = floor($mu_xbar +3.49*$sigma_xbar);
+
+##  choose x0 and x1 -- these will be used for lower bound and upper bound of interval, respectively (as well as lower/upper bounds for intervals to infinity)
+## code below gives 2 digits beyond decimal point
+$x[0] = Round(random(100*$xtablebound[0],100*$xtablebound[1]-1)/100,2);
+$x[1] = Round(random(100*$x[0]+1,100*$xtablebound[1])/100,2);
+
+## compute answers
+
+## first compute z-values, then round to 2 decimals
+$z[0] = ($x[0] - $mu_xbar)/$sigma_xbar;
+$z[0] = Round($z[0],2);
+$z[1] = ($x[1] - $mu_xbar)/$sigma_xbar;
+$z[1] = Round($z[1],2);
+
+## now compute probability for each z, round each answer to 4 decimals
+## note for problems involving two x-values, this ensures that rounding takes place for each corresponding probability value, as it does in table-based computations (computing the area between z-values and then rounding may not yield the same result)
+
+$prob[0] = Round(normal_prob('-infty',$z[0]), 4);
+$prob[1] = Round(normal_prob('-infty',$z[1]), 4);
+
+## now compute various answers - above x0, below x1, and between x0 and x1
+## choose the answer appropriate to your problem and include it in the ANS code below
+
+$ansAbovex0 = 1 - $prob[0];
+$ansBelowx1 = $prob[1];
+$ansBetweenx0Andx1 = $prob[1] - $prob[0];
+
+BEGIN_TEXT
+
+Annual per capita coffee consumption in the U.S. in a recent year was normally distributed with a mean of \( $mu \) gallons and a standard deviation of \( $sigma \) gallons.  What is the probability that the mean annual coffee consumption of a random sample of  \( $n \) people in the U.S. is more than \( $x[0] \)?  \{ ans_rule(10) \}
+
+
+
+END_TEXT
+
+## answers
+
+ANS(num_cmp($ansAbovex0));
+
+
+ENDDOCUMENT();       # This should be the last executable line in the problem.

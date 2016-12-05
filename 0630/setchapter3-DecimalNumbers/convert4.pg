@@ -1,0 +1,73 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject('Arithmetic')
+## DBchapter('Percents')
+## DBsection('Conversion between decimals and percents')
+## Date('10/26/2015')
+## Author('K. Andrew Parker')
+## Institution('NYCCT')
+## TitleText1('Prealgebra')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextFraction.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+
+$percent = random(10,99,10);
+$decimal = Real("$percent/100");
+
+Context("LimitedFraction");
+$fraction = Fraction($percent,100);
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Convert $percent % into:
+$PAR
+a) a decimal: \{ ans_rule(10) \}
+$PAR
+b) a reduced fraction: \{ ans_rule(10) \}
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($decimal->cmp);
+ANS($fraction->cmp);
+
+
+ENDDOCUMENT();        

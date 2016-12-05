@@ -1,0 +1,50 @@
+#DESCRIPTION
+##Type of
+#ENDDESCRIPTION
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+"MathObjects.pl",
+"contextLeadingZero.pl",
+);
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+Context("Numeric");
+
+$a5 = random(17,47,2); $ans5 = $a5/25;
+$a6 = random(33,87,3); $ans6 = $a6/50;
+$a7 = 25+non_zero_random(-4,4,1); $ans7 = $a7/5;
+$a8 = random(34,74,4); $ans8 = $a8/40;
+
+BEGIN_TEXT
+Change the following fractions to decimals. $BR 
+If your answer is a repeating decimal, round to 3 decimal places. $BR 
+Make sure that you include a digit before the decimal point - even if that digit is zero. 
+
+$PAR
+\(\frac{$a5}{25}\)=\{ans_rule(10)\}.$PAR
+\(\frac{$a6}{50}\)=\{ans_rule(10)\}.$PAR
+\(\frac{$a7}{5}\)=\{ans_rule(10)\}.$PAR
+\(\frac{$a8}{40}\)=\{ans_rule(10)\}.$PAR
+
+END_TEXT
+Context("LeadingZero");
+
+ANS(Real($ans5)->cmp);
+ANS(Real($ans6)->cmp);
+ANS(Real($ans7)->cmp);
+ANS(Real($ans8)->cmp);
+
+
+COMMENT('MathObject version');
+ENDDOCUMENT();
+## DBsubject(Arithmetic)
+## DBchapter(Decimals)
+## DBsection(Converting between fractions and decimals)
+## Level(2)
+## MO(1)
+

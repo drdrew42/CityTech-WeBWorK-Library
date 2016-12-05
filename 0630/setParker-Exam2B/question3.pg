@@ -1,0 +1,58 @@
+##DESCRIPTION
+##  Parker - Sample Exam 1 
+##ENDDESCRIPTION
+
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextFraction.pl",
+   "contextLimitedNumeric.pl",
+   "contextLimitedPolynomial.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("LimitedPolynomial-Strict")->variables->are(x=>"Real",y=>"Real");
+
+$ans1 = Formula("-6y+8x-1");
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Simplify.
+$PAR
+\( \dfrac{12xy^2-16x^2y+2xy}{-2xy} \) = \{$ans1->ans_rule\}
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans1->cmp);
+
+ENDDOCUMENT();        

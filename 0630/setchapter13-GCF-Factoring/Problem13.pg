@@ -1,0 +1,64 @@
+##DESCRIPTION
+##  Real Numbers - FINAL EXAM STYLE QUESTION 
+##ENDDESCRIPTION
+
+## DBsubject('Middle school')
+## DBchapter(Polynomials, polynomial functions, and factoring)
+## DBsection('A General Factoring Strategy')
+## KEYWORDS('factoring')
+## Date('10/9/2013')
+## Author('ElHitti')
+## Institution('CityTech')
+
+
+
+DOCUMENT(); # This should be the first executable line in the problem.
+
+loadMacros(
+  "PGstandard.pl",
+  "MathObjects.pl",
+  "CofIdaho_macros.pl"
+);
+
+TEXT(beginproblem());
+
+######################################
+#  Setup
+
+@alphabet = ("a","x","y");
+$n = random(0,2,1);
+$var= $alphabet[$n];
+Context()->variables->are($var=>'Real');
+
+$a = random(1,4,1);
+do {$c = random(1,4,1);} while ($a==$c);
+do {$b = list_random(2,3,4,5,7);} until (gcd($a*$c,$b)==1);
+
+$j = random(1,2,1);
+$n = random(4,5,1);
+$m = $n - $j;
+
+$polynomial = Formula("$a*$c*$var^$m + $b*$a*$var^$n")->reduce->TeX;
+
+######################################
+#  Main text
+
+BEGIN_TEXT
+Factor completely: 
+$PAR
+\( $polynomial = \)  \{ ans_rule(30) \} 
+END_TEXT
+
+######################################
+#  Answer
+
+$answer = "$a *$var^$m* ($c  + $b * $var^$j)";
+ANS(FactoringEvaluator($answer,$var)); 
+
+$showPartialCorrectAnswers = 1;
+
+######################################
+
+
+COMMENT('MathObject version');
+ENDDOCUMENT();

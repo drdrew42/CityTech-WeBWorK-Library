@@ -1,0 +1,164 @@
+assignmentType      = default
+openDate          = 09/03/2015 at 02:00am EDT
+reducedScoringDate = 12/31/1969 at 07:00pm EST
+dueDate           = 09/09/2015 at 03:00am EDT
+answerDate        = 09/09/2015 at 03:00am EDT
+enableReducedScoring = N
+paperHeaderFile   = local/Reitz/CombinedHeaderFile-Reitz.pg
+screenHeaderFile  = local/Reitz/CombinedHeaderFile-Reitz.pg
+description       = 
+restrictProbProgression = 
+emailInstructor   = 
+
+problemListV2 
+problem_start
+problem_id = 1
+source_file = Library/ASU-topics/setDiscrete/katie1.6_1.pg
+value = 4
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 2
+source_file = Library/NAU/setSet/Sets_3.pg
+value = 4
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 3
+source_file = Library/UMN/logicAndSetTheory/prob03.pg
+value = 5
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 4
+source_file = Library/SDSU/Discrete/Sets/differenceB1.pg
+value = 2
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 5
+source_file = Library/NAU/setSet/Sets_4_b.pg
+value = 2
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 6
+source_file = Library/SDSU/Discrete/Sets/unionB2.pg
+value = 2
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 7
+source_file = Library/UMN/logicAndSetTheory/prob04.pg
+value = 5
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 8
+source_file = Library/Union/setAlgebraIntervals/ur_ab_10_3.pg
+value = 4
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 9
+source_file = Library/SDSU/Discrete/Sets/VennB5/VennB5.pg
+value = 3
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 10
+source_file = Library/SDSU/Discrete/Sets/VennB3/VennB3.pg
+value = 3
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 11
+source_file = Library/SDSU/Discrete/Sets/VennB11/VennB11.pg
+value = 3
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 12
+source_file = Library/SDSU/Discrete/Sets/VennB12/VennB12.pg
+value = 3
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 13
+source_file = Library/NAU/setSet/venn_p3.pg
+value = 5
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 14
+source_file = Library/NAU/setSet/venn_p1.pg
+value = 3
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 15
+source_file = Library/Rochester/setDiscrete11InclusionEx/ur_dis_11_1.pg
+value = 3
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+

@@ -1,0 +1,183 @@
+## DESCRIPTION
+## Higher order ODEs: constant coefficient higher order homogeneous linear ODEs
+## Randomly chosen under/over-damped Circuit application problem
+## ENDDESCRIPTION
+
+## KEYWORDS('differential equations','second order linear ODE','constant coefficients')
+
+## DBsubject('Differential Equations')
+## DBchapter('Higher Order Differential Equations')
+## DBsection('Higher Order Linear')
+## Date('01/30/2011')
+## Author('Paul Pearson')
+## Institution('Fort Lewis College')
+## TitleText1('')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('')
+
+
+##############################
+#  Initialization
+
+DOCUMENT(); 
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"parserImplicitPlane.pl",
+"parserPopUp.pl",
+"contextFraction.pl",
+);
+
+TEXT(beginproblem());
+
+#############################
+#  Setup
+
+Context("Fraction");
+Context()->variables->{namePattern} = qr/[a-z][a-z0-9_]*'*/i;
+Context()->variables->are( Q => "Real", "Q'" => "Real", "Q''" => "Real", t => "Real" );
+Context()->variables->set("Q''"=>{limits=>[-10,10]},"Q'"=>{limits=>[5,15]},Q=>{limits=>[-10,10]});
+
+# Context("Numeric")->variables->are(t=>"Real");
+Context()->reduction->set(
+'(-x)-y'=>0, # turn off the reduction rule (-x)-y = -(x+y)
+'(-x)+y'=>0, # turn off the reduction rule (-x)+y = y-x 
+);  
+
+Context()->flags->set(
+#  reduceConstants=>0,
+  reduceConstantFunctions=>0,
+  tolerance => 0.0001,
+  tolType => "absolute",
+);
+
+Context()->strings->add( underdamped => {}, overdamped => {}, "critically damped" => {} ); 
+
+$r01 = random(-9,-1,1);
+$r02 = random(-9,-1,1);
+
+if ( random(0,1,1) == 0 ) {
+ $r1 = $r01 * 100;
+ $r2 = $r02 * 100;
+
+ @L = ( Fraction(1,2), Fraction(1,4), Fraction(1,5), Fraction(1,10), Fraction(1,20), Fraction(1,25) );
+ $Lind = random(0,5,1);
+ $L1 = Real(1/@L[$Lind]);
+ 
+ $R = -1*($r1 + $r2) / $L1;
+ $C = Fraction($L1,$r01*$r02); # x 10^{-4}
+
+ $a = Real(1/$L1);
+ $b = $R;
+ $c = Real($r1*$r2/$L1);
+
+ $Rcrit = 2*sqrt($r1*$r2)/$L1;
+ $damped = String("overdamped");
+
+} else {
+
+ $alpha = $r01 * 100;
+ $beta = $r02 * 100;
+ $norm2 = $alpha**2 + $beta**2;
+
+ @L = ( Fraction(1,2), Fraction(1,4), Fraction(1,5), Fraction(1,10), Fraction(1,20), Fraction(1,25) );
+ $Lind = random(0,5,1);
+ $L1 = Real(1/@L[$Lind]);
+
+ $R = -2*($alpha) / $L1;
+ $C = Fraction($L1,$r01**2+$r02**2); # x 10^{-4}
+
+ $a = Real(1/$L1);
+ $b = $R;
+ $c = Real($norm2/$L1);
+
+
+ $Rcrit = 2*sqrt($alpha**2+$beta**2)/$L1;
+
+ $damped = String("underdamped");
+}
+
+
+$popup = PopUp( ["?", "underdamped", "critically damped", "overdamped"], $damped );
+
+########################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+A series circuit is constructed with resistance \($R\) \(\Omega\), capacitance \($C \times 10^{-4} \) F, and inductance \(@L[$Lind]\) H.
+END_TEXT
+
+Context("ImplicitPlane");
+Context()->variables->{namePattern} = qr/[a-z][a-z0-9_]*'*/i;
+Context()->variables->are( Q => "Real", "Q'" => "Real", "Q''" => "Real", t => "Real" );
+Context()->variables->set("Q''"=>{limits=>[-10,10]},"Q'"=>{limits=>[5,15]},Q=>{limits=>[-10,10]});
+Context()->reduction->set(
+'(-x)-y'=>0, # turn off the reduction rule (-x)-y = -(x+y)
+'(-x)+y'=>0, # turn off the reduction rule (-x)+y = y-x 
+);  
+Context()->flags->set(
+  reduceConstants=>0,
+  reduceConstantFunctions=>0,
+  tolerance => 0.0001,
+  tolType => "absolute",
+);
+
+Context()->strings->add( underdamped => {}, overdamped => {}, "critically damped" => {} ); 
+
+$de = ImplicitPlane("$a*Q'' + $b*Q' + $c*Q = 0")->reduce;
+
+BEGIN_TEXT
+$BR
+$BR
+What is the differential equation for the charge in this circuit? (Use \(Q\) as the dependent variable.)
+$BR
+$BR
+\{ans_rule(30)\}
+$BR
+$BR
+This system is \{ $popup -> menu() \}
+$BR
+$BR
+What amount of resistance would cause the system to be critically damped?
+$BR
+\{ans_rule(30)\}
+END_TEXT
+Context()->normalStrings;
+
+$showHint = 3;
+BEGIN_HINT
+You ought to have found the differential equation to be
+$BR
+\[ L * Q'' + R * Q' + \frac{1}{C} * Q = 0\]
+$BR
+$BR
+Remember, then, that the damping of the system depends on the type of solutions for the characteristic polynomial of our differential equation. More specifically, we can look at the radicand of the quadratic formula.
+$BR
+$BR
+Two distinct real roots: \( R^2 - 4(L)(\frac{1}{C}) > 0 \) => "overdamped", 
+$BR
+two complex roots: \( R^2 - 4(L)(\frac{1}{C}) < 0 \) => "underdamped", 
+$BR
+and 1 repeated real root: \( R^2 - 4(L)(\frac{1}{C}) = 0 \) => "critically damped".
+$BR
+$BR
+So, if you want to find out what value of R will make the system critically damped, you'll have to solve the equation (above) associated with critical damping.
+END_HINT
+
+##########################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 1;
+
+ANS( $de->cmp() );
+ANS( $popup->cmp() );
+ANS( $Rcrit->cmp() );
+
+COMMENT("MathObject version.");
+
+ENDDOCUMENT();

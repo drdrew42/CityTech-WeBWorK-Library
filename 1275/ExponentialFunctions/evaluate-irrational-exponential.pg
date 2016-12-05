@@ -1,0 +1,61 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "PGML.pl",
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("LimitedNumeric");
+Context()->{format}{number} = "%.4f#";
+Context()->flags->set(tolType=>'absolute', tolerance=>0.00005);
+Context()->{error}{msg}{"Can't use '^' in this context"} 
+  = "Exponents have been disabled for this problem. Compute the final result as a number.";
+
+$B = random(2,10,1);
+$exp = list_random(pi,e);
+
+$Bexp = $B**abs($exp);
+
+$ans = Real($Bexp);
+
+$exp = ($exp == pi) ? "\pi" : $exp;
+
+##############################################################
+#
+#  Text
+#
+#
+
+BEGIN_PGML
+
+Evaluate the following expression.
+
+>> [` \large{ [$B]^{ [$exp] } = }`] [_____]{$ans} <<
+
+* You must use decimal approximations.
+* Round your answer to four decimal places.
+* Simplify your answer completely.
+
+END_PGML
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ENDDOCUMENT();        

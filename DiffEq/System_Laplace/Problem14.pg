@@ -1,0 +1,89 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('introduction of systems')
+## DBsection("The method of Elimination")
+## Date('06/11/2012')
+## Author('Anna Ghazaryan,Fuli Zhang')
+## Institution('Muohio')
+## TitleText1('Differential equations with Boundary-value problem')
+## AuthorText1('David E. Penney')
+## Section1('5.2')
+## Edition('7')
+## Problem1('3')
+
+###############################################################
+
+
+DOCUMENT(); 
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"parserAssignment.pl",
+"unionLists.pl",
+);
+
+TEXT(beginproblem());
+
+
+#############################
+#  Setup
+
+Context("Numeric");
+Context()->variables->are(
+t=>"Real"
+);
+
+$a=random(1,2,3);
+$b=random(1,2,3);
+$x = Formula("(6*$a-2*$b)/5 e^(-2t) + ($a - (6*$a-2*$b)/5) e^(3t)");
+$y = Formula("(6*$a-2*$b)/10 e^(-2t) + 3*($a - (6*$a-2*$b)/5) e^(3t)");
+
+
+
+######################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+Use either Laplace Transform or method of elimination to solve the systems
+$PAR
+\[
+\begin{array}{lcl}
+x' & = & -3x+2y\\
+y' & = & -3x+4y 
+\end{array}
+\]
+$BR
+$BR
+if \( x(0) = $a \) and \(y(0) = $b\).
+$BR
+$BR
+\( x(t) = \) 
+\{ ans_rule(40) \}
+\{ AnswerFormatHelp("formulas") \}
+$BR
+\( y(t) = \) 
+\{ ans_rule(40) \}
+\{ AnswerFormatHelp("formulas") \}
+END_TEXT
+Context()->normalStrings;
+
+
+######################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 1;
+
+ANS( $x->cmp() );
+ANS( $y->cmp() );
+
+
+COMMENT("MathObject version.");
+
+ENDDOCUMENT();

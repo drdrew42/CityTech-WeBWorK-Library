@@ -1,0 +1,90 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('Modeling with Higher-Order Differential Equations')
+## DBsection('Linear Models')
+## Date('05/28/2012')
+## Author('Anna Ghazaryan,Fuli Zhang')
+## Institution('Muohio')
+## TitleText1('Differential equations with Boundary-value problem')
+## AuthorText1('Dennis G. Zill')
+## Section1('5.1')
+## Edition('7')
+## Problem1('4')
+
+########################################################################
+
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",
+   "MathObjects.pl",
+   "AnswerFormatHelp.pl",
+   "unionLists.pl",
+   "parserPrime.pl",
+   "parserPopUp.pl",
+   "answerHints.pl",
+   "parserImplicitPlane.pl",
+
+ );
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric")->variables->add(y=>"Real",t=>"Real");
+
+##############################################################
+#
+#  Text
+#
+#
+
+
+$a = random(1,2,3);
+
+$answer[0] = Formula("$a/(4sqrt(6)) sin(4sqrt(6)t)");
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Solve the following problem: 
+$BR
+Question:$BR Determine the equation of motion if the weight in previous Problem is released from the equilibrium position with a downward velocity of $a ft/s.(Use t as independent variable)
+$BR
+$BR
+\(\displaystyle \ x=\) \{ans_rule(30)\}
+ 
+\{ AnswerFormatHelp("formulas") \}
+
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+ANS( $answer[0]->cmp() );
+
+
+
+
+
+
+
+
+ENDDOCUMENT();   

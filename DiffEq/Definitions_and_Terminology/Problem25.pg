@@ -1,0 +1,80 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('Introduction')
+## DBsection('Definitions and Terminology')
+## Date('05/22/2012')
+## Author('Anna Ghazaryan, Fuli Zhang')
+## Institution('Muohio')
+## TitleText1('Differential equations with Boundary-value problem')
+## AuthorText1('Dennis G. Zill')
+## Section1('1.1')
+## Edition('7')
+## Problem1('25')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"unionLists.pl",
+"parserPrime.pl",
+"parserPopUp.pl",
+"answerHints.pl",
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+#Context("Numeric")->variables->add(t=>"Real",P=>"Real",r=>"Real",R=>"Real",k=>"Real");
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+$answer[1] = PopUp(["Choose","Yes","No"],"Yes");
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+Whether the piecewise-defined function is a solution of the different equation \(xy'-2y=0\) on \((-\infty,\infty)\)?
+
+ \( \ y = \left\lbrace \begin{array}{l l} -x^{2}, & \mbox{ if }  x < 0 \\  x^{2}, & \mbox{ if } x \geq 0 \end{array} \right. \) (You have ONLY ONE attempt!)
+$BR
+$BR
+\{ $answer[1]->menu() \}.
+\{ AnswerFormatHelp("formulas") \}
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+$showPartialCorrectAnswers = 0;
+
+ANS( $answer[1]->cmp() );
+
+ENDDOCUMENT();    
+

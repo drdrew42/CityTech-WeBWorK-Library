@@ -1,0 +1,39 @@
+#DESCRIPTION
+##Type of
+#ENDDESCRIPTION
+## DBsubject(Numbers)
+## DBchapter(Integers)
+## DBsection(Arithmetic)
+## Date('2/12/2016')
+## Author('Parker')
+## Institution('City Tech')
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+"MathObjects.pl",
+);
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+Context("LimitedNumeric");
+Context()->{error}{msg}{"Can't use '+' in this context"} 
+  = "Addition is disabled for this problem. Compute the result for yourself and resubmit your answer.";
+Context()->{error}{msg}{"Can't use '-' in this context"} 
+  = "Subtraction is disabled for this problem. Compute the result for yourself and resubmit your answer.";
+
+$a4 = random(17 ,22 ,1 );  $b4=random (-16 , -11 , 1); $ans4= $a4 -$b4 ;
+
+BEGIN_TEXT
+
+\($a4 -($b4)\) = \{ans_rule(2)\}. $PAR
+
+
+END_TEXT
+ANS(Real($ans4)->cmp);
+
+
+COMMENT('MathObject version');
+ENDDOCUMENT();

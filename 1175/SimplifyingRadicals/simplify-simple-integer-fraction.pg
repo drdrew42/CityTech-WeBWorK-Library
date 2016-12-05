@@ -1,0 +1,60 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextFraction.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+Context("LimitedFraction");
+Context()->flags->set(reduceConstants=>0, reduceConstantFunctions=>0, formatStudentAnswer=>'parsed');
+Parser::Number::NoDecimals;
+
+##############################################################
+#
+#  Setup
+#
+#
+
+$ansDen = random(2,5,1);
+$common = random(2,4,1);
+$radDen = $ansDen**2 * $common;
+
+$ans = Fraction(1,$ansDen);
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Simplify the radical without using rational exponents. 
+$BR
+Assume all variables are restricted to positive values (that way we don't have to worry about absolute values).
+$PAR
+\(\displaystyle \large{ \sqrt{\frac{$common}{$radDen}}} \) = \{ ans_rule(10) \}
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans->cmp);
+
+ENDDOCUMENT();        

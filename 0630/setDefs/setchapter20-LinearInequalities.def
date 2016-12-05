@@ -1,0 +1,104 @@
+assignmentType      = default
+openDate          = 03/30/2016 at 06:16am EDT
+reducedScoringDate = 10/29/2015 at 02:00pm EDT
+dueDate           = 04/06/2016 at 12:16pm EDT
+answerDate        = 04/06/2016 at 12:16pm EDT
+enableReducedScoring = N
+paperHeaderFile   = defaultHeader
+screenHeaderFile  = defaultHeader
+description       = Solving inequalities.<n>Remind students that "≤" is written as "<=", and "≥" is ">=" in WeBWorK.<n>
+restrictProbProgression = 
+emailInstructor   = 
+
+problemListV2 
+problem_start
+problem_id = 1
+source_file = local/setchapter22-LinearInequalities/problem1.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 2
+source_file = local/setchapter22-LinearInequalities/problem2.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 3
+source_file = local/setchapter22-LinearInequalities/problem3.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 4
+source_file = local/setchapter22-LinearInequalities/problem4.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 5
+source_file = local/setchapter22-LinearInequalities/problem5.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 6
+source_file = local/set3.1_Solving-Inequalities/graph_inequality_on_numberline.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 7
+source_file = local/set3.1_Solving-Inequalities/graph_inequality_on_numberline.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 8
+source_file = local/set3.1_Solving-Inequalities/graph_inequality_on_numberline.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 9
+source_file = local/set3.1_Solving-Inequalities/graph_inequality_on_numberline.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+

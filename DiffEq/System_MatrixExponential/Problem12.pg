@@ -1,0 +1,103 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('Systems of Linear Differential Equations')
+## DBsection('Matrix Exponential")
+## Date('06/11/2012')
+## Author('Anna Ghazaryan,Fuli Zhang')
+## Institution('Muohio')
+## TitleText1('Differential equations with Boundary-value problem')
+## AuthorText1('David E. Penney')
+## Section1('5.7')
+## Edition('7')
+## Problem1('27')
+
+###############################################################
+DOCUMENT(); 
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGmatrixmacros.pl",
+"parserPopUp.pl",
+);
+
+TEXT(beginproblem());
+
+
+#############################
+#  Setup
+
+Context("Numeric");
+Context()->variables->{namePattern} = qr/[a-z][a-z0-9_]*'*/i;
+Context()->variables->add(
+"x'"=>"Real","y"=>Real,"z"=>"Real","z'"=>"Real","y'"=>"Real",t=>"Real",
+);
+
+$a = random(3,12,1);
+$b = random(3,12,1);
+$c = random(3,12,1);
+$d = random(3,12,1);
+
+$a11 = Formula("e^t");
+$a12 = Formula("2te^t");
+$a13 = Formula("(3t+2t^2)e^t");
+$a21 = Formula("0");
+$a22 = Formula("e^t");
+$a23 = Formula("2te^t");
+$a31 = Formula("0");
+$a32 = Formula("0");
+$a33 = Formula("e^t");
+
+
+######################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+
+\(A=\)\{ 
+mbox(
+   display_matrix([[1,2,3],[0,1,2],[0,0,1]],align=>'ccc'),);
+\}
+Compute \(e^{At}\)
+
+$BR
+$BR
+\(e^{At}=\) \{ 
+mbox(
+   display_matrix([[ans_rule(10),ans_rule(10),ans_rule(10)],[ans_rule(10),ans_rule(10),ans_rule(10)],[ans_rule(10),ans_rule(10),ans_rule(10)]],align=>'ccc'));
+\}
+$PAR
+
+END_TEXT
+Context()->normalStrings;
+
+
+######################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 1;
+
+
+
+ANS( $a11->cmp() );
+ANS( $a12->cmp() );
+ANS( $a13->cmp() );
+ANS( $a21->cmp() );
+ANS( $a22->cmp() );
+ANS( $a23->cmp() );
+ANS( $a31->cmp() );
+ANS( $a32->cmp() );
+ANS( $a33->cmp() );
+
+
+
+
+
+COMMENT("MathObject version.");
+
+ENDDOCUMENT();

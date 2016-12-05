@@ -1,0 +1,89 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+$rationalChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     Value->Error("Look at the preview answer box. Did you forget parenthesis around your numerator or denominator?") unless $student->{tree}->class eq "BOP" && $student->{tree}{bop} eq "/";
+     return 0 unless $correct == $student;
+     my $cnum = Formula($correct->{tree}{lop});
+     my $snum = Formula($student->{tree}{lop});
+     my $cden = Formula($correct->{tree}{rop});
+     my $sden = Formula($student->{tree}{rop});
+     Value->Error("Your answer can be reduced further") unless ($cnum == $snum && $cden == $sden);
+     return 1;
+};
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric")->variables->are("y"=>Real);
+Context()->flags->set(reduceConstants=>0, reduceConstantFunctions=>0);
+Context()->noreduce('(-x)+y','(-x)-y');
+
+$r = random(2,9,1);
+do { $b = random(-1,1,2)*random(2,9,1); } until ( $r != abs($b) );
+
+$frac1n = Formula("y-$b")->reduce;
+$frac1d = Formula("y-$r")->reduce;
+$frac1 = Formula("$frac1n/$frac1d");
+$frac1tex = $frac1->TeX;
+
+$frac2n = Formula("y+$b")->reduce;
+$frac2d = Formula("$r-y")->reduce;
+$frac2 = Formula("$frac2n/$frac2d");
+$frac2tex = $frac2->TeX;
+
+$n1ans = Formula("$frac1n")->reduce;
+$n2ans = Formula("-y-$b")->reduce;
+$nAns = Formula("2y")->reduce;
+$dAns = Formula("$frac1d")->reduce;
+$dAnstex = $dAns->TeX;
+$ans = Formula("$nAns/$dAns")->with(test_at=>[[$r]],checkUndefinedPoints=>1);
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Subtract and reduce if possible.
+$PAR
+\[ $frac1 - $frac2 \]
+$PAR
+\{ans_rule(20)\}
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS( $ans->cmp(checker=>$rationalChecker)->withPostFilter(sub { 
+  my $ans = shift; 
+  $ans->{ans_message} = "Your answer isn't completely simplified." 
+    if $ans->{ans_message} eq "The domain of your function doesn't match that of the correct answer";
+  return $ans; 
+}));
+
+ENDDOCUMENT();        

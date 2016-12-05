@@ -1,0 +1,268 @@
+##DESCRIPTION
+##  PreAlgebra problem:
+##ENDDESCRIPTION
+
+##KEYWORDS('prealgebra','common core')
+
+## DBsubject('Arithmetic')
+## DBchapter('Integers')
+## DBsection('Multiplication')
+## Date('4/5/2015')
+## Author('Andrew Parker')
+## Institution('NYC CityTech')
+## ProblemTester('')
+## TitleText1('')
+## Publisher('')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "problemRandomize.pl",
+   "PGgraphmacros.pl",
+   "scaffold.pl",
+   "niceTables.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+#  Allow for the user to try another version of the problem once they get it correct.
+ProblemRandomize(when=>"Correct",onlyAfterDue=>0);
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer=>"parsed"
+   );
+
+$sumChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentstring = $ansHash->{preview_text_string};
+     return ($studentstring eq $ansHash->{correct_ans} ? 1 : 0);
+};
+
+@ths = ( "zeroth", "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth");
+
+@ords = ("zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine");
+
+ $A = random(3,5,1);
+ do { $B = random(4,7,1); } until ( $A != $B );
+ $product = Real($A*$B);
+
+ $Asum = Formula("$A");
+ for( $i = 2; $i<=$B; $i++ ) {
+  $Asum = Formula( $Asum . "+$A" );
+ }
+
+ $Bsum = Formula("$B");
+ for( $i = 2; $i<=$A; $i++ ) {
+  $Bsum = Formula( $Bsum . "+$B" );
+ }
+
+# GRAPHS
+
+ $width = 2 * ( $B + 1 );
+ $height = 2 * ( $A + 1 );
+ $graph = init_graph(0,0,$width,$height,'size'=>[10*$width,10*$height]);
+
+# $blue = $graph->im->colorAllocate(100,100,255);
+
+# overlay grid
+# PGgraphmacros uses coordinate addressing
+
+# Horizontal lines:
+for( $i=0; $i<=$A; $i++ ) {
+  $y = (1 + 2 * $i);
+  $graph -> moveTo( 1, $y );
+  $graph -> lineTo( $width - 1, $y, 'black' );
+ }
+
+# Vertical lines:
+for( $j=0; $j<=$B; $j++ ) {
+  $x = 1 + 2 * $j;
+  $graph -> moveTo( $x, 1 );
+  $graph -> lineTo( $x, $height - 1, 'black' );
+ }
+
+ $HBwidth = 5*$B+3;
+ $HBheight = 4*($A+1);
+ $HBgraph = init_graph(0,0,$HBwidth,$HBheight,'size'=>[5*$HBwidth,5*$HBheight]);
+
+for(  $j=0; $j<$B; $j++ ) {
+  $x = 2 + 5*$j;
+  $HBgraph -> moveTo( $x, 2 );
+  $HBgraph -> lineTo( $x, $HBheight - 2 );
+  $HBgraph -> moveTo( $x+4, 2 );
+  $HBgraph -> lineTo( $x+4, $HBheight -2);
+  for( $i=0; $i<=$A; $i++ ) {
+    $y = 2+4*$i;
+    $HBgraph -> moveTo( $x, $y );
+    $HBgraph -> lineTo( $x+4, $y );
+  }
+}
+
+ $VBwidth = 4*($B+1);
+ $VBheight = 5*$A+3;
+ $VBgraph = init_graph(0,0,$VBwidth,$VBheight,'size'=>[5*$VBwidth,5*$VBheight]);
+
+for(  $i=0; $i<$A; $i++ ) {
+  $y = 2 + 5*$i;
+  $VBgraph -> moveTo( 2, $y );
+  $VBgraph -> lineTo( $VBwidth - 2, $y );
+  $VBgraph -> moveTo( 2, $y+4 );
+  $VBgraph -> lineTo( $VBwidth -2, $y+4 );
+  for( $j=0; $j<=$B; $j++ ) {
+    $x = 2+4*$j;
+    $VBgraph -> moveTo( $x, $y );
+    $VBgraph -> lineTo( $x, $y+4 );
+  }
+}
+
+ $C = random(2,7,1);
+ do { $D = random(2,7,1); } until ( $C != $D );
+ $productCD = Real($C*$D)->reduce;
+
+ $CsumDs = Formula("$D");
+ for( $i = 2; $i<=$C; $i++ ) {
+  $CsumDs = Formula( $CsumDs . "+$D" );
+ }
+
+ $DsumCs = Formula("$C");
+ for( $i = 2; $i<=$D; $i++ ) {
+  $DsumCs = Formula( $DsumCs . "+$C" );
+ }
+
+##############################################################
+#
+#  Text
+#
+#
+
+##    to disable arithmetic operations in the answer.  Student must simplify.
+Context()->operators->undefine("-","/","*");
+
+##############################################################
+# Scaffolding
+Scaffold::Begin(
+      can_open => "when_previous_correct",
+      is_open  => "first_incorrect"
+);
+##############################################################
+Section::Begin("Part 1: Visualizing Multiplication");
+
+ Context()->texStrings;
+ BEGIN_TEXT
+
+ $PAR
+ We can also think of multiplication by visualizing rectangles like the one below. This picture shows the multiplication \( $A \times $B \). Notice that the rectangle is $A boxes tall, and $B boxes wide.
+ $PAR
+ \{ image( insertGraph( $graph ), height =>10*$height, width=>10*$width ) \}
+ $PAR
+ Count the number of boxes in the rectangle. \{ ans_rule(5) \}
+ $PAR
+ END_TEXT
+ Context()->normalStrings;
+
+ ANS( $product->cmp() );
+
+Section::End();
+##############################################################
+Section::Begin("Part 2: Adding by Columns");
+
+ Context()->texStrings;
+ BEGIN_TEXT
+
+ $PAR
+ Using the same rectangle from the previous section, we can split it up into columns, like this:
+ $PAR
+ \{ image( insertGraph($HBgraph), height=>5*$HBheight, width=>5*$HBwidth ) \}
+ $PAR
+ Here, the product \($A \times $B\) looks like several columns of $A boxes each being added together. If we were to write this visualization as a sum, it would look like \( $Asum \).
+ $PAR
+ What is the result if we add \( $Asum \) ?  \{ans_rule(5)\}
+ $PAR
+ END_TEXT
+ Context()->normalStrings;
+
+ ANS( $product->cmp() );
+
+Section::End();
+##############################################################
+Section::Begin("Part 3: Adding by Rows");
+
+ Context()->texStrings;
+ BEGIN_TEXT
+
+ $PAR
+ What happens if we instead split the rectangle into rows?
+ $PAR
+ \{ image( insertGraph($VBgraph), height=>5*$VBheight, width=>5*$VBwidth ) \}
+ $PAR
+ There are $B boxes in each row, write repeating sum for this picture. 
+ \{ans_rule(15)\}
+ $PAR
+ What is the result if we calculate that sum? \{ ans_rule(5) \}
+
+  END_TEXT
+ Context()->normalStrings;
+
+ ANS( $Bsum->cmp(checker=>$sumChecker) );
+ ANS( $product->cmp() );
+
+Section::End();
+##############################################################
+Section::Begin("Part 4: The Commutative Property");
+
+ Context()->texStrings;
+ BEGIN_TEXT
+
+ $PAR
+ This symmetry of adding by rows and adding by columns is an important property of multiplication. Mathematicians call it the $BITALIC commutative property of multiplication $EITALIC. But fundamentally what it reveals to us is that multiplying two numbers doesn't change if we reverse their order.
+ $PAR
+ Try it!
+ $PAR
+ Write the repeating sum for \( $C \times $D \) using only $D s. \{ ans_rule(10) \}
+ $PAR
+ Give the final result for \( $C \times $D \).  \{ ans_rule(5) \}
+ $PAR
+ Write the repeating sum for \( $D \times $C \) using only $C s. \{ ans_rule(10) \}
+ $PAR
+ Give the final result for \( $D \times $C \).  \{ ans_rule(5) \}
+
+ END_TEXT
+ Context()->normalStrings;
+
+ ANS( $CsumDs ->cmp(checker=>$sumChecker) );
+ ANS( $productCD -> cmp() );
+ ANS( $DsumCs->cmp(checker=>$sumChecker) );
+ ANS( $productCD -> cmp() );
+ 
+Section::End();
+Scaffold::End();
+
+##############################################################
+#
+#  Answers
+#
+#
+
+
+ENDDOCUMENT();        
+COMMENT('MathObject version.');

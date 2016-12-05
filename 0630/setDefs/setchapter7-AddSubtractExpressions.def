@@ -1,0 +1,154 @@
+assignmentType      = default
+openDate          = 02/22/2016 at 10:37am EST
+reducedScoringDate = 12/31/1969 at 07:00pm EST
+dueDate           = 02/29/2016 at 10:37am EST
+answerDate        = 02/29/2016 at 10:37am EST
+enableReducedScoring = N
+paperHeaderFile   = defaultHeader
+screenHeaderFile  = defaultHeader
+description       = Like terms.<n>Adding polynomials.<n>Subtracting polynomials.
+restrictProbProgression = 0
+emailInstructor   = 0
+
+problemListV2 
+problem_start
+problem_id = 1
+source_file = local/set4.4_Addition-Subtraction-Polynomials/combiningLikeTerms_problem1.pg
+value = 1
+max_attempts = -1
+showMeAnother = -1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 3
+source_file = local/set4.4_Addition-Subtraction-Polynomials/combiningLikeTerms_problem2.pg
+value = 1
+max_attempts = -1
+showMeAnother = -1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 4
+source_file = local/setchapter7-AddSubtractExpressions/addTrinomial1.pg
+value = 1
+max_attempts = -1
+showMeAnother = -1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 5
+source_file = Library/CollegeOfIdaho/setAlgebra_05_01_IntroPolynomials/51IntAlg_13_PolyAddSub.pg
+value = 1
+max_attempts = -1
+showMeAnother = -1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 6
+source_file = Library/CollegeOfIdaho/setAlgebra_05_01_IntroPolynomials/51IntAlg_16_PolyAddSub.pg
+value = 1
+max_attempts = -1
+showMeAnother = -1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 7
+source_file = Library/CollegeOfIdaho/setAlgebra_05_01_IntroPolynomials/51IntAlg_14_PolyAddSub.pg
+value = 1
+max_attempts = -1
+showMeAnother = -1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 8
+source_file = Library/CollegeOfIdaho/setAlgebra_05_01_IntroPolynomials/51IntAlg_15_PolyAddSub.pg
+value = 1
+max_attempts = -1
+showMeAnother = -1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 9
+source_file = Library/CollegeOfIdaho/setAlgebra_05_01_IntroPolynomials/51IntAlg_17_PolyAddSub.pg
+value = 1
+max_attempts = -1
+showMeAnother = -1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 10
+source_file = Library/CollegeOfIdaho/setAlgebra_05_01_IntroPolynomials/51IntAlg_18_PolyAddSub.pg
+value = 1
+max_attempts = -1
+showMeAnother = -1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 11
+source_file = Library/CollegeOfIdaho/setAlgebra_05_01_IntroPolynomials/51IntAlg_19_PolyAddSub.pg
+value = 1
+max_attempts = -1
+showMeAnother = -1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 12
+source_file = Library/CollegeOfIdaho/setAlgebra_05_01_IntroPolynomials/51IntAlg_20_PolyAddSub.pg
+value = 1
+max_attempts = -1
+showMeAnother = -1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 13
+source_file = Library/CollegeOfIdaho/setAlgebra_05_01_IntroPolynomials/51IntAlg_21_PolyAddSub.pg
+value = 1
+max_attempts = -1
+showMeAnother = -1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 14
+source_file = Library/CollegeOfIdaho/setAlgebra_05_01_IntroPolynomials/51IntAlg_23_PolyAddSub.pg
+value = 1
+max_attempts = -1
+showMeAnother = -1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 15
+source_file = Library/CollegeOfIdaho/setAlgebra_05_01_IntroPolynomials/51IntAlg_22_PolyAddSub.pg
+value = 1
+max_attempts = -1
+showMeAnother = -1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+

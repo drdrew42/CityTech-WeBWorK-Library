@@ -1,0 +1,94 @@
+assignmentType      = default
+openDate          = 03/06/2013 at 10:30am EST
+reducedScoringDate = 12/31/1969 at 07:00pm EST
+dueDate           = 04/03/2013 at 11:30am EDT
+answerDate        = 04/04/2013 at 10:08pm EDT
+enableReducedScoring = N
+paperHeaderFile   = 2680setHeader.pg
+screenHeaderFile  = 2680setHeader.pg
+description       = 
+restrictProbProgression = 
+emailInstructor   = 
+
+problemListV2 
+problem_start
+problem_id = 1
+source_file = local/set9-Nonhomogeneous/problem1a0.pg
+value = 7
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 2
+source_file = local/set9-Nonhomogeneous/problem1a1.pg
+value = 7
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 3
+source_file = local/set9-Nonhomogeneous/problem1b0.pg
+value = 7
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 4
+source_file = local/set9-Nonhomogeneous/problem1b1.pg
+value = 7
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 5
+source_file = local/set9-Nonhomogeneous/problem1c0.pg
+value = 7
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 6
+source_file = local/set9-Nonhomogeneous/problem1c1.pg
+value = 7
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 7
+source_file = local/set9-Nonhomogeneous/problem1.pg
+value = 7
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 8
+source_file = local/set9-Nonhomogeneous/problem1.pg
+value = 7
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+

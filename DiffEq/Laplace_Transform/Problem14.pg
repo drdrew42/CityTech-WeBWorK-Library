@@ -1,0 +1,78 @@
+##DESCRIPTION
+##  Differential Equation
+##ENDDESCRIPTION
+
+##KEYWORDS('Differential equaltion')
+
+## DBsubject('Differential Equation')
+## DBchapter('Laplace Transform')
+## DBsection('Section 7.1 Laplace Transform')
+## Date('04/07/2012')
+## Author('Anna Ghazaryan,Fuli Zhang')
+## Institution('Miami University')
+## TitleText1('A First Course in Differential Equation')
+## EditionText1('9')
+## AuthorText1('Zill')
+## Section1('7.3.1')
+## Problem1('9')
+
+
+##############################
+#  Initialization
+
+DOCUMENT(); 
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"PGunion.pl",
+"answerHints.pl",
+"parserAssignment.pl",
+"contextInequalities.pl"
+);
+
+TEXT(beginproblem());
+
+
+#############################
+#  Setup1
+
+Context("Numeric");
+Context()->variables->are(
+t=>"Real",
+s=>"Real"
+);
+
+
+
+$ft = Formula("((1-e^(t)+3e^(-4t))cos(5t))");
+
+$answera = Formula("s/((s^2)+25)-(s-1)/((s-1)^2+25)+3(s+4)/((s+4)^2+25)");
+
+
+#############################
+#  Main text1
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Find the Laplace transform \( F(s) = {\mathcal L} $LBRACE f(t) $RBRACE \) of the function \( \displaystyle f(t) = $ft \).
+$BR
+$BR
+\( \displaystyle F(s) = {\mathcal L} \left$LBRACE $ft \right$RBRACE = \)
+\{ ans_rule(40) \}
+\{ AnswerFormatHelp("formulas") \}
+
+END_TEXT
+Context()->normalStrings;
+
+
+##############################
+#  Answer evaluation1
+
+$showPartialCorrectAnswers = 1;
+
+ANS( $answera->cmp() );
+
+ENDDOCUMENT();

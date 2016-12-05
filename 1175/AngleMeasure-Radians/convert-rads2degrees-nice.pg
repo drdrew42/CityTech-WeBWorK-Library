@@ -1,0 +1,62 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "PGML.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(
+  reduceConstants => 0,
+  tolerance => 0.0005,
+  tolType => 'absolute'
+);
+
+@quad = (); @n = (); @degrees = (); @radians = ();
+%hash = ();
+
+for my $i (0..3) {
+  $quad[$i] = random(1,4,1);
+  do { $n[$i] = list_random(0,2,3,4); } until ( !exists $hash{$n[$i]} );
+  $hash{$n[$i]} = 1;
+  $degrees[$i] = ($quad[$i] - 1)*90+$n[$i]*15;
+  $gcf = gcf($degrees[$i],180);
+  $nRad = $degrees[$i]/$gcf;
+  $nRad = $nRad != 1 ? Formula("$nRad*pi") : Formula("pi");
+  $dRad = 180/$gcf;
+  $radians[$i] = ($dRad == 1) ? Formula("pi") : Formula("$nRad/$dRad");
+};
+
+##############################################################
+#
+#  Text
+#
+#
+
+BEGIN_PGML
+
+Convert [`` [$radians[0]] ``] radians into degrees: [__________]{$degrees[0]}
+
+Convert [`` [$radians[1]] ``] radians into degrees: [__________]{$degrees[1]}
+
+Convert [`` [$radians[2]] ``] radians into degrees: [__________]{$degrees[2]}
+
+Convert [`` [$radians[3]] ``] radians into degrees: [__________]{$degrees[3]}
+
+END_PGML
+
+ENDDOCUMENT();        

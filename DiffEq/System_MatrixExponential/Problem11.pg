@@ -1,0 +1,93 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('Systems of Linear Differential Equations')
+## DBsection('Matrix Exponential")
+## Date('06/11/2012')
+## Author('Anna Ghazaryan,Fuli Zhang')
+## Institution('Muohio')
+## TitleText1('Differential equations with Boundary-value problem')
+## AuthorText1('David E. Penney')
+## Section1('5.7')
+## Edition('7')
+## Problem1('25')
+
+###############################################################
+DOCUMENT(); 
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGmatrixmacros.pl",
+"parserPopUp.pl",
+);
+
+TEXT(beginproblem());
+
+
+#############################
+#  Setup
+
+Context("Numeric");
+Context()->variables->{namePattern} = qr/[a-z][a-z0-9_]*'*/i;
+Context()->variables->add(
+"x'"=>"Real","y"=>Real,"z"=>"Real","z'"=>"Real","y'"=>"Real",t=>"Real",
+);
+
+$a = random(3,12,1);
+$b = random(3,12,1);
+$c = random(3,12,1);
+$d = random(3,12,1);
+
+$a11 = Formula("e^(2t)");
+$a12 = Formula("5te^(2t)");
+$a21 = Formula("0");
+$a22 = Formula("e^(2t)");
+
+
+######################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+
+\(A=\)\{ 
+mbox(
+   display_matrix([[2,5],[0,2]],align=>'cc'),);
+\}
+Compute \(e^{At}\)
+
+$BR
+$BR
+\(e^{At}=\) \{ 
+mbox(
+   display_matrix([[ans_rule(10),ans_rule(10)],[ans_rule(10),ans_rule(10)]],align=>'cc'));
+\}
+$PAR
+
+END_TEXT
+Context()->normalStrings;
+
+
+######################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 1;
+
+
+
+ANS( $a11->cmp() );
+ANS( $a12->cmp() );
+ANS( $a21->cmp() );
+ANS( $a22->cmp() );
+
+
+
+
+
+COMMENT("MathObject version.");
+
+ENDDOCUMENT();

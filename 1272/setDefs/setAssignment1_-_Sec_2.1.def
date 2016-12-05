@@ -1,0 +1,13 @@
+
+openDate          = 06/01/2013 at 09:00am EDT
+dueDate           = 06/11/2013 at 02:00am EDT
+answerDate        = 06/11/2013 at 02:01am EDT
+paperHeaderFile   = local/opt/webwork/webwork2/conf/snippets/JREITZDefaultsetHeader.pg
+screenHeaderFile  = local//opt/webwork/webwork2/conf/snippets/JREITZDefaultsetHeader.pg
+problemList       = 
+Library/maCalcDB/setStatistics1Data/ur_stt_1_1.pg, 4, -1 
+Library/NAU/setStatistics/easy_histogram.pg, 3, -1 
+Library/maCalcDB/setStatistics1Data/ur_stt_1_4.pg, 6, -1 
+Library/maCalcDB/setStatistics1Data/ur_stt_1_5.pg, 6, -1 
+Library/ASU-topics/setStat/gust11.pg, 6, -1 
+

@@ -1,0 +1,87 @@
+## DESCRIPTION
+##   Discrete Probability Distribution, Mean and Standard Deviation
+## ENDDESCRIPTION
+
+## DBsubject('Statistics')
+## Date('March 2013')
+## Author('Jonas Reitz')
+## Institution('NYCCT')
+## TitleText1('')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('')
+
+DOCUMENT();        # This should be the first executable line in the problem.
+
+loadMacros(
+"PG.pl",
+"PGbasicmacros.pl",
+"PGchoicemacros.pl",
+"PGanswermacros.pl",
+"PGgraphmacros.pl"
+);
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+## initial values - to be randomized later
+@values = (15,20,25,30,35,40);
+@frequencies = (0, 0, 10, 10, 0, 0);
+@relativefrequencies = (0,0,0,0,0,0);
+$total = 0;
+$mean = 0;
+$standarddeviation = 0;
+
+## randomize frequencies, based on initial shape of data, and compute total
+for ( $n = 0; $n < 6; $n++ )
+    {
+     $frequencies[$n] = $frequencies[$n] + random(1,10,1);
+     $total = $total + $frequencies[$n];
+    }
+
+## compute relative frequencies
+for ( $n = 0; $n < 6; $n++ )
+    {
+     $relativefrequencies[$n] = $frequencies[$n]/$total;
+     $relativefrequencies[$n] = sprintf("%0.3f", $relativefrequencies[$n]);
+    }
+
+## compute mean
+for ( $n = 0; $n < 6; $n++ )
+    {
+     $mean = $mean + $values[$n]*$relativefrequencies[$n];
+    }
+
+## compute standard deviation
+for ( $n = 0; $n < 6; $n++ )
+    {
+     $standarddeviation = $standarddeviation + $values[$n]*$values[$n]*$relativefrequencies[$n];
+    }
+$standarddeviation = sqrt($standarddeviation - $mean*$mean);
+
+
+BEGIN_TEXT
+
+The probability distribution for the discrete random variable \( x \) is given in the table. 
+\{begintable(2)\}
+\{row("\(  x \)", "\( P(x) \)")\}
+\{row("\( $values[0] \)", "\( $relativefrequencies[0] \)")\}
+\{row("\( $values[1] \)", "\( $relativefrequencies[1] \)")\}
+\{row("\( $values[2] \)", "\( $relativefrequencies[2] \)")\}
+\{row("\( $values[3] \)", "\( $relativefrequencies[3] \)")\}
+\{row("\( $values[4] \)", "\( $relativefrequencies[4] \)")\}
+\{row("\( $values[5] \)", "\( $relativefrequencies[5] \)")\}
+\{endtable()\}
+
+$PAR
+Find the mean \( \mu = \) \{ ans_rule(10) \} and standard deviation \( \sigma = \) \{ ans_rule(10) \} of \( x \).
+
+
+END_TEXT
+## answers
+ANS(num_cmp($mean, mode=>"arith"));
+ANS(num_cmp($standarddeviation, mode=>"arith"));
+
+
+ENDDOCUMENT();       # This should be the last executable line in the problem.

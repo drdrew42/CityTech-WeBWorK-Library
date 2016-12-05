@@ -1,0 +1,86 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('')
+## DBsection('')
+## Date('9/8/2015')
+## Author('')
+## Institution('')
+## TitleText1('Elementary Differential Equations')
+## EditionText1('')
+## AuthorText1('Trench')
+## Section1('2.4')
+## Problem1('11')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+
+Context("Numeric");
+Context()->variables->{namePattern} = qr/[a-z][a-z0-9_]*'*/i;
+Context()->variables->are( y => "Real", t => "Real", c => "Real", "y'" => "Real", "x" => "Real" );
+$a = Real(non_zero_random(2,6,1));
+$a1= Formula("3*$a^2");
+$k = Real(non_zero_random(2,4,1));
+$b = Real(non_zero_random(2,9,1));
+$b1=Formula("$b-1");
+$c = Real(non_zero_random(2,9,1));
+$d = Real(non_zero_random(2,9,1));
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+Find the general solution to the differential equation and solve the initial value problem
+\[ y'- $a y = \frac{$a1 x}{y^2}; \quad y(0)= $b.\]
+$BR 
+General solution: \(y = \) \{ans_rule(50)\}
+$BR
+Initial value problem solution: \(y = \) \{ans_rule(50)\}
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS(Formula("(c*e^(3*($a)*x)-3*($a)*x-1)^(1/3)") ->cmp);
+#ANS(Formula("$b") ->cmp);
+#ANS(Formula("$a") ->cmp);
+ANS(Formula("((($b)^3+1)*e^(3*($a)*x) - 3*($a)*x - 1)^(1/3)") ->cmp);
+
+
+ENDDOCUMENT();        

@@ -1,0 +1,91 @@
+##DESCRIPTION
+##  Differential Equation
+##ENDDESCRIPTION
+
+##KEYWORDS('Differential equaltion')
+
+## DBsubject('Differential Equation')
+## DBchapter('First-Order DE')
+## DBsection('Section 2.4 Exact Equations')
+## Date('02/15/2012')
+## Author('Anna Ghazaryan')
+## Institution('Miami University')
+## TitleText1('A First Course in Differential Equation')
+## EditionText1('9')
+## AuthorText1('Dennis G.Zill')
+## Section1('2.1')
+## Problem1('22')
+
+########################################################################
+#  Initialization
+
+DOCUMENT(); 
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"unionLists.pl",
+"parserPrime.pl",
+"parserPopUp.pl",
+"answerHints.pl",
+);
+
+TEXT(beginproblem());
+
+
+#############################
+#  Setup
+
+Context("Numeric")->variables->add(
+t=>"Real"
+);
+parser::Prime->Enable("t");
+
+
+Context()->flags->set(
+  reduceConstants=>0, # no decimals
+  reduceConstantFunctions=>1, # combine 4+5*2?
+  formatStudentAnswer=>'parsed', # no decimals
+);
+$answer[0] = Formula("0");
+$answer[1] = PopUp(["Choose","stable","unstable","semistable"],"semistable");
+$answer[2] = Formula("1");
+$answer[3] = PopUp(["Choose","stable","unstable","semistable"],"stable");
+
+
+#############################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+For the equation \(\displaystyle \frac{dy}{dx}=y^{2}-y^{3}\), find equilibrium solutions  and state their stability. Put the equilibrium solutions in the INCREASING order: (You have two attempts!Submit all answers at the same time)
+$BR
+$BR
+a)\(y=\)\{ ans_rule(10) \} .\{ $answer[1]->menu() \}.
+$BR
+$BR
+b)\(y=\)\{ ans_rule(10) \} .\{ $answer[3]->menu() \}.
+
+
+  
+
+END_TEXT
+Context()->normalStrings;
+
+
+############################
+#  Answers
+
+$showPartialCorrectAnswers = 0;
+
+ANS( $answer[0]->cmp() );
+ANS( $answer[1]->cmp() );
+ANS( $answer[2]->cmp() );
+ANS( $answer[3]->cmp() );
+
+
+
+COMMENT("MathObject version.");
+
+ENDDOCUMENT();

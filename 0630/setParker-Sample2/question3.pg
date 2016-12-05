@@ -1,0 +1,74 @@
+##DESCRIPTION
+##  Parker - Sample Exam 1 
+##ENDDESCRIPTION
+
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextFraction.pl",
+   "contextLimitedNumeric.pl",
+   "contextLimitedPolynomial.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric")->variables->are(x=>"Real",y=>"Real",z=>"Real",a=>"Real",b=>"Real",v=>"Real");
+
+$ans1 = Formula("x^20*y^8*z^-16");
+$ans2 = Real("27/125");
+$ans3 = Formula("8a^21*b^9");
+$ans4 = Formula("2y^-1*v");
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+\( \left(\dfrac{x^5y^2}{z^4}\right)^4 \) = \{$ans1->ans_rule\}
+
+$PAR
+\( \left(\dfrac{3}{5}\right)^3 \) = \{$ans2->ans_rule\}
+
+$PAR
+\( (2a^7 b^3)^3 \) = \{$ans3->ans_rule\}
+
+$PAR
+\( \left(\dfrac{-5x^2v}{4x}\right)\left(\dfrac{-8z^3}{3xyz}\right)\left(\dfrac{9}{15z^2}\right) \) = \{$ans4->ans_rule\}
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+Context("LimitedPolynomial-Strict")->variables->are(x=>"Real",y=>"Real",z=>"Real",a=>"Real",b=>"Real",v=>"Real");
+
+
+ANS($ans1->cmp);
+ANS($ans2->cmp);
+ANS($ans3->cmp);
+ANS($ans4->cmp);
+
+
+ENDDOCUMENT();        

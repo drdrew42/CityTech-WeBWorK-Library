@@ -1,0 +1,335 @@
+##DESCRIPTION
+##  PreAlgebra problem:
+##ENDDESCRIPTION
+
+##KEYWORDS('prealgebra','common core')
+
+## DBsubject('Arithmetic')
+## DBchapter('Integers')
+## DBsection('Multiplication')
+## Date('3/16/2015')
+## Author('Andrew Parker')
+## Institution('NYC CityTech')
+## ProblemTester('')
+## TitleText1('')
+## Publisher('')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "problemRandomize.pl",
+   "parserRadioButtons.pl",
+   "parserPopUp.pl",
+   "scaffold.pl",
+   "niceTables.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+#  Allow for the user to try another version of the problem once they get it correct.
+ProblemRandomize(when=>"Correct",onlyAfterDue=>0);
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer=>"parsed"
+   );
+
+$sumChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentstring = $ansHash->{preview_text_string};
+     return ($studentstring eq $ansHash->{correct_ans} ? 1 : 0);
+};
+
+@ths = ( "zeroth", "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth");
+
+@ords = ("zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine");
+
+## Part 1: Multiplying numbers larger than 10 ##
+
+$a1 = random(2,9,1);
+$a10dig = random(2,9,1);
+$a10 = 10*$a10dig;
+$a100dig = random(2,9,1);
+$a100 = 100*$a100dig;
+do {$b1 = random(2,9,1);} until ($b1 != $a1);
+do {$b10dig = random(2,9,1);} until ($b10dig != $a10dig);
+$b10 = 10*$b10dig;
+
+$a = $a1 + $a10 + $a100;
+$b = $b1 + $b10;
+
+$m23 = Real($a1 * $b1);
+
+## Part 2: Multiplying tens, hundreds, thousands, etc. ##
+
+$tens = List( Real(10) );
+$i = 1;
+while ( $i < 10 ) {
+  $i = $i + 1;
+  $tens = $tens . List( Real(10*$i) );
+};
+
+$hunds = List( Real(100) );
+$i = 1;
+while ( $i < 10 ) {
+  $i = $i + 1;
+  $hunds = $hunds . List( Real(100*$i) );
+};
+
+## Part 3: More about multiples of tens and hundreds ##
+
+$ab10s = List( Real($b10) );
+$i = 1;
+while ( $i < $a1 ) {
+  $i = $i + 1;
+  $ab10s = $ab10s . List( Real($b10*$i) );
+};
+$m13 = Real($a1*$b10);
+
+$ba10s = List( Real($a10) );
+$i = 1;
+while ( $i < $b1 ) {
+  $i = $i + 1;
+  $ba10s = $ba10s . List( Real($a10*$i) );
+};
+$m22 = Real($a10*$b1);
+
+## Part 4: Practice ##
+  
+$m11 = Real($a100*$b10);
+$m12 = Real($a10*$b10);
+$m21 = Real($a100*$b1);
+
+##############################################################
+#
+#  Text
+#
+#
+
+##    to disable arithmetic operations in the answer.  Student must simplify.
+Context()->operators->undefine("-","/","*");
+
+##############################################################
+# Scaffolding
+Scaffold::Begin(
+      can_open => "when_previous_correct",
+      is_open  => "first_incorrect"
+);
+##############################################################
+Section::Begin("Part 1: Multiplying numbers larger than 10");
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+It's impractical to memorize the multiplication table for every single number. So instead, we'll learn an easy way to perform multiplication for numbers larger than 10 using only the multiplication tables for 1 through 9.
+$PAR
+Let's say we want to multiply \($a \times $b\) .
+$PAR
+First we're going to think of each decimal place separately, rewriting \($a\) as \(($a100 + $a10 + $a1)\)   and \($b\) as \(($b10 + $b1)\) .
+$PAR
+Then we're going to create a table using our rewritten values:
+\{
+DataTable(
+  [
+    [['\(\times\)', headerrow => 1, midrule => 1],'\($a100\)','\($a10\)','\($a1\)'],
+    ['\($b10\)','','',''],
+    ['\($b1\)','','',['?', cellcss => "color:red;"]]
+  ], 
+  caption => 'Multiplying \($a \times $b\)',
+  align => 'r | c c c',
+  rowheaders => 1,
+  center => 1
+);
+\}
+$PAR
+Now we're going to fill in the table by multiplying each row and column together. So far, we haven't talked about multiplying the larger numbers, but we can already figure out one of the values in our table. 
+$PAR
+What number should replace the red "?" in the table? \{ $m23->ans_rule() \}
+
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( $m23->cmp() );
+
+Section::End();
+##############################################################
+Section::Begin("Part 2: Multiplying tens, hundreds, thousands, etc.");
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+In order to deal with the larger products in our table, the first thing we need to figure out is how multiplying tens and hundreds work.
+$PAR
+List the first ten multiples of 10. \{ $tens -> ans_rule() \}
+$PAR
+So what is \(10 \times 10\) ? \{ ans_rule(5) \}
+$PAR
+List the first ten multiples of 100. \{ $hunds -> ans_rule() \}
+$PAR
+So what is \( 10 \times 100\) ? \{ ans_rule(5) \}
+$PAR
+Do you notice anything going on with the zeros?
+$BR
+What do you think we'll get if we multiply \(100 \times 100\) ? \{ans_rule(5)\}
+$BR
+What about \(100 \times 1000\) ? \{ans_rule(5)\}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( $tens->cmp(showHints=>1, showLengthHints=>1, ordered=>1) );
+ANS( Real(100)->cmp() );
+ANS( $hunds->cmp(showHints=>1, showLengthHints=>1, ordered=>1) );
+ANS( Real(1000)->cmp() );
+ANS( Real(10000)->cmp() );
+ANS( Real(100000)->cmp() );
+
+Section::End();
+
+##############################################################
+Section::Begin("Part 3: More about multiples of tens and hundreds");
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Let's return to our multiplication of \($a \times $b\):
+\{
+DataTable(
+  [
+    [['\(\times\)', headerrow => 1, midrule => 1],'\($a100\)','\($a10\)','\($a1\)'],
+    ['\($b10\)','','',['?', cellcss => "color:red;"]],
+    ['\($b1\)','',['?', cellcss => "color:red;"],'$m23']
+  ], 
+  caption => 'Multiplying \($a \times $b\)',
+  align => 'r | c c c',
+  rowheaders => 1,
+  center => 1
+);
+\}
+$PAR
+We're going to need to figure out both \($a1 \times $b10\) and \($b1 \times $a10\) . 
+$BR
+Let's start with \($a1 \times $b10\) . List the first $ords[$a1] multiples of $b10. \{ $ab10s->ans_rule() \}
+$BR
+Which gives us \($a1 \times $b10 =\) \{ $m13->ans_rule()\}
+$BR
+Think about how this compares to \( $a1 \times $b10dig\) .
+$PAR
+$PAR
+Now we'll do the same thing for \($b1 \times $a10\) . List the first $ords[$b1] multiples of $a10. \{ $ba10s->ans_rule() \}
+$BR
+So \($b1 \times $a10 =\) \{ $m22->ans_rule() \}
+$BR
+Think about how this compares to \( $b1 \times $a10dig\) .
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( $ab10s->cmp(showHints=>1, showLengthHints=>1, ordered=>1) );
+ANS( $m13->cmp() );
+ANS( $ba10s->cmp(showHints=>1, showLengthHints=>1, ordered=>1) );
+ANS( $m22->cmp() );
+
+Section::End();
+
+##############################################################
+Section::Begin("Part 4: Finish the table");
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Use what you've learned about multiples of tens and hundreds to finish filling out the table:
+$PAR
+\{
+DataTable(
+  [
+    [['\(\times\)', headerrow => 1, midrule => 1],'\($a100\)','\($a10\)','\($a1\)'],
+    ['\($b10\)',ans_rule(5),ans_rule(5),'$m13'],
+    ['\($b1\)',ans_rule(5),'$m22','$m23']
+  ], 
+  caption => 'Multiplying \($a \times $b\)',
+  align => 'r | c c c',
+  rowheaders => 1,
+  center => 1
+);
+\}
+
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( $m11->cmp() );
+ANS( $m12->cmp() );
+ANS( $m21->cmp() );
+
+Section::End();
+
+##############################################################
+Section::Begin("Part 4: Wrap it all up");
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+\{
+DataTable(
+  [
+    [['\(\times\)', headerrow => 1, midrule => 1],'\($a100\)','\($a10\)','\($a1\)'],
+    ['\($b10\)','$m11','$m12','$m13'],
+    ['\($b1\)','$m21','$m22','$m23']
+  ], 
+  caption => 'Multiplying \($a \times $b\)',
+  align => 'r | c c c',
+  rowheaders => 1,
+  center => 1
+);
+\}
+$PAR
+Now that we've finished the table, we get the final result for \($a \times $b\) by adding up all of the entries in our table.
+$PAR
+\($m11 + $m12 + $m13 + $m21 + $m22 + $m23\)
+$PAR
+\($a \times $b =\) \{ans_rule(10)\}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS(Real($a*$b)->cmp);
+
+Section::End();
+
+Scaffold::End();
+
+##############################################################
+#
+#  Answers
+#
+#
+
+
+ENDDOCUMENT();        
+COMMENT('MathObject version. Not randomized.');

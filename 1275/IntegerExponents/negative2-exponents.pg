@@ -1,0 +1,97 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject('Algebra')
+## DBchapter('Fundamentals')
+## DBsection('Real Numbers')
+## Date('6/3/2002')
+## Author('')
+## Institution('')
+## TitleText1('Precalculus')
+## EditionText1('3')
+## AuthorText1('Stewart, Redlin, Watson')
+## Section1('1.1')
+## Problem1('22')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextFraction.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("LimitedFraction")->flags->set(
+  showMixedNumbers=>0,
+  reduceConstants=>0,
+  allowMixedNumbers=>0
+);
+
+Context()->{error}{msg}{"Can't use '^' in this context"} 
+  = "Exponents are disabled for this problem. Compute the result for yourself and resubmit your answer.";
+Context()->{error}{msg}{"Can't use '**' in this context"} 
+  = "Exponents are disabled for this problem. Compute the result for yourself and resubmit your answer.";
+
+$A = Compute(random(4,12,1));
+
+$ansA = Fraction(1,$A**2);
+
+$B = Compute(random(4,12,1));
+
+$ansB = Fraction (-1,$B**2);
+
+$C = Compute(random(4,12,1));
+
+$ansC = Fraction(1, $C**2);
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+$PAR
+$PAR
+$BITALIC (a) $EITALIC Rewrite \( $A^{-2} \) without using negative exponents.
+$PAR
+\{$ansA->ans_rule\}
+$PAR
+$BITALIC (b) $EITALIC Rewrite \( \displaystyle{-$B^{-2}} \) without using negative exponents.
+$PAR
+\{$ansB->ans_rule\}
+$PAR
+$BITALIC (c) $EITALIC Rewrite \( \displaystyle{(-$C)^{-2}} \) without using negative exponents.
+$PAR
+\{$ansC->ans_rule\}
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ansA->cmp);
+ANS($ansB->cmp);
+ANS($ansC->cmp);
+
+ENDDOCUMENT();        

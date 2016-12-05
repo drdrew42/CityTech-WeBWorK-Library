@@ -1,0 +1,52 @@
+#DESCRIPTION
+##Type of
+#ENDDESCRIPTION
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+"MathObjects.pl",
+"contextFraction.pl",
+);
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+       Context("LimitedFraction")->flags->set(
+         requireProperFractions=>1,
+         showProperFractions =>1,
+        );
+  
+$a2=random(7,19,2 );$b2=$a2%4;$c2=($a2-$b2)/4;$ans2=$c2+  Fraction(" $b2/4");
+$a4=random(7,37,5 );$b4=$a4%5;  $c4=($a4-$b4)/5; $ans4=$c4+Fraction(" $b4/5");
+$b6=list_random(2,4,7,8,11,13,14); $c6=random(2,5,1); $a6=15*$c6+$b6;
+$ans6=$c6+Fraction(" $b6/15");
+BEGIN_TEXT
+Write each improper fraction as a mixed number in simplest form.
+$PAR
+\(\frac{$a2 }{4 }\)=    \{ans_rule(10)\}.
+\{
+ knowlLink("click for hint", value=>"$BITALIC Does this fraction need to be reduced first? $EITALIC The GCF of $a2 and 4 is 1, so we cannot reduce this fraction.
+ $PAR
+ $BITALIC How many times does 4 go into $a2? $EITALIC
+ This quotient forms the whole number for your mixed fraction.
+ $PAR
+ $BITALIC What was your remainder from the division? $EITALIC
+ Your remainder is the part of the fraction that doesn't divide evenly, so it needs to be written with the same denominator as the original fraction to form the fractional part of your answer.")
+\}
+$PAR
+\(\frac{$a4 }{5 }\)=    \{ans_rule(10)\}.$PAR
+\(\frac{$a6 }{15 }\)=    \{ans_rule(10)\}.$PAR
+
+
+END_TEXT
+ANS($ans2->cmp);
+ANS($ans4->cmp);
+ANS($ans6->cmp);
+
+COMMENT('MathObject version');
+ENDDOCUMENT();
+## DBsubject(Middle school)
+## DBchapter('Fractions')
+## DBsection('')

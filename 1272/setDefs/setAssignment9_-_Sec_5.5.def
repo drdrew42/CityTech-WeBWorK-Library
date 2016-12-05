@@ -1,0 +1,11 @@
+
+openDate          = 06/17/2013 at 08:03am EDT
+dueDate           = 06/25/2013 at 01:00am EDT
+answerDate        = 06/25/2013 at 01:00am EDT
+paperHeaderFile   = local/opt/webwork/webwork2/conf/snippets/JREITZDefaultsetHeader.pg
+screenHeaderFile  = local/opt/webwork/webwork2/conf/snippets/JREITZDefaultsetHeader.pg
+problemList       = 
+local/Library/NYCCT/Reitz/1272/NormalApproxBinomial2.pg, 4, -1 
+local/Library/NYCCT/Reitz/1272/NormalApproxBinomial1.pg, 4, -1 
+local/Library/NYCCT/Reitz/1272/NormalApproxBinomial3.pg, 4, -1 
+

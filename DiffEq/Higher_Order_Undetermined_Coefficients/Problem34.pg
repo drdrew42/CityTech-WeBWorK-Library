@@ -1,0 +1,82 @@
+##DESCRIPTION
+##  Differential Equation
+##ENDDESCRIPTION
+
+##KEYWORDS('Differential equaltion')
+
+## DBsubject('Differential Equation')
+## DBchapter('Higher-Order DE')
+## DBsection('Section 4.4 Linear Equation')
+## Date('03/01/2012')
+## Author('Anna Ghazaryan,Fuli Zhang')
+## Institution('Miami University')
+## TitleText1('A First Course in Differential Equation')
+## EditionText1('9')
+## AuthorText1('Dennis G.Zill')
+## Section1('4.4')
+## Problem1('37')
+##############################
+#  Initialization
+
+DOCUMENT(); 
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"parserAssignment.pl",
+"unionLists.pl",
+);
+
+TEXT(beginproblem());
+
+
+#############################
+#  Setup
+
+Context("Numeric");
+Context()->variables->add(
+A=>"Real",B=>"Real",C=>"Real",y=>"Real",
+'a'=>'Parameter','b'=>'Parameter'
+);
+
+
+$diffeq = "y'' + y= x^{2}+1"; # tex
+
+$ygeneral = Compute(Formula("6cosx-6(cot1)sinx+x^(2)-1"));
+
+
+######################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+Solve the boundary-value problem to the 
+differential equation\(\ $diffeq \).  
+\( y(0) = 5 \) and 
+\( y(1) = 0 \).
+
+$BR
+$BR
+\( y = \)
+\{ ans_rule(60) \}
+\{ AnswerFormatHelp("formulas") \}
+
+
+END_TEXT
+Context()->normalStrings;
+
+
+######################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 1;
+
+
+
+
+ANS( $ygeneral->cmp() );
+
+COMMENT("MathObject version.");
+
+ENDDOCUMENT();

@@ -1,0 +1,16 @@
+
+openDate          = 06/03/2012 at 11:50pm EDT
+dueDate           = 06/11/2012 at 11:59pm EDT
+answerDate        = 06/12/2012 at 12:26am EDT
+paperHeaderFile   = local/opt/webwork/webwork2/conf/snippets/ReitzHeaderBASIC.pg
+screenHeaderFile  = local/opt/webwork/webwork2/conf/snippets/ReitzHeaderBASIC.pg
+problemList       = 
+Library/ma117DB/set1b/srw1_5_7.pg, 5, -1 
+Library/ma117DB/set1b/srw1_5_15.pg, 5, -1 
+Library/CollegeOfIdaho/setAlgebra_01_04_SolveLinearEq/14IntAlg_13_SolveLinear.pg, 5, -1 
+Library/Rochester/setAlgebra08LinearEqns/sw1_6_71.pg, 5, -1 
+Library/Rochester/setAlgebra08LinearEqns/sw1_6_74.pg, 5, -1 
+Library/Utah/Intermediate_Algebra/set4_Linear_Equations_and_Inequalities/s4p26.pg, 6, -1 
+Library/CollegeOfIdaho/setAlgebra_01_05_ProblemSolvingAndFormulas/15IntAlg_04_ProblemSolve.pg, 6, -1 
+Library/CollegeOfIdaho/setAlgebra_01_05_ProblemSolvingAndFormulas/15IntAlg_06_ProblemSolve.pg, 6, -1 
+

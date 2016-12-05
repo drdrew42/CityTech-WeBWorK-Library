@@ -1,0 +1,84 @@
+assignmentType      = default
+openDate          = 04/10/2013 at 10:07am EDT
+reducedScoringDate = 12/31/1969 at 07:00pm EST
+dueDate           = 04/18/2013 at 11:30am EDT
+answerDate        = 04/19/2013 at 10:07am EDT
+enableReducedScoring = N
+paperHeaderFile   = defaultHeader
+screenHeaderFile  = defaultHeader
+description       = 
+restrictProbProgression = 
+emailInstructor   = 
+
+problemListV2 
+problem_start
+problem_id = 1
+source_file = local/set6-BasicSecondOrder/problem3.pg
+value = 10
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 2
+source_file = local/set7-SecondOrderRepeated/problem2.pg
+value = 10
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 3
+source_file = local/set8-SecondOrderComplex/problem3.pg
+value = 10
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 4
+source_file = local/set9-Nonhomogeneous/problem2.pg
+value = 20
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 5
+source_file = local/set9-Nonhomogeneous/problem3.pg
+value = 20
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 6
+source_file = local/set4-Bernoulli/problem3-nonrandom.pg
+value = 15
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 7
+source_file = local/set3-Separable/NewtonsLawofCooling1.pg
+value = 15
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+

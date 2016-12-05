@@ -1,0 +1,77 @@
+#DESCRIPTION
+##Type of
+#ENDDESCRIPTION
+
+## Date('2/12/2016')
+## Author('Parker')
+## Institution('City Tech')
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+"MathObjects.pl",
+"contextScientificNotation.pl",
+);
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 0;
+Context("Numeric");
+
+$a1=random(303,498,3);
+$a2=$a1/100;
+$a=$a1/1000000;
+$c1=random(505,695,10);
+$c2=$c1/100;
+$d1=$c1+5;
+$d=10*$d1;
+Context("ScientificNotation");
+$b=Compute("$a2 x 10^-3");
+$c=Compute("$c2 x 10^4");
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Choose the greater number in each pair. $BR
+Put a 1 in the answer box if the first is greater, or put a 2 if the second is greater. 
+$PAR
+a) Which is greater? $BR
+1) \(\ $a\) $BR
+2) \(\ $b\) $BR
+\{ans_rule(2)\} is greater.$PAR
+
+b) Which is greater? $BR
+1) \(\ $c\) $BR
+2) \(\ $d\) $BR
+\{ans_rule(2)\} is greater.$PAR
+
+END_TEXT
+Context()->normalStrings;
+
+Context("Numeric");
+ANS(Real(2)->cmp);
+ANS(Real(1)->cmp);
+
+  $b1=$a2*10**(-3);
+  $c5=$c2*10**4;
+
+Context()->texStrings;
+BEGIN_SOLUTION
+$PAR Solution $PAR
+a)  To change \($b\) to decimal form, first notice that the exponent is negative. $BR
+This suggests that the $a1 digits belong in $BITALIC smaller $EITALIC decimal places. $BR
+This can be accomplished by moving the decimal point of $a2 three places leftward to get \($b1\). $BR
+Now compare this result to \( $a \). Which is larger?$PAR
+b)  To change \($c \) to decimal form, first notice that the exponent is positive. $BR
+This suggests that the $c1 digits belong in $BITALIC larger $EITALIC decimal places. $BR
+To achieve this, we must move the decimal point of $c2 four places rightward to get \($c5\). $BR
+Now compare this result to \( $d \). Which is larger?
+END_SOLUTION
+
+COMMENT('MathObject version');
+ENDDOCUMENT();
+## DBsubject(Algebra)
+## DBchapter(Algebra of real numbers and simplifying expressions)
+## DBsection(Scientific notation)
+## MO(1)

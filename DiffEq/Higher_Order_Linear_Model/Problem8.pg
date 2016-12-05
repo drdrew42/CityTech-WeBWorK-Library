@@ -1,0 +1,94 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('Modeling with Higher-Order Differential Equations')
+## DBsection('Linear Models')
+## Date('05/28/2012')
+## Author('Anna Ghazaryan,Fuli Zhang')
+## Institution('Muohio')
+## TitleText1('Differential equations with Boundary-value problem')
+## AuthorText1('Dennis G. Zill')
+## Section1('5.1')
+## Edition('7')
+## Problem1('29')
+
+########################################################################
+
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",
+   "MathObjects.pl",
+   "AnswerFormatHelp.pl",
+   "unionLists.pl",
+   "parserPrime.pl",
+   "parserPopUp.pl",
+   "answerHints.pl",
+   "parserImplicitPlane.pl",
+
+ );
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric")->variables->add(y=>"Real",t=>"Real");
+
+##############################################################
+#
+#  Text
+#
+#
+
+
+$a = random(8,10,12);
+
+
+$answer[0] = Formula("e^(-t/2)*((2-$a/3)cos(sqrt(47)/2 t)+((2-7*$a/3)/sqrt(47))sin(sqrt(47)/2 t))+ $a/3 *(cos(3t)+sin(3t))");
+
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Solve the following problem: 
+$BR
+Question:$BR  A mass weighing 16 pounds stretches a spring \(\frac{8}{3}\)feet. The mass is initially released from rest from a point 2 feet below the equilibrium position, and the subsequent motion takes place in a medium that offers a damping force that is numerically equal to \(\frac{1}{2}\) the instantaneous velocity. Find the equation of motion if the mass is driven by an external force equal to \(f(t)=$a cos 3t\).(Use t as independent variable)
+
+$BR
+$BR
+equation of motion \(\displaystyle \ x=\) \{ans_rule(30)\}.
+
+ 
+\{ AnswerFormatHelp("formulas") \}
+
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+ANS( $answer[0]->cmp() );
+
+
+
+
+
+
+
+
+ENDDOCUMENT();

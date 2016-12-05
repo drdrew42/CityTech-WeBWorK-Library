@@ -1,0 +1,172 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('Systems of Linear Differential Equations')
+## DBsection('Homogeneous Linear System")
+## Date('06/11/2012')
+## Author('Anna Ghazaryan,Fuli Zhang')
+## Institution('Muohio')
+## TitleText1('Differential equations with Boundary-value problem')
+## AuthorText1('Dennis G. Zill')
+## Section1('8.2')
+## Edition('7')
+## Problem1('38')
+
+###############################################################
+
+#Initialization
+
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"PGmatrixmacros.pl",
+"MathObjects.pl",
+"parserMultiAnswer.pl",
+"unionLists.pl"
+);
+
+TEXT(beginproblem());
+
+
+##################################
+#  Setup
+
+Context("Numeric");
+Context()->variables->are(
+t=>"Real"
+);
+
+
+#  The matrix for the system
+$a[0][0] = 1;
+$a[0][1] = -8;
+$a[1][0] = 1;
+$a[1][1] = -3; 
+
+$a11 = $a[0][0];   $a12 = $a[0][1];
+$a21 = $a[1][0];   $a22 = $a[1][1];
+
+
+
+
+ 
+
+# Correct complementary solution
+$yc1top = Compute("(2cos(2t)-2sin(2t))e^(-t)");
+$yc1bot = Compute("cos(2t)e^(-t)");
+
+$yc2top = Compute("(2cos(2t)+2sin(2t))e^(-t)");
+$yc2bot = Compute("sin(2t)e^(-t)");
+
+
+
+$multianshom = MultiAnswer($yc1top, $yc1bot, $yc2top, $yc2bot)->with(
+
+  singleResult => 1,
+  allowBlankAnswers => 1,
+  format =>  "C<sub>1</sub> &lt;%s, %s&gt; + C<sub>2</sub> &lt;%s, %s&gt;",
+  tex_format =>  "C_1 \left\lbrack\begin{array}{rr} %s \\ %s \end{array}\right\rbrack + ".
+                 "C_2 \left\lbrack\begin{array}{rr} %s \\ %s \end{array}\right\rbrack",
+
+  checker => sub {
+      my ( $correct, $student, $self ) = @_;
+      # my ( $c1, $c2, $c3, $c4 ) = @{$correct};
+      my ( $s1, $s2, $s3, $s4 ) = @{$student};
+
+      Value::Error('Answers should be non-constant functions, '.
+      'and <b>every answer blank must be filled</b> to get feedback.') unless 
+      $s1->isFormula && $s2->isFormula && $s3->isFormula && $s4->isFormula;
+
+      my ( $s1p, $s2p, $s3p, $s4p ) = ( $s1->D('t'), $s2->D('t'), $s3->D('t'), $s4->D('t') ); 
+
+      my $left  = (($s1p == $a11*$s1 + $a12*$s2) && 
+                   ($s2p == $a21*$s1 + $a22*$s2));
+
+      my $right = (($s3p == $a11*$s3 + $a12*$s4) && 
+                   ($s4p == $a21*$s3 + $a22*$s4));
+      
+      my $notparallel = ($s1*$s4 != $s2*$s3);
+
+      if ($left && !$right) { 
+          $self->setMessage(1,"The vector on the left is correct.");
+          return 0.67;
+      }
+      if ($right && !$left) { 
+          $self->setMessage(1,"The vector on the right is correct.");
+          return 0.67;
+      }
+      if ($left && $right && !$notparallel) { 
+          $self->setMessage(1,"Your solutions are linearly dependent.");
+          return 0.67; 
+      }
+      if ($left && $right && $notparallel) { return 1; } else { return 0; }
+
+  }
+);
+
+
+
+
+#######################################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Consider the problem
+\[
+\displaystyle
+\ \boldsymbol{\vec{y}^{\, \prime}}
+=
+\left\lbrack
+\begin{array}{rr}
+$a[0][0] & $a[0][1] \\
+$a[1][0] & $a[1][1]
+\end{array} 
+\right\rbrack
+\boldsymbol{\vec{y}}
+\]
+
+
+Form the complementary solution to the homogeneous equation.
+$BR
+$BR
+\{ 
+mbox(
+[
+' \( \boldsymbol{\vec{y}}_C(t) = C_1 \)', 
+display_matrix([[$multianshom->ans_rule(15)],[$multianshom->ans_rule(15)]]),
+' \( + \ C_2 \) ', 
+display_matrix([[$multianshom->ans_rule(15)],[$multianshom->ans_rule(15)]]),
+],
+allowbreaks=>'yes'
+) 
+\}
+
+
+
+END_TEXT
+Context()->normalStrings;
+
+
+###################################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 1;
+
+ANS( $multianshom->cmp() );
+
+
+COMMENT('MathObject version. Complex eigenvalues with negative real part -1 +/- b i.');
+
+ENDDOCUMENT();
+
+
+
+
+

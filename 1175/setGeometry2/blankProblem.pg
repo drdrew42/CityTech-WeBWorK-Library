@@ -1,0 +1,77 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject('Algebra')
+## DBchapter('Fundamentals')
+## DBsection('Real Numbers')
+## Date('6/3/2002')
+## Author('')
+## Institution('')
+## TitleText1('Precalculus')
+## EditionText1('3')
+## AuthorText1('Stewart, Redlin, Watson')
+## Section1('1.1')
+## Problem1('22')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+
+$angle1 = Real("30");
+$angle2 = Real("60");
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Measure the indicated angles.
+$PAR
+\{ image( "1.2.11.gif", width=>238, height=>194,  
+tex_size=>700, extra_html_tags=>'alt=""' ) \}
+$PAR
+\(\angle x=\) \{$angle1->ans_rule\} \(^\circ\)
+$PAR
+\(\angle y=\) \{$angle2->ans_rule\} \(^\circ\)
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($angle1->with(tolerance=>.0001)->cmp);
+ANS($angle2->with(tolerance=>.0001)->cmp);
+# default tolerance is .01 or one percent.
+
+
+ENDDOCUMENT();        

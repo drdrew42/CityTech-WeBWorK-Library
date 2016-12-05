@@ -1,0 +1,104 @@
+# ASimpleCombinedHeaderFile.pg
+# This header file can be used for both the screen and hardcopy output
+
+
+DOCUMENT();
+
+loadMacros(
+	"PG.pl",
+	"PGbasicmacros.pl",
+	"PGcourse.pl",
+);
+
+TEXT($BEGIN_ONE_COLUMN);
+
+####################################################
+#
+# The item below printed out only when a hardcopy is made.
+#
+####################################################
+
+
+
+TEXT(MODES(TeX =>EV3(<<'EOT'),HTML=>""));
+
+\noindent {\large \bf $studentName}
+\hfill
+{\large \bf {\{protect_underbar($courseName)\}}}
+% Uncomment the line below if this course has sections. Note that this is a comment in TeX mode since this is only processed by LaTeX
+%   {\large \bf { Section: \{protect_underbar($sectionName)\} } }
+\par
+\noindent{\large \bf {Assignment \{protect_underbar($setNumber)\}  due $formatedDueDate}}
+\par\noindent \bigskip
+% Uncomment and edit the line below if this course has a web page. Note that this is a comment in TeX mode.
+%See the course web page for information http://yoururl/yourcourse
+
+EOT
+
+####################################################
+#
+# End of hardcopy only output.
+#
+####################################################
+
+
+####################################################
+#
+# The items below are printed out only when set is displayed on screen
+# 
+####################################################
+TEXT(MODES(TeX =>"",HTML=>EV3(<<'EOT')));
+
+$BBOLD WeBWorK  Assignment \{ protect_underbar($setNumber) \}  is due :  $formattedDueDate. $EBOLD
+$PAR
+Here's the list of 
+\{ htmlLink(qq!http://webwork.maa.org/wiki/Available_Functions!,"functions and symbols") \}
+ which WeBWorK understands.
+
+$PAR
+Here is a list of helpful links on the topics covered in this set:
+\{ htmlLink(qq!https://www.khanacademy.org/math/algebra2/rational-expressions-equations-and-functions/simplify-rational-expressions/v/simplifying-rational-expressions-w-common-monomial-factors!,"Simplifying rational expressions I") \},
+\{ htmlLink(qq!https://www.khanacademy.org/math/algebra2/rational-expressions-equations-and-functions/simplify-rational-expressions/v/simplifying-rational-expressions-introduction!,"Simplifying rational expressions II") \},  
+\{ htmlLink(qq!https://www.khanacademy.org/math/algebra2/rational-expressions-equations-and-functions/multiplying-and-dividing-rational-expressions/v/multiplying-and-dividing-rational-expressions-monomial-numerator-denominator!,"Multiplying and dividing expressions I") \},
+
+\{ htmlLink(qq!https://www.khanacademy.org/math/algebra2/rational-expressions-equations-and-functions/multiplying-and-dividing-rational-expressions/v/multiplying-and-dividing-rational-expressions-2!,"Multiplying and dividing expressions II") \},
+\{ htmlLink(qq!https://www.khanacademy.org/math/algebra2/rational-expressions-equations-and-functions/multiplying-and-dividing-rational-expressions/v/multiplying-and-dividing-rational-expressions-3!,"Multiplying and dividing expressions III") \}, 
+\{ htmlLink(qq!https://www.khanacademy.org/math/algebra2/rational-expressions-equations-and-functions/adding-and-subtracting-rational-expressions/v/adding-and-subtracting-rational-expressions-with-like-denominators!,"Adding and subtracting expressions with like denominators") \},
+
+\{ htmlLink(qq!https://www.khanacademy.org/math/algebra2/rational-expressions-equations-and-functions/adding-and-subtracting-rational-expressions/v/algebraic-expression-adding-fractions!,"Adding fractions") \},
+\{ htmlLink(qq!https://www.khanacademy.org/math/algebra2/rational-expressions-equations-and-functions/adding-and-subtracting-rational-expressions/v/adding-rational-expression-w-unlike-denominators!,"Adding fractions with unlike denominators") \}, and 
+\{ htmlLink(qq!https://www.khanacademy.org/math/algebra2/rational-expressions-equations-and-functions/adding-and-subtracting-rational-expressions/v/subtracting-rational-expressions-w-unlike-denominators!,"Subtracting fractions with unlike denominators") \}
+
+.  There is additional information on these pages that you may find helpful.
+$BR
+EOT
+
+####################################################
+# Uncomment and edit the lines below if this course has a web page. Note that this is comment in Perl mode. 
+# IMPORTANT: Make sure the EOT at the bottom is at the beginning of a line with no spaces preceeding it.
+#TEXT(MODES(TeX =>"",HTML=>EV3(<<'EOT')));
+#See the course web page for information \{ htmlLink(qq!http://yoururl/yourcourse!,"your course name") \}
+#EOT
+####################################################
+
+####################################################
+#
+# End of screen only output.
+#
+####################################################
+
+####################################################
+#
+# Anything between the BEGIN_TEXT AND END_TEXT lines
+# will be printed in both screen and hardcopy output
+#
+####################################################
+
+BEGIN_TEXT
+
+END_TEXT
+
+
+TEXT($END_ONE_COLUMN);
+
+ENDDOCUMENT();        # This should be the last executable line in the problem.

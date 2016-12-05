@@ -1,0 +1,168 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject(‘Algebra’)
+## DBchapter(‘Properties of exponents, rational exponents and radicals’)
+## DBsection(‘Properties of exponents’)
+## Date('6/19/2015')
+## Author('K. Andrew Parker')
+## Institution('NYC City Tech')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "parserPopUp.pl",
+   "scaffold.pl",
+   "niceTables.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer=>"parsed"
+   );
+
+  $sumChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentstring = $ansHash->{preview_text_string};
+     return ($studentstring eq $ansHash->{correct_ans} ? 1 : 0);
+   };
+
+@prime = ( 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 );
+
+$base1=random(4,9,1);
+$exp1a=random(3,6,1);
+$exp1b=random(2,6,1);
+$exp1 = $exp1a+$exp1b;
+$form1a = Formula("$base1");
+$texform1a = "$base1";
+foreach my $i (2..$exp1a) {
+ $form1a = Formula( "$form1a*$base1" );
+ $texform1a = "$texform1a \times $base1";
+}
+$form1b = Formula("$base1");
+$texform1b = "$base1";
+foreach my $i (2..$exp1b) {
+ $form1b = Formula( "$form1b*$base1" );
+ $texform1b = "$texform1b \times $base1";
+}
+
+$form1 = Formula("$base1^$exp1");
+
+
+do { $base2=random(4,9,1); } until ( $base2 != $base1 );
+$exp2a=random(3,6,1);
+$exp2b=random(2,6,1);
+$exp2 = $exp2a+$exp2b;
+$form2a = Formula("$base2");
+foreach my $i (2..$exp2a) {
+ $form2a = Formula( "$form2a*$base2" );
+}
+$form2b = Formula("$base2");
+foreach my $i (2..$exp2b) {
+ $form2b = Formula( "$form2b*$base2" );
+}
+
+$form2 = Formula("$form2a*$form2b");
+$expform2 = Formula("$base2^$exp2");
+
+##############################################################
+#
+#  Text
+#
+#
+
+Scaffold::Begin();
+
+Section::Begin( "Part 1" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Let's take a look at what happens when we multiply to exponential expressions with the same base: \( $base1^$exp1a \times $base1^$exp1b \)
+$PAR
+Write out the repeated multiplication form of \( $base1^$exp1a \) : \{ans_rule(10)\}
+$BR
+Write out the repeated multiplication form of \( $base1^$exp1b \) : \{ans_rule(10)\}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( $form1a->cmp(checker=>$sumChecker) );
+ANS( $form1b->cmp(checker=>$sumChecker) );
+
+Section::End();
+
+Section::Begin( "Part 2" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+So, we started with \( $base1^$exp1a \times $base1^$exp1b \) . 
+$BR
+If we replace \( $base1^$exp1a \) and \( $base1^$exp1b \) with their repeated multiplications, we get:
+$BR
+\( ( $texform1a ) \times ( $texform1b ) \)
+$PAR
+How could we abbreviate this using the \( \wedge \) notation? \{ ans_rule(5) \}
+$PAR
+Think about how our new exponent compares to the original exponents.
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( $form1->cmp(checker=>$sumChecker) );
+
+Section::End();
+
+Section::Begin( "Part 3" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Let's work through another example and see if the same thing happens.
+$PAR
+This time, we'll multiply \( $base2^$exp2a \times $base2^$exp2b \)
+$PAR
+Write out the repeated multiplication for \($base2^$exp2a\) . \{ans_rule(10)\}
+$BR
+Write out the repeated multiplication for \($base2^$exp2b\) . \{ans_rule(10)\}
+$PAR
+Now write out the combined repeated multiplication for \( $base2^$exp2a \times $base2^$exp2b \) . \{ans_rule(15)\}
+$PAR
+Wrap things up by abbreviating your last answer by using the \(\wedge\) notation. \{ans_rule(5)\}
+$PAR
+Compare the resulting exponent to the two we started with. Did the same thing happen to the exponents as last time?
+END_TEXT
+Context()->normalStrings;
+
+ANS($form2a->cmp(checker=>$sumChecker) );
+ANS($form2b->cmp(checker=>$sumChecker) );
+ANS($form2->cmp(checker=>$sumChecker) );
+ANS($expform2->cmp(checker=>$sumChecker) );
+
+Section::End();
+
+Scaffold::End();
+
+ENDDOCUMENT();        

@@ -1,0 +1,365 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject('Arithmetic')
+## DBchapter('Integers')
+## DBsection('Division')
+## Date('6/10/2015')
+## Author('K. Andrew Parker')
+## Institution('NYC City Tech')
+## TitleText1('')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "parserPopUp.pl",
+   "scaffold.pl",
+   "niceTables.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+# Allow students to "Show Me Another" after finishing correctly
+# ProblemRandomize(when=>"Correct",onlyAfterDue=>0);
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer=>"parsed"
+   );
+
+  $sumChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentstring = $ansHash->{preview_text_string};
+     return ($studentstring eq $ansHash->{correct_ans} ? 1 : 0);
+   };
+
+
+ $rent = Real(random(5,15,1)*100);
+ $weekly = Real($rent/4);
+ $minwage = Formula( "$weekly/40" );
+ $initialMC = PopUp(["?", "Even if they paid me less than before, I could still afford rent.", "I can afford to be paid the same as before and still make rent.", "I need to be paid more so I can afford rent."], "I need to be paid more so I can afford rent.");
+
+do { $dozens = random(2,5,1); } until ( $dozens != 4 ); 
+# 4 will not work with the factor tree they'll do later
+$servings = Real(12*$dozens);
+$party3 = Real($servings/3);
+$party2 = Real($servings/2);
+
+@quotients = ( 0, $servings );
+@remainders = ( 0, Real(0) );
+foreach my $i ( 2..7 ) {
+ $rem = Real($servings % $i);
+ $quot = Real(( $servings - $rem ) / $i);
+ $quotients[$i] = $quot;
+ $remainders[$i] = $rem;
+}
+
+$factors = List( Real(1) );
+foreach my $i ( 2..$servings ) {
+ if ( $servings % $i == 0 ) {
+  $factors = $factors . List( Real($i) );
+ }
+}
+
+ $YesNOMC = PopUp(["?", "Yes.", "No."], "No.");
+ $primes = List( 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 );
+
+ $A = Real(2);
+ $B = Real(2);
+ $C = Real(3);
+ $D = Real($dozens);
+ $AB = Real($A*$B);
+ $CD = Real($C*$D);
+ $ABCD = Real($AB*$CD);
+ $pfactorization = List( $A, $B, $C, $D );
+
+ @prime = ( 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 );
+
+ $X = Real($prime[random(0,1,1)]);
+ $Y = Real($prime[random(0,2,1)]);
+ $Z = Real($prime[random(2,4,1)]);
+ $XYZ7List = List( Real(7), $X, $Y, $Z );
+ $XYZ7 = Real($X*$Y*$Z*7);
+ $X7 = Real(7*$X);
+ $X7List = List( Real(7), $X );
+ $YZList = List( $Y, $Z );
+ $YZ = Real( $Y*$Z );
+ $YESNoMC = PopUp(["?", "Yes.", "No."], "Yes.");
+
+##############################################################
+#
+#  Text
+#
+#
+Scaffold::Begin(
+      can_open => "when_previous_correct",
+      is_open  => "first_incorrect"
+);
+
+Section::Begin("Part 1: Minimum Wage");
+
+Context()->texStrings;
+BEGIN_TEXT
+$PAR
+Let's start by talking about why we need to care about division. For example, let's assume your monthly rent is $ $rent. If you had to pay rent each week, instead of each month, how much would you owe each week? (Assume that there are exactly 4 weeks in each month.) \{ ans_rule(5) \}
+$PAR
+Now let's assume you're looking for a full-time job that pays an hourly wage. If you are planning to work 40 hours each week, what is the minimum hourly wage you need in order to cover the week's rent? (Do not actually calculate your answer as a number, just write an expression the way you'd put it into a calculator.) \{ ans_rule(5) \}
+$PAR
+Suppose that your employer now changes your schedule and you're only getting 30 hours of work each week. How does that affect the minimum hourly wage you'll need in order to pay rent? 
+$BR
+\{ $initialMC -> menu() \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( $weekly->cmp() );
+ANS( $minwage->cmp(checker=>$sumChecker) );
+ANS( $initialMC->cmp() );
+
+Section::End();
+
+Section::Begin( "Part 2: Equal Distribution" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+You're throwing a party, and you purchase $dozens boxes of cupcake mix. Each box makes 12 cupcakes. How many cupcakes will you have if you make all $dozens boxes? \{ ans_rule(3) \}
+$PAR
+How many people can you serve, if you want to be able to give everyone 3 cupcakes? \{ ans_rule(3) \}
+$PAR
+How many cupcakes can each person have if there are $party2 people? \{ ans_rule(3) \}
+$PAR
+Fill in the following table with the number of cupcakes each person can have if they're divided up equally, along with the number of leftover cupcakes.
+$BR
+\{
+DataTable(
+  [
+    [['Number of guests', headerrow => 1],'Cupcakes for each','Leftover cupcakes'],
+    ['\(1\)',ans_rule(5),ans_rule(5)],
+    ['\(2\)',ans_rule(5),ans_rule(5)],
+    ['\(3\)',ans_rule(5),ans_rule(5)],
+    ['\(4\)',ans_rule(5),ans_rule(5)],
+    ['\(5\)',ans_rule(5),ans_rule(5)],
+    ['\(6\)',ans_rule(5),ans_rule(5)],
+    ['\(7\)',ans_rule(5),ans_rule(5)]
+  ], 
+  caption => 'Splitting up $servings cupcakes',
+);
+\}
+$PAR
+Now list all the possible numbers of attendees where there won't be any leftover cupcakes. \{ ans_rule(20) \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( $servings->cmp() );
+ANS( $party3->cmp() );
+ANS( Real(2)->cmp() );
+ANS($quotients[1]->cmp());
+ANS($remainders[1]->cmp());
+ANS($quotients[2]->cmp());
+ANS($remainders[2]->cmp());
+ANS($quotients[3]->cmp());
+ANS($remainders[3]->cmp());
+ANS($quotients[4]->cmp());
+ANS($remainders[4]->cmp());
+ANS($quotients[5]->cmp());
+ANS($remainders[5]->cmp());
+ANS($quotients[6]->cmp());
+ANS($remainders[6]->cmp());
+ANS($quotients[7]->cmp());
+ANS($remainders[7]->cmp());
+ANS($factors->cmp(showLengthHints=>1, ordered=>0));
+Section::End();
+
+Section::Begin( "Part 3: Primes" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+You should have noticed from the previous section that only some numbers split $servings evenly amongst the attendees without any leftovers. The numbers that DO are called $BBOLD factors $EBOLD of $servings.
+$PAR
+We normally thing of factors in pairs - specifically, a pair of numbers that multiply together to give you the number you were trying to split up (in this case that number is $servings).
+$PAR
+The easiest pair of factors for any number is the pair: 1 and the number itself. Take a moment and think of any number you like. If you baked that many cupcakes, and also split them up between that same number of people, how many would each person get? \{ ans_rule(3) \}
+$BR
+Would there be any cupcakes left over? \{ $YesNOMC->menu() \}
+$PAR
+There are some numbers for which this is the ONLY pair of factors. These numbers are called $BBOLD prime numbers $EBOLD. For example, 17 is a prime number. If you baked 17 cupcakes, you would have leftover cupcakes every time - unless you had exactly 17 people or only 1 person to eat them. 
+$PAR
+List the first 10 prime numbers. (We don't count 1 as a prime number.) \{ ans_rule(15) \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( Real(1)->cmp() );
+ANS( $YesNOMC->cmp() );
+ANS( $primes->cmp(showLengthHints=>1, ordered=>0) );
+
+Section::End();
+
+Section::Begin( "Part 4: Factor Trees" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Factor pairs can be a little bit confusing because there can be many different pairs that multiply to make the same number. For instance, 20 can be written as the product of 3 different factor pairs:
+$PAR
+\( 1 \times 20 \) , (because 1 and the number itself are always factors, sometimes we skip writing this pair. Don't forget about it though!)
+$BR
+\( 2 \times 10 \) , and
+$BR
+\( 4 \times 5 \) .
+$PAR
+It's worth mentioning here, that we don't need to write products like \( 5 \times 4 \)  or \( 10 \times 2 \)  because we know that the commutative property of multiplication tells us those are exactly the same as two of the ones we already listed.
+$PAR
+Prime numbers, however, cannot be broken down into smaller factors. They make ideal targets for this factoring process. Let's look at what happens to 20 if we keep breaking its factors down until we get to prime numbers:
+$PAR
+If we start with \(2 \times 10\)  we already have one prime factor: 2. However, 10 is not a prime number, so we continue to break it down - writing 10 as \( 5 \times 2 \), both of which are prime. So if we replace 10, we see that \( 20 = 2 \times ( 5 \times 2 ) \).
+$PAR
+But what happens if we start with a different factoring, like \( 4 \times 5 \)? Again, we have one prime factor: 5. But 4 is not prime, so we break it down and get \( 2 \times 2 \). So if we replace 4, we see that \( 20 = 5 \times ( 2 \times 2 ) \). 
+$PAR
+So are these factorings the same? \( 2 \times ( 5 \times 2 ) \) and \( 5 \times ( 2 \times 2 ) \)?
+$PAR
+Well, we can use the properties of multiplication to rewrite \(2 \times ( 5 \times 2 ) \):
+$BR
+\{
+ DataTable(
+  [
+    ['\( 2 \times ( 5 \times 2 ) \)',' '],
+    [' ','apply the Associative Property of Multiplication to prioritize the first multiplication instead of the second one'],
+    ['\( ( 2 \times 5 ) \times 2 \)',' '],
+    [' ','apply the Commutative Property of Multiplication to the first product'],
+    ['\( ( 5 \times 2 ) \times 2 \)',' '],
+    [' ','apply the Associative Property to prioritize the second product'],
+    ['\( 5 \times ( 2 \times 2 ) \)',' '],
+  ], 
+  align => 'c l',
+  columnscss => [ '', 'color:red; ' ]
+ );
+\}
+$PAR
+And now we see that indeed, the two factorizations are exactly the same. So, it doesn't matter which factoring we start with - just so long as we keep factoring the pieces until we end up with all primes.
+$PAR
+Let's try to use the same logic to break down $servings:
+\{
+ DataTable(
+  [
+   ['','','','$ABCD','','','',''],
+   ['','','/','','\','','',''],
+   ['','$AB','','','',ans_rule(2),'','What multiple of $AB is $ABCD?'],
+   ['/','','\','','/','','\',''],
+   [ans_rule(2),'','$B','','$C','',ans_rule(2),'Neither of the two factors above is prime, so keep breaking down.']
+  ], 
+  caption => 'Factor tree for $ABCD',
+  align => 'c c c c c c c l',
+ );
+\}
+$PAR
+List all the prime factors you found in the tree above. Primes that show up more than once will need to be listed multiple times. (For example, the prime factor list for 25 would be "5, 5".)
+$BR
+\{ans_rule(10)\}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( $CD->cmp() );
+ANS( $A->cmp() );
+ANS( $D->cmp() );
+ANS( $pfactorization->cmp(showLengthHints=>1, ordered=>0) );
+
+Section::End();
+
+Section::Begin("Part 5: Thinking about division");
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+So you might be asking yourself what all of this factorization has to do with division. Ultimately, division can be viewed as a different sort of question about multiplication.
+$PAR
+\( 6 \times 3 \) is a multiplication problem, asking you to find the third multiple of six. (Or the sixth multiple of 3.) Which we can do, and we'd answer that the product is 18.
+$PAR
+On the other hand, \( 18 \div 3 \) is a different sort of multiplication problem, asking you $BITALIC which multiple of 3 is 18? $EITALIC 
+$PAR
+\( 18 \div 3 = \underline{\hspace{1cm}} \) is the same as asking \( \underline{\hspace{1cm}} \times 3 = 18 \)
+$PAR
+This may not seem particularly useful at the moment, but it will be $BBOLD very $EBOLD useful when dealing with large numbers later on.
+$PAR
+So, how does prime factorization fit into the picture? Well, basically, division is asking you which factors are $BITALIC missing $EITALIC.
+$PAR
+Do a factor tree for 18, and list all the prime factors. (Remember to list any repeated factors as many times as you need.) \{ ans_rule(10) \}
+$PAR
+Since \(18 \div 3 \) is asking \( 18 \div 3 = \underline{\hspace{1cm}} \) is the same as asking \( \underline{\hspace{1cm}} \times 3 = 18 \), you just need to fill in the missing factors from your list.
+$BR
+Which factors are missing? (Remember, 3 is already there.) Write your answer as a list of factors: \{ ans_rule(5) \}
+$PAR
+So the answer for \( 18 \div 3 \) will just be the product of all the missing factors. 
+$BR
+What do you get if you multiply your list of missing factors? \{ ans_rule(2) \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( List(2,3,3)->cmp(showLengthHints=>1, ordered=>0) );
+ANS( List(2,3)->cmp(showLengthHints=>1, ordered=>0) );
+ANS( Real(6)->cmp() );
+
+Section::End();
+
+Section::Begin("Part 6: A Tougher Problem");
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Let's do a trickier one. What is \( $XYZ7 \div $X7 \) ?
+$PAR
+First, do a factor tree and list the prime factors of $XYZ7 : \{ans_rule(10)\}
+$PAR
+Then, do a factor tree and list the prime factors of $X7 : \{ans_rule(5)\}
+$PAR
+List the factors that are missing from $X7 's list: \{ ans_rule(5)\}
+$PAR
+Multiply together the list of missing primes: \{ans_rule(5)\}
+$PAR
+Check your work. Does your final answer multiply with $X7 to make $XYZ7 ? \{ $YESNoMC->menu() \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( $XYZ7List->cmp(showLengthHints=>1, ordered=>0) );
+ANS( $X7List->cmp(showLengthHints=>1, ordered=>0) );
+ANS( $YZList->cmp(showLengthHints=>1, ordered=>0) );
+ANS( $YZ->cmp() );
+ANS( $YESNoMC->cmp() );
+
+Section::End();
+
+Scaffold::End();
+
+ENDDOCUMENT();        

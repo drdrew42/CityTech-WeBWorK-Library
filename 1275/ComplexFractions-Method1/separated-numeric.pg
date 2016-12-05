@@ -1,0 +1,73 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextFraction.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("LimitedFraction")->flags->set(showMixedNumbers=>0, reduceConstants=>0);
+
+$nPrime = list_random(2,3,5,7,11);
+do { $dPrime = list_random(2,3,5,7,11); } until ($nPrime != $dPrime);
+
+$mult = random(2,4,1);
+
+$ND1 = $nPrime;
+$ND2 = $mult*$nPrime;
+$DD1 = $mult*$dPrime;
+$DD2 = $dPrime;
+
+$NN1 = random(1,$ND1-1,1);
+do { $NN2 = random(1,$ND2-1,1); } until ( gcf($NN2,$ND2) == 1 );
+$DN1 = $DD1 - 1;
+$DN2 = random(1,$DD2-1,1);
+
+$N1 = Fraction($NN1,$ND1);
+$N2 = Fraction($NN2,$ND2);
+$D1 = Fraction($DN1,$DD1);
+$D2 = Fraction($DN2,$DD2);
+
+$ansN = ($mult*$NN1+$NN2)*$dPrime;
+$ansD = $nPrime*($DN1 - $mult*$DN2);
+$ans = Fraction($ansN,$ansD)->reduce;
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+$PAR
+Simplify the complex fraction:
+\[ \Large\frac{$N1 + $N2}{$D1 - $D2} \]
+$BR
+\{ans_rule(20)\}
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans->cmp(showFractionReductionWarnings=>1));
+
+
+ENDDOCUMENT();        

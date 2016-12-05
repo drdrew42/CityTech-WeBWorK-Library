@@ -1,0 +1,56 @@
+##DESCRIPTION
+##  Parker-Exam1A
+##ENDDESCRIPTION
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextFraction.pl",
+   "contextLimitedNumeric.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("LimitedNumeric");
+
+$ans = Real("-9");
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Evaluate the expression and write your answer in simplest form if  \(n= 2\) and \(x=-3\) and \(y=9\).
+
+\[\dfrac{nx^2+y}{-3} =\]
+
+\{$ans->ans_rule\}
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans->cmp);
+
+ENDDOCUMENT();        

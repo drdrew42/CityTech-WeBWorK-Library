@@ -1,0 +1,52 @@
+##DESCRIPTION
+##Arithmetic
+##ENDDESCRIPTION
+## DBsubject(Algebra)
+## DBchapter(Rational equations and functions)
+## DBsection(Rational equations)
+## Institution(NYCCT)
+## Author('Andrew Parker')
+## KEYWORDS('algebra')
+
+DOCUMENT();        # This should be the first executable line in the problem.
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"contextFraction.pl"
+);
+
+TEXT(beginproblem());
+
+Context("Numeric");
+Context()->noreduce('(-x)/y');
+
+$a = non_zero_random(-6,6,1);
+$d = non_zero_random(-6,6,1);
+
+do { $b=random(1,6,1); $e = random(1,6,1); } until ($a*$e-$d*$b != 0);
+
+$c = non_zero_random(-8,8,1);
+$f = non_zero_random(-8,8,1);
+
+$LHS = Formula("$a/($b x + $c)")->reduce;
+$RHS = Formula("$d/($e x + $f)")->reduce;
+
+Context()->texStrings;
+BEGIN_TEXT
+$PAR
+
+The solution of the equation
+\[ $LHS = $RHS \]
+$PAR
+is \(x = \) \{ ans_rule(20) \}.
+
+END_TEXT
+Context()->normalStrings;
+
+Context("LimitedFraction")->flags->set(showMixedNumbers=>0);
+$ans = Fraction( $d*$c-$a*$f, $a*$e-$d*$b );
+ANS($ans->cmp);
+
+COMMENT("MathObject version");
+ENDDOCUMENT();        # This should be the last executable line in the problem.

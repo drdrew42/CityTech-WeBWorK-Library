@@ -1,0 +1,67 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextLimitedRadical.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("LimitedRadical")->flags->set(reduceConstants=>0, reduceConstantFunctions=>0);
+Parser::Number::NoDecimals();
+
+$rad = list_random(2,3,5,6,7,10,11);
+
+$c1 = random(3,9,1);
+$c2 = random(3,9,1);
+
+$cAns = $c1 + $c2;
+
+$ans = Formula("$cAns sqrt( $rad )");
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Add or subtract the radical expression, if possible. 
+$BR Do not use rational exponents in your answer.
+$PAR
+\[ \large{$c1 \sqrt{$rad} + $c2 \sqrt{$rad} } \]
+$BR
+\{ans_rule(10)\}
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans->cmp->withPostFilter(sub { 
+  my $ans = shift; 
+  $ans->{ans_message} = "Use 'sqrt(...)' instead of rational exponents." 
+    if $ans->{ans_message} eq "Powers must be positive integer constants";
+  return $ans; 
+}));
+
+
+ENDDOCUMENT();        

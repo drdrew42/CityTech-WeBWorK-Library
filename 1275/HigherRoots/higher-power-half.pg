@@ -1,0 +1,54 @@
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextFraction.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("LimitedFraction");
+Context()->strings->are(undefined => {}, imaginary => {alias => "undefined"});
+
+$power = random(3,6,1);
+$D = 2**$power;
+$R = Fraction(1,$D);
+$ans = Fraction(1,2);
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+$PAR
+Evaluate without using a calculator. Write "undefined" or "imaginary" if your result is not a real number.
+$PAR
+\(\displaystyle \sqrt[\large$power]{\large$R}\) = \{ans_rule(10)\}
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans->cmp);
+
+
+ENDDOCUMENT();        

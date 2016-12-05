@@ -1,0 +1,66 @@
+##DESCRIPTION
+##  Parker - Sample Exam 1 
+##ENDDESCRIPTION
+
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextFraction.pl",
+   "contextLimitedNumeric.pl",
+   "parserPopUp.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("LimitedNumeric");
+
+$popup = PopUp(["?", "monomial", "binomial", "trinomial"], "trinomial");
+$ans2 = Real("4");
+$ans3 = Real("-11");
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+\(2x^3-8x^4-1\) is a \{ $popup -> menu() \}
+
+$PAR
+It has degree = \{ $ans2->ans_rule\}
+$PAR
+and evaluating it at \(x = -1\) results in \{$ans3->ans_rule\}
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($popup->cmp);
+ANS($ans2->cmp);
+ANS($ans3->cmp);
+
+
+ENDDOCUMENT();        

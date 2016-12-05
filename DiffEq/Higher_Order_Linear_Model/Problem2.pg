@@ -1,0 +1,89 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('Modeling with Higher-Order Differential Equations')
+## DBsection('Linear Models')
+## Date('05/28/2012')
+## Author('Anna Ghazaryan,Fuli Zhang')
+## Institution('Muohio')
+## TitleText1('Differential equations with Boundary-value problem')
+## AuthorText1('Dennis G. Zill')
+## Section1('5.1')
+## Edition('7')
+## Problem1('3')
+
+########################################################################
+
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",
+   "MathObjects.pl",
+   "AnswerFormatHelp.pl",
+   "unionLists.pl",
+   "parserPrime.pl",
+   "parserPopUp.pl",
+   "answerHints.pl",
+   "parserImplicitPlane.pl",
+
+ );
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric")->variables->add(y=>"Real",t=>"Real");
+
+##############################################################
+#
+#  Text
+#
+#
+
+
+$answer[0] = Formula("-cos(4*sqrt(6)*t)/4");
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Solve the following problem: 
+$BR
+Question:$BR A 24-pound weight stretches a spring 4 inches. The weight is released from rest from a point
+3 inches above the equilibrium position. Find the equation of motion.(Use t as independent variable)
+$BR
+$BR
+\(\displaystyle \ x=\) \{ans_rule(30)\}
+ 
+\{ AnswerFormatHelp("formulas") \}
+
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+ANS( $answer[0]->cmp() );
+
+
+
+
+
+
+
+
+ENDDOCUMENT();   

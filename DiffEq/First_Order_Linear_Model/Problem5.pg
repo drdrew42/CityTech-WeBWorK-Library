@@ -1,0 +1,85 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('Modeling with First-Order Differential Equations')
+## DBsection('Linear Model')
+## Date('05/28/2012')
+## Author('Anna Ghazaryan, Fuli Zhang')
+## Institution('Muohio')
+## TitleText1('Differential equations with Boundary-value problem')
+## AuthorText1('Dennis G. Zill')
+## Section1('3.1')
+## Edition('7')
+## Problem1('9')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"unionLists.pl",
+"parserPrime.pl",
+"parserPopUp.pl",
+"answerHints.pl",
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+#Context("Numeric")->variables->add(t=>"Real",u=>"Real",r=>"Real",I0=>"Real",k=>"Real");
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+
+
+$a = random(3,4,5);
+$b = random(20,25,30);
+$answer[0] = Compute("100*e^((15/$a)(ln($b/100)))");
+
+
+
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+When a vertical beam of light passes through a transparent medium, the rate at which its intensity \(I\) decreases is proportional to \(I(t)\), where \(t\) represents the thickness of the medium (in feet). In clear seawater, the intesity $a feet below the surface is $b% of the initial intensity \(I_{0} = 100\) of the incident beam. What is the intensity of the beam 15 feet below the surface? 
+$BR
+$BR
+\{ ans_rule(10) \}. 
+\{ AnswerFormatHelp("formulas") \}
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+$showPartialCorrectAnswers = 0;
+ANS( $answer[0]->cmp() );
+
+
+ENDDOCUMENT();    
+

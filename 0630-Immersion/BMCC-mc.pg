@@ -1,0 +1,75 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject('Algebra')
+## DBchapter('Fundamentals')
+## DBsection('Real Numbers')
+## Date('6/3/2002')
+## Author('')
+## Institution('')
+## TitleText1('Precalculus')
+## EditionText1('3')
+## AuthorText1('Stewart, Redlin, Watson')
+## Section1('1.1')
+## Problem1('22')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "parserRadioButtons.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+
+$mc = RadioButtons( [ 
+  "The human population is quickly growing.", 
+  "It is important to take time to make sense of large numbers because they occur in many important situations.",
+  "There are 5,280 feet in 1 mile.",
+  "There is not much difference between a million and a billion." ],
+  "It is important to take time to make sense of large numbers because they occur in many important situations." );
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Which of the following was one of the main $BITALIC mathematical $EITALIC ideas of the lesson?
+
+$BR
+
+\{ $mc->buttons() \}
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS( $mc->cmp() );
+
+ENDDOCUMENT();        

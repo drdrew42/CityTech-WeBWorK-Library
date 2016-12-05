@@ -1,0 +1,54 @@
+assignmentType      = default
+openDate          = 05/06/2013 at 11:31am EDT
+reducedScoringDate = 12/31/1969 at 07:00pm EST
+dueDate           = 05/15/2013 at 11:30am EDT
+answerDate        = 05/16/2013 at 09:30am EDT
+enableReducedScoring = N
+paperHeaderFile   = defaultHeader
+screenHeaderFile  = defaultHeader
+description       = 
+restrictProbProgression = 
+emailInstructor   = 
+
+problemListV2 
+problem_start
+problem_id = 1
+source_file = Library/FortLewis/DiffEq/4-Laplace-transforms/03-Partial-fractions/KJ-5-3-06.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 2
+source_file = Library/FortLewis/DiffEq/4-Laplace-transforms/03-Partial-fractions/KJ-5-3-12.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 3
+source_file = Library/FortLewis/DiffEq/4-Laplace-transforms/03-Partial-fractions/KJ-5-3-15.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 4
+source_file = Library/FortLewis/DiffEq/4-Laplace-transforms/03-Partial-fractions/KJ-5-3-17.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+

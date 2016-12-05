@@ -1,0 +1,114 @@
+assignmentType      = default
+openDate          = 02/08/2016 at 10:53am EST
+reducedScoringDate = 10/29/2015 at 02:00pm EDT
+dueDate           = 02/15/2016 at 10:53am EST
+answerDate        = 02/15/2016 at 10:53am EST
+enableReducedScoring = N
+paperHeaderFile   = defaultHeader
+screenHeaderFile  = defaultHeader
+description       = 
+restrictProbProgression = 
+emailInstructor   = 
+
+problemListV2 
+problem_start
+problem_id = 1
+source_file = Library/NewHampshire/unh_schoolib/Evaluation_by_Substitution/evssrs101.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 2
+source_file = local/setchapter3-EvaluatingExpressions/associativityTF.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 3
+source_file = Library/FortLewis/Algebra/1-1-Expressions/MCH1-1-1-06-Expressions.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 4
+source_file = Library/FortLewis/Algebra/1-1-Expressions/MCH1-1-1-04-Expressions.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 5
+source_file = Library/MC/PreAlgebra/setPreAlgebraC01S03/EvalExpress03.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 6
+source_file = Library/MC/PreAlgebra/setPreAlgebraC01S03/EvalExpress02.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 7
+source_file = Library/MC/PreAlgebra/setPreAlgebraC01S03/EvalExpress01.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 8
+source_file = Library/CollegeOfIdaho/setAlgebra_01_01_AlgebraicExpressions/11IntAlg_05_AlgebraicExpressions.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 9
+source_file = Library/CollegeOfIdaho/setAlgebra_01_01_AlgebraicExpressions/11IntAlg_06_AlgebraicExpressions.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 10
+source_file = Library/CollegeOfIdaho/setAlgebra_01_01_AlgebraicExpressions/11IntAlg_04_AlgebraicExpressions.pg
+value = 1
+max_attempts = -1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+

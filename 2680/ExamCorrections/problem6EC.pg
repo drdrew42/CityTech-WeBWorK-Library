@@ -1,0 +1,91 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject('Algebra')
+## DBchapter('Fundamentals')
+## DBsection('Real Numbers')
+## Date('6/3/2002')
+## Author('')
+## Institution('')
+## TitleText1('Precalculus')
+## EditionText1('3')
+## AuthorText1('Stewart, Redlin, Watson')
+## Section1('1.1')
+## Problem1('22')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "parserImplicitEquation.pl",
+   "source.pl",        # allows code to be displayed on certain sites.
+   "PGcourse.pl",      # Customization file for the course
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("ImplicitEquation");
+Context()->variables->{namePattern} = qr/[a-z][a-z0-9_]*'*/i;
+Context()->variables->are( y => "Real", x => "Real", "y'" => "Real" );
+
+$de = Formula("(y*cos(x*y)+e^y+5)+(x*cos(x*y)+x*e^y+5)*y'")->reduce;
+$hom = Formula("0");
+$My = Formula("cos(x*y)-x*y*sin(x*y)+e^y");
+$Nx = Formula("cos(x*y)-x*y*sin(x*y)+e^y");
+$sol = Formula("sin(x*y)+x*e^y+5x+5y"); 
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$BBOLD Extra Credit: $EBOLD $BR
+Solve the following differential equation:
+$BR
+\( $de = $hom \)
+$BR
+$BR
+What is \(M_y(x,y)=\)\{$My->ans_rule\}
+$BR
+$BR
+What is \(N_x(x,y)=\)\{$Nx->ans_rule\} 
+$BR
+$BR
+What is the general solution for the differential equation? \(c=\)\{$sol->ans_rule\}
+$BR
+$BR
+END_TEXT
+
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($My->cmp);
+ANS($Nx->cmp);
+ANS($sol->cmp);
+
+
+ENDDOCUMENT();        

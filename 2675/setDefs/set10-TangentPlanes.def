@@ -1,0 +1,104 @@
+assignmentType      = default
+openDate          = 03/11/2016 at 10:08pm EST
+reducedScoringDate = 12/31/1969 at 07:00pm EST
+dueDate           = 03/28/2016 at 11:59pm EDT
+answerDate        = 03/28/2016 at 11:59pm EDT
+enableReducedScoring = N
+paperHeaderFile   = setDemo/paperHeaderFile1.pg
+screenHeaderFile  = setDemo/screenHeaderFile1.pg
+description       = 
+restrictProbProgression = 0
+emailInstructor   = 0
+
+problemListV2 
+problem_start
+problem_id = 1
+source_file = Library/272/setStewart14_4/problem_1.pg
+value = 5
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 2
+source_file = Library/272/setStewart14_4/problem_2.pg
+value = 5
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 3
+source_file = Library/272/setStewart14_4/problem_22.pg
+value = 5
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 4
+source_file = Library/272/setStewart14_4/ur_vc_6_2.pg
+value = 5
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 5
+source_file = Library/WHFreeman/Rogawski_Calculus_Early_Transcendentals_Second_Edition/14_Differentiation_in_Several_Variables/14.4_Differentiability_and_Tangent_Planes/14.4.11.pg
+value = 5
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 6
+source_file = Library/Michigan/Chap14Sec3/Q03.pg
+value = 5
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 7
+source_file = Library/Michigan/Chap14Sec3/Q07.pg
+value = 5
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 8
+source_file = Library/FortLewis/Calc3/14-5-Gradients-in-space/HGM4-14-5-21-Gradients-etc.pg
+value = 5
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 9
+source_file = Library/FortLewis/Calc3/14-5-Gradients-in-space/HGM4-14-5-16-Gradients-etc.pg
+value = 5
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+

@@ -1,0 +1,89 @@
+##KEYWORDS('Differential equaltion')
+
+## DBsubject('Differential Equation')
+## DBchapter('Modeling of First-order of DE')
+## DBsection('Section 3.1 Linear Models')
+## Date('01/23/2012')
+## Author('Anna Ghazaryan, Fuli Zhang')
+## Institution('Miami University')
+## TitleText1('A First Course in Differential Equation')
+## EditionText1('9')
+## AuthorText1('Dennis G.Zill')
+## Section1('3.1')
+## Problem1('Problem 3')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",
+   "MathObjects.pl",
+   "AnswerFormatHelp.pl",
+   "unionLists.pl",
+   "parserPrime.pl",
+   "parserPopUp.pl",
+   "answerHints.pl",
+   "parserImplicitPlane.pl",
+
+ );
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric")->variables->add(y=>"Real",k=>"Real",M=>"Real",A=>"Real");
+
+##############################################################
+#
+#  Text
+#
+#
+$answer[0] = Formula("56.18");
+
+
+
+
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Solve the following problem: 
+$BR
+$BR
+Question:$BR Suppose a cold beer at \(40^\circ\)F is placed into a room with a temperature of \(70^\circ\)F. Suppose 10 minutes later, the temperature of the beer is \(48^\circ\)F. What is the temperature 25 minutes after the beer was placed into the room? (Please retain decimal places)
+$BR
+$BR
+\(\displaystyle \ t=\) \{ans_rule(15)\}\(^\circ\)F.
+ 
+\{ AnswerFormatHelp("formulas") \}
+
+
+
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+ANS( $answer[0]->cmp() );
+
+
+
+
+
+
+
+
+ENDDOCUMENT();    

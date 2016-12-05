@@ -1,0 +1,72 @@
+##DESCRIPTION
+##  Factoring
+##ENDDESCRIPTION
+
+## DBsubject('Middle school')
+## DBchapter(Polynomials, polynomial functions, and factoring)
+## DBsection('Difference of two squares')
+## KEYWORDS('factoring')
+## Date('10/15/2013')
+## Author('ElHitti')
+## Institution('CityTech')
+
+DOCUMENT(); # This should be the first executable line in the problem.
+
+loadMacros(
+  "PGstandard.pl",
+  "MathObjects.pl",
+  "CofIdaho_macros.pl"
+);
+
+TEXT(beginproblem());
+
+######################################
+#  Setup
+
+Context()->variables->are(x=>'Real',y=>'Real');
+
+$a= random(2,3,1);
+$n = random(2,4,2);
+
+$polynomial = Formula("x^$n + $a^2 y^2")->reduce->TeX;
+
+######################################
+#  Main text
+
+BEGIN_TEXT
+Factor completely or state "Does not factor": 
+$PAR
+\( $polynomial = \)  \{ ans_rule(30) \} 
+END_TEXT
+
+######################################
+#  Answer
+
+$answer = "x^$n + $a^2 y^2";
+ANS(FactoringEvaluator("Does not factor",$answer,["x","y"])); 
+
+$showPartialCorrectAnswers = 1;
+
+######################################
+
+
+COMMENT('MathObject version');
+ENDDOCUMENT();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

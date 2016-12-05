@@ -1,0 +1,47 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "PGML.pl",
+   "contextFraction.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(reduceConstants=>0, reduceConstantFunctions=>0,tolType=>'absolute');
+
+$result = random(2,6,1);
+$exp = random(2,3,1);
+$base = $result**$exp;
+
+Context("LimitedFraction");
+$exp = Fraction("1/$exp");
+
+##############################################################
+#
+#  Text
+#
+#
+
+BEGIN_PGML
+
+Evaluate the logarithmic expression without using a calculator.
+
+>> [` \log_{[$base]}([$result]) = `] [_____]{$exp} <<
+
+END_PGML
+
+ENDDOCUMENT();        

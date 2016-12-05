@@ -1,0 +1,84 @@
+#DESCRIPTION
+##Type of
+#ENDDESCRIPTION
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+"MathObjects.pl",
+"contextFraction.pl",
+"problemPanic.pl",
+"PGauxiliaryFunctions.pl", #for lcm, gcd,etc
+);
+
+TEXT(beginproblem());
+Context("Fraction");
+$showPartialCorrectAnswers = 1;
+
+$a = random(2,8,2);
+$aDec = Real($a/10);
+$aFrac = Fraction($a,10)->reduce;
+
+$b = 5*non_zero_random(-4,4,1)+50; #avoid multiples of 25
+$bDec = Real($b/100);
+$bFrac = Fraction($b,100)->reduce;
+
+#mult of 4 from 24 to 96, avoiding multiples of 10: 40, 60, 80
+$c = (-1)**random(-1,1,2)*4*(non_zero_random(-4,4,1)+5)+60; 
+$cDec = Real($c/100);
+$cFrac = Fraction($c,100)->reduce;
+
+BEGIN_TEXT
+Express each of the following as a fraction in simplest form.
+$PAR
+\{Panic::Button(label => " Ask for a Hint", penalty => .00)\}
+$PAR
+END_TEXT
+if ($panicked) {
+BEGIN_TEXT
+   Hint: One way to do this kind of problem is to just change the decimal to 
+a fraction with denominator some power of 10 (depending on the length of the
+decimal.$BR  For instance .66 would be \(\frac{66}{100}\).  Now you have a
+fraction that you  can reduce.
+END_TEXT
+};
+
+BEGIN_TEXT
+$PAR
+a) 0.75 = \{ans_rule(6)\}
+$PAR
+b) $aDec = \{ans_rule(6)\}
+$PAR
+c) $bDec = \{ans_rule(6)\}
+$PAR
+d) $cDec = \{ans_rule(6)\}
+
+END_TEXT
+
+Context("LimitedFraction");
+
+ANS(Compute("3/4")->cmp);
+ANS($aFrac->cmp(studentsMustReduceFractions=>1));
+ANS($bFrac->cmp(studentsMustReduceFractions=>1));
+ANS($cFrac->cmp(studentsMustReduceFractions=>1));
+
+Context()->texStrings;
+BEGIN_SOLUTION
+$PAR Solution $PAR
+\(0.75=\frac{75}{100}=\frac{3}{4}\) $PAR
+\($aDec = \frac{$a}{10} = $aFrac\) $PAR
+\($bDec = \frac{$b}{100} = $bFrac\) $PAR
+\($cDec = \frac{$c}{100} = $cFrac\) $PAR
+END_SOLUTION
+Context()->normalStrings;
+
+COMMENT('MathObject version');
+ENDDOCUMENT();
+## DBsubject(Arithmetic)
+## DBchapter(Decimals)
+## DBsection(Converting between fractions and decimals)
+## Level(2)
+## MO(1)
+
+

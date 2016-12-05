@@ -1,0 +1,48 @@
+## DESCRIPTION
+## Find the definite integral a quotient.
+## ENDDESCRIPTION
+
+## Tagged by jjh2b 5/26/06
+
+## DBsubject(Calculus - single variable)
+## DBchapter(Techniques of integration)
+## DBsection(Trigonometric substitution)
+## Institution(Rochester)
+## MLT(Trig_sec)
+## Level(2)
+## TitleText1('Calculus: Early Transcendentals')
+## AuthorText1('Rogawski')
+## EditionText1('1')
+## Section1('7.5')
+## Problem1('17')
+
+DOCUMENT();        # This should be the first executable line in the problem.
+
+loadMacros(
+"PG.pl",
+"PGbasicmacros.pl",
+"PGchoicemacros.pl",
+"PGanswermacros.pl",
+"PGauxiliaryFunctions.pl",
+"PGstandard.pl",
+"MathObjects.pl"
+);
+
+SRAND(1);
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+Context("Numeric");
+
+$ans = Real("pi/6");
+
+BEGIN_TEXT
+Evaluate the integral. $PAR
+ 
+\( \displaystyle \int_0^1 \frac{1}{\sqrt{4-t^2}}  dt = \) \{ans_rule(50) \}.
+$BR
+END_TEXT
+
+ANS($ans->cmp());
+
+ENDDOCUMENT();        # This should be the last executable line in the problem.

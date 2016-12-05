@@ -1,0 +1,81 @@
+#DESCRIPTION
+##  Calculus: The Comparison Tests
+##ENDDESCRIPTION
+
+
+## DBsubject(Calculus - single variable)
+## DBchapter(Infinite sequences and series)
+## DBsection(Comparison tests)
+## Date(03/23/2010)
+## Institution(University of Minnesota)
+## Author(Justin Sukiennik)
+## MLT(Compare_with_a_series_in_a_given_list)
+## Level(3)
+## TitleText1('Calculus: Concepts and Contexts')
+## AuthorText1('Stewart')
+## EditionText1('4 Custom UMTYMP Ed.')
+## Section1('11.4')
+## Problem1('')
+## KEYWORDS('calculus', 'series', 'comparison tests')
+
+#####################################################################
+DOCUMENT();        # This should be the first executable line in the problem.
+
+loadMacros(
+  "PGstandard.pl",
+  "MathObjects.pl",
+  "PGunion.pl",
+  "parserPopUp.pl",
+  "PGcourse.pl",
+  "PGessaymacros.pl" 
+);
+
+#####################################################################
+install_problem_grader(~~&std_problem_grader);
+
+$showPartialCorrectAnswers = 0;
+
+TEXT(beginproblem());
+
+#####################################################################
+
+Context("Numeric");
+
+$popup1 = PopUp(['?','Converges', 'Diverges'],'Diverges');
+$popup2 = PopUp(['?','Converges', 'Diverges'],'Diverges');
+$popup3 = PopUp(['?','Converges', 'Diverges'],'Converges');
+
+#####################################################################
+
+Context()->texStrings;
+BEGIN_TEXT
+Determine the convergence or divergence of the following series:
+
+$PAR
+\(\displaystyle \sum_{n=1}^{\infty}\frac{1}{\sqrt{n}}\), $SPACE $SPACE
+$BR
+\{$popup1->menu\}
+
+$PAR
+\(\displaystyle \sum_{n=1}^{\infty}\frac{1}{n} \), $SPACE $SPACE
+$BR
+\{$popup2->menu\}
+
+$PAR
+\(\displaystyle \sum_{n=1}^{\infty}\frac{1}{n^2} \),$SPACE $SPACE
+$BR
+\{$popup3->menu\}
+
+$PAR
+Briefly justify your answers above. How did you know each one converged or diverged?
+\{essay_box()\}
+END_TEXT
+
+#####################################################################
+
+ANS($popup1->cmp);
+ANS($popup2->cmp);
+ANS($popup3->cmp);
+ANS(essay_cmp());
+
+ENDDOCUMENT();        # This should be the last executable line in the problem.

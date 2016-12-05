@@ -1,0 +1,95 @@
+## DESCRIPTION
+## exponents
+## ENDDESCRIPTION
+
+## KEYWORDS('exponents')
+
+## DBsubject('Algebra') 
+## BookTitle('Algebra: Form and Function')
+## DBchapter('Basic Algebra') 
+## BookChapter('Rules for Exponents and the Reasons for Them')
+## DBsection('Exponents and Radicals') 
+## BookSection('Integer Powers and the Exponent Rules')
+## Date('01/01/10')
+## Author('Paul Pearson')
+## Institution('Fort Lewis College')
+## TitleText1('Algebra: Form and Function')
+## EditionText1('1')
+## AuthorText1('McCallum, Connally, and Hughes-Hallett')
+## Section1('6.1')
+## Problem1('8 10 12')
+
+##############################################
+#  Initialization
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"alignedChoice.pl",
+"answerHints.pl",
+);
+
+TEXT(beginproblem());
+
+##############################################
+#  Setup
+
+Context("LimitedNumeric");
+
+$a = random(3,5,1);
+$b = random(2,9,1);
+$c = random(3,7,1);
+$ans4 = 4*$a**3;
+$wrongans4 = -1*$ans4;
+
+Context()->texStrings;
+$al = new_aligned_list(ans_rule_len=>20, numbered=>0, tex_spacing=>"5pt");
+$al->qa(
+"\($b^0\)", Real("1")->cmp(),
+"\($c^1\)", Real("$c")->cmp(),
+"\(0^{$c}\)", Real("0")->cmp(),
+"\(-$a^3 \cdot -2^2\)", Real("$ans4") -> cmp() -> withPostFilter( AnswerHints( Real("$wrongans4") => ["Hint: What happens with exponents when the negatives are not in parenthesis?",replaceMessage=>1])),
+);
+Context()->normalStrings;
+
+Context()->{error}{msg}{"Can't use '+' in this context"} 
+  = "Addition is disabled for this problem. Compute the result for yourself and resubmit your answer.";
+Context()->{error}{msg}{"Can't use '-' in this context"} 
+  = "Subtraction is disabled for this problem. Compute the result for yourself and resubmit your answer.";
+Context()->{error}{msg}{"Can't use '*' in this context"} 
+  = "Multiplication is disabled for this problem. Compute the result for yourself and resubmit your answer.";
+Context()->{error}{msg}{"Can't use '/' in this context"} 
+  = "Division is disabled for this problem. Compute the result for yourself and resubmit your answer.";
+Context()->{error}{msg}{"Can't use '^' in this context"} 
+  = "Exponents are disabled for this problem. Compute the result for yourself and resubmit your answer.";
+Context()->{error}{msg}{"Can't use '**' in this context"} 
+  = "Exponents are disabled for this problem. Compute the result for yourself and resubmit your answer.";
+
+
+##############################################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+Evaluate the following expressions without using
+a calculator.  Simplify your answers as much
+as possible.  
+$BR
+\{ $al->print_q() \}
+END_TEXT
+Context()->normalStrings;
+
+#############################################
+#  Answer evaluation
+
+
+
+$showPartialCorrectAnswers = 1;
+
+ANS($al->correct_ans );
+
+
+COMMENT('MathObject version');
+ENDDOCUMENT();

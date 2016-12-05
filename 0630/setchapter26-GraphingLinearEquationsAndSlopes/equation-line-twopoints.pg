@@ -1,0 +1,48 @@
+DOCUMENT();        
+
+loadMacros(  
+"PGstandard.pl",        
+"MathObjects.pl",      
+"parserImplicitEquation.pl", 
+);
+
+TEXT(beginproblem());
+
+$showPartialCorrectAnswers = 0;
+
+Context("ImplicitEquation");
+
+$x0 = random(-9,-1,1);
+$y0 = random(-9,9,1);
+$deltaX = random(1,5,1);
+$deltaY = non_zero_random(-9,9,1);
+$m = $deltaY/$deltaX;
+
+$x1 = $x0 + $deltaX;
+$x2 = $x1 + $deltaX;
+$x3 = $x2 + $deltaX;
+
+$y1 = $y0 + $deltaY;
+$y2 = $y1 + $deltaY;
+$y3 = $y2 + $deltaY;
+
+$lhs = Formula("y-$y0")->reduce;
+$rhs = Formula("$m( x - $x0 )")->reduce;
+$answer = ImplicitEquation( "$lhs = $rhs",
+     solutions => [ [$x0,$y0], [$x1,$y1], [$x2,$y2], [$x3,$y3] ],
+     limits => [ [-10,10], [-10,10] ],
+     tolerance => 0.0001 
+) -> reduce;
+
+BEGIN_TEXT
+
+$PAR
+Find an equation for the line that passes through the points \( ( $x0, $y0 ) \) and \( ( $x1, $y1 ) \).
+$PAR 
+\{ ans_rule(20) \}
+
+END_TEXT
+
+ANS($answer->cmp());
+
+ENDDOCUMENT();

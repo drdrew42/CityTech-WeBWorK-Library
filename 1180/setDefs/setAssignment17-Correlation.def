@@ -1,0 +1,9 @@
+
+openDate          = 06/25/2012 at 01:24am EDT
+dueDate           = 07/02/2012 at 11:59pm EDT
+answerDate        = 07/03/2012 at 12:01am EDT
+paperHeaderFile   = local/opt/webwork/webwork2/conf/snippets/ReitzHeaderBASIC.pg
+screenHeaderFile  = local/opt/webwork/webwork2/conf/snippets/ReitzHeaderBASIC.pg
+problemList       = 
+Library/Rochester/setStatistics6CorrelationRegression/ur_stt_6_1.pg, 10, -1 
+

@@ -1,0 +1,91 @@
+## DESCRIPTION
+## Algebraic equations
+## ENDDESCRIPTION
+
+
+## BookTitle('Algebra: Form and Function')
+## BookChapter('Rules for Expressions and the Reasons for Them')
+## DBsubject(Algebra)
+## DBchapter(Factoring)
+## DBsection(Factoring: special forms)
+## Date(01/01/10)
+## Institution(Fort Lewis College)
+## Author(Paul Pearson)
+## Level(2)
+## MO(1)
+## TitleText1('Algebra: Form and Function')
+## AuthorText1('McCallum, Connally, and Hughes-Hallett')
+## EditionText1('1')
+## Section1('2.3')
+## Problem1('62')
+## KEYWORDS('Equations')
+
+
+########################################
+#  Initialization
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"CofIdaho_macros.pl",
+"PGcourse.pl",
+);
+
+TEXT(beginproblem());
+
+#######################################
+#  Set-up
+
+Context("Numeric");
+Context()->variables->are(x=>"Real",y=>"Real");
+
+$a = random(4,8,1);
+$a2 = 2 * $a;
+$aa = $a * $a;
+
+$expression = Formula("x^2 + $a2 x + $aa - y^2");
+$perfSq = Formula("x^2 + $a2 x + $aa");
+
+$ans = Formula("(x + $a - y)*(x + $a + y)");
+
+################################################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Factor completely:
+$PAR
+\( $expression = \) 
+\{ $ans->ans_rule(20) \}
+
+END_TEXT
+Context()->normalStrings;
+
+################################################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 1;
+
+ANS( FactoringEvaluator($ans,["x","y"]) );
+
+$showHint = 2;
+Context()->texStrings;
+BEGIN_TEXT
+$PAR
+If you don't get this in $showHint tries, you can get a hint.
+END_TEXT
+BEGIN_HINT
+
+$PAR
+Do you notice anything about \($perfSq\)?
+$BR
+Try factoring just \($perfSq\) first, then see what the expression looks like when you \( - y^2 \).
+$BR
+You should be able to factor it even further now.
+END_HINT
+Context()->normalStrings;
+
+ENDDOCUMENT();

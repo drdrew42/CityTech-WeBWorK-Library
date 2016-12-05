@@ -1,0 +1,17 @@
+
+openDate          = 06/03/2012 at 11:42pm EDT
+dueDate           = 06/11/2012 at 11:59pm EDT
+answerDate        = 06/12/2012 at 12:01am EDT
+paperHeaderFile   = local/opt/webwork/webwork2/conf/snippets/ReitzHeaderBASIC.pg
+screenHeaderFile  = local/opt/webwork/webwork2/conf/snippets/ReitzHeaderBASIC.pg
+problemList       = 
+Library/UMN/algebraKaufmannSchwitters/ks_5_1_2.pg, 3, -1 
+Library/ma117DB/set1/srw1_2_3b.pg, 3, -1 
+Library/ma117DB/set1/srw1_2_1c.pg, 3, -1 
+Library/UMN/algebraKaufmannSchwitters/ks_5_7_18.pg, 3, -1 
+Library/UMN/algebraKaufmannSchwitters/ks_5_7_6.pg, 3, -1 
+Library/CollegeOfIdaho/setAlgebra_01_07_ScientificNotation/17IntAlg_04_ScientificNot.pg, 3, -1 
+Library/ma117DB/set1/srw1_2_67.pg, 5, -1 
+Library/CollegeOfIdaho/setAlgebra_01_07_ScientificNotation/17IntAlg_16_ScientificNot.pg, 5, -1 
+Library/CollegeOfIdaho/setAlgebra_01_07_ScientificNotation/17IntAlg_12_ScientificNot.pg, 5, -1 
+

@@ -1,0 +1,100 @@
+##DESCRIPTION
+##  Find an general solution. Separable method. Word problem.
+##ENDDESCRIPTION
+
+##KEYWORDS('separable')
+
+## DBsubject('Differential Equations')
+## DBchapter('Introduction')
+## DBsection('Modeling with Differential Equations')
+## Date('6/3/2013')
+## Author('Andrew Parker')
+## Institution('NYC College of Technology')
+## TitleText1('Elementary Differential Equations and Boundary Value Problems')
+## EditionText1('10')
+## AuthorText1('Boyce, DiPrima')
+## Section1('1.1')
+## Problem1('22')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->variables->remove(x);
+Context()->variables->add( v => "Real", t => "Real", c => "Real" );
+$mass = Real(random(1,10,1));
+$gamma = Real(non_zero_random(1,5,.5));
+$sol = Formula("$mass * 9.8 / $gamma + c * e ^ (-1 * $gamma * t / $mass)");
+$hom = Formula("9.8 - $gamma * v / $mass");
+$getC = Formula("(v - $mass * 9.8 / $gamma) * e ^ ( $gamma * t / $mass)");
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+A $mass kg object is falling with $gamma kg/s drag coefficient. 
+Find the general solution describing the velocity of the object.
+$BR
+\(v(t) = \)\{$sol->ans_rule\}
+END_TEXT
+
+$showHint = 5;
+BEGIN_TEXT
+$PAR
+If you don't get this in $showHint tries, you can get a hint.
+END_TEXT
+BEGIN_HINT
+The differential equation describing falling objects is \(m \frac{dv}{dt} = mg - \gamma v\).
+$BR
+Factor out the coefficient of \(v\) from the LHS of the equation and solve like you did in the previous problem.
+$BR
+Remember to use \(c\) as the parameter of your general solution.
+END_HINT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS( $sol->cmp( checker => sub {
+    my ( $correct, $student, $self ) = @_;
+
+    my $Dstudent = $student->D('t');
+    my $studentC = $getC->substitute(v=>"$student");
+    my $DstudentC = $studentC->D('c');
+    my $rhs = $hom->substitute(v=>"$student");
+
+    if ($DstudentC == Formula("0")) {
+       Value->Error("Your answer is not the most general solution. Where's 'c'?");
+    };
+
+    return ($Dstudent == $rhs && $DstudentC != Formula("0"));
+}));
+
+ENDDOCUMENT();        

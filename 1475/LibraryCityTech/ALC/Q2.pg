@@ -1,0 +1,91 @@
+# DESCRIPTION
+# 
+# WeBWorK problem written by Kate Poirier <kpoirier@citytech.cuny.edu>
+# ENDDESCRIPTION
+
+## Tagged by glr 10/24/08
+
+## Author('Kate Poirier');
+## DBsubject(Algebra)
+## DBchapter(Solving trigonometric equations)
+## DBsection(Solving trigonometric equations)
+## Institution(NYCCT-CUNY)
+## MLT()
+## MLTleader(1)
+## Level(3)
+## MO(1)
+## TitleText1('')
+## AuthorText1('')
+## EditionText1('')
+## Section1('')
+## Problem1('')
+## TitleText2('')
+## AuthorText2('')
+## EditionText2('')
+## Section2('')
+## Problem2('')
+## TitleText3('')
+## AuthorText3('')
+## EditionText3('')
+## Section3('')
+## Problem3('')
+## KEYWORDS('')
+
+
+
+
+DOCUMENT();
+loadMacros(
+"PG.pl",
+"PGbasicmacros.pl",
+"PGchoicemacros.pl",
+"PGanswermacros.pl",
+"PGauxiliaryFunctions.pl",
+"MathObjects.pl",
+);
+
+
+Context("Numeric")->variables->add(n=>'Real');
+
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 0;
+
+
+
+$a = Formula("pi/3");
+$b = Formula("2*pi/3");
+$c = Formula("4*pi/3");
+$d = Formula("5*pi/3");
+
+$ans1 = List("$a,$b,$c,$d");
+
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+$PAR
+Find all solutions in the interval \([0,2\pi]\). Leave your answer in radians.
+\[\sin^2(x)=3\cos^2(x)\]
+
+
+$PAR
+Type "pi" for \(\pi\). Separate multiple solutions by commas.
+$PAR
+\(x = \) \{ ans_rule(35) \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS($ans1->cmp(showHints =>0, showLengthHints => 0));
+
+
+
+
+
+Context()->normalStrings;
+
+
+;
+ENDDOCUMENT();

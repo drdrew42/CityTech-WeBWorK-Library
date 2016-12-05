@@ -1,0 +1,120 @@
+##DESCRIPTION
+##  Find a general solution. Integrating factor method.
+##ENDDESCRIPTION
+
+##KEYWORDS('integrating factor')
+
+## DBsubject('Differential Equations')
+## DBchapter('Introduction')
+## DBsection('Linear ODEs and the Integrating Factor')
+## Date('6/3/2013')
+## Author('Andrew Parker')
+## Institution('NYC College of Technology')
+## TitleText1('Elementary Differential Equations and Boundary Value Problems')
+## EditionText1('10')
+## AuthorText1('Boyce, DiPrima')
+## Section1('1.1')
+## Problem1('22')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->variables->{namePattern} = qr/[a-z][a-z0-9_]*'*/i;
+Context()->variables->are( y => "Real", t => "Real", c => "Real", "y'" => "Real" );
+$a = Real(non_zero_random(-9,9,1));
+$b = Real(non_zero_random(-9,9,1));
+$de = Formula("t*y'+y")->reduce;
+$hom = Formula("$a * t * cos( $b * t )")->reduce;
+$mu = Formula("t");
+$sol = Formula("$a / $b * sin($b * t) + $a / ($b)^2 * 1 / t * cos( $b * t ) + c / t");
+$getC = Formula("y-($a / $b * sin($b * t) + $a / ($b)^2 * 1 / t * cos( $b * t ))*t");
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+Find the integrating factor and use it to find the general solution for the following differential equation:
+$BR
+\( $de = $hom \)
+$BR
+\(\mu(t)=\)\{$mu->ans_rule\}
+$BR
+\(y(t)=\)\{$sol->ans_rule\}
+END_TEXT
+
+$showHint = 5;
+BEGIN_TEXT
+$PAR
+If you don't get this in $showHint tries, you can get a hint.
+END_TEXT
+BEGIN_HINT
+When attempting to find \(\mu(t)\), remember that you must manipulate the DE until the coefficient of \(y'\) is 1, then identify \(p(t)\) and recall that \(\mu(t)= e^{\int p(t) dt} \).
+$BR
+$BR
+Once you've got \(\mu(t)\) correct, multiply both sides of the DE by \(\mu(t)\) and recognize that the LHS of the DE now resembles the result of product-rule-derivation. 
+$BR
+Generally, it should look like the result of taking \(\frac{d}{dt} [\mu(t) \cdot y ]\).
+$BR
+$BR
+Thus, if you integrate both sides, the LHS will be \( \mu(t) \cdot y \). And all that should be left is to integrate the LHS, which should generally look like: \( \int \mu(t) \cdot ( $hom ) dt \)
+$BR
+$BR
+After integrating the RHS (you _did_ use integration by parts, didn't you?), you'll still need to isolate y before you enter your final answer.
+$BR
+Don't forget to use \(c\) as your parameter for the general solution...
+END_HINT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($mu->cmp);
+ANS( $sol->cmp( checker => sub {
+    my ( $correct, $student, $self ) = @_;
+
+    my $Dstudent = $student->D('t');
+    my $studentC = $getC->substitute(y=>"$student");
+    my $DstudentC = $studentC->D('c');
+    my $rhs = $hom->substitute(y=>"$student");
+#    my $lhs = Formula("t*$Dstudent + $student");
+    my $lhs = $de->substitute("y'"=>"$Dstudent", y=>"$student");
+
+    if ($DstudentC == Formula("0")) {
+       Value->Error("Your answer is not the most general solution. Where's 'c'?");
+    };
+
+    return ($lhs == $rhs && $DstudentC != Formula("0"));
+}));
+
+
+COMMENT('Includes hint.');
+ENDDOCUMENT();        

@@ -1,0 +1,59 @@
+## Wasn't previously randomized
+## Added hint
+
+## DBsubject(Algebra)
+## DBchapter(Operations on polynomial and rational expressions)
+## DBsection(Simplify rational expressions)
+## Institution(City Tech)
+## Author(Parker)
+## Level(2)
+## Static(1)
+## KEYWORDS('algebra')
+
+DOCUMENT();        # This should be the first executable line in the problem.
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"contextRationalFunction.pl",
+"CofIdaho_macros.pl"
+);
+
+TEXT(beginproblem());
+
+$d = random(3,7,1);
+$dd = $d**2;
+
+# fraction 1: $a( x - $d ) / (x^2 - $d^2) = $a / (x + $d)
+
+$a = random(2,4,1);
+$ad = $d*$a;
+
+# fraction 2: $b / (x + $d)
+do { $b = random(3,8,1); } until ( $a != $b );
+
+$frac1 = Formula("($a x - $ad)/(x^2-$dd)")->reduce;
+$frac2 = Formula("$b/(x+$d)")->reduce;
+
+$num = $a - $b;
+
+Context()->texStrings;
+BEGIN_TEXT
+Perform the indicated operations. Express your answer in reduced form.
+$BR
+$BCENTER
+\[$frac1 - $frac2 = \] \{ans_rule(20)\}
+$ECENTER
+END_TEXT
+Context()->normalStrings;
+
+Context("RationalFunction-Strict");
+$ans = Formula("$num/(x+$d)");
+# ANS( $ans->cmp() );
+ANS( RationalExpEvaluator($ans,"x") );
+
+BEGIN_HINT
+Sometimes, fractions can be reduced $BITALIC before $EITALIC you perform the indicated operation.
+END_HINT
+
+ENDDOCUMENT();        # This should be the last executable line in the problem.

@@ -1,0 +1,16 @@
+
+openDate          = 06/01/2013 at 01:00pm EDT
+dueDate           = 06/11/2013 at 02:00am EDT
+answerDate        = 06/11/2013 at 02:01am EDT
+paperHeaderFile   = local/opt/webwork/webwork2/conf/snippets/JREITZDefaultsetHeader.pg
+screenHeaderFile  = local/opt/webwork/webwork2/conf/snippets/JREITZDefaultsetHeader.pg
+problemList       = 
+Library/ASU-topics/setStat/kolossa14.pg, 3, -1 
+Library/UVA-Stat/setStat212-Homework02/stat212-HW02-10.pg, 3, -1 
+Library/ASU-topics/setStat/kolossa11.pg, 1, -1 
+local/Library/Rochester/setStatistics2Measures/ur_stt_2_3a-ReitzEditJan13.pg, 3, -1 
+Library/UVA-Stat/setStat212-Homework02/stat212-HW02-12.pg, 2, -1 
+Library/UVA-Stat/setStat212-Homework02/stat212-HW02-13.pg, 1, -1 
+Library/Rochester/setStatistics2Measures/ur_stt_2_8.pg, 2, -1 
+Library/Rochester/setStatistics2Measures/ur_stt_2_10.pg, 3, -1 
+

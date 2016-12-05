@@ -1,0 +1,81 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "PGML.pl",
+   "PGgraphmacros.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(
+ reduceConstants=>0,
+ reduceConstantFunctions=>0,
+ tolerance=>0.0005,
+ tolType=>'absolute'
+);
+
+$X = non_zero_random(-9,9,1);
+do { $Y = non_zero_random(-9,9,1); } until ( gcf(abs($X),abs($Y)) == 1 && ($X < 0 || $Y < 0) );
+
+$rad = $X**2 + $Y**2;
+$R = Formula("sqrt($rad)");
+
+$sin = Formula("$Y/$R");
+$cos = Formula("$X/$R");
+$tan = Formula("$Y/$X");
+$sec = Formula("$R/$X");
+$csc = Formula("$R/$Y");
+$cot = Formula("$X/$Y");
+
+$pos = $Y > 0 ? "bottom" : "top";
+ 
+$gr = init_graph(-10,-10,10,10,size=>[400,400],grid=>[20,20],axes=>[0,0]);
+$gr -> lb( new Label($X,$Y, "($X,$Y)", 'black', 'center', $pos));
+$point = closed_circle($X,$Y,'blue');
+$gr -> stamps( $point );
+$gr -> moveTo(10,0);
+$gr -> lineTo(0,0,'blue',3);
+$gr -> lineTo($X,$Y,'blue',3);
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+BEGIN_PGML
+
+>> [@ image(insertGraph($gr), width=>400, height=>400, tex_size=>800, extra_html_tags=>'alt="Coordinate plane with ($X,$Y) labeled." ' ) @]* <<
+
+Find the value of the six trigonometric functions of [` \theta `], where [` \theta `] is the angle formed by the positive x-axis and the line segment from [` (0,0) `] to [` ([$X],[$Y]) `].
+
+[` \sin(\theta) `] = [__________]{$sin}
+
+[` \cos(\theta) `] = [__________]{$cos}
+
+[` \tan(\theta) `] = [__________]{$tan}
+
+[` \sec(\theta) `] = [__________]{$sec}
+
+[` \csc(\theta) `] = [__________]{$csc}
+
+[` \cot(\theta) `] = [__________]{$cot}
+
+END_PGML
+
+ENDDOCUMENT();        

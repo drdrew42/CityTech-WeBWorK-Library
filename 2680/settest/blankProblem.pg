@@ -1,0 +1,238 @@
+# PG problems are essentially Perl source files, with one exception: Perl
+# backslashes (\) are replaced by double-tildes (~~) since TeX uses
+# backslashes. For more about the format of PG files, consult the Translator.pm
+# documentation at:
+# <http://webwork.maa.org/doc/cvs/pg_HEAD/lib/WeBWorK/PG/Translator.html>
+
+# The first section in this file is a list of tags for the database problem
+# library project. For more about the tagging format, look at:
+# <http://hobbes.la.asu.edu/webwork-stuff/Tagging.html>
+
+##DESCRIPTION
+## Plots a piecewise function made up of a horizontal line, a diagonal line, and
+## a parabola and asks the student to determine the derivative at various
+## interesting points.
+##ENDDESCRIPTION
+## DBsubject('Calculus')
+## DBchapter('Limits and Derivatives')
+## DBsection('Definition of the Derivative')
+## KEYWORDS('calculus', 'derivatives', 'slope')
+## TitleText1('Calculus')
+## EditionText1('1')
+## AuthorText1('Rogawski')
+## Section1('3.1')
+## Problem1('11')
+## Author('Sam Hathaway')
+## Institution('W.H.Freeman')
+
+# The DOCUMENT() call sets up initial values for PG internals. It should always
+# be the first executable line in the problem.
+DOCUMENT();
+
+# loadMacros() calls load macro files (which are Perl source files) into the
+# problem environment. These first three files are required by all problems.
+# Documentation:
+# <http://devel.webwork.rochester.edu/doc/cvs/pg_HEAD/macros/PG.pl.html>
+# <http://devel.webwork.rochester.edu/doc/cvs/pg_HEAD/macros/PGbasicmacros.pl.html>
+# <http://devel.webwork.rochester.edu/doc/cvs/pg_HEAD/macros/PGanswermacros.pl.html>
+loadMacros("PG.pl","PGbasicmacros.pl","PGanswermacros.pl");
+
+# Parser.pl is the main macro file for MathObjects. This file defines macros
+# such as Real() and Formula(). You'll load it in pretty much all problems.
+# Parser docs are available at:
+# <http://devel.webwork.rochester.edu/twiki/bin/view/Webwork/MathObjects>
+loadMacros("Parser.pl");
+
+# This is our macro file that provides the textbook_ref_exact() and
+# textbook_ref_corr() macros. You'll load it in all problems.
+loadMacros("freemanMacros.pl");
+
+# This macro file contains the ceil(), floor(), max(), and (min) macros, which
+# we use in this problem. If you're not using macros from this package, you do
+# not need to load it.
+loadMacros("PGauxiliaryFunctions.pl");
+
+# This macro file contains the init_graph() and plot_functions() macros. We need
+# these to create the graph for this problem. Don't load this unless you need
+# it. Documentation at:
+# <http://devel.webwork.rochester.edu/doc/cvs/pg_HEAD/macros/PGgraphmacros.pl.html>
+loadMacros("PGgraphmacros.pl");
+
+# These are the values in the book version of the problem. Note that they are
+# commented out.
+#$base = 1;
+#$rise = 2;
+#$vertex_y = -2.25;
+
+# Here are the randomized values. Each student will get a different (but
+# persistent) value from each of these calls.
+$base = random(1,3,1);
+$rise = random(1,2,1);
+$vertex_y = random(1,4,0.25)*list_random(-1,1);
+
+# Create a MathObject formula for the initial height of the first horizontal
+# line.
+$horiz_line = Formula($base);
+
+# Represent the slope of the diagonal line. Set the reduceConstants flag of the
+# MathObjects context to 0, so that "$rise/2" is not reduced.
+Context()->flags->set(reduceConstants=>0);
+$slope = Formula("$rise/2");
+
+# This is the formula for the diagonal line.
+$diag_line = Formula("$slope*(x-3)+$base");
+
+# This is the formula for the parabola.
+$par = Formula("-($vertex_y/4)(x-5)(x-9)+$base+$rise");
+
+# Get the y-value of the vertex of the porabola. We know that it occurs at x=7,
+# so we evaluate the $par formula with at x=7.
+$real_vertex = $par->eval(x=>7);
+
+# Now we set some temporary variables that we'll pass into init_graph below:
+
+# Minimum and maximum x and y values to graph.
+$xmin = -1;
+$ymin = min(-1, ceil($real_vertex)-1);
+$xmax = 9;
+$ymax = max(5, $base+$rise+1, floor($real_vertex)+1);
+
+# We want grid lines on each integer value, but we have to specify the total
+# number of grid lines on each axis, so we just use the x and y range.
+$xrange = $xmax-$xmin;
+$yrange = $ymax-$ymin;
+
+# Size of the graph in pixels.
+$xsize = $xrange*25;
+$ysize = $yrange*25;
+
+# init_graph returns a graph object that we can then add functions to.
+$graph = init_graph(
+    $xmin, $ymin,
+    $xmax, $ymax,
+    grid => [$xrange,$yrange],
+    axes => [0,0],
+    size => [$xsize,$ysize],
+);
+
+# Add three functions to the graph. The language used in specifying plots is
+# described in the PGgraphmacros.pl docs. When a MathObject is used in double-
+# quotes, it is stringified into the quasi-TI notation that WeBWorK uses.
+plot_functions($graph,
+    "$horiz_line for x in [0,3] using color:red and weight:2",
+    "$diag_line for x in [3,5] using color:red and weight:2",
+    "$par for x in [5,9] using color:red and weight:2",
+);
+
+# This changes how MathObjects are stringified. Instead of quasi-TI syntax,
+# we switch to TeX stringification.
+Context()->texStrings;
+
+# A BEGIN_TEXT...END_TEXT block is replaced by the preprocessor with:
+#     TEXT(EV3(<<'END_TEXT'));
+#     ...
+#     END_TEXT
+# The <<'END_TEXT' part is the beginning of a Perl here document. Anyway, this
+# is just a convenience function, so you don't have to type that whole thing.
+# Basically whenever you see BEGIN_TEXT, you can read it as
+#     TEXT(EV3(<<'END_TEXT'));
+# 
+# TEXT() is the basic macro that outputs (well, accumulates actually) problem
+# "text", which can be HTML of TeX depending on the display mode.
+# 
+# EV3() is a macro that interpretes it's contents according to these rules:
+#  * Perl variables are evaluated in double-quoted string context. That is,
+# they get stringified.
+#  * \{ EXPR \} blocks are replaced by the result of evaluating the perl code
+# inside.
+#  * \( TEX \) blocks are replaced by equations described by the TEX code
+# within. Depending on the display mode, this can be plain text, an image, a
+# jsMath block, or raw TeX.
+#  * \[ TEX \] blocks are treated similarly to \( TEX \) blocks, except that
+# the display math is used instead of inline math.
+# 
+# In the original version of this problem, there was one BEGIN_TEXT/END_TEXT
+# block, but because I have to comment, I'm going to split it up into multiple
+# blocks.
+
+# beginproblem() prints the point value of the problem, the beginning of the
+# HTML form (in HTML-based display modes), and other header-type stuff.
+BEGIN_TEXT
+\{ beginproblem() \}
+END_TEXT
+
+# We use our textbook_ref_exact() macro to print "From Rogawski ET, section 3.1
+# problem 11".
+BEGIN_TEXT
+\{ textbook_ref_exact("Rogawski ET", "3.1","11") \}
+END_TEXT
+#  $PAR is a double-line break. It contains <P> in HTML-based modes and \par in
+# TeX mode. Note the use of \( ... \) to typeset f(x).
+BEGIN_TEXT
+$PAR
+Let \( f(x) \) be the function whose graph is shown below.
+END_TEXT
+
+# We insert the graph that we generated before. insertGraph() actually generates
+# the image, and it returns the pathname of the image. image() takes that image
+# and actually generates code needed to place the image in the output. These
+# macros are in dangerousMacros.pl, which is always loaded. Documentation at:
+# <http://devel.webwork.rochester.edu/doc/cvs/pg_HEAD/macros/dangerousMacros.pl.html>
+BEGIN_TEXT
+$PAR
+\{ image(insertGraph($graph)) \}
+END_TEXT
+
+# Now we ask the question.
+BEGIN_TEXT
+$PAR
+Determine \( f'(a) \) for \( a = 1,2,4,7 \).
+END_TEXT
+
+# And generate the answer blanks. $BR is a single-line break.
+BEGIN_TEXT
+$BR
+\( f'(1) = \) \{ans_rule()\}
+$BR
+\( f'(2) = \) \{ans_rule()\}
+$BR
+\( f'(4) = \) \{ans_rule()\}
+$BR
+\( f'(7) = \) \{ans_rule()\}
+END_TEXT
+
+# Switch back to normal strings now that we're done with the text block.
+Context()->normalStrings;
+
+# The ANS() macro takes an "answer evaluator" as its argument. An answer
+# evaluator is a perl function that gets passed the student's answer and
+# determines if it is correct or not. We don't have to write them ourselves,
+# because MathObjects know how to generate them, using the ->cmp method. These
+# ANS() calls must be in the same order as the ans_rule() calls above.
+ANS(Real(0)->cmp);
+ANS(Real(0)->cmp);
+ANS($slope->cmp);
+ANS(Real(0)->cmp);
+
+# Switch back to TeX stringification.
+Context()->texStrings;
+
+# SOLUTION() works like TEXT() except that it's only shown if the "show
+# solutions" flag is given. $SOL evaluates to "Solution: " in bold. Note the
+# MathObjects embedded in math expressions in the solution. Remember that they
+# are stringifying to their TeX representations.
+SOLUTION(EV3(<<'END_SOLUTION'));
+$PAR
+$SOL
+Remember that the value of the derivative of \( f \) at \( x=a \) can be
+interpreted as the slope of the line tangent to the graph of \( y = f(x) \) at
+\( x=a \).  From the figure, we see that the graph of \( y = f(x) \) is a 
+horizontal line (that is, a line with zero slope) on the interval 
+\( 0 \le x \le 3 \).  Accordingly, \( f'(1) = f'(2) = 0 \).  On the interval 
+\( 3 \le x \le 5 \), the graph of \( y = f(x) \) is a line of slope 
+\( $slope \); thus, \( f'(4) = $slope \).  Finally, the line tangent to the 
+graph of \( y = f(x) \) at \( x=7 \) is horizontal, so \( f'(7) = 0 \).
+END_SOLUTION
+
+# This finishes everything up. It should always be the last executable line in
+# the file.

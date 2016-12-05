@@ -1,0 +1,91 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('First-Order Differential Equations')
+## DBsection('Exact Equations')
+## Date('05/28/2012')
+## Author('Anna Ghazaryan, Fuli Zhang')
+## Institution('Muohio')
+## TitleText1('Differential equations with Boundary-value problem')
+## AuthorText1('Dennis G. Zill')
+## Section1('2.4')
+## Edition('7')
+## Problem1('14,16,18')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"unionLists.pl",
+"parserPrime.pl",
+"parserPopUp.pl",
+"answerHints.pl",
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+#Context("Numeric")->variables->add(t=>"Real",u=>"Real",r=>"Real",I0=>"Real",k=>"Real");
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+
+
+
+$answer[0] = PopUp(["Choose","Yes","No"],"Yes");
+$answer[1] = PopUp(["Choose","Yes","No"],"Yes");
+$answer[2] = PopUp(["Choose","Yes","No"],"Yes");
+
+#############################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+Is the following differential equation exact? (You have only one attempt!Submit all answers at the same time)
+$BR
+$BR
+a)\(\displaystyle (1-\frac{3}{y}+x)\frac{dy}{dx}+y=\frac{3}{x}-1\)   \{ $answer[0]->menu() \}.  
+$BR
+$BR
+b)\((5y-2x)y'-2y=0 \)   \{ $answer[1]->menu() \}.
+$BR
+$BR
+c)\((2ysinxcosx-y+2y^{2}e^{xy^{2}})dx=(x-sin^{2}x-4xye^{xy^{2}})dy\)  \{ $answer[2]->menu() \}.
+
+END_TEXT
+Context()->normalStrings;
+
+
+############################
+#  Answers
+
+$showPartialCorrectAnswers = 0;
+
+ANS( $answer[0]->cmp() );
+ANS( $answer[1]->cmp() );
+ANS( $answer[2]->cmp() );
+
+
+COMMENT("MathObject version.");
+
+ENDDOCUMENT();

@@ -1,0 +1,13 @@
+
+openDate          = 06/04/2012 at 12:48am EDT
+dueDate           = 06/18/2012 at 11:59pm EDT
+answerDate        = 06/19/2012 at 12:01am EDT
+paperHeaderFile   = local/opt/webwork/webwork2/conf/snippets/ReitzHeaderBASIC.pg
+screenHeaderFile  = local/opt/webwork/webwork2/conf/snippets/ReitzHeaderBASIC.pg
+problemList       = 
+Library/Utah/Intermediate_Algebra/set5_Graphs_and_Functions/s5p3.pg, 5, -1 
+Library/Utah/Intermediate_Algebra/set5_Graphs_and_Functions/s5p2.pg, 5, -1 
+Library/ma117DB/set2/srw1_7_23.pg, 5, -1 
+Library/ma117DB/set2/srw1_7_19.pg, 5, -1 
+Library/ma117DB/set2/srw1_7_15.pg, 5, -1 
+

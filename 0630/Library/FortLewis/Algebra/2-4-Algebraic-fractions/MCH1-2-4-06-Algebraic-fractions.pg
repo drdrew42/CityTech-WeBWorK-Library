@@ -1,0 +1,79 @@
+## DESCRIPTION
+## Algebraic fractions
+## ENDDESCRIPTION
+
+
+## BookTitle('Algebra: Form and Function')
+## BookChapter('Rules for Expressions and the Reasons for Them')
+## DBsubject(Algebra)
+## DBchapter(Operations on polynomial and rational expressions)
+## DBsection(Simplify rational expressions)
+## Date(01/01/10)
+## Institution(Fort Lewis College)
+## Author(Paul Pearson)
+## Level(2)
+## MO(1)
+## TitleText1('Algebra: Form and Function')
+## AuthorText1('McCallum, Connally, and Hughes-Hallett')
+## EditionText1('1')
+## Section1('2.4')
+## Problem1('6')
+## KEYWORDS('Algebraic fractions')
+
+
+##################################
+#  Initialization
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"PGunion.pl",
+"MathObjects.pl",
+"PGcourse.pl",
+"parserMultiAnswer.pl",
+"CofIdaho_macros.pl"
+);
+
+TEXT(beginproblem());
+
+
+###################################
+# Setup
+
+Context("Numeric")->variables->are(z=>"Real");
+Context()->{error}{msg}{"Operands of '*' can't be words"} = " ";
+
+$a = random(3,8,1);
+$ap1 = $a + 1;
+$aa = $a * $a;
+
+$frac1 = Formula("z/$a");
+$frac2 = Formula("$a/z");
+
+$num = Formula("$ap1 * z**2 + $aa")->reduce;
+$den = Formula("$a * z")->reduce;
+
+###################################
+# Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+Write the expression as a single fraction.  Simplify your answer.
+$BR
+$BR
+$BCENTER
+\[ z + $frac1 + $frac2 = \] \{ ans_rule(20) \}
+$ECENTER
+END_TEXT
+Context()->normalStrings;
+
+###################################
+# Answers
+
+$showPartialCorrectAnswers = 1;
+
+$ans = Formula("$num/$den");
+ANS( RationalExpEvaluator($ans,"z") );
+
+ENDDOCUMENT();

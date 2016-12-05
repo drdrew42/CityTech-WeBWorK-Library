@@ -1,0 +1,118 @@
+##DESCRIPTION
+##  Differential Equation
+##ENDDESCRIPTION
+
+##KEYWORDS('Differential equaltion')
+
+## DBsubject('Differential Equation')
+## DBchapter('Higher-Order DE')
+## DBsection('Section 3.7 Linear Equation')
+## Date('03/22/2012')
+## Author('Anna Ghazaryan,Fuli Zhang')
+## Institution('Miami University')
+## TitleText1('A First Course in Differential Equation')
+## EditionText1('9')
+## AuthorText1('Zill')
+## Section1('4.6')
+## Problem1('13')
+##############################
+#  Initialization
+
+DOCUMENT(); 
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"parserAssignment.pl",
+"unionLists.pl",
+);
+
+TEXT(beginproblem());
+
+
+#############################
+#  Setup
+
+Context("Numeric");
+Context()->variables->add(
+A=>"Real",B=>"Real",y=>"Real",t=>"Real",
+'a'=>'Parameter','b'=>'Parameter'
+);
+
+
+$diffeq = "y'' + 3y' +2y =  sin(e^{x})  "; # tex
+
+$ygeneral = Formula("Ae^(-x)+Be^(-2x)-e^(-2x)sin(e^(x))");
+
+
+######################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+Solve the differential equation by variation of parameters.\(\ $diffeq \).  
+Use \( A \) and \( B \) in your answer to denote 
+arbitrary constants.
+$BR
+$BR
+\( y = \)
+\{ ans_rule(40) \}
+\{ AnswerFormatHelp("formulas") \}
+
+
+END_TEXT
+Context()->normalStrings;
+
+
+######################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 1;
+
+
+
+
+ANS( $ygeneral->cmp( checker => sub {
+    my ( $correct, $student, $self ) = @_;
+    my $stu   = Formula($student);
+
+    ################################
+    #  Check for arbitrary constants
+    #
+    Value->Error("Is your answer the most general solution?") 
+    if ( 
+      Formula($stu->D('A'))==Formula(0) || 
+      Formula($stu->D('B'))==Formula(0) 
+    );
+
+    ############################################
+    #  Check for linear independence (Wronskian)
+    #
+    my $x = Real(1.24);
+
+    my $a11 = $stu->eval(A=>1,B=>0,x=>$x,y=>0);
+    my $a12 = $stu->eval(A=>0,B=>1,x=>$x,y=>0);
+ 
+    my $a21 = $stu->D('x')->eval(A=>1,B=>0,x=>$x,y=>0);
+    my $a22 = $stu->D('x')->eval(A=>0,B=>1,x=>$x,y=>0);
+
+    my $wronskian = $a11*$a22 - $a21*$a12;
+
+    Value->Error("Your functions are not linearly independent or your answer is not complete") 
+    if ($wronskian==Real(0));
+
+    ########################################################
+    #  Check that the student answer is a solution to the DE
+    #
+    my $stux  = Formula($stu->D('x'));
+    my $stuxx = Formula($stu->D('x','x'));
+    my $stuDE = Formula($stuxx +3*$stux +2*$stu);
+    return ($stuDE==Formula("sin(e^(x))"));
+
+}));
+
+
+COMMENT("MathObject version.");
+
+ENDDOCUMENT();

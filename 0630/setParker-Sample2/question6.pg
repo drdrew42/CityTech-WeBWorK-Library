@@ -1,0 +1,89 @@
+##DESCRIPTION
+##  Parker - Sample Exam 1 
+##ENDDESCRIPTION
+
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextFraction.pl",
+   "contextLimitedNumeric.pl",
+   "contextLimitedPolynomial.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric")->variables->are(x=>"Real",y=>"Real",a=>"Real",b=>"Real");
+
+$ansA = Formula("-14a^3b-6a^3");
+$ansB = Formula("7x^3y-5x^2y");
+$ansC = Formula("5x^2+5x+6");
+$ansD = Formula("4x^2-100");
+$ansE = Formula("x^2-6x+4");
+$ansF = Formula("8a^4-9a^3-2a-7");
+$ansG = Formula("18x^2+36x-14");
+$ansH = Formula("-ab^2-12");
+$ansI = Formula("2x^3y");
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+\( 4a^2(-3ab)-2a^3(b+3) \) = \{ ans_rule(15) \}
+$PAR
+\( 7x(x^2y)+5x(xy)-10x^2y \) = \{ ans_rule(15) \}
+$PAR
+\( (3x^2+8x-1)-(-2x^2+3x-7) \) = \{ ans_rule(15) \}
+$PAR
+\( (2x-10)(2x+10) \) = \{ ans_rule(15) \}
+$PAR
+\( (x-2)^2-2x \) = \{ ans_rule(15) \}
+$PAR
+\( 3a^2(4a^2-3a)+(-2a-7)-4(a^4) \) = \{ ans_rule(15) \}
+$PAR
+\( (6x-2)(3x+7) \) = \{ ans_rule(15) \}
+$PAR
+\( 5ab^2-3(2ab^2+4) \) = \{ ans_rule(15) \}
+$PAR
+\( -x^3(y)-y(-3x^3) \) = \{ ans_rule(15) \}
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ansA->cmp);
+ANS($ansB->cmp);
+ANS($ansC->cmp);
+ANS($ansD->cmp);
+ANS($ansE->cmp);
+ANS($ansF->cmp);
+ANS($ansG->cmp);
+ANS($ansH->cmp);
+ANS($ansI->cmp);
+
+
+ENDDOCUMENT();        

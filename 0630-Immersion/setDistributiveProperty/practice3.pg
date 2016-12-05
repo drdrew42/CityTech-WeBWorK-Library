@@ -1,0 +1,104 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject(‘Algebra’)
+## DBchapter(‘Factoring’)
+## DBsection(‘Factoring: common factors’)
+## Date('6/26/2015')
+## Author('K. Andrew Parker')
+## Institution('NYC City Tech')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "parserPopUp.pl",
+   "scaffold.pl",
+   "niceTables.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer=>"parsed"
+   );
+
+  $sumChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentstring = $ansHash->{preview_text_string};
+     return ($studentstring eq $ansHash->{correct_ans} ? 1 : 0);
+   };
+
+  $numChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentans=$ansHash->{student_formula};
+     Value->Error("You're on the right track, but your answer should be just a number.") if ( ($studentans ne $student)&&($student==$correct) );
+     return($studentans eq $ansHash->{correct_ans} ? 1 : 0);
+  };
+
+
+@prime = ( 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 );
+
+$A = random(4,11,1);
+do { $B = random(4,9,1); } until ( gcf($A,$B) == 1 );
+
+$mult = random(4,10,1);
+
+$Amult = $mult*$A;
+$Bmult = $mult*$B;
+$sum = $Amult+$Bmult;
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+The GCF of $Amult and $Bmult is $mult.
+$BR
+Factor out the GCF from \( $Amult + $Bmult \):
+\{
+DataTable(
+  [
+    [['\(\times\)', headerrow => 1, midrule => 1],'(',ans_rule(3),'+',ans_rule(3),')'],
+    ['\($mult\)','','$Amult','+','$Bmult',''],
+  ], 
+  caption => 'Factoring out the GCF',
+  align => 'r | r c c c l',
+  rowheaders => 1,
+  center => 1
+);
+\}
+$PAR
+Use the order of operations to calculate the result. \{ ans_rule(5) \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( Real($A)->cmp(checker=>$numChecker) );
+ANS( Real($B)->cmp(checker=>$numChecker) );
+ANS( Real($sum)->cmp(checker=>$numChecker) );
+
+ENDDOCUMENT();        

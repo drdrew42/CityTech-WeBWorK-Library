@@ -1,0 +1,46 @@
+#DESCRIPTION
+##Type of
+#ENDDESCRIPTION
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+"MathObjects.pl",
+"contextLeadingZero.pl",
+);
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+Context("Numeric");
+
+$a1=random(3,9,1); $ans1 = $a1/10 ;
+$a2=random(10,40,10); $ans2 = $a2/50;
+$a3=random(7,19,2); $ans3 = $a3/20 ;
+
+BEGIN_TEXT
+Change the following fractions to decimals. $BR 
+If your answer is a repeating decimal, round to 3 decimal places. $BR 
+Make sure that you include a digit before the decimal point - even if that digit is zero. 
+
+$PAR
+\(\frac{$a1 }{10}\)=\{ans_rule(10)\}.$PAR
+\(\frac{$a2 }{50}\)=\{ans_rule(10)\}.$PAR
+\(\frac{$a3 }{20}\)=\{ans_rule(10)\}.$PAR
+
+END_TEXT
+Context("LeadingZero");
+ANS(Real($ans1)->cmp);
+ANS(Real($ans2)->cmp);
+ANS(Real($ans3)->cmp);
+
+
+COMMENT('MathObject version');
+ENDDOCUMENT();
+## DBsubject(Arithmetic)
+## DBchapter(Decimals)
+## DBsection(Converting between fractions and decimals)
+## Level(2)
+## MO(1)
+

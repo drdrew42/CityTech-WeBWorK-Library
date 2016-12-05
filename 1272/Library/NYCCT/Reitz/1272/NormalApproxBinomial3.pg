@@ -1,0 +1,101 @@
+## DESCRIPTION
+##   Normal Approximation to the Binomial Distribution
+## ENDDESCRIPTION
+
+## DBsubject('Statistics')
+## Date('March 2013')
+## Author('Jonas Reitz')
+## Institution('NYCCT')
+## TitleText1('')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('')
+
+DOCUMENT();        # This should be the first executable line in the problem.
+
+loadMacros(
+"PG.pl",
+"PGbasicmacros.pl",
+"PGchoicemacros.pl",
+"PGanswermacros.pl",
+"PGgraphmacros.pl",
+"contextIntegerFunctions.pl",
+"PGnumericalmacros.pl",
+"PGstatisticsmacros.pl",
+"PGauxiliaryFunctions.pl"
+);
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+
+## randomize parameter n (number of trials)
+$n = random(60,100);
+
+# initialize p, q
+$p = 0;
+$q = 0;
+
+## randomize parameter p (success) and calculate q (failure)
+## ensure np and nq >5, necessary for good normal approximation
+ while ( $n*$p <= 5 || $n*$q<=5 ) { $p = random(5,95, 1)/100;
+$q = 1-$p; };
+
+## compute mean and standard deviation
+$mean = $n*$p;
+$standarddeviation = sqrt($n*$p*$q);
+
+## choose x bounds
+## we will make sure corresponding values of z lie between z=-3.49 and z=3.49 
+## we will choose x's between these values to ensure we can use the table
+## first compute bounds for x-values corresponding to z +- 3.49 --
+$xtablebound[0] = ceil($mean - 3.49*$standarddeviation);
+$xtablebound[1] = floor($mean +3.49*$standarddeviation);
+
+##  choose integer x0 and x1 -- these will be used for lower bound and upper bound of interval, respectively (as well as lower/upper bounds for intervals to infinity)
+$x[0] = random($xtablebound[0],$xtablebound[1]-1);
+$x[1] = random($x[0]+1,$xtablebound[1]);
+
+## compute continuity corrections for x0 and x1
+$xcc[0] = $x[0]-0.5;
+$xcc[1] = $x[1]+0.5;
+
+## compute answers
+
+## first compute z-values, then round to 2 decimals
+$z[0] = ($xcc[0] - $mean)/$standarddeviation;
+$z[0] = Round($z[0],2);
+$z[1] = ($xcc[1] - $mean)/$standarddeviation;
+$z[1] = Round($z[1],2);
+
+## now compute probability for each z, round each answer to 4 decimals
+## note for problems involving two x-values, this ensures that rounding takes place for each corresponding probability value, as it does in table-based computations (computing the area between z-values and then rounding may not yield the same result)
+
+$prob[0] = Round(normal_prob('-infty',$z[0]), 4);
+$prob[1] = Round(normal_prob('-infty',$z[1]), 4);
+
+## now compute various answers - above x0, below x1, and between x0 and x1
+## choose the answer appropriate to your problem and include it in the ANS code below
+
+$ansAbovex0 = 1 - $prob[0];
+$ansBelowx1 = $prob[1];
+$ansBetweenx0Andx1 = $prob[1] - $prob[0];
+
+
+## calculations for display in text
+$ppercent = $p*100;
+
+BEGIN_TEXT
+
+\( $ppercent \) percent of customers at the Happy Crumpet bake shop buy at least one cupcake.  On a typical Wednesday, there are  \( $n \) customers.  What is the probability that \( $x[0] \) or more of them will buy at least one cupcake? \{ ans_rule(10) \}
+
+
+END_TEXT
+
+## answers
+
+ANS(num_cmp($ansAbovex0));
+
+
+ENDDOCUMENT();       # This should be the last executable line in the problem.

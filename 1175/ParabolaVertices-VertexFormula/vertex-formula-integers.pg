@@ -1,0 +1,108 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextFraction.pl",
+   "PGML.pl",
+   "scaffold.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+
+$B = non_zero_random(-8,8,2);
+$C = non_zero_random(-9,9,1);
+
+$RHS = Formula("x^2+$B x + $C")->reduce;
+
+$h = Real("-$B/2");
+$k = $RHS->eval(x=>$h);
+
+Context("LimitedNumeric");
+Context()->{error}{msg}{"Can't use '+' in this context"} 
+  = "Addition is disabled for this problem. Simplify the sum and resubmit your answer.";
+Context()->{error}{msg}{"Can't use '-' in this context"} 
+  = "Subtraction is disabled for this problem. Simplify the difference and resubmit your answer.";
+Context()->{error}{msg}{"Can't use '*' in this context"} 
+  = "Multiplication is disabled for this problem. Simplify the product and resubmit your answer.";
+Context()->{error}{msg}{"Can't use '/' in this context"} 
+  = "Division is disabled for this problem. Simplify the quotient and resubmit your answer.";
+Context()->{error}{msg}{"Can't use '^' in this context"} 
+  = "Exponents are disabled for this problem. Compute the result for yourself and resubmit your answer.";
+Context()->{error}{msg}{"Can't use '**' in this context"} 
+  = "Exponents are disabled for this problem. Compute the result for yourself and resubmit your answer.";
+Context()->{error}{msg}{"Unexpected character '('"} 
+  = "Your answer should not contain any parenthesis. Compute your final answer as a number and resubmit.";
+
+
+
+$h = Real($h);
+$k = Real($k);
+
+Context("Point");
+$vertex = Point($h,$k);
+
+##############################################################
+#
+#  Text
+#
+#
+
+BEGIN_PGML
+
+Find the vertex of [` \large{ y = [$RHS] } `] using the _vertex formula_.  
+
+END_PGML
+
+Scaffold::Begin();
+Section::Begin("Step 1: Find the x-coordinate of the vertex");
+BEGIN_PGML
+
+For any parabola, [` y = Ax^2 + Bx + C `], the _x_-coordinate of the vertex will always be [` x = \frac{-B}{2A} `].
+
+Using this formula, what is the _x_-coordinate of the vertex for the parabola [` y = [$RHS] `] ?
+
+[` x = `] [_____]{$h}
+
+END_PGML
+Section::End();
+Section::Begin("Step 2: Find the y-coordinate of the vertex");
+BEGIN_PGML
+
+Now that we know that the _x_-coordinate of the vertex is [` x = [$h] `], we only need to find the _y_-coordinate.
+
+Fortunately, we know that [` y = [$RHS] `].
+
+What is the _y_-coordinate that corresponds to [` x = [$h] `] ?
+
+[` y = `] [______]{$k}
+
+END_PGML
+Section::End();
+Scaffold::End();
+BEGIN_PGML
+  
+Give the vertex of the parabola [` y = [$RHS] `] as a point. [_________]{$vertex}  
+
+END_PGML
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ENDDOCUMENT();        

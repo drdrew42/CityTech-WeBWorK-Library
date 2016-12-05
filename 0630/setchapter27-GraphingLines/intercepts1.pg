@@ -1,0 +1,62 @@
+## DESCRIPTION
+## Algebra
+## ENDDESCRIPTION
+
+## Tagged by XW
+
+## DBsubject(Algebra)
+## DBchapter(Cartesian coordinate system)
+## DBsection(Graphs of equations)
+## Date(6/3/2002)
+## Institution(ASU)
+## MLT(Intercepts_only)
+## MLTleader(1)
+## Level(2)
+## TitleText1('College Algebra')
+## AuthorText1('Stewart, Redlin, Watson')
+## EditionText1('3')
+## Section1('2.2')
+## Problem1('7')
+## KEYWORDS('algebra', 'coordinate', 'graph', 'function', 'intercepts')
+
+## MathObject conversion of
+## Library/ASU-topics/setGraphEquations/srw1_8_43.pg
+
+DOCUMENT();        # This should be the first executable line in the problem.
+
+loadMacros(
+"PG.pl",
+"PGbasicmacros.pl",
+"PGanswermacros.pl",
+"PGauxiliaryFunctions.pl",
+"MathObjects.pl",
+);
+
+$showPartialCorrectAnswers = 1;
+
+TEXT(beginproblem());
+
+Context("Numeric");
+
+$a = non_zero_random(-6,6,1);
+
+BEGIN_TEXT
+Find the \(x\)- and \(y\)-intercepts of the graph of the equation
+\(y=x-$a\).
+$PAR
+
+The \(x\)-intercept has \(x =\) \{ans_rule(20)\}
+$PAR
+The \(y\)-intercept has \(y=\) \{ans_rule(20)\}
+
+END_TEXT
+
+
+$ans1 = Compute($a);
+$ans2 = Compute(-$a);
+
+ANS($ans1->cmp);
+ANS($ans2->cmp);
+
+COMMENT("MathObject version");
+ENDDOCUMENT();        # This should be the last executable line in the problem.

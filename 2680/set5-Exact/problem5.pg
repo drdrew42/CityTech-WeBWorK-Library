@@ -1,0 +1,113 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject('Algebra')
+## DBchapter('Fundamentals')
+## DBsection('Real Numbers')
+## Date('6/3/2002')
+## Author('')
+## Institution('')
+## TitleText1('Precalculus')
+## EditionText1('3')
+## AuthorText1('Stewart, Redlin, Watson')
+## Section1('1.1')
+## Problem1('22')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->variables->{namePattern} = qr/[a-z][a-z0-9_]*'*/i;
+Context()->variables->are( y => "Real", x => "Real", "y'" => "Real", k => "Real" );
+$a = Real(non_zero_random(-9,9,1));
+$b = Real(non_zero_random(-9,9,1));
+
+$sol = Formula("$a*x^2*y^2+$b*x^3*y"); 
+
+#$m = $sol->D('x')->reduce;
+$M = Formula("2*$a*x*y^2+k*x^2*y")->reduce;
+$N = $sol->D('y')->reduce;
+$de = Formula("$M + $N*y'");
+
+$k = 3*$b;
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+Find the general solution for the following differential equation:
+$BR
+\( $de = 0\)
+$BR
+$BR
+For what value of \(k\) is this differential equation exact? \{$k->ans_rule\}
+$BR
+$BR
+Using the value of \(k\) that you found above, solve the resulting differential equation.
+$BR
+General Solution: \{$sol->ans_rule\} \(=c\)
+END_TEXT
+
+$showHint = 5;
+BEGIN_TEXT
+$PAR
+If you don't get this in $showHint tries, you can get a hint.
+END_TEXT
+BEGIN_HINT
+$BR
+First, recall that the general form for a (possibly) exact DE is \(M(x,y) + N(x,y) \cdot y' = 0\).
+$BR
+Remember also, that a DE is exact if and only if \(M_y(x,y) = N_x(x,y)\).
+$BR
+$BR
+So, if this DE is exact, we can solve it by finding the antiderivative of M(x,y) with respect to x: \( \int M(x,y) dx \). Don't forget that the constant of integration is $BBOLD ONLY $EBOLD constant with respect to \(x\) - meaning that our usual \(c\) may actually be a function of \(y\). Thus you should write \(f(y)\) instead of the usual \(c\).
+$BR
+$BR
+In order to figure out what \(f(y)\) should be, we now need to differentiate our result with respect to \(y\). And since we don't know what \(f(y)\) is, we'll write its derivative as \(f'(y)\).
+$BR
+$BR
+Presuming that you found this DE to be exact, then this derivative must be equal to \(N(x,y)\). So set them equal and solve for \(f'(y)\).
+$BR
+$BR
+We're almost done, now that we know what \(f'(y)\) is. Just integrate it with respect to \(y\) to find \(f(y)\), then plug it into our original solution.
+END_HINT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($k->cmp);
+ANS($sol->cmp);
+
+ENDDOCUMENT();        

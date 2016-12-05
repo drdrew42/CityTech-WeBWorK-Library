@@ -1,0 +1,119 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "PGML.pl",
+   "PGchoicemacros.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(
+ reduceConstants=>0,
+ reduceConstantFunctions=>0,
+ tolerance=>0.0005,
+ tolType=>'absolute'
+);
+
+$X = random(2,9,1);
+do { $Y = random(2,9,1); } until ( gcf($X,$Y) == 1 );
+do { $R = random(9,19,1); } until ( gcf($X,$R) == 1 && gcf($Y,$R) == 1 );
+
+$quadrant = random(2,4,1);
+
+$given = list_random('sin','cos','tan');
+if ($given eq 'sin') {
+  $rad = $R**2 - $Y**2;
+  $X = Formula("sqrt($rad)");
+  $givenEQ = "\sin(\theta)";
+  $ratio = ($quadrant == 2) ? Formula("$Y/$R") : Formula("-($Y/$R)");
+} elsif ($given eq 'cos') {
+  $rad = $R**2 - $X**2;
+  $Y = Formula("sqrt($rad)");
+  $givenEQ = "\cos(\theta)";
+  $ratio = ($quadrant == 4) ? Formula("$X/$R") : Formula("-($X/$R)");
+} else {
+  $rad = $X**2 + $Y**2;
+  $R = Formula("sqrt($rad)");
+  $givenEQ = "\tan(\theta)";
+  $ratio = ($quadrant == 3) ? Formula("$Y/$X") : Formula("-($Y/$X)");
+};
+
+$sin = ($quadrant == 2) ? Formula("$Y/$R") : Formula("-($Y/$R)");
+$cos = ($quadrant == 4) ? Formula("$X/$R") : Formula("-($X/$R)");
+$tan = ($quadrant == 3) ? Formula("$Y/$X") : Formula("-($Y/$X)");
+$sec = ($quadrant == 4) ? Formula("$R/$X") : Formula("-($R/$X)");
+$csc = ($quadrant == 2) ? Formula("$R/$Y") : Formula("-($R/$Y)");
+$cot = ($quadrant == 3) ? Formula("$X/$Y") : Formula("-($X/$Y)");
+
+if ( $quadrant == 3 ) {
+  $X = -1*$X;
+  $Y = -1*$Y;
+} else {
+  if ( $quadrant == 2 ) {
+    $X = -1*$X;
+  } else {
+    $Y = -1*$Y;
+  } 
+};
+
+do { $givenIneq = list_random( 'sin', 'cos', 'tan' ); } until ( $givenIneq ne $given );
+
+%trig = ();
+$trig{1}{sin} = "\sin(\theta) > 0";
+$trig{1}{cos} = "\cos(\theta) > 0";
+$trig{1}{tan} = "\tan(\theta) > 0";
+
+$trig{2}{sin} = "\sin(\theta) > 0";
+$trig{2}{cos} = "\cos(\theta) < 0";
+$trig{2}{tan} = "\tan(\theta) < 0";
+
+$trig{3}{sin} = "\sin(\theta) < 0";
+$trig{3}{cos} = "\cos(\theta) < 0";
+$trig{3}{tan} = "\tan(\theta) > 0";
+
+$trig{4}{sin} = "\sin(\theta) < 0";
+$trig{4}{cos} = "\cos(\theta) > 0";
+$trig{4}{tan} = "\tan(\theta) < 0";
+
+##############################################################
+#
+#  Text
+#
+#
+
+BEGIN_PGML
+
+First, determine the quadrant for [` \theta `]; then find [` x `], [` y `], and [` r `]; and finally, give all six trigonometric ratios for [` \theta `] given the following information:
+
+>> [` [$givenEQ] = [$ratio] `] and [` [$trig{$quadrant}{$givenIneq}] `] <<
+
+[` \theta `] lives in quadrant [__]{$quadrant}
+
+* [` x = `] [__________]{$X}
+* [` y = `] [__________]{$Y}
+* [` r = `] [__________]{$R}
+
+1. [` \sin(\theta) = `] [____________]{$sin}
+1. [` \cos(\theta) = `] [____________]{$cos}
+1. [` \tan(\theta) = `] [____________]{$tan}
+1. [` \sec(\theta) = `] [____________]{$sec}
+1. [` \csc(\theta) = `] [____________]{$csc}
+1. [` \cot(\theta) = `] [____________]{$cot}
+
+END_PGML
+
+ENDDOCUMENT();        

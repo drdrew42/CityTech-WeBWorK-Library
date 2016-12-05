@@ -1,0 +1,218 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject('Number Theory')
+## DBchapter('Divisibility')
+## DBsection('GCDs and LCMs')
+## Date('6/14/2015')
+## Author('K. Andrew Parker')
+## Institution('NYC City Tech')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "parserPopUp.pl",
+   "scaffold.pl",
+   "niceTables.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer=>"parsed"
+   );
+
+  $sumChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentstring = $ansHash->{preview_text_string};
+     return ($studentstring eq $ansHash->{correct_ans} ? 1 : 0);
+   };
+
+@prime = ( 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 );
+
+ $pizza = Real($prime[random(1,3,1)]);
+ $slices = Real($pizza*8);
+ $dozen = random(3,6,1);
+ $cookies = Real($dozen*12);
+ $sliceList = List( 2,2,2,$pizza);
+ if ( $dozen % 2 == 0 ) {
+  $dozenList = List( Real(2), Real($dozen/2) );
+ } else {
+  $dozenList = List( $dozen );
+ }
+ $cookieList = List( 2,2,3 ).$dozenList;
+
+$CFList = List( Real(1) );
+foreach my $i (2..24) {
+ if ( $slices % $i == 0 && $cookies % $i == 0 ) {
+  $CFList = $CFList . List( Real($i) );
+ }
+}
+
+$cookieSliceGCF = Real( gcf($cookies, $slices) );
+
+$GCFList = List( Real(2), Real(2) );
+$GCFrem = $cookieSliceGCF / 4;
+foreach my $i (0..3) {
+ while ( $GCFrem % $prime[$i] == 0 ) {
+  $GCFList = $GCFList . List( Real( $prime[$i] ) );
+  $GCFrem = $GCFrem / $prime[$i];
+ }
+}
+  
+ $A1 = Real( $prime[random(0,2,1)] );
+ $A2 = Real( $prime[random(0,2,1)] );
+ $B1 = Real( $prime[random(0,2,1)] );
+ $B2 = Real( $prime[random(0,2,1)] );
+ $A = Real( 8*$A1*$A2 );
+ $B = Real( 7*$B1*$B2 );
+ $AList = List( 2,2,2,$A1,$A2 );
+ $BList = List( 7, $B1, $B2 );
+ $ABGCF = Real( gcf($A, $B) );
+ $ABrem = $ABGCF;
+ $ABList = List( "" );
+
+ foreach my $i (0..2) {
+  while ( $ABrem % $prime[$i] == 0 ) {
+   $ABList = $ABList . List( Real( $prime[$i] ) );
+   $ABrem = $ABrem / $prime[$i];
+  }
+ }
+
+ if ( gcf($A, $B) == 1 ) { $ABList = List( Real(1) ); }
+
+
+##############################################################
+#
+#  Text
+#
+#
+Scaffold::Begin(
+);
+
+Section::Begin( "Part 1: Setup" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Suppose you're throwing a party and you order $pizza pizzas. Each pizza has 8 slices. How many slices will you have in total? \{ ans_rule(3) \}
+$PAR
+For dessert you bake $dozen dozen cookies. How many cookies will you have in total? \{ ans_rule(3) \}
+$PAR
+Do a factor tree and list the prime factors for the number of slices. \{ ans_rule(10) \}
+$PAR
+Do a factor tree and list the prime factors for the number of cookies. \{ ans_rule(10) \}
+
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( $slices->cmp() );
+ANS( $cookies->cmp() );
+ANS( $sliceList->cmp(showLengthHints=>1, ordered=>0) );
+ANS( $cookieList->cmp(showLengthHints=>1, ordered=>0) );
+
+Section::End();
+
+Section::Begin( "Part 2: Common Factors" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+So, for your party you have $slices slices of pizza and $cookies cookies. If you want to split all the slices and cookies evenly amongst your guests without having any of either left over, you're going to have to be very careful about how many people you invite.
+$PAR
+List all the possible numbers of guests that will split both the pizza and cookies evenly without any leftovers. (Don't forget that without anyone else to share with, one person will always be able to take everything with no leftovers.)
+$BR
+\{ ans_rule(15) \}
+$PAR
+We call these numbers $BBOLD common factors $EBOLD of $slices and $cookies.
+$PAR
+And because factors are ALWAYS smaller than the numbers that we start out with, there will ALWAYS be a $BITALIC largest $EITALIC common factor. We call that number the $BBOLD Greatest Common Factor $EBOLD or $BBOLD GCF $EBOLD for short.
+$PAR
+What is the GCF of $slices and $cookies? \{ ans_rule(3) \}
+$PAR
+Do a factor tree and list the prime factors for the GCF. \{ ans_rule(10) \}
+$PAR
+Compare your list of prime factors for the GCF to the lists of prime factors for $slices and $cookies.
+END_TEXT
+Context()->normalStrings;
+
+ANS($CFList->cmp(showLengthHints=>1, ordered=>0) );
+ANS( $cookieSliceGCF->cmp() );
+ANS( $GCFList->cmp(showLengthHints=>1, ordered=>0) );
+
+Section::End();
+
+Section::Begin( "Part 3: Comparing lists of prime factors" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Hopefully, you noticed that the list of prime factors for the GCF was made up of exactly the factors that $cookies and $slices had in common. (This makes sense because if we're looking for the $BITALIC greatest common factor $EITALIC then we should be taking ALL the common prime factors that we can.)
+$PAR
+One of the easiest ways to find the GCF of two (or more) numbers is to begin by finding their prime factorizations.
+$PAR
+Start the process of finding the GCF of $A and $B by doing factor trees for each.
+$BR
+List the prime factors of $A. \{ ans_rule(10) \}
+$BR
+List the prime factors of $B. \{ ans_rule(10) \}
+$PAR
+After you have the prime factorization for each number, then make a NEW list by writing the factors that appear in BOTH lists. For example let's look for the GCF of 24 and 60:
+$PAR
+The prime factor list for 24 is 2,2,2,3; and the prime factor list for 60 is 2,2,3,5
+$BR
+\{
+ DataTable(
+ [['','Factors of 24 but not 60','Factors of both 24 and 60','Factors of 60 but not 24'],
+  ['24:','2','2,2,3',''],
+  ['60:','','2,2,3','5']
+ ],
+ align=>'r r c l',
+);
+\}
+$BR
+We can see that the list of common factors for 24 and 60 is 2,2,3.
+$PAR
+So now, try to do the same thing for $A and $B.
+$PAR
+What did you get as the list of common prime factors? \{ ans_rule(10) \}
+$PAR
+And if you multiply all the numbers in that list together, what do you get? \{ ans_rule(5) \}
+$PAR
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( $AList->cmp(showLengthHints=>1, ordered=>0) );
+ANS( $BList->cmp(showLengthHints=>1, ordered=>0) );
+ANS( $ABList->cmp(showLengthHints=>1, ordered=>0) );
+ANS( $ABGCF->cmp() );
+
+Section::End();
+
+Scaffold::End();
+
+ENDDOCUMENT();        

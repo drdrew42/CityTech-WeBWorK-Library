@@ -1,0 +1,9 @@
+
+openDate          = 06/24/2013 at 08:00am EDT
+dueDate           = 07/02/2013 at 01:00am EDT
+answerDate        = 07/02/2013 at 01:00am EDT
+paperHeaderFile   = local/opt/webwork/webwork2/conf/snippets/JREITZDefaultsetHeader.pg
+screenHeaderFile  = local/opt/webwork/webwork2/conf/snippets/JREITZDefaultsetHeader.pg
+problemList       = 
+local/Library/NYCCT/Reitz/1272/legs1-JokeProblemInLieuOfGoodnessOfFit-ReitzSum2013.pg, 20, -1 
+

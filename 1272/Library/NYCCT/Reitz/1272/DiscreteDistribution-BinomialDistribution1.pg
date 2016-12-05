@@ -1,0 +1,84 @@
+## DESCRIPTION
+##   Discrete Probability Distribution, Mean and Standard Deviation, from binomial experiment
+## ENDDESCRIPTION
+
+## DBsubject('Statistics')
+## Date('March 2013')
+## Author('Jonas Reitz')
+## Institution('NYCCT')
+## TitleText1('')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('')
+
+DOCUMENT();        # This should be the first executable line in the problem.
+
+loadMacros(
+"PG.pl",
+"PGbasicmacros.pl",
+"PGchoicemacros.pl",
+"PGanswermacros.pl",
+"PGgraphmacros.pl"
+);
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+## initial values - to be randomized later
+@values = (0,1,2);
+@relativefrequencies = (0,0,0,0,0,0);
+$mean = 0;
+$standarddeviation = 0;
+
+## randomize parameters p (success) and q (failure)
+$p = random(.35,.85, .05);
+$q = 1-$p;
+
+
+## compute probabilities (this is n=2 example hardcoded - for more generality, replace with binomial fmla and for loop
+$relativefrequencies[0]=$q*$q;
+$relativefrequencies[1]=2*$p*$q;
+$relativefrequencies[2]=$p*$p;
+
+
+## compute mean
+for ( $n = 0; $n < 3; $n++ )
+    {
+     $mean = $mean + $values[$n]*$relativefrequencies[$n];
+    }
+
+## compute standard deviation
+for ( $n = 0; $n < 3; $n++ )
+    {
+     $standarddeviation = $standarddeviation + $values[$n]*$values[$n]*$relativefrequencies[$n];
+    }
+$standarddeviation = sqrt($standarddeviation - $mean*$mean);
+
+
+BEGIN_TEXT
+
+In a large high school, the probability that any student will own an iPhone is \( $p \).  Two students are chosen at random.  Consider the random variable \( x = \) the number of students (out of 2) that own an iPhone.  Find the probability distribution for \( x \).
+
+\{begintable(2)\}
+\{row("number of students \( x \) with iPhone", "probability \( P(x) \)")\}
+\{row("\( $values[0] \)", ans_rule(10) )\}
+\{row("\( $values[1] \)", ans_rule(10) )\}
+\{row("\( $values[2] \)",  ans_rule(10) )\}
+\{endtable()\}
+
+$PAR
+Find the mean \( \mu = \) \{ ans_rule(10) \} and standard deviation \( \sigma = \) \{ ans_rule(10) \} of \( x \).
+
+
+END_TEXT
+## answers
+for ( $n = 0; $n < 3; $n++ )
+    {
+     ANS(num_cmp($relativefrequencies[$n], mode=>"arith"));
+    }
+ANS(num_cmp($mean, mode=>"arith"));
+ANS(num_cmp($standarddeviation, mode=>"arith"));
+
+
+ENDDOCUMENT();       # This should be the last executable line in the problem.

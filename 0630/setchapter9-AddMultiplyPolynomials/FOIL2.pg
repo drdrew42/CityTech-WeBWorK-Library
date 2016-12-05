@@ -1,0 +1,64 @@
+###DESCRIPTION
+## Multiplying Polynomials
+## 
+##ENDDESCRIPTION
+## DBsubject(Algebra)
+## DBchapter(Polynomials, polynomial functions, and factoring)
+## DBsection('Multiplication of Polynomials')
+## KEYWORDS('polynomials')
+## TitleText1('Essentials of Intermediate Algebra')
+## EditionText1('1')
+## AuthorText1('Blitzer')
+## Section1('5.2')
+## Problem1('')
+## Author('RA Cruz, Parker')
+## Institution('The College of Idaho, City Tech')
+## Date('2/15/2016')
+
+DOCUMENT(); # This should be the first executable line in the problem.
+
+loadMacros(
+  "PGstandard.pl",
+  "MathObjects.pl",
+  "contextLimitedPolynomial.pl",
+);
+
+TEXT(beginproblem());
+
+######################################
+#  Setup
+
+
+$a = random(4,9,1);    
+
+$poly1 = Formula("x+$a")->reduce;
+$poly2 = Formula("x-$a")->reduce;
+
+######################################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+Multiply:  \( ( $poly1 ) ( $poly2 ) \)
+$PAR
+Answer:  \{ ans_rule(40) \} 
+END_TEXT
+Context()->normalStrings;
+
+######################################
+#  Answer
+
+Context("LimitedPolynomial-Strict");
+Context()->flags->set(singlePowers=>1);
+
+$c = $a**2;
+$ans = Formula("x^2 - $c")->reduce;
+ANS($ans->cmp);
+
+$showPartialCorrectAnswers = 1;
+
+######################################
+
+
+COMMENT('MathObject version');
+ENDDOCUMENT();

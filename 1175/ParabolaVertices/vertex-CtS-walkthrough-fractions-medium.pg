@@ -1,0 +1,210 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "PGML.pl",
+   "contextLimitedFactor.pl",
+   "contextLimitedPolynomial.pl",
+   "scaffold.pl",
+   "contextFraction.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+# y = (x - h)^2 + k
+Context("Numeric")->variables->are(x=>Real,y=>Real, s=>Real);
+Context()->flags->set(reduceConstants=>0, reduceConstantFunctions=>0);
+Parser::Number::NoDecimals();
+
+Context()->{error}{msg}{"You are not allowed to type decimal numbers in this problem"} 
+  = "Decimals are not allowed for this problem, please use fractions instead.";
+
+$h = non_zero_random(-5,5,1);
+$absh = abs($h);
+$k = non_zero_random(-8,8,1);
+$absk = abs($k);
+
+$A = random(2,5,1);
+$B = -2*$A*$h;
+$b = -2*$h;
+$C = $A*($h)**2+$k;
+$absC = abs($C);
+
+$CtS = Real("($h)**2");
+
+$LHS = Formula("y");
+$RHS = Formula("$A x^2 + $B x + $C")->reduce;
+
+
+### Separate x and non-x ###
+$LHS1 = Formula("y - $C")->reduce;
+$RHS1 = Formula("$A x^2 + $B x")->reduce;
+
+### Divide by $A ###
+$c = ( gcf($C,$A) == $A ) ? Real("$C/$A") : Formula("$C/$A");
+$absc = ( gcf($C,$A) == $A ) ? Real("$absC/$A") : Formula("$absC/$A");
+$LHS1Bp = Formula("y/$A - s")->reduce;
+$LHS1Bm = Formula("y/$A + s")->reduce;
+$LHS1B = ($c > 0) ? $LHS1Bp->substitute(s=>$c) : $LHS1Bm->substitute(s=>$absc);
+
+$RHS1B = Formula("x^2 + $b x")->reduce;
+
+### Complete the Square ###
+$K = ( gcf($k,$A) == $A ) ? Real("$k/$A") : Formula("$k/$A");
+$absK = ( gcf($k,$A) == $A ) ? Real("$absk/$A") : Formula("$absk/$A");
+$LHS2p = Formula("y/$A - s")->reduce;
+$LHS2m = Formula("y/$A + s")->reduce;
+$LHS2 = ($K>0) ? $LHS2p->substitute(s=>$K) : $LHS2m->substitute(s=>$absK);
+$RHS2 = Formula("x^2 + $b x + $CtS")->reduce;
+
+Context("LimitedFactor")->variables->are(x=>Real,y=>Real,s=>Real);
+
+$factorCheck = sub {
+    my ($correct,$student,$ans) = @_;
+    return 0 if $ans->{isPreview} || $correct != $student;
+    $student = $ans->{student_formula};
+    $correct = $correct->{original_formula} if defined $correct->{original_formula};
+    # check for equivalence when bizarro arithmetic is enforced
+    Context()->flags->set(bizarroSub=> 1,bizarroAdd=> 1, bizarroPow=>1);
+    delete $correct->{test_values}, $student->{test_values};
+    my $OK = ($correct == $student); # check if equal when arithmetic is replace by bizarro arithmetic
+    Context()->flags->set(bizarroSub=> 0,bizarroAdd=> 0, bizarroPow=>1);
+    delete $correct->{test_values}, $student->{test_values};
+    $factorableObject = Context()->flag("factorableObject");
+    Value::Error("Your answer is equivalent to the $factorableObject in the correct answer, but not completely factored or simplified") unless $OK;
+    return $OK;
+  };
+
+### UGH! CHICANERY! ###
+
+$ans1p = Formula("(x-$h)^2 + s")->reduce;
+$ans1m = Formula("(x-$h)^2 - s")->reduce;
+$ans1 = ($K>0) ? $ans1p->substitute(s=>$K) : $ans1m->substitute(s=>$absK);
+
+$ans2 = Formula("$A(x-$h)^2 + $k")->reduce;
+
+Context("Point");
+
+$vertex = Point("($h,$k)");
+
+##############################################################
+#
+#  Text
+#
+#
+
+BEGIN_PGML
+
+Use the _complete the square_ method to find the vertex of the following parabola:
+
+_Note: There will be some extra steps because the coefficient of [` x^2 `] is *not* 1._
+
+[` \large{ [$LHS] = [$RHS] } `]  
+
+END_PGML
+
+Scaffold::Begin();
+Section::Begin("Step 1: Separate non-x-terms from x-terms");
+BEGIN_PGML
+
+Manipulate the equation until all terms containing _x_ are on one side of the equation, and all terms *not* containing _x_ are on the opposite side:
+
+>> [__________]{$LHS1} [` \large{  = [$RHS1] } `] <<
+
+END_PGML
+Section::End();
+Section::Begin("Step 2: Divide off the coefficient of \(x^2\)");
+BEGIN_PGML
+
+[` \large{ [$LHS1] = [$RHS1] } `]
+
+There's a slight problem with completing the square at this point, and it's because we have a coefficient of [` x^2 `] that's not _1_.  
+
+Divide both sides of the equation by [$A] so that we can proceed with completing the square.  
+
+>> [____________]{$LHS1B} = [____________]{$RHS1B} <<
+
+END_PGML
+Section::End();
+Section::Begin("Step 3: Identify the value that completes the square");
+BEGIN_PGML
+
+Now that we've removed the coefficient of [` x^2 `], what value completes the perfect square trinomial? 
+
+>> [` \large{ [$RHS1B] + } `] [_____]{$CtS} <<
+
+END_PGML
+Section::End();
+Section::Begin("Step 4: Complete the Square");
+BEGIN_PGML
+
+[` \large{ [$LHS1B] = [$RHS1B] } `]
+
+Add [$CtS] to both sides to complete the perfect square trinomial.
+
+>> [__________]{$LHS2} [` \large{ = [$RHS2] } `] <<
+
+END_PGML
+Section::End();
+Section::Begin("Step 5: Factor and start solving for \(y\)");
+BEGIN_PGML
+
+[` \large{ [$LHS2] = [$RHS2] } `]
+
+Factor the perfect square trinomial, and begin solving for [`y`].
+
+>> [` \large{ \frac{y}{[$A]} = } `] [____________]{$ans1->cmp(checker=>$factorCheck)} <<
+
+END_PGML
+Section::End();
+Section::Begin("Step 6: Finish solving for \(y\)");
+BEGIN_PGML
+
+[` \large{ \frac{y}{[$A]} = [$ans1] } `]
+
+Finish solving for y.
+
+>> [` \large{ y = } `] [____________]{$ans2->cmp(checker=>$factorCheck)} <<
+
+* Standard Form for a parabola is: [` y = A(x-H)^2 + K `]
+
+END_PGML
+Section::End();
+Section::Begin("Step 7: Identify the vertex");
+BEGIN_PGML
+
+[` \large{ y = [$ans2] } `]
+
+Try to determine the vertex just by thinking about how the graph of this equation is a shifted version of [` y = x^2 `]. 
+    The vertex of [` y = x^2 `] is [` (0,0) `], what would the new vertex be after applying the shifts?
+
+Otherwise, identify the values of _H_ and _K_ in our equation by comparing our equation to the form [` y = A(x-H)^2 + K `]. 
+    (_Remember that expressions like [` x+1 `] can be re-written as [` x - (-1) `] and expressions like [` x - 1 `] can be re-written as [` x + (-1) `]_)
+
+The vertex of our parabola will be [` (H,K) `].
+
+What is the vertex of [` y = [$ans2] `]? [__________]{$vertex}
+
+END_PGML
+Section::End();
+Scaffold::End();
+ 
+##############################################################
+#
+#  Answers
+#
+#
+
+
+ENDDOCUMENT();        

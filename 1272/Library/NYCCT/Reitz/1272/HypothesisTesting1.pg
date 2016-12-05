@@ -1,0 +1,129 @@
+## DESCRIPTION
+##  Hypothesis testing for large samples (n>=30) -- use normal distribution
+## ENDDESCRIPTION
+
+## DBsubject('Statistics')
+## Date('April 2013')
+## Author('Jonas Reitz')
+## Institution('NYCCT')
+## TitleText1('')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('')
+
+DOCUMENT();        # This should be the first executable line in the problem.
+
+loadMacros(
+"PG.pl",
+"PGbasicmacros.pl",
+"PGchoicemacros.pl",
+"PGanswermacros.pl",
+"PGgraphmacros.pl",
+"contextIntegerFunctions.pl",
+"PGnumericalmacros.pl",
+"PGstatisticsmacros.pl",
+"PGauxiliaryFunctions.pl",
+"parserRadioButtons.pl"
+);
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+
+## randomize parameter n >=30 (number of trials)
+$n = random(30, 200);
+
+## randomize mean for H0 - the assumed population mean
+$mu = random(40,70);
+
+## randomize level of significance alpha - first initialize array of possible values, then choose one
+$alpha_i = random(0,2,1);
+@alpha = (.10, .05, .01);
+
+
+## set type of test - 0="left tailed", 1="right tailed", 2="two tailed"
+@tails = ("left tailed", "right tailed", "two tailed");  ## initialize list of test types
+$tails_i = 0;  ## set type of test here
+
+
+
+## hard-code lists of critical values for various alpha/tails combos
+@tails_left = ( -1.28, -1.645, -2.33);
+@tails_right = ( 1.28, 1.645, 2.33);
+@tails_two_left = ( -1.645, -1.96, -2.575);
+@tails_two_right = ( 1.645, 1.96, 2.575);
+
+## set answer for critical value(s)
+$ans_crit = $tails_left[$alpha_i];
+## $ans_crit2 = $tails_two_right[$alpha_i];
+
+
+
+## now take care of the sampling (produce test statistic)
+## To get a good result, calculate this backwards
+
+## randomize sample standard deviation
+$s = random(5,10,.01);
+
+## compute sigma_xbar
+$sigma_xbar = $s/sqrt($n);
+
+## choose z
+$z = Round($ans_crit,2) + random(.01, .02, .03, -.01, -.02, -.03);   ## change to $ans_crit2 if you want large sample in 2-tailed test
+
+## compute sample mean xbar
+$xbar = Round($mu+$z*$sigma_xbar,3);
+
+## since we rounded xbar, recompute z (in case rounding causes the value to differ)
+$z = Round( ($xbar - $mu)/$sigma_xbar,2);
+
+## Build radio buttons for multiple choice:
+$radioTails = RadioButtons(
+  [$tails[0],$tails[1],$tails[2]], #options
+  $tails[$tails_i], # correct answer
+);
+
+## compute decision
+if (abs($z) > abs($ans_crit)) {$decision = "reject"} else {$decision = "do not reject"};
+
+## Build radio buttons for reject/do not reject:
+$radioDecision = RadioButtons(
+  ["reject","do not reject"], #options
+  $decision  # correct answer
+);
+
+
+BEGIN_TEXT
+
+A magazine claims that New Yorkers spend an average of $\( $mu \) or more per month on metrocards.  A reporter for another magazine wishes to test the claim with a level of significance of \( $alpha[$alpha_i] \).  A random sample of \( $n \) New Yorkers is taken, and the average monthly metrocard spending is determined to be $ \( $xbar \) with a standard deviation of $ \( $s \). 
+
+$PAR
+What is \( \alpha \)? \{ ans_rule(10) \}
+
+$PAR
+The test is: $BR
+\{ $radioTails->buttons() \}
+
+$PAR
+The critical value is \{ ans_rule(10) \}
+
+$PAR
+The \( z \)-value of the test statistic is \{ ans_rule(10) \}.  (Round to 2 decimals)
+
+$PAR
+Based on the sample, is there enough evidence to reject the null hypothesis? $BR
+\{ $radioDecision->buttons() \}
+
+
+END_TEXT
+
+## answers
+
+ANS(num_cmp($alpha[$alpha_i]));
+ANS( $radioTails->cmp() );
+ANS(num_cmp($ans_crit));
+ANS(num_cmp($z));
+ANS( $radioDecision->cmp() );
+
+ENDDOCUMENT();       # This should be the last executable line in the problem.

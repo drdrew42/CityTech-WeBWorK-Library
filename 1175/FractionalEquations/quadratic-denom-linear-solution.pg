@@ -1,0 +1,68 @@
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextFraction.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+# (A+1)/(Ay-AR1) - 1/(y-R2) = B/[(y-R1)(y-R2)] => y - (A+1)R2 + AR1 = AB
+
+Context("Numeric")->flags->set(reduceConstants=>0, reduceConstantFunctions=>0);
+Context()->variables->are("y"=>Real);
+
+$A = random(2,8,1);
+$B = random(2,9,1);
+$R1 = random(-1,1,2)*random(2,7,1);
+do { $R2 = random(-1,1,2)*random(2,7,1); } until ( abs($R1) != abs($R2) );
+
+$A1 = $A + 1;
+$AR1 = $A*$R1;
+$AB = $A*$B;
+$A1R2 = $A1*$R2;
+$Qb = $R1+$R2;
+$Qc = $R1*$R2;
+
+$LHS = Formula("$A1/($A y - $AR1) - 1/(y-$R2)")->reduce;
+$RHS = Formula("$B/(y^2-$Qb y+$Qc)")->reduce;
+
+$ans = Real("$AB-$AR1+$A1R2");
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Solve for y:
+
+\[ $LHS = $RHS \]
+
+$PAR
+y = \{ans_rule(10)\}
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans->cmp);
+
+ENDDOCUMENT();        

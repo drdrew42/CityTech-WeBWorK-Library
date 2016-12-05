@@ -1,0 +1,92 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('Higher-Order Differential Equations')
+## DBsection('Homogeneous Linear Equations with Constant Coefficients')
+## Date('05/28/2012')
+## Author('Anna Ghazaryan, Fuli Zhang')
+## Institution('Muohio')
+## TitleText1('Differential equations with Boundary-value problem')
+## AuthorText1('Dennis G. Zill')
+## Section1('4.3')
+## Edition('7')
+## Problem1('38')
+
+########################################################################
+
+DOCUMENT(); 
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"parserAssignment.pl",
+);
+
+TEXT(beginproblem());
+
+
+#############################
+#  Setup
+
+Context("Numeric");
+Context()->variables->add(
+A=>"Real",B=>"Real",y=>"Real",
+);
+parser::Assignment->Allow;
+
+$a=0;
+$b=random(1,2,3);
+
+
+$diffeq = " y'' + 4y = 0"; # tex
+$answer = Compute("A sin(2x)");
+
+
+######################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+Solve the boundary-value problem:
+\( $diffeq \).\(\   y(0) = $a \) , \(\  y($b \pi ) = 0\).
+In your answer, use \( A \) to denote arbitrary constant.
+
+$BR
+$BR
+\(y=\)\{ ans_rule(40) \}
+\{ AnswerFormatHelp("equations") \}
+END_TEXT
+Context()->normalStrings;
+
+
+######################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 1;
+
+ANS(  $answer->cmp(checker => sub {
+      my ( $correct, $student, $self ) = @_;
+      my $context = Context()->copy;
+      return 0 if $student == 0;
+      $context->flags->set(no_parameters=>0);
+      $context->variables->add('C0'=>'Parameter');
+      my $c0 = Formula($context,'C0');
+      $student = Formula($context,$student);
+      $correct = Formula($context,"$c0 * $answer");
+      return $correct == $student;
+    }
+) );
+
+
+
+
+
+
+
+
+ENDDOCUMENT();        
+    

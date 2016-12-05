@@ -1,0 +1,10 @@
+
+openDate          = 06/11/2012 at 05:20am EDT
+dueDate           = 06/18/2012 at 11:59pm EDT
+answerDate        = 06/19/2012 at 12:01am EDT
+paperHeaderFile   = local/opt/webwork/webwork2/conf/snippets/ReitzHeaderBASIC.pg
+screenHeaderFile  = local/opt/webwork/webwork2/conf/snippets/ReitzHeaderBASIC.pg
+problemList       = 
+Library/UMN/algebraKaufmannSchwitters/ks_7_3_prob01.pg, 8, -1 
+Library/ASU-topics/set119LPGraphical/p1.pg, 4, -1 
+

@@ -1,0 +1,74 @@
+assignmentType      = default
+openDate          = 03/16/2016 at 11:06am EDT
+reducedScoringDate = 05/25/2015 at 05:00pm EDT
+dueDate           = 03/16/2016 at 01:20pm EDT
+answerDate        = 03/18/2016 at 11:30am EDT
+enableReducedScoring = N
+paperHeaderFile   = defaultHeader
+screenHeaderFile  = defaultHeader
+description       = 
+restrictProbProgression = 
+emailInstructor   = 
+
+problemListV2 
+problem_start
+problem_id = 1
+source_file = local/setParker-Exam2A/question1.pg
+value = 40
+max_attempts = 1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 2
+source_file = local/setParker-Exam2A/question2.pg
+value = 10
+max_attempts = 1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 3
+source_file = local/setParker-Exam2A/question3.pg
+value = 10
+max_attempts = 1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 4
+source_file = local/setParker-Exam2A/question4.pg
+value = 10
+max_attempts = 1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 5
+source_file = local/setParker-Exam2A/question5.pg
+value = 20
+max_attempts = 1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 6
+source_file = local/setParker-Exam2A/question6.pg
+value = 10
+max_attempts = 1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+

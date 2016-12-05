@@ -1,0 +1,99 @@
+##DESCRIPTION
+##  Differential Equation
+##ENDDESCRIPTION
+
+##KEYWORDS('Differential equaltion')
+
+## DBsubject('Differential Equation')
+## DBchapter('First-Order DE')
+## DBsection('Section 2.2 General solution of linear equation')
+## Date('05/28/2012')
+## Author('Anna Ghazaryan')
+## Institution('Miami University')
+## TitleText1('Differential equations with Boundary-value problem')
+## EditionText1('7')
+## AuthorText1('David E.Penney')
+## Section1('2.2')
+## Problem1('17')
+
+########################################################################
+#  Initialization
+
+DOCUMENT(); 
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"unionLists.pl",
+"parserPrime.pl",
+"parserPopUp.pl",
+"answerHints.pl",
+);
+
+TEXT(beginproblem());
+
+
+#############################
+#  Setup
+
+Context("Numeric")->variables->add(
+t=>"Real"
+);
+parser::Prime->Enable("t");
+
+
+Context()->flags->set(
+  reduceConstants=>0, # no decimals
+  reduceConstantFunctions=>1, # combine 4+5*2?
+  formatStudentAnswer=>'parsed', # no decimals
+);
+
+$a = random(4,9,16);
+$answer[0] = Compute("-sqrt($a)");
+$answer[1] = PopUp(["Choose","stable","unstable","semistable"],"unstable");
+$answer[2] = Compute("0");
+$answer[3] = PopUp(["Choose","stable","unstable","semistable"],"stable");
+$answer[4] = Compute("sqrt($a)");
+$answer[5] = PopUp(["Choose","stable","unstable","semistable"],"unstable");
+
+#############################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+For the equation \(\displaystyle \frac{dy}{dx}=x^{3}(x^{2}-$a)\), find equilibrium solutions  and state their stability. Put the equilibrium solutions in the INCREASING order: (You have two attempts!Submit all answers at the same time)
+$BR
+$BR
+a)\(y=\)\{ ans_rule(10) \} .\{ $answer[1]->menu() \}.
+$BR
+$BR
+b)\(y=\)\{ ans_rule(10) \} .\{ $answer[3]->menu() \}.
+$BR
+$BR
+c)\(y=\)\{ ans_rule(10) \} .\{ $answer[5]->menu() \}.
+
+
+  
+
+END_TEXT
+Context()->normalStrings;
+
+
+############################
+#  Answers
+
+$showPartialCorrectAnswers = 0;
+
+ANS( $answer[0]->cmp() );
+ANS( $answer[1]->cmp() );
+ANS( $answer[2]->cmp() );
+ANS( $answer[3]->cmp() );
+ANS( $answer[4]->cmp() );
+ANS( $answer[5]->cmp() );
+
+
+
+COMMENT("MathObject version.");
+
+ENDDOCUMENT();

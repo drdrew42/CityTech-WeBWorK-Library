@@ -1,0 +1,92 @@
+##DESCRIPTION
+##  Find a particular solution. Separable method. IVP.
+##ENDDESCRIPTION
+
+##KEYWORDS('separable')
+
+## DBsubject('Differential Equations')
+## DBchapter('Introduction')
+## DBsection('Autonomous Differential Equation')
+## Date('6/3/2013')
+## Author('Andrew Parker')
+## Institution('NYC College of Technology')
+## TitleText1('Elementary Differential Equations and Boundary Value Problems')
+## EditionText1('10')
+## AuthorText1('Boyce, DiPrima')
+## Section1('1.1')
+## Problem1('22')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->variables->remove(x);
+Context()->variables->add( y => "Real", t => "Real" );
+$a = Real(random(1,6,1));
+$b = Real(non_zero_random(-5,5,1));
+$y0 = Real(non_zero_random(-10,10,0.1));
+$f = Formula("$a * y + -1 * $a * $b");
+$sol = Formula("$b + ($y0 - $b) * e ^ ($a * t)");
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+Find the particular solution for \(\frac{dy}{dt}=$f\) that satisfies the initial condition \(y(0) = $y0\).
+$BR
+\(y(t)=\)\{$sol->ans_rule\}
+END_TEXT
+
+$showHint = 5;
+BEGIN_TEXT
+$PAR
+If you don't get this in $showHint tries, you can get a hint.
+END_TEXT
+BEGIN_HINT
+Rewrite \(\frac{dy}{dt}=$f\) as  \(\frac{dy}{dt}=$a ( y - $b )\), and divide both sides by \( y - $b \).
+$BR
+Integrate both sides: \( \int \frac{1}{y - $b} \frac{dy}{dt} dt = \int $a dt \)
+$BR
+Then, finally, isolate \(y\), plug in \(t=0\) and solve for \(c\).
+END_HINT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($sol->cmp);
+# relative tolerance --3.1412 is incorrect but 3.1413 is correct
+# default tolerance is .01 or one percent.
+
+
+COMMENT('Includes hint.');
+ENDDOCUMENT();

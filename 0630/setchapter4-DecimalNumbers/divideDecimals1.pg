@@ -1,0 +1,49 @@
+#DESCRIPTION
+##Type of
+#ENDDESCRIPTION
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+"MathObjects.pl",
+"contextLimitedNumeric.pl",
+);
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+$a1=random(12,27,3);
+$a2=random(11,49,2)*$a1/10;
+$a3=$a1/10;
+$ans1=$a2/$a3;
+
+$b1=random(13,23,2);
+$b2=random(411,719,2)*$b1/100;
+
+$ans2=$b2/$b1;
+
+BEGIN_TEXT
+$PAR
+Find each quotient.
+$PAR
+\($a2 \div $a3 \) = \{ans_rule(5)\}
+
+$PAR
+\($b2 \div $b1\) = \{ans_rule(5)\}
+
+END_TEXT
+Context("LimitedNumeric");
+ANS(Real($ans1)->cmp);
+ANS(Real($ans2)->cmp);
+
+
+COMMENT('MathObject version');
+ENDDOCUMENT();
+
+## DBsubject(Arithmetic)
+## DBchapter(Decimals)
+## DBsection(Division)
+## Level(2)
+## MO(1)
+
+

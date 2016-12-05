@@ -1,0 +1,61 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "PGML.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric")->variables->are(x=>Real,y=>Real);
+
+$h = non_zero_random(-8,8,1);
+$k = non_zero_random(-8,8,1);
+$r = Real( random(2,9,1) );
+$r2 = $r**2;
+
+$LHS = Formula("(x-$h)^2 + (y-$k)^2")->reduce;
+$RHS = Formula("$r2");
+
+Context("Point");
+
+$center = Point($h,$k);
+
+##############################################################
+#
+#  Text
+#
+#
+
+BEGIN_PGML
+
+Identify the center and radius of the circle given by this equation:
+
+>> [` [$LHS] = [$RHS] `] <<
+
+Center: [__________]{$center}
+
+Radius: [_____]{$r}
+
+END_PGML
+
+##############################################################
+#
+#  Answers
+#
+#
+
+
+ENDDOCUMENT();        

@@ -1,0 +1,100 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject('Algebra')
+## DBchapter('Fundamentals')
+## DBsection('Real Numbers')
+## Date('6/3/2002')
+## Author('')
+## Institution('')
+## TitleText1('Precalculus')
+## EditionText1('3')
+## AuthorText1('Stewart, Redlin, Watson')
+## Section1('1.1')
+## Problem1('22')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextLimitedPolynomial.pl",
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->variables->are("x"=>Real, "y"=>Real);
+Context()->noreduce('x^(-1)','(-x)-y');
+
+
+$dcoeff=non_zero_random(-10,10,1);
+$dxexp=random(1,3,1);
+$dyexp=random(1,3,1);
+
+$anscoeff1=non_zero_random(-10,10,1);
+$anscoeff2=non_zero_random(-10,10,1);
+$ansxexp1=random(1,9,1);
+do { $ansxexp2=random(1,9,1); } until ($ansxexp1 != $ansxexp2);
+$ansyexp1=random(3,9,1);
+$ansyexp2=random(3,9,1);
+
+$ncoeff1 = $anscoeff1*$dcoeff;
+$ncoeff2 = $anscoeff2*$dcoeff;
+$nxexp1 = $ansxexp1+$dxexp;
+$nxexp2 = $ansxexp2+$dxexp;
+$nyexp1 = $ansyexp1+$dyexp;
+$nyexp2 = $ansyexp2+$dyexp;
+
+$denominator = Formula("$dcoeff*x**$dxexp*y**$dyexp")->reduce;
+$numerator = Formula("$ncoeff1*x**$nxexp1*y**$nyexp1 + $ncoeff2*x**$nxexp2*y**$nyexp2")->reduce;
+$ans = Formula("$anscoeff1*x**$ansxexp1*y**$ansyexp1 + $anscoeff2*x**$ansxexp2*y**$ansyexp2+1")->reduce;
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+Simplify.
+$BR
+$BR
+\( \displaystyle{ \frac{$numerator+$denominator}{$denominator} } \)
+$BR
+$BR
+\{$ans->ans_rule\}
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+Context("LimitedPolynomial-Strict");
+Context()->variables->are("x"=>Real, "y"=>Real);
+ANS($ans->cmp);
+
+
+ENDDOCUMENT();        

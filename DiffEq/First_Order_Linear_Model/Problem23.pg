@@ -1,0 +1,94 @@
+##KEYWORDS('Differential equaltion')
+
+## DBsubject('Differential Equation')
+## DBchapter('Introduction to DE')
+## DBsection('Section 1.3 Differential Equations as Mathematical Models')
+## Date('01/23/2012')
+## Author('Anna Ghazaryan, Fuli Zhang')
+## Institution('Miami University')
+## TitleText1('A First Course in Differential Equation')
+## EditionText1('9')
+## AuthorText1('Dennis G.Zill')
+## Section1('1.3')
+## Problem1('23')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",
+   "MathObjects.pl",
+   "AnswerFormatHelp.pl",
+   "unionLists.pl",
+   "parserPrime.pl",
+   "parserPopUp.pl",
+   "answerHints.pl",
+   "parserImplicitPlane.pl",
+
+ );
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric")->variables->add(y=>"Real",k=>"Real",M=>"Real",A=>"Real");
+
+##############################################################
+#
+#  Text
+#
+#
+$answer[0] = Formula("k(M-A)")->reduce;
+$answer[1] = Formula("M")->reduce;
+
+
+
+
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Set up a differential equation and additional conditions (if any) for the following problems. Do NOT solve the problem: 
+$BR
+$BR
+Question:$BR In the theory of learning, the rate at which a subject is memorized is assumed to be proportional to the amount that is left to be memorized.Suppose \(M\)denotes the total amount of a subject to be memorized and \(A(t)\)is the amount memorized in time \(t\).Determine a differential
+equation for the amount\(A(t)\).What is \(A(0)\)?(Please use k as proportional constant)
+$BR
+$BR
+\(\displaystyle \ \frac{dA}{dt}=\) \{ans_rule(30)\}(Your answer should be in terms of \(k\), \(M\),and\(A\))
+$BR
+$BR
+\(\displaystyle \ A(0)=\) \{ans_rule(30)\} 
+ 
+\{ AnswerFormatHelp("formulas") \}
+
+
+
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+ANS( $answer[0]->cmp() );
+ANS( $answer[1]->cmp() );
+
+
+
+
+
+
+
+ENDDOCUMENT();     

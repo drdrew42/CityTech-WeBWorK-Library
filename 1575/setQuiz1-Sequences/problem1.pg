@@ -1,0 +1,94 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject('Algebra')
+## DBchapter('Fundamentals')
+## DBsection('Real Numbers')
+## Date('6/3/2002')
+## Author('')
+## Institution('')
+## TitleText1('Precalculus')
+## EditionText1('3')
+## AuthorText1('Stewart, Redlin, Watson')
+## Section1('1.1')
+## Problem1('22')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextFraction.pl",
+   "parserPopUp.pl",
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+# Print problem number and point value (weight) for the problem
+# TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Fraction")->variables->are(n=>Real);
+
+$base=Fraction(-2,3);
+$an=Formula("($base)^n");
+$a1=$an->substitute(n=>1); $a1 = Fraction("$a1");
+$a2=$an->substitute(n=>2); $a2 = Fraction("$a2");
+$a3=$an->substitute(n=>3); $a3 = Fraction("$a3");
+$a4=$an->substitute(n=>4); $a4 = Fraction("$a4");
+$a5=$an->substitute(n=>5); $a5 = Fraction("$a5");
+
+$popup=PopUp(["?","converges.","is divergent."],"converges.");
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+The sequence \( a_n = ( $base )^n \). State the first five terms of the sequence.
+
+$PAR
+
+\( a_1 = \) \{ans_rule(5)\}
+\( a_2 = \) \{ans_rule(5)\}
+\( a_3 = \) \{ans_rule(5)\}
+\( a_4 = \) \{ans_rule(5)\}
+\( a_5 = \) \{ans_rule(5)\}
+
+$PAR
+
+The sequence \( a_n \) \{ $popup->menu() \}
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($a1->cmp());
+ANS($a2->cmp());
+ANS($a3->cmp());
+ANS($a4->cmp());
+ANS($a5->cmp());
+ANS($popup->cmp());
+
+ENDDOCUMENT();        

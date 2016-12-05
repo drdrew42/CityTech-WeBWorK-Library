@@ -1,0 +1,144 @@
+##DESCRIPTION
+##  PreAlgebra problem:
+##ENDDESCRIPTION
+
+##KEYWORDS('prealgebra','common core')
+
+## DBsubject('Arithmetic')
+## DBchapter('Integers')
+## DBsection('Addition/subtraction')
+## Date('3/4/2015')
+## Author('Andrew Parker')
+## Institution('NYC CityTech')
+## ProblemTester('')
+## TitleText1('')
+## Publisher('')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "problemRandomize.pl",
+   "parserRadioButtons.pl",
+   "parserPopUp.pl",
+   "scaffold.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+#  Allow for the user to try another version of the problem once they get it correct.
+ProblemRandomize(when=>"Correct",onlyAfterDue=>0);
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 0;
+
+##############################################################
+#
+#  Setup
+#
+#
+
+## Part 1: ##
+
+## Part 2: ##
+
+## Part 3: ##
+
+## Part 4: ##
+  
+  
+
+##############################################################
+#
+#  Text
+#
+#
+
+##    to disable arithmetic operations in the answer.  Student must simplify.
+Context()->operators->undefine("+","-","/","*");
+
+##############################################################
+# Scaffolding
+Scaffold::Begin(
+      can_open => "when_previous_correct",
+      is_open  => "first_incorrect"
+);
+##############################################################
+Section::Begin("Part 1: ");
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+
+
+END_TEXT
+Context()->normalStrings;
+
+# ANS( Real($negexA)->cmp() );
+
+Section::End();
+##############################################################
+Section::Begin("Part 2: ");
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+
+END_TEXT
+Context()->normalStrings;
+
+# ANS( $mcex->cmp() );
+
+Section::End();
+
+##############################################################
+Section::Begin("Part 3: ");
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+
+END_TEXT
+Context()->normalStrings;
+
+# ANS( Real($negRES)->cmp() );
+
+Section::End();
+
+##############################################################
+Section::Begin("Part 4: ");
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+
+END_TEXT
+Context()->normalStrings;
+
+# ANS( $initialMC->cmp() );
+
+Section::End();
+
+Scaffold::End();
+
+##############################################################
+#
+#  Answers
+#
+#
+
+
+ENDDOCUMENT();        
+COMMENT('MathObject version. Not randomized.');

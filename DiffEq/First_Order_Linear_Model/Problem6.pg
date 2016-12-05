@@ -1,0 +1,87 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('Modeling with First-Order Differential Equations')
+## DBsection('Linear Model')
+## Date('05/28/2012')
+## Author('Anna Ghazaryan, Fuli Zhang')
+## Institution('Muohio')
+## TitleText1('Differential equations with Boundary-value problem')
+## AuthorText1('Dennis G. Zill')
+## Section1('3.1')
+## Edition('7')
+## Problem1('11')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"unionLists.pl",
+"parserPrime.pl",
+"parserPopUp.pl",
+"answerHints.pl",
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+#Context("Numeric")->variables->add(t=>"Real",u=>"Real",r=>"Real",I0=>"Real",k=>"Real");
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+
+
+$a = random(80.5,85.5,90.5);
+$answer[0] = Compute("ln((100-$a)/100)/(-0.00012378)");
+
+
+
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+Aechaeologists used a pieces of burned wood, or charcoal, founded at the site of date prehistoric painting and drawings on walls and ceilings of a cave of Lascaux. Determine the approximate age of a piece of burned wood, if it was found that $a% of the C-14 found in living trees of the same type had decayed. 
+$BR
+$BR
+(Hint: the value of the decay constant \(k\) is -0.00012378).
+$BR
+$BR
+\{ ans_rule(10) \}. 
+\{ AnswerFormatHelp("formulas") \}
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+$showPartialCorrectAnswers = 0;
+ANS( $answer[0]->cmp() );
+
+
+ENDDOCUMENT();    
+

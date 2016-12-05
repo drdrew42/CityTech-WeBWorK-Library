@@ -1,0 +1,62 @@
+## DESCRIPTION
+## Algebra
+## ENDDESCRIPTION
+
+## Tagged by XW
+## Library/ASU-topics/setGraphEquations/srw1_8_43.pg
+## DBsubject(Algebra)
+## DBchapter(Cartesian coordinate system)
+## DBsection(Graphs of equations)
+## Date(6/3/2002)
+## Institution(ASU)
+## MLT(Intercepts_only)
+## MLTleader(1)
+## Level(2)
+## TitleText1('College Algebra')
+## AuthorText1('Stewart, Redlin, Watson')
+## EditionText1('3')
+## Section1('2.2')
+## Problem1('7')
+## KEYWORDS('algebra', 'coordinate', 'graph', 'function', 'intercepts')
+
+DOCUMENT();        # This should be the first executable line in the problem.
+
+loadMacros(
+"PG.pl",
+"PGbasicmacros.pl",
+"extraAnswerEvaluators.pl",
+"PGanswermacros.pl",
+"PGauxiliaryFunctions.pl"
+);
+
+$showPartialCorrectAnswers = 1;
+
+TEXT(beginproblem());
+Context("Point");
+
+$a = non_zero_random(-6,6,1);
+
+# for display purpose only - reduction rules don't apply to points
+$na = Real("-1*$a")->reduce;
+
+$Xint = Compute("($a,0)");
+$Yint = Compute("(0,$na)");
+
+
+BEGIN_TEXT
+Find the \(x\)- and \(y\)-intercepts of the graph of the equation
+\(y=x-$a\).
+$PAR
+
+The \(x\)-intercept is \{$Xint->ans_array\}
+$BR
+$PAR
+The \(y\)-intercept is \{$Yint->ans_array\}
+$BR
+END_TEXT
+
+
+ANS( $Xint->cmp() );
+ANS( $Yint->cmp() );
+
+ENDDOCUMENT();        # This should be the last executable line in the problem.

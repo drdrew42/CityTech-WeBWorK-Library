@@ -1,0 +1,218 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject(‘Algebra’)
+## DBchapter(‘Properties of exponents, rational exponents and radicals’)
+## DBsection(‘Properties of exponents’)
+## Date('7/5/2015')
+## Author('K. Andrew Parker')
+## Institution('NYC City Tech')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "parserPopUp.pl",
+   "scaffold.pl",
+   "niceTables.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer=>"parsed"
+   );
+
+  $sumChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentstring = $ansHash->{preview_text_string};
+     return ($studentstring eq $ansHash->{correct_ans} ? 1 : 0);
+   };
+
+  $formChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentstring = $ansHash->{student_formula};
+     my $correctans = $ansHash->{correct_ans};
+     $studentstring =~ tr/()//d;
+     $correctans =~ tr/()//d;
+     return ( $student==$correct && $studentstring eq $correctans ? 1 : 0);
+   };
+
+
+  $numChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentans=$ansHash->{student_formula};
+     Value->Error("You're on the right track, but your answer should be just a number.") if ( ($studentans ne $student)&&($student==$correct) );
+     return($studentans eq $ansHash->{correct_ans} ? 1 : 0);
+  };
+
+
+@prime = ( 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 );
+
+do{ $rad1 = random(11,19,1); } until ( $rad1 != 16 );
+do{ $rad2 = random(5,15,1); } until ( $rad2 != 9 && $rad2 != $rad1 );
+$perfRoot = random(5,12,1);
+$perfSq = $perfRoot**2;
+
+do { $badRad = random(37,63,2); } until ( $badRad != 49 );
+$lowEst = 6;
+$hiEst = 7;
+if ( $badRad > 49 ) {
+  $lowEst = 7;
+  $hiEst = 8;
+}
+
+$lowSquare = $lowEst*$lowEst;
+$hiSquare = $hiEst*$hiEst;
+
+##############################################################
+#
+#  Text
+#
+#
+
+Scaffold::Begin(
+      can_open => "when_previous_correct",
+      is_open  => "first_incorrect"
+);
+
+
+Section::Begin( "Part 1: Introducing the square root" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+So, it seems like every operation has an opposite operation. Addition has subtraction, and vice versa. Multiplication and division have each other. But what about exponents?
+$PAR
+Technically, every exponent has it's own inverse; but we're just going to focus on the one for the second power. When something is raised to the second power, the common word for it is "squared".
+$PAR
+For instance, \(5^2\) is "five squared" and \(7^2\) is "seven squared".
+$PAR
+The opposite operation for "squared" is called the $BBOLD square root. $EBOLD
+$BR
+The symbol for the square root operation is \( \sqrt{} \), and we call this symbol a $BBOLD radical. $EBOLD
+$BR
+And any number $BITALIC contained $EITALIC within a square root is called the $BBOLD radicand. $EBOLD
+$PAR
+What is the radicand in this expression: \( \sqrt{$rad1} \)? \{ ans_rule(5) \}
+$BR
+What is the radicand in this expression: \( \sqrt{$rad2} \)? \{ ans_rule(5) \}
+$PAR
+In WeBWorK, the square root operation is written as $BBOLD sqrt( # ) $EBOLD
+$BR
+The answer for this box is \( \sqrt{$rad1} \). Use "sqrt" and don't forget to put parenthesis around the radicand. \{ ans_rule(10) \}
+$BR
+Try entering \( \sqrt{$rad2} \) as well. \{ ans_rule(10) \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS(Real($rad1)->cmp() );
+ANS(Real($rad2)->cmp() );
+ANS(Real(sqrt($rad1))->cmp() );
+ANS(Real(sqrt($rad2))->cmp() );
+
+
+Section::End();
+
+Section::Begin( "Part 2: The meaning of square root" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+What $BITALIC ARE $EITALIC square roots?
+$PAR
+If they're supposed to be the opposite of "squaring" then that means "squaring" should cancel out the "sqrt", right?
+$PAR
+$BBOLD The square root of a radicand gives a number WHO'S SQUARE is that radicand. $EBOLD
+$PAR
+For example, \( \sqrt{16} \).
+$BR
+Here, the radicand is 16. So, the "square root of 16" is a number who's square is 16.
+$BR
+Can you think of a number who's square is 16? \{ ans_rule(5) \}
+$BR
+What about \( \sqrt{$perfSq} \)? What number, when squared, becomes $perfSq? \{ ans_rule(5) \}
+$PAR
+But some radicands are not so nice.
+
+END_TEXT
+Context()->normalStrings;
+
+ANS(Real(4)->cmp(checker=>$numChecker) );
+ANS(Real($perfRoot)->cmp(checker=>$numChecker) );
+
+Section::End();
+
+Section::Begin( "Part 3: Bad Radicands" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Calculating square roots by hand is very, very time consuming.
+$BR
+If you ever need the decimal value for a square root, a calculator is definitely the way to go. But, we can still (roughly) estimate their value without a calculator. We're going to start by finding the two closest perfect squares to our "bad" radicand.
+$BR
+Try this one: \( \sqrt{$badRad} \)
+$BR
+What's the first perfect square LESS than $badRad? \{ ans_rule(5) \}
+$BR
+What's the first perfect square LARGER than $badRad? \{ ans_rule(5) \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( Real("$lowSquare")->cmp() );
+ANS( Real("$hiSquare")->cmp() );
+
+Section::End();
+
+Section::Begin( "Part 4: Estimating bad radicals" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+You correctly identified that:
+$BR
+\[ $lowSquare < $badRad < $hiSquare \] 
+$BR
+So, it makes sense that:
+ \[ \sqrt{$lowSquare} < \sqrt{$badRad} < \sqrt{$hiSquare} \]
+$PAR
+So what integers is \( \sqrt{$badRad} \) between?
+$BR
+\( \sqrt{$badRad} \) is MORE than \{ ans_rule(5) \} but LESS than \{ ans_rule(5) \}.
+
+END_TEXT
+Context()->normalStrings;
+
+ANS(Real($lowEst)->cmp(checker=>$numChecker) );
+ANS(Real($hiEst)->cmp(checker=>$numChecker) );
+
+Section::End();
+
+Scaffold::End();
+
+ENDDOCUMENT();        

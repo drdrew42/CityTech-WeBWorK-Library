@@ -1,0 +1,93 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+$rationalChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     Value->Error("Look at the preview answer box. Did you forget parenthesis around your numerator or denominator?") unless $student->{tree}->class eq "BOP" && $student->{tree}{bop} eq "/";
+     return 0 unless $correct == $student;
+     my $cnum = Formula($correct->{tree}{lop});
+     my $snum = Formula($student->{tree}{lop});
+     my $cden = Formula($correct->{tree}{rop});
+     my $sden = Formula($student->{tree}{rop});
+     Value->Error("Your answer can be reduced further") unless ($cnum == $snum && $cden == $sden);
+     return 1;
+};
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric")->variables->are("a"=>Real);
+Context()->flags->set(reduceConstants=>0, reduceConstantFunctions=>0);
+
+$r = random(2,7,1)*random(-1,1,2);
+$check = -1*$r;
+$coeff = random(3,6,1);
+$nB2 = random(2,5,1)*random(-1,1,2);
+$nB1 = $nB2*$coeff + $r;
+$nA1 = $coeff + 1;
+
+$dB1 = $coeff*$r;
+$frac1n = Formula("$nA1*a+$nB1")->reduce;
+$frac1d = Formula("$coeff*a+$dB1")->reduce;
+$frac1 = Formula("$frac1n/$frac1d");
+$frac1tex = $frac1->TeX;
+
+$frac2n = Formula("a+$nB2")->reduce;
+$frac2d = Formula("a+$r")->reduce;
+$frac2 = Formula("$frac2n/$frac2d");
+$frac2tex = $frac2->TeX;
+
+$n1ans = Formula("$frac1n")->reduce;
+$n2ans = Formula("$coeff*a + $coeff*$nB2")->reduce;
+$nAns = Formula("a + $r")->reduce;
+$dAns = Formula("$frac1d")->reduce;
+$dAnstex = $dAns->TeX;
+$ans = Formula("1/$coeff")->with(test_at=>[[$check]]);
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Subtract and reduce if possible.
+$PAR
+\[ $frac1 - $frac2 \]
+$PAR
+\{ans_rule(20)\}
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS( $ans->cmp->withPostFilter(sub { 
+  my $ans = shift; 
+  $ans->{ans_message} = "Your answer isn't completely simplified." 
+    if $ans->{ans_message} eq "The domain of your function doesn't match that of the correct answer";
+  return $ans; 
+}));
+
+ENDDOCUMENT();        

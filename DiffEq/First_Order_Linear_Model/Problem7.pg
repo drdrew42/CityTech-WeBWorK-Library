@@ -1,0 +1,87 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('Modeling with First-Order Differential Equations')
+## DBsection('Linear Model')
+## Date('05/28/2012')
+## Author('Anna Ghazaryan, Fuli Zhang')
+## Institution('Muohio')
+## TitleText1('Differential equations with Boundary-value problem')
+## AuthorText1('Dennis G. Zill')
+## Section1('3.1')
+## Edition('7')
+## Problem1('12')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"unionLists.pl",
+"parserPrime.pl",
+"parserPopUp.pl",
+"answerHints.pl",
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+#Context("Numeric")->variables->add(t=>"Real",u=>"Real",r=>"Real",I0=>"Real",k=>"Real");
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+
+
+$a = random(660,630,690);
+$answer[0] = Compute("e^(-0.0001237*$a)");
+
+
+
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+The shroud of Turin, which shows the negative image of the body of a man who appears to have been crucified, is believed by many to be the burial shroud of Jesus of Nazareth. In 1988 the Vatican granted permission to have the shroud carbon-dated. Three independent scientific lavoratories analyzed the cloth and concluded that the shroud was approximately 660 years old, an age consistent with its historical appearance.Using this age, determine what percentage of the original amount of C-14 remained in the cloth as of 1988.
+$BR
+$BR
+(Hint: the value of the decay constant \(k\) is -0.00012378).
+$BR
+$BR
+\{ ans_rule(10) \}. 
+\{ AnswerFormatHelp("formulas") \}
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+$showPartialCorrectAnswers = 0;
+ANS( $answer[0]->cmp() );
+
+
+ENDDOCUMENT();    
+

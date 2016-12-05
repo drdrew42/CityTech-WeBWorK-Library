@@ -1,0 +1,119 @@
+##DESCRIPTION
+##  Find a general solution. Integrating factor method.
+##ENDDESCRIPTION
+
+##KEYWORDS('integrating factor')
+
+## DBsubject('Differential Equations')
+## DBchapter('Introduction')
+## DBsection('Linear ODEs and the Integrating Factor')
+## Date('6/3/2013')
+## Author('Andrew Parker')
+## Institution('NYC College of Technology')
+## TitleText1('Elementary Differential Equations and Boundary Value Problems')
+## EditionText1('10')
+## AuthorText1('Boyce, DiPrima')
+## Section1('1.1')
+## Problem1('22')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->variables->{namePattern} = qr/[a-z][a-z0-9_]*'*/i;
+Context()->variables->are( y => "Real", t => "Real", c => "Real", "y'" => "Real" );
+$a = Real(non_zero_random(-9,9,1));
+$b = Real(non_zero_random(-9,9,1));
+$de = Formula("y' + y");
+$hom = Formula("$a * sin( $b * t )")->reduce;
+$mu = Formula("e ^ t");
+$sol = Formula("( $a / ( 1 + ($b)^2 ) ) * ( sin( $b * t ) - $b * cos( $b * t ) ) + c * e ^ ( -1 * t )");
+$getC = Formula("( y - ( $a*sin($b*t) - $a*$b*cos($b*t) ) / ( 1 + ($b)^2 ) ) * e^t");
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+Find the integrating factor and use it to find the general solution for the following differential equation:
+$BR
+\( $de = $hom \)
+$BR
+\(\mu(t)=\)\{$mu->ans_rule\}
+$BR
+\(y(t)=\)\{$sol->ans_rule\}
+END_TEXT
+
+$showHint = 5;
+BEGIN_TEXT
+$PAR
+If you don't get this in $showHint tries, you can get a hint.
+END_TEXT
+BEGIN_HINT
+Recall that \(\mu(t)= e^{\int p(t) dt} \), where \(p(t)\) is the coefficient of \(y\) when the coefficient of \(y'\) is 1.
+$BR
+$BR
+Once you've got \(\mu(t)\) correct, multiply both sides of the DE by \(\mu(t)\) and recognize that the LHS of the DE now resembles the result of product-rule-derivation. 
+$BR
+Generally, it should look like the result of taking \(\frac{d}{dt} [\mu(t) \cdot y ]\).
+$BR
+$BR
+Thus, if you integrate both sides, the LHS will be \( \mu(t) \cdot y \). And all that should be left is to integrate the RHS, which should generally look like: \( \int \mu(t) \cdot ( $hom ) dt \)
+$BR
+$BR
+After integrating the RHS (which should be done on a separate sheet of paper - you'll need to use integration by parts twice, and use some algebraic trickery), you'll still need to isolate y before you enter your final answer.
+$BR
+Don't forget to use \(c\) as your parameter for the general solution...
+END_HINT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($mu->cmp);
+ANS( $sol->cmp( checker => sub {
+    my ( $correct, $student, $self ) = @_;
+
+    my $Dstudent = $student->D('t');
+    my $studentC = $getC->substitute(y=>"$student");
+    my $DstudentC = $studentC->D('c');
+    my $rhs = $hom->substitute(y=>"$student");
+    my $lhs = $de->substitute("y'"=>"$Dstudent", y=>"$student");
+
+    if ($DstudentC == Formula("0")) {
+       Value->Error("Your answer is not the most general solution. Where's 'c'?");
+    };
+
+    return ($lhs == $rhs && $DstudentC != Formula("0"));
+}));
+
+COMMENT('Includes hint.');
+ENDDOCUMENT();        

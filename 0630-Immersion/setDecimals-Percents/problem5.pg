@@ -1,0 +1,170 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject(‘Algebra’)
+## DBchapter(‘Properties of exponents, rational exponents and radicals’)
+## DBsection(‘Properties of exponents’)
+## Date('7/5/2015')
+## Author('K. Andrew Parker')
+## Institution('NYC City Tech')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "parserPopUp.pl",
+   "scaffold.pl",
+   "niceTables.pl",
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer=>"parsed"
+   );
+
+  $commaChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $matches = 0;
+     my $studentstr = $ansHash->{original_student_ans};
+     if (($studentstr =~ m/^[-+]?\d{1,3}(\,\d{3})*$/) or ($studentstr =~ m/^[-+]?\d+$/)) {
+          $matches = 1;
+     }
+     return $matches;
+   };
+
+  $formChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentstring = $ansHash->{student_formula};
+     my $correctans = $ansHash->{correct_ans};
+     $studentstring =~ tr/()//d;
+     $correctans =~ tr/()//d;
+     return ( $student==$correct && $studentstring eq $correctans ? 1 : 0);
+   };
+
+
+  $numChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentans=$ansHash->{student_formula};
+     Value->Error("You're on the right track, but your answer should be just a number.") if ( ($studentans ne $student)&&($student==$correct) );
+     return($studentans eq $ansHash->{correct_ans} ? 1 : 0);
+  };
+
+
+@prime = ( 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 );
+
+$Asig10 = random(11,49,2);
+$Asig = $Asig10/10;
+do { $Bsig = random(1,8,1); } until ( $Asig*$Bsig < 10 );
+$Aexp = random(3,6,1);
+$Bexp = random(3,6,1);
+$ABsig = $Asig*$Bsig;
+$ABexp = $Aexp+$Bexp;
+
+##############################################################
+#
+#  Text
+#
+#
+
+Scaffold::Begin(
+      can_open => "when_previous_correct",
+      is_open  => "first_incorrect"
+);
+
+Section::Begin( "Part 1: Multiplying in Scientific Notation" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Multiplying large numbers can be a real pain.
+$BR
+Imagine having to draw out the box necessary to multiply \( 50000 \times 3000 \)
+$PAR
+That'd be pretty annoying, not to mention, we'd end up multiplying lots and lots of zeros, which means we'd have lots of boxes with zero in them, which don't contribute anything then to our final answer.
+$PAR
+So, that's why multiplying in scientific notation is so much better for large numbers.
+$PAR
+Let's see how it works.
+$PAR
+Multiply \( ( 2.3 \times 10^5 ) \times ( 4 \times 10^3 ) \)
+$PAR
+If we break down the exponents into repeated multiplications of 10:
+$BR
+\[ ( 2.3 \times 10 \times 10 \times 10 \times 10 \times 10 ) \times ( 4 \times 10 \times 10 \times 10 ) \]
+$BR
+Now we only have multiplication, so we can use the associative property of multiplication to remove those parenthesis.
+$BR
+Even better, once the parenthesis are gone, we can use the commutative property of multiplication to rearrange the factors so that all the tens are at the end.
+$BR
+\[ 2.3 \times 4 \times 10 \times 10 \times 10 \times 10 \times 10 \times 10 \times 10 \times 10 \]
+$BR
+And then with all those tens in a row, we can abbreviate that using exponents.
+$BR
+What exponent of ten should we use to abbreviate the expression above? \{ ans_rule(5) \}
+$PAR
+So now our original problem looks like: \( 2.3 \times 4 \times 10^8 \).
+$PAR
+All that remains is to figure out what is \( 2.3 \times 4 \).
+$BR
+Calculate \( 2.3 \times 4 \). \{ ans_rule(5) \}
+$PAR
+Then use your result to write the product \( ( 2.3 \times 10^5 ) \times ( 4 \times 10^3 ) \) in scientific notation. \{ ans_rule(10) \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( Real(8)->cmp() );
+ANS( Real(9.2)->cmp(checker=>$numChecker) );
+ANS( Formula("9.2*10^8")->cmp(checker=>$formChecker) );
+
+Section::End();
+
+Section::Begin( "Part 2: Practice" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Now it's your turn. Multiply \( ( $Asig \times 10^$Aexp ) \times ( $Bsig \times 10^$Bexp ) \)
+$PAR
+If we shift all the tens to the end of the expression, like we did in the first example, what exponent of ten should we use? \{ ans_rule(5) \}
+$PAR
+What two numbers do we have left to multiply? LIST them. \{ ans_rule(10) \}
+$PAR
+Multiply those two numbers, what is the result? \{ ans_rule(10) \}
+$PAR
+Write out your result of \( ( $Asig \times 10^$Aexp ) \times ( $Bsig \times 10^$Bexp ) \) in scientific notation. \{ ans_rule(10) \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( Real($ABexp)->cmp(checker=>$numChecker) );
+ANS( List( $Asig, $Bsig )->cmp() );
+ANS( Real($ABsig)->cmp(checker=>$numChecker) );
+ANS( Formula("$ABsig*10^$ABexp")->cmp(checker=>$formChecker) );
+
+Section::End();
+
+Scaffold::End();
+
+ENDDOCUMENT();        

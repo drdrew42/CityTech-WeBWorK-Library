@@ -1,0 +1,91 @@
+##KEYWORDS('Differential equaltion')
+
+## DBsubject('Differential Equation')
+## DBchapter('Modeling of First-order of DE')
+## DBsection('Section 3.1 Linear Models')
+## Date('01/23/2012')
+## Author('Anna Ghazaryan, Fuli Zhang')
+## Institution('Miami University')
+## TitleText1('A First Course in Differential Equation')
+## EditionText1('9')
+## AuthorText1('Dennis G.Zill')
+## Section1('3.1')
+## Problem1('17')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",
+   "MathObjects.pl",
+   "AnswerFormatHelp.pl",
+   "unionLists.pl",
+   "parserPrime.pl",
+   "parserPopUp.pl",
+   "answerHints.pl",
+   "parserImplicitPlane.pl",
+
+ );
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric")->variables->add(y=>"Real",k=>"Real",M=>"Real",A=>"Real");
+
+##############################################################
+#
+#  Text
+#
+#
+$answer[0] = Formula("390");
+
+
+
+
+
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Solve the following problem: 
+$BR
+$BR
+Question:$BR A thermometer reading \(70^\circ\)F is placed into an oven preheated to a constant temperature.Through a glass window in the oven door, an observer records that the thermometer reads \(110^\circ\)F after \(1/2\) minute and \(145^\circ\)F after \(1\) minute. How hot is the oven?
+$BR
+$BR
+\(\displaystyle \ T=\) \{ans_rule(15)\}\(^\circ\)F
+
+ 
+\{ AnswerFormatHelp("formulas") \}
+
+
+
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+ANS( $answer[0]->cmp() );
+
+
+
+
+
+
+
+
+ENDDOCUMENT();    

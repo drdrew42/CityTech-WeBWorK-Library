@@ -1,0 +1,89 @@
+##DESCRIPTION
+##  Differential equations Separation of variables
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equation')
+
+## DBsubject('Differential Equations')
+## DBchapter('')
+## DBsection('')
+## Date('9/2/2015')
+## Author('Poirier')
+## Institution('NYCCT')
+## TitleText1('Elementary Differential Equations')
+## EditionText1('1.01')
+## AuthorText1('Trench')
+## Section1('2.2')
+## Problem1('')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->variables->{namePattern} = qr/[a-z][a-z0-9_]*'*/i;
+Context()->variables->are( y => "Real", t => "Real", c => "Real", "y'" => "Real", "x" => "Real" );
+$a = Real(non_zero_random(2,9,1));
+$a1= Formula("$a-1");
+$k = Real(non_zero_random(2,4,1));
+$b=Formula("2*$k +1");
+$b1=Formula("$b-1");
+$c = Real(non_zero_random(2,9,1));
+$d = Real(non_zero_random(2,9,1));
+
+
+$ans1 = Formula("((($d-$c)/($d*(1-$a))*x^(1-$a)+c)^($d/($d-$c))+1 )^(1/$b)");
+$ans2 = Formula("(((($d-$c)/($d*(1-$a)))*x^(1-$a)+(($d-$c)/$d)*c)^($d/($d-$c))+1)^(1/$b)");
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+Find all solutions to the differential equation.
+
+\[$b x^{$a} y^{$b1} y' = (y^{$b}-1)^{$c / $d} \]
+
+\(y=\)\{ans_rule(30)\}
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+#ANS(Formula("((($d-$c)/$d*(x^(1-$a)/(1-$a)+c)^($d/($d-$c))+1 )^(1/$b)")->cmp);
+
+ANS( 
+$ans1->cmp( checker => sub {
+    my ( $correct, $student, $self ) = @_;
+    return ($correct == $student || $ans2 == $student);
+})
+);
+
+
+ENDDOCUMENT();        

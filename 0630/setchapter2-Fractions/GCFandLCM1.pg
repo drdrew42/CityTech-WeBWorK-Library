@@ -1,0 +1,149 @@
+#DESCRIPTION
+##Type of
+#ENDDESCRIPTION
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"PGessaymacros.pl",
+"PGchoicemacros.pl",
+"MathObjects.pl",
+"contextLimitedNumeric.pl",
+);
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+Context("Numeric");
+
+sub gcd
+{
+my $a=shift;
+ my $b=shift;
+   if($a<0) {$a=-$a;}
+   if($b<0) {$b=-$b;}
+   if($b>$a)
+      {$c=$a; $a=$b; $b=$c;} #now $a>$b
+   $r[0]=$a; $r[1]=$b; my $n=0;
+  while($r[$n+1]>0)
+     {
+     $q[$n+1]=int ($r[$n]/$r[$n+1]);
+      $r[$n+2]=$r[$n]-$q[$n+1]*$r[$n+1];
+     $n++;
+     }
+$r[$n];
+}
+
+@primes=(2,3,5,7,11);
+
+$a1=$primes[random(0,4,1)];
+do { $b1=random(5,12,1); } until ( $b1%$a1 !=0 );
+$p1=Compute("$a1*$b1");
+$gcf1=gcd($a1,$b1);
+$gcf1=Compute("$gcf1");
+$lcm1=Compute("$p1/$gcf1"); 
+
+$prime2=$primes[random(0,2,1)];
+$a2=$prime2**2;
+do { $b2=$prime2*$primes[random(0,3,1)]; } until ( $b2 != $a2 );
+$p2=Compute("$a2*$b2");
+$gcf2=gcd($a2,$b2);
+$gcf2=Compute("$gcf2");
+$lcm2=Compute("$p2/$gcf2"); 
+
+$primea3=$primes[random(0,2,1)];
+$primeb3=$primes[random(1,4,1)];
+do { $bb3=random(3,10,1); } until ( $bb3%$primeb3 != 0 );
+$a3=Compute("2*$primea3*$primeb3");
+$b3=Compute("2*$primea3*$bb3");
+$p3=Compute("$a3*$b3");
+$gcf3=gcd($a3,$b3);
+$gcf3=Compute("$gcf3");
+$lcm3=Compute("$p3/$gcf3"); 
+
+BEGIN_TEXT
+
+This problem will help you discover the relationships between the greatest common factor and the least common multiple of different pairs of numbers.
+$PAR
+What is the product of $a1 and $b1? \{ans_rule(4)\}
+What is the greatest common factor of $a1 and $b1? \{ans_rule(4)\}
+What is the least common multiple of $a1 and $b1? \{ans_rule(4)\}
+$BR
+$PAR
+What is the product of $a2 and $b2? \{ans_rule(4)\}
+What is the greatest common factor of $a2 and $b2? \{ans_rule(4)\}
+What is the least common multiple of $a2 and $b2? \{ans_rule(4)\}
+$BR
+$PAR
+What is the product of $a3 and $b3? \{ans_rule(4)\}
+What is the greatest common factor of $a3 and $b3? \{ans_rule(4)\}
+What is the least common multiple of $a3 and $b3? \{ans_rule(4)\}
+$BR $PAR
+What pattern do you notice between the product of the two numbers, their GCF, and their LCM?
+$BR
+\{essay_box()\}
+END_TEXT
+
+ANS( $p1->cmp );
+ANS( $gcf1->cmp );
+ANS( $lcm1->cmp );
+ANS( $p2->cmp );
+ANS( $gcf2->cmp );
+ANS( $lcm2->cmp );
+ANS( $p3->cmp );
+ANS( $gcf3->cmp );
+ANS( $lcm3->cmp );
+ANS(essay_cmp() );
+
+
+$showHint = 3;
+BEGIN_TEXT
+$PAR
+If you don't get this in $showHint tries, you can get a hint.
+END_TEXT
+BEGIN_HINT
+$PAR
+Start by looking at the factor tree for each number given, because a factor tree gives us the $BITALIC factors $EITALIC we need for the GCF.
+$PAR
+Collect the factors that they have in common and multiply them together to make the GCF.
+$BR 
+$BITALIC If two numbers have NO factors in common, then their GCF is 1 (because 1 is a factor of every number!) $EITALIC
+$PAR
+$BBOLD GCF: $EBOLD
+$BR
+For example, consider 12 and 18. 12 has a factor tree that results in \(12 = 2 * 2 * 3\), and 18 has a factor tree that results in \(18 = 2 * 3 * 3\). You can see that each factoring has both a 2 and a 3 in it. This makes the GCF of 12 and 18 be \(2 * 3\), or 6.
+$PAR
+$BBOLD LCM: $EBOLD
+$BR
+For an easy way to find the LCM, start by listing the multiples of the first given number.
+$BR
+Example: 12, 24, 36, 48, 60, 72, 84, ...
+$BR
+Then do the same thing for the second number until you get a number that appears in first list.
+$BR
+Example: 18, 36 - and we can stop here because 36 shows up in our first list.
+$BR
+So 36 is the LCM of 12 and 18.
+END_HINT
+
+BEGIN_SOLUTION
+$PAR $BBOLD Solution: $EBOLD $PAR
+
+Using the hint offered above, you should have found that:
+$BR
+\(GCF($a1,$b1)=$gcf1\) and \(LCM($a1,$b1)=$lcm1\)
+$BR
+\(GCF($a2,$b2)=$gcf2\) and \(LCM($a2,$b2)=$lcm2\)
+$BR
+\(GCF($a3,$b3)=$gcf3\) and \(LCM($a3,$b3)=$lcm3\)
+$BR
+$PAR
+You should have also noticed that the product of the given numbers, when divided by the GCF always gives you the LCM. You can always use this knowledge as a shortcut to finding the LCM in the future.
+END_SOLUTION	
+
+
+COMMENT('MathObject version');
+ENDDOCUMENT();
+## DBsubject(Middle school)
+## DBchapter('GCF-LCM')
+## DBsection('')

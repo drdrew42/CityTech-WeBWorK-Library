@@ -1,0 +1,125 @@
+## DESCRIPTION
+##   Apply the Normal Distribution
+## ENDDESCRIPTION
+
+## KEYWORDS('Normal Distribution', 'Mean', 'Standard Deviation')
+## Tagged by nhamblet
+
+## DBsubject('Probability')
+## DBchapter('Distributions')
+## DBsection('Normal Distribution')
+## Date('')
+## Author('')
+## Institution('Rochester')
+## TitleText1('')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('')
+
+DOCUMENT();        # This should be the first executable line in the problem.
+
+loadMacros(
+"PG.pl",
+"PGbasicmacros.pl",
+"PGchoicemacros.pl",
+"PGanswermacros.pl",
+"PGnumericalmacros.pl",
+"PGstatisticsmacros.pl",
+"PGauxiliaryFunctions.pl"
+);
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+# Usage:  normal_prob_TABLE(a, b, mu, sigma)
+# Computes probabilities for normal distribution matching reference table 
+# with input z-values rounded to 2 digits and output probability to 4 digits 
+# Requires macros:"PGnumericalmacros.pl", "PGstatisticsmacros.pl", "PGauxiliaryFunctions.pl"
+
+sub normal_prob_TABLE {
+
+my $x1 = shift;
+my $x2 = shift;
+my $mu = shift;
+my $sigma = shift;
+
+my $z1;
+my $z2;
+
+# Compute bound z1, z2, rounded to 2 digits
+if ($x1 eq '-infty') {$z1 = -6; } else {
+	$z1 = round( ($x1 - $mu)/$sigma *100)/100; }
+		
+if ($x2 eq 'infty') {$z2 = 6;} else {
+	$z2 = round( ($x2 - $mu)/$sigma *100)/100; }
+
+my $ans = round(normal_prob($z1, $z2)*10000)/10000;
+
+return $ans;
+} 
+
+
+
+
+
+# Usage normal_distr_TABLE(p, mu, sigma)
+# Returns a value b such that the probability of x being in the interval (mu, b) for the normal distribution with mean mu and standard deviation sigma is equal to p
+# NOTE: should match student responses when computed using a standard normal TABLE with z-accuracy of 2 digits after the decimal, and p-accuracy of 4 digits.
+# Requires macros: PGnumericalmacros, PGstatisticsmacros
+sub normal_distr_TABLE {
+
+my $p = shift;
+my $mu = shift;
+my $sigma = shift;
+
+
+# First compute actual (non-rounded) z-value for $p
+my $zactual = normal_distr($p, mean=>0, deviation=>1);
+
+# Now compute two possible (rounded) z-values, above and below zactual, and use them to compute possible (rounded) p-values
+my $zhi = ceil($zactual*100)/100;
+my $phi = round(normal_prob(0, $zhi)*10000)/10000;
+my $zlow = floor($zactual*100)/100;
+my $plow = round(normal_prob(0, $zlow)*10000)/10000;
+
+# Now choose the correct value of $p -- the value closest to the actual p --  and select the corresponding z.  If the two values are equally distant from p, take the average of the corresponding z’s.
+my $ansz = 0;
+if (($phi - $p)<($p - $plow)) {$ansz = $zhi;} 
+if (($phi - $p)>($p - $plow)) {$ansz = $zlow;} 
+if (($phi - $p) eq ($p - $plow)) {$ansz = ($zhi+$zlow)/2;} 
+
+my $ansx = $ansz * $sigma + $mu;
+return $ansx;
+
+} 
+
+
+$t = random(98.3, 100.0, 0.1);
+$p = random(0.5, 2.5, 0.5);
+
+$ans1 = normal_prob_TABLE($t, 'infty', 98.20, 0.62);
+$ans2 = normal_distr_TABLE(.5-$p/100, 98.20, 0.62);
+
+BEGIN_TEXT
+
+Healty people have body temperatures that are normally distributed with a mean of 
+\( 98.20^{\circ}F\) and a standard deviation of \( 0.62^{\circ}F \) . $BR
+
+(a) \( \) If a healthy person is randomly selected, what is the probability that he or she has a 
+temperature above \($t^{\circ}F\)? $BR
+
+answer: \{ans_rule(10)\} $BR
+
+(b) \( \) A hospital wants to select a minimum temperature for requiring further medical tests. 
+What should that temperature be, if we want only  $p $PERCENT  of healty people to exceed it? $BR
+
+answer: \{ans_rule(10)\} 
+
+END_TEXT
+
+ANS(num_cmp($ans1,tol=>0.05));
+ANS(num_cmp($ans2,tol=>0.5));
+
+ENDDOCUMENT();       # This should be the last executable line in the problem.
+

@@ -1,0 +1,104 @@
+##DESCRIPTION
+##  Find an general solution. Separable method.
+##ENDDESCRIPTION
+
+##KEYWORDS('separable')
+
+## DBsubject('Differential Equations')
+## DBchapter('Introduction')
+## DBsection('Autonomous Differential Equations')
+## Date('6/3/2013')
+## Author('Andrew Parker')
+## Institution('NYC College of Technology')
+## TitleText1('Elementary Differential Equations and Boundary Value Problems')
+## EditionText1('10')
+## AuthorText1('Boyce, DiPrima')
+## Section1('1.1')
+## Problem1('22')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   #"parserPrime.pl",
+   #"parserAssignment.pl",
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->variables->remove(x);
+Context()->variables->add( y => "Real", t => "Real", c => "Real" );
+
+$a = Real(random(1,6,1));
+$b = Real(non_zero_random(-5,5,1));
+$hom = Formula("$a * y + -1 * $a * $b")->reduce;
+$sol = Formula("$b + c * e ^ ($a * t)");
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+Find the general solution for \(\frac{dy}{dt}=$hom\) with parameter \(c\).
+$BR
+\(y(t)=\)\{$sol->ans_rule\}
+END_TEXT
+
+$showHint = 5;
+BEGIN_TEXT
+$PAR
+If you don't get this in $showHint tries, you can get a hint.
+END_TEXT
+BEGIN_HINT
+Rewrite \(\frac{dy}{dt}=$hom\) as  \(\frac{dy}{dt}=$a ( y - $b )\), and divide both sides by \( y - $b \).
+$BR
+Integrate both sides: \( \int \frac{1}{y - $b} \frac{dy}{dt} dt = \int $a dt \)
+$BR
+Then, finally, solve for \(y\).
+END_HINT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS( $sol->cmp( checker => sub {
+    my ( $correct, $student, $self ) = @_;
+
+    my $Dstudent = $student->D('t');
+    my $studentC = Formula("($student-$b)*e^(-1*$a*t)");
+    my $DstudentC = $studentC->D('c');
+    my $rhs = $hom->substitute(y=>"$student");
+
+    if ($DstudentC == Formula("0")) {
+       Value->Error("Your answer is not the most general solution. Where's 'c'?");
+    };
+
+    return ($Dstudent == $rhs && $DstudentC != Formula("0"));
+}));
+
+
+ENDDOCUMENT();        

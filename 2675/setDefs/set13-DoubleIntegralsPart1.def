@@ -1,0 +1,124 @@
+assignmentType      = default
+openDate          = 04/14/2016 at 08:33pm EDT
+reducedScoringDate = 12/31/1969 at 07:00pm EST
+dueDate           = 04/24/2016 at 11:59pm EDT
+answerDate        = 04/25/2016 at 11:59pm EDT
+enableReducedScoring = N
+paperHeaderFile   = setDemo/paperHeaderFile1.pg
+screenHeaderFile  = setDemo/screenHeaderFile1.pg
+description       = 
+restrictProbProgression = 0
+emailInstructor   = 0
+
+problemListV2 
+problem_start
+problem_id = 1
+source_file = Library/272/setStewart15_1/problem_4.pg
+value = 5
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 2
+source_file = Library/272/setStewart15_1/problem_7.pg
+value = 5
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 3
+source_file = Library/272/setStewart15_1/problem_11.pg
+value = 5
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 4
+source_file = Library/WHFreeman/Rogawski_Calculus_Early_Transcendentals_Second_Edition/15_Multiple_Integration/15.1_Integration_in_Two_Variables/15.1.29.pg
+value = 5
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 5
+source_file = Library/WHFreeman/Rogawski_Calculus_Early_Transcendentals_Second_Edition/15_Multiple_Integration/15.1_Integration_in_Two_Variables/15.1.40.pg
+value = 5
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 6
+source_file = Library/WHFreeman/Rogawski_Calculus_Early_Transcendentals_Second_Edition/15_Multiple_Integration/15.1_Integration_in_Two_Variables/15.1.42.pg
+value = 5
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 7
+source_file = Library/272/setStewart15_2/problem_5.pg
+value = 5
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 8
+source_file = Library/272/setStewart15_2/problem_12.pg
+value = 5
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 9
+source_file = Library/272/setStewart15_3/problem_1a.pg
+value = 5
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 10
+source_file = Library/272/setStewart15_3/problem_2.pg
+value = 5
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 11
+source_file = Library/WHFreeman/Rogawski_Calculus_Early_Transcendentals_Second_Edition/15_Multiple_Integration/15.2_Double_Integrals_over_More_General_Regions/15.2.39.pg
+value = 5
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+

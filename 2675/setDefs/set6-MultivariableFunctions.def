@@ -1,0 +1,84 @@
+assignmentType      = default
+openDate          = 02/28/2016 at 06:28am EST
+reducedScoringDate = 12/31/1969 at 07:00pm EST
+dueDate           = 03/18/2016 at 11:59pm EDT
+answerDate        = 03/19/2016 at 11:59pm EDT
+enableReducedScoring = N
+paperHeaderFile   = setDemo/paperHeaderFile1.pg
+screenHeaderFile  = setDemo/screenHeaderFile1.pg
+description       = 
+restrictProbProgression = 0
+emailInstructor   = 0
+
+problemListV2 
+problem_start
+problem_id = 1
+source_file = Library/Rochester/setVmultivariable2Limits/UR_VC_5_3.pg
+value = 2
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 2
+source_file = Library/Rochester/setVmultivariable2Limits/UR_VC_5_4.pg
+value = 2
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 3
+source_file = Library/272/setStewart14_1/example5/example5.pg
+value = 2
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 4
+source_file = Library/272/setStewart14_1/problem_1.pg
+value = 2
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 5
+source_file = Library/Michigan/Chap13Sec4/Q16.pg
+value = 5
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 6
+source_file = Library/272/setStewart14_1/problem_2.pg
+value = 3
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 7
+source_file = Library/WHFreeman/Rogawski_Calculus_Early_Transcendentals_Second_Edition/14_Differentiation_in_Several_Variables/14.1_Functions_of_Two_or_More_Variables/14.1.7.pg
+value = 3
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+

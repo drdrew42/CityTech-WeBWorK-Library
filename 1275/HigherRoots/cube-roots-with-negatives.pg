@@ -1,0 +1,60 @@
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "PGchoicemacros.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->strings->are(undefined => {}, imaginary => {alias => "undefined"});
+$A = random(2,6,1);
+$A3 = $A**3;
+$nA3 = -$A3;
+
+@problem = ("\(\sqrt[3]{$A3}\)","\(-\sqrt[3]{$A3}\)","\(\sqrt[3]{$nA3}\)");
+@answer = (Real($A),Real(-$A),Real(-$A));
+@perm = NchooseK(3,3);
+@inv = invert(@perm);
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+$PAR
+Evaluate the roots without using a calculator. Write "undefined" or "imaginary" for any that are not real numbers.
+$PAR
+a) $problem[$perm[0]] = \{ans_rule(10)\}
+$PAR
+b) $problem[$perm[1]] = \{ans_rule(10)\}
+$PAR
+c) $problem[$perm[2]] = \{ans_rule(10)\}
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($answer[$perm[0]]->cmp);
+ANS($answer[$perm[1]]->cmp);
+ANS($answer[$perm[2]]->cmp);
+
+ENDDOCUMENT();        

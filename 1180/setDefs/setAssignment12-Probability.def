@@ -1,0 +1,15 @@
+
+openDate          = 06/18/2012 at 07:00am EDT
+dueDate           = 06/25/2012 at 11:59pm EDT
+answerDate        = 06/26/2012 at 12:01am EDT
+paperHeaderFile   = local/opt/webwork/webwork2/conf/snippets/ReitzHeaderBASIC.pg
+screenHeaderFile  = local/opt/webwork/webwork2/conf/snippets/ReitzHeaderBASIC.pg
+problemList       = 
+Library/UMN/algebraKaufmannSchwitters/ks_15_1_2.pg, 5, -1 
+Library/UMN/algebraKaufmannSchwitters/ks_15_1_33.pg, 5, -1 
+Library/UMN/algebraKaufmannSchwitters/ks_15_1_37.pg, 5, -1 
+Library/ma112DB/set13/sw10_3_5.pg, 6, -1 
+Library/Rochester/setProbability5RandomSample/ur_pb_5_2.pg, 5, -1 
+Library/Rochester/setAlgebra39Probability/sw10_3_7.pg, 6, -1 
+Library/maCalcDB/setAlgebra39Probability/prob1.pg, 6, -1 
+

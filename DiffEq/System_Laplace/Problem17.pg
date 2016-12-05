@@ -1,0 +1,89 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('introduction of systems')
+## DBsection("The method of Elimination")
+## Date('06/11/2012')
+## Author('Anna Ghazaryan,Fuli Zhang')
+## Institution('Muohio')
+## TitleText1('Differential equations with Boundary-value problem')
+## AuthorText1('David E. Penney')
+## Section1('5.2')
+## Edition('7')
+## Problem1('9')
+
+###############################################################
+
+
+DOCUMENT(); 
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"parserAssignment.pl",
+"unionLists.pl",
+);
+
+TEXT(beginproblem());
+
+
+#############################
+#  Setup
+
+Context("Numeric");
+Context()->variables->are(
+t=>"Real"
+);
+
+$a=1/18;
+$b=14/9;
+$x = Formula("e^(-2t)(3cos(3t)+9sin(3t))");
+$y = Formula("e^(-2t)(2cos(3t)-4sin(3t))");
+
+
+
+######################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+Use either Laplace Transform or method of elimination to solve the systems
+$PAR
+\[
+\begin{array}{lcl}
+x' & = & 2x-3y+2sin(2t)\\
+y' & = & x-2y-cos(2t) 
+\end{array}
+\]
+$BR
+$BR
+if \( x(0) = 3 \) and \(y(0) = 2\).
+$BR
+$BR
+\( x(t) = \) 
+\{ ans_rule(40) \}
+\{ AnswerFormatHelp("formulas") \}
+$BR
+\( y(t) = \) 
+\{ ans_rule(40) \}
+\{ AnswerFormatHelp("formulas") \}
+END_TEXT
+Context()->normalStrings;
+
+
+######################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 1;
+
+ANS( $x->cmp() );
+ANS( $y->cmp() );
+
+
+COMMENT("MathObject version.");
+
+ENDDOCUMENT();

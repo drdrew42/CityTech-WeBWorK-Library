@@ -1,0 +1,64 @@
+assignmentType      = default
+openDate          = 04/08/2016 at 07:32am EDT
+reducedScoringDate = 12/31/1969 at 07:00pm EST
+dueDate           = 04/27/2016 at 11:59pm EDT
+answerDate        = 04/28/2016 at 11:59pm EDT
+enableReducedScoring = N
+paperHeaderFile   = setDemo/paperHeaderFile1.pg
+screenHeaderFile  = setDemo/screenHeaderFile1.pg
+description       = 
+restrictProbProgression = 0
+emailInstructor   = 0
+
+problemListV2 
+problem_start
+problem_id = 1
+source_file = Library/FortLewis/Calc2/8-3-Polar/HGM5-08-03-17.pg
+value = 5
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 2
+source_file = Library/FortLewis/Calc2/8-3-Polar/HGM5-08-03-17.pg
+value = 5
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 3
+source_file = Library/Rochester/setPolarCoord1Points/evaSet4_3new.pg
+value = 5
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 4
+source_file = Library/Rochester/setPolarCoord1Points/ur_pc_1_2.pg
+value = 5
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 5
+source_file = Library/Rochester/setPolarCoord2Curves/ur_pc_2_2.pg
+value = 5
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+

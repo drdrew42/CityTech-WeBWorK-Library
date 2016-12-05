@@ -1,0 +1,126 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject('Algebra')
+## DBchapter('Fundamentals')
+## DBsection('Real Numbers')
+## Date('6/3/2002')
+## Author('')
+## Institution('')
+## TitleText1('Precalculus')
+## EditionText1('3')
+## AuthorText1('Stewart, Redlin, Watson')
+## Section1('1.1')
+## Problem1('22')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "parserImplicitPlane.pl",
+   "source.pl",        # allows code to be displayed on certain sites.
+   "PGcourse.pl",      # Customization file for the course
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+
+##########
+# Part 1 #
+##########
+
+Context("ImplicitPlane");
+Context()->variables->{namePattern} = qr/[a-z][a-z0-9_]*'*/i;
+Context()->variables->are( v => "Real", "v'" => "Real" );
+Context()->variables->set("v'"=>{limits=>[5,15]},v=>{limits=>[-10,10]});
+
+
+$de = ImplicitPlane("20*v'=196-4*v");
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+A 20 kg object in free fall has a drag coefficient of 4 kg/sec. Set up a differential equation describing the behavior of its velocity over time.
+$BR
+$BR
+Use \(v'\) instead of \(\frac{dv}{dt}\): \{$de->ans_rule\}
+END_TEXT
+Context()->normalStrings;
+
+ANS($de->cmp);
+
+#################
+# Part 2, 3 & 4 #
+#################
+
+Context("Numeric");
+Context()->variables->are(t=>"Real", c=>"Real", v=>"Real");
+
+$terminalvelocity = Real("49");
+$sol = Formula("49+c*e^(-t/5)");
+$getC = Formula("(v-49)*e^(t/5)");
+$part = Formula("49-40*e^(-t/5)");
+
+Context()->texStrings;
+BEGIN_TEXT
+$BR
+$BR
+Find the object's terminal velocity: \(v=\)\{$terminalvelocity->ans_rule\} 
+$BR
+$BR
+What is the general solution for the differential equation? \(v(t)=\)\{$sol->ans_rule\}
+$BR
+$BR
+If the initial velocity of the object is \(v(0)=9 m/sec\), find the particular solution describing the object's velocity: \(v(t)=\)\{$part->ans_rule\}
+END_TEXT
+
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($terminalvelocity->cmp);
+#ANS($sol->cmp);
+ANS( $sol->cmp( checker => sub {
+    my ( $correct, $student, $self ) = @_;
+
+    my $Dstudent = $student->D('t');
+    my $studentC = $getC->substitute(v=>"$student");
+    my $DstudentC = $studentC->D('c');
+    my $rhs = 20*$Dstudent;
+    my $lhs = 196-4*$student;
+
+    if ($DstudentC == Formula("0")) {
+       Value->Error("Your answer is not the most general solution. Where's 'c'?");
+    };
+
+    return ($lhs == $rhs && $DstudentC != Formula("0"));
+}));
+ANS($part->cmp);
+
+ENDDOCUMENT();        

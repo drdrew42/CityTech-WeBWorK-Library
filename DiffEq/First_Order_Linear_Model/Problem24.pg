@@ -1,0 +1,92 @@
+##KEYWORDS('Differential equaltion')
+
+## DBsubject('Differential Equation')
+## DBchapter('Modeling of First-order of DE')
+## DBsection('Section 3.1 Linear Models')
+## Date('01/23/2012')
+## Author('Anna Ghazaryan, Fuli Zhang')
+## Institution('Miami University')
+## TitleText1('A First Course in Differential Equation')
+## EditionText1('9')
+## AuthorText1('Dennis G.Zill')
+## Section1('3.1')
+## Problem1('13')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",
+   "MathObjects.pl",
+   "AnswerFormatHelp.pl",
+   "unionLists.pl",
+   "parserPrime.pl",
+   "parserPopUp.pl",
+   "answerHints.pl",
+   "parserImplicitPlane.pl",
+
+ );
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric")->variables->add(y=>"Real",k=>"Real",M=>"Real",A=>"Real");
+
+##############################################################
+#
+#  Text
+#
+#
+$answer[0] = Formula("36.67");
+$answer[1] = Formula("3.06");
+
+
+
+
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Solve the following problem: 
+$BR
+$BR
+Question:$BR A thermometer is removed from a room where the temperature is \(70^\circ\)F and is taken outside where the air temperature is \(10^\circ\)F.After one-half minute the thermometer reads \(50^\circ\)F.What is the reading of the thermometer at \(t=1\) minute? How long will it take the thermometer to reach \(15^\circ\)F? (Please retain two decimal places)
+$BR
+$BR
+\(\displaystyle \ T(1)=\) \{ans_rule(15)\}\( ^\circ\)F
+$BR
+$BR
+\(\displaystyle \ t=\) \{ans_rule(15)\} minutes
+ 
+\{ AnswerFormatHelp("formulas") \}
+
+
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+ANS( $answer[0]->cmp() );
+ANS( $answer[1]->cmp() );
+
+
+
+
+
+
+
+ENDDOCUMENT();     

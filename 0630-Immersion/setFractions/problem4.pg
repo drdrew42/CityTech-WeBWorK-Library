@@ -1,0 +1,234 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject(‘Arithmetic’)
+## DBchapter(‘Fractions/rational numbers’)
+## DBsection(‘Reducing fractions’)
+## Date('7/3/2015')
+## Author('K. Andrew Parker')
+## Institution('NYC City Tech')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextFraction.pl",
+   "parserPopUp.pl",
+   "scaffold.pl",
+   "niceTables.pl",
+   "PGessaymacros.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer=>"parsed"
+   );
+
+Context()->operators->set('*'=>{TeX=>"\times "});
+Context()->operators->set(' *'=>{TeX=>"\times "});
+Context()->operators->set('* '=>{TeX=>"\times "});
+Context()->update;
+
+  $formChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentstring = $ansHash->{preview_text_string};
+     return ($studentstring eq $ansHash->{correct_ans} ? 1 : 0);
+   };
+
+  $numChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentans=$ansHash->{original_student_ans};
+     Value->Error("You're on the right track, but your answer should be just a number.") if ( ($studentans ne $student)&&($student==$correct) );
+     return($studentans eq $ansHash->{correct_ans} ? 1 : 0);
+  };
+
+
+@prime = ( 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 );
+
+$num1a = random(1,9,2);
+$den1a = random(2,10,2);
+$num1b = random(2,10,2);
+$den1b = random(1,9,2);
+$gcf1 = gcf($num1a*$num1b,$den1a*$den1b);
+$num1 = $num1a*$num1b/$gcf1;
+$den1 = $den1a*$den1b/$gcf1;
+
+do {
+ $p2aa = $prime[random(0,3)]; 
+ $p2AA = $prime[random(0,3)];
+ $num2a = $p2aa*$p2AA;
+ $num2aList = List( $p2aa, $p2AA );
+ $num2aTeX = "$p2aa \times $p2AA";
+ $p2ab = $prime[random(0,3)];
+ $p2AB = $prime[random(0,3)];
+ $den2a = $p2ab*$p2AB;
+ $den2aList = List( $p2ab, $p2AB );
+ $den2aTeX = "$p2ab \times $p2AB";
+ $p2bb = $prime[random(0,3)];
+ $p2BB = $prime[random(0,3)];
+ $num2b = $p2bb*$p2BB;
+ $num2bList = List( $p2bb, $p2BB );
+ $num2bTeX = "$p2bb \times $p2BB";
+ $p2ba = $prime[random(0,3)];
+ $p2BA = $prime[random(0,3)];
+ $den2b = $p2ba*$p2BA;
+ $den2bList = List( $p2ba, $p2BA );
+ $den2bTeX = "$p2ba \times $p2BA";
+ $num2 = $num2a*$num2b;
+ $den2 = $den2a*$den2b;
+ $gcf2 = gcf($num2,$den2);
+ $gcf2List = List( "" );
+ $gcfRem = $gcf2;
+ foreach my $i (0..3) {
+  while ( $gcfRem % $prime[$i] == 0 ) {
+   $gcf2List = $gcf2List . List( Real( $prime[$i] ) );
+   $gcfRem = $gcfRem / $prime[$i];
+  }
+ }
+} until ( $gcf2List->length >= 2 && $gcf2List->length != 4 );
+$num2red = $num2/$gcf2;
+$den2red = $den2/$gcf2;
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+
+Scaffold::Begin(
+      can_open => "when_previous_correct",
+      is_open  => "first_incorrect"
+);
+
+Section::Begin( "Part 1: Multiplying Fractions" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Multiplying fractions is incredibly straightforward.
+$PAR
+All it takes to multiply two fractions is three steps:
+$PAR
+1.) Multiply the numerators.
+$BR
+2.) Multiply the denominators.
+$BR
+3.) Reduce the resulting fraction, if you can.
+$PAR
+That's all there is to it!
+$PAR
+Try it now:
+$BR
+Multiply \( \dfrac{$num1a}{$den1a} \times \dfrac{$num1b}{$den1b} \).
+$BR
+1.) What is the product of the numerators? \{ ans_rule(5) \}
+$BR
+2.) What is the product of the denominators? \{ ans_rule(5) \}
+$BR
+3a.) To find the reduced-fraction form, first find the GCF of these two products.
+\{ ans_rule(5) \}
+$BR
+3b.) Divide both products by the GCF that you found, and your result should a reduced fraction! \{ ans_rule(10) \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS(Real("$num1a*$num1b")->cmp(checker=>$numChecker) );
+ANS(Real("$den1a*$den1b")->cmp(checker=>$numChecker) );
+ANS(Real($gcf1)->cmp(checker=>$numChecker) );
+ANS(Formula("$num1/$den1")->cmp(checker=>$formChecker) );
+Section::End();
+
+Section::Begin( "Part 2: Using the prime factorization method" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+The first method was easy, right?
+$PAR
+But we can make it a bit more efficient, even. Because we ultimately have to find the GCF of the numerator and denominator, we're going to have to look at the prime factorizations eventually.
+$PAR
+So, instead of finding the products of the numerators and denominators, we're instead going to look at their prime factorizations right away. 
+$BR
+(This will especially help when we need to multiply fractions with large numerators and denominators, because multiplying large numbers takes time, and then we're going to turn right around and factor them ANYWAY!)
+$PAR
+We'll start by just doing the factorization step:
+$BR
+Multiply \( \dfrac{$num2a}{$den2a} \times \dfrac{$num2b}{$den2b} \)
+$PAR
+1a.) List the prime factors for the first numerator. \{ ans_rule(5) \}
+$BR
+1b.) List the prime factors for the first denominator. \{ ans_rule(5) \}
+$BR
+1c.) List the prime factors for the second numerator. \{ ans_rule(5) \}
+$BR
+1d.) List the prime factors for the second denominator. \{ ans_rule(5) \}
+$BR
+
+END_TEXT
+Context()->normalStrings;
+
+ANS($num2aList->cmp(showLengthHints=>1, ordered=>0) );
+ANS($den2aList->cmp(showLengthHints=>1, ordered=>0) );
+ANS($num2bList->cmp(showLengthHints=>1, ordered=>0) );
+ANS($den2bList->cmp(showLengthHints=>1, ordered=>0) );
+
+Section::End();
+
+Section::Begin( "Part 3: Continuing the prime factorization method" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+If we now take our original product, \( \dfrac{$num2a}{$den2a} \times \dfrac{$num2b}{$den2b} \), and replace each numerator and denominator with their prime factorization, we should end up with:
+\[ \dfrac{$num2aTeX}{$den2aTeX} \times \dfrac{$num2bTeX}{$den2bTeX} \]
+$BR
+And now we're ready for the first two steps of our usual multiplying fractions process. Multiply the two numerators, and multiply the two denominators. Only this time, we're not going to even bother finding the actual value of either product:
+\[ \dfrac{$num2aTeX \times $num2bTeX}{$den2aTeX \times $den2bTeX} \]
+$PAR
+Do you see any common prime factors in both the numerator and denominator?
+$BR
+List the common prime factors. Remember, don't list any number more than once unless it appears multiple times in BOTH the numerator AND denominator! \{ ans_rule(10) \}
+$PAR
+After we remove (divide out) the common factors from the numerator, multiply the remaining factors. \{ ans_rule(5) \}
+$PAR
+After we remove (divide out) the common factors from the denominator, multiply the remaining factors. \{ ans_rule(5) \}
+$PAR
+So, then, what's the reduced-fraction form for the product \( \dfrac{$num2a}{$den2a} \times \dfrac{$num2b}{$den2b} \)? \{ ans_rule(10) \}
+END_TEXT
+Context()->normalStrings;
+
+ANS($gcf2List->cmp(showLengthHints=>1, ordered=>0) );
+ANS(Real($num2red)->cmp(checker=>$numChecker) );
+ANS(Real($den2red)->cmp(checker=>$numChecker) );
+ANS(Formula("$num2red/$den2red")->cmp(checker=>$formChecker) );
+
+Section::End();
+
+Scaffold::End();
+
+ENDDOCUMENT();        

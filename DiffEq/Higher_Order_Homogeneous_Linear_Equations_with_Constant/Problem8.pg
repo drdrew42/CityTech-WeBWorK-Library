@@ -1,0 +1,118 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('Higher-Order Differential Equations')
+## DBsection('Homogeneous Linear Equations with Constant Coefficients')
+## Date('05/28/2012')
+## Author('Anna Ghazaryan, Fuli Zhang')
+## Institution('Muohio')
+## TitleText1('Differential equations with Boundary-value problem')
+## AuthorText1('Dennis G. Zill')
+## Section1('4.3')
+## Edition('7')
+## Problem1('14')
+
+########################################################################
+
+DOCUMENT(); 
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"parserAssignment.pl",
+);
+
+TEXT(beginproblem());
+
+
+#############################
+#  Setup
+
+Context("Numeric");
+Context()->variables->add(
+A=>"Real",B=>"Real",y=>"Real",
+);
+parser::Assignment->Allow;
+
+$a = random(1/2,1/3,1/4,1/5);
+$b = random(1,2,3,4,5);
+
+# char poly (r-$a)(r-$b)
+$c1 = $a + $a;
+$c2 = $a * $a + $b * $b;
+
+$diffeq = " y'' - $c1 y' + $c2 y= 0"; # tex
+
+$answer = Compute("y = e^($a x)(A cos($b x)+B sin($b x))");
+
+
+######################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+Find the general solution to \( $diffeq \).
+In your answer, use \( A \) and \( B \) to 
+denote arbitrary constants and \( x \) 
+the independent variable.
+$BR
+$BR
+\{ ans_rule(40) \}
+\{ AnswerFormatHelp("equations") \}
+END_TEXT
+Context()->normalStrings;
+
+
+######################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 1;
+
+ANS( $answer->cmp( checker => sub {
+    my ( $correct, $student, $self ) = @_;
+    my $stu   = Formula($student->{tree}{rop});
+
+    ################################
+    #  Check for arbitrary constants
+    #
+    Value->Error("Is your answer the most general solution?") 
+    if ( 
+      Formula($stu->D('A'))==Formula(0) || 
+      Formula($stu->D('B'))==Formula(0) 
+    );
+
+    ############################################
+    #  Check for linear independence (Wronskian)
+    #
+    my $x = Real(1.24);
+
+    my $a11 = $stu->eval(A=>1,B=>0,x=>$x,y=>0);
+    my $a12 = $stu->eval(A=>0,B=>1,x=>$x,y=>0);
+ 
+    my $a21 = $stu->D('x')->eval(A=>1,B=>0,x=>$x,y=>0);
+    my $a22 = $stu->D('x')->eval(A=>0,B=>1,x=>$x,y=>0);
+
+    my $wronskian = $a11*$a22 - $a21*$a12;
+
+    Value->Error("Your functions are not linearly independent or your answer is not complete") 
+    if ($wronskian==Real(0));
+
+    ########################################################
+    #  Check that the student answer is a solution to the DE
+    #
+    my $stux  = Formula($stu->D('x'));
+    my $stuxx = Formula($stu->D('x','x'));
+    my $stuDE = Formula($stuxx - $c1*$stux + $c2*$stu)
+    ->with(test_points=>[[1,1,0.1,0],[2,1,0,0],[1,2,-0.1,0],[1,1,0,1]]);
+
+    return ($stuDE==Formula(0));
+
+}));
+
+COMMENT("MathObject version.");
+
+ENDDOCUMENT();

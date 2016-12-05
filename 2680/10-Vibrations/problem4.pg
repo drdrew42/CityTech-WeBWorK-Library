@@ -1,0 +1,135 @@
+## DESCRIPTION
+## Higher order ODEs: constant coefficient higher order homogeneous linear ODEs
+## ENDDESCRIPTION
+
+## KEYWORDS('differential equations','second order linear ODE','constant coefficients')
+
+## DBsubject('Differential Equations')
+## DBchapter('Higher Order Differential Equations')
+## DBsection('Higher Order Linear')
+## Date('01/30/2011')
+## Author('Paul Pearson')
+## Institution('Fort Lewis College')
+## TitleText1('')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('')
+
+
+##############################
+#  Initialization
+
+DOCUMENT(); 
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"parserImplicitPlane.pl",
+"parserPopUp.pl",
+);
+
+TEXT(beginproblem());
+
+#############################
+#  Setup
+
+Context("ImplicitPlane");
+Context()->variables->{namePattern} = qr/[a-z][a-z0-9_]*'*/i;
+Context()->variables->are( u => "Real", "u'" => "Real", "u''" => "Real", t => "Real" );
+Context()->variables->set("u''"=>{limits=>[-10,10]},"u'"=>{limits=>[5,15]},u=>{limits=>[-10,10]});
+
+# Context("Numeric")->variables->are(t=>"Real");
+Context()->reduction->set(
+'(-x)-y'=>0, # turn off the reduction rule (-x)-y = -(x+y)
+'(-x)+y'=>0, # turn off the reduction rule (-x)+y = y-x 
+);  
+
+Context()->flags->set(
+#  reduceConstants=>0,
+  reduceConstantFunctions=>0,
+  tolerance => 0.0001,
+  tolType => "absolute",
+);
+
+Context()->strings->add( underdamped => {}, overdamped => {}, "critically damped" => {} ); 
+
+$m = random(2,12,1);
+$k = 2**random(0,5,1)*12;
+$gamma = random(1,12,1);
+
+$weight = 32*$m;
+$length = $weight*12/$k;
+$force = $gamma*2;
+
+$crit = Real(sqrt(4*$m*$k));
+
+if ($gamma**2 - 4*$k*$m == 0) {
+  $damped = String("critically damped");
+} else {
+  if ($gamma**2 - 4*$k*$m > 0) {
+    $damped = String("overdamped");
+  } else {
+    $damped = String("underdamped");
+  }
+}
+
+$de = ImplicitPlane("$m*u'' + $gamma*u' + $k*u = 0");
+$popup = PopUp( ["?", "underdamped", "critically damped", "overdamped"], $damped );
+
+########################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+A $weight pound object is suspended from a spring. The spring stretches an extra $length inches with the weight attached. The spring-and-mass system is then submerged in a viscous fluid that exerts $force pounds of force when the mass has velocity 2 ft/sec.
+$BR
+$BR
+What is the differential equation for this spring-and-mass system? (Use \(u\) as the dependent variable.)
+$BR
+\{ans_rule(30)\}
+$BR
+$BR
+This system is \{ $popup -> menu() \}
+$BR
+$BR
+For what value of \(\gamma\) would the system be critically damped?
+$BR
+\{ans_rule(30)\} (if the given system is already critically damped, enter the given value for \(\gamma\).)
+END_TEXT
+Context()->normalStrings;
+
+$showHint = 3;
+BEGIN_HINT
+Mass is calculated to be \(\frac{weight}{gravity}\). Remember that gravity is 32 \(ft\)/\(sec^2\)
+$BR
+The spring constant, \(k\), is \(\frac{weight}{displacement}\) where displacement is measured in FEET (not inches).
+$BR
+The damping coefficient, \(\gamma\), is \(\frac{force}{velocity}\), since damping force is proportional to velocity.
+$BR
+Therefore, you ought to have found the differential equation to be
+$BR
+\[ mass * u'' + \gamma * u' + k * u = 0\]
+$BR
+Remember, then, that the damping of the system depends on the type of solutions for the characteristic polynomial of our differential equation. 
+$BR
+Two distinct real roots => "overdamped", 
+$BR
+two complex roots => "underdamped", 
+$BR
+and 1 repeated real root => "critically damped".
+END_HINT
+
+##########################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 1;
+
+ANS( $de->cmp() );
+ANS( $popup->cmp() );
+ANS( $crit->cmp() );
+
+COMMENT("MathObject version.");
+
+ENDDOCUMENT();

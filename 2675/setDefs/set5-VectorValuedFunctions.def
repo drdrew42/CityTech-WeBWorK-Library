@@ -1,0 +1,104 @@
+assignmentType      = default
+openDate          = 02/22/2016 at 08:07pm EST
+reducedScoringDate = 12/31/1969 at 07:00pm EST
+dueDate           = 02/29/2016 at 08:07pm EST
+answerDate        = 02/29/2016 at 08:07pm EST
+enableReducedScoring = N
+paperHeaderFile   = setDemo/paperHeaderFile1.pg
+screenHeaderFile  = setDemo/screenHeaderFile1.pg
+description       = 
+restrictProbProgression = 0
+emailInstructor   = 0
+
+problemListV2 
+problem_start
+problem_id = 1
+source_file = Library/272/setStewart13_1/problem_2.pg
+value = 5
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 2
+source_file = Library/Rochester/setVecFunction1Curves/urvc_3_8.pg
+value = 5
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 3
+source_file = Library/Rochester/setVecFunction1Curves/urvc_3_10.pg
+value = 5
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 4
+source_file = Library/Rochester/setVecFunction1Curves/urvc_3_11.pg
+value = 5
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 5
+source_file = Library/Rochester/setVecFunction1Curves/urvc_3_12.pg
+value = 5
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 6
+source_file = Library/WHFreeman/Rogawski_Calculus_Early_Transcendentals_Second_Edition/13_Calculus_of_Vector-Valued_Functions/13.3_Arc_Length_and_Speed/13.3.1.pg
+value = 5
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 7
+source_file = Library/WHFreeman/Rogawski_Calculus_Early_Transcendentals_Second_Edition/13_Calculus_of_Vector-Valued_Functions/13.3_Arc_Length_and_Speed/13.3.10.pg
+value = 5
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 8
+source_file = Library/WHFreeman/Rogawski_Calculus_Early_Transcendentals_Second_Edition/13_Calculus_of_Vector-Valued_Functions/13.2_Calculus_of_Vector-Valued_Functions/13.2.25.pg
+value = 5
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 9
+source_file = Library/WHFreeman/Rogawski_Calculus_Early_Transcendentals_Second_Edition/13_Calculus_of_Vector-Valued_Functions/13.2_Calculus_of_Vector-Valued_Functions/13.2.17.pg
+value = 5
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+

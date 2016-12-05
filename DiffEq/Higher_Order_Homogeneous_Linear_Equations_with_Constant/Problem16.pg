@@ -1,0 +1,75 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('Higher-Order Differential Equations')
+## DBsection('Homogeneous Linear Equations with Constant Coefficients')
+## Date('05/28/2012')
+## Author('Anna Ghazaryan, Fuli Zhang')
+## Institution('Muohio')
+## TitleText1('Differential equations with Boundary-value problem')
+## AuthorText1('Dennis G. Zill')
+## Section1('4.3')
+## Edition('7')
+## Problem1('29')
+
+########################################################################
+
+DOCUMENT(); 
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"parserAssignment.pl",
+);
+
+TEXT(beginproblem());
+
+
+#############################
+#  Setup
+
+Context("Numeric");
+Context()->variables->add(
+A=>"Real",B=>"Real",y=>"Real",
+);
+parser::Assignment->Allow;
+
+$a=random(1,2,3);
+$b=-$a;
+
+
+$diffeq = " y'' + 16 y = 0"; # tex
+
+$answer = Compute("y = $a cos(4x)+ $b/4 sin(4x)");
+
+
+######################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+Solve the initial-value problem:
+\( $diffeq \).\(\   y(0) = $a \) , \(\  y'(0) = $b \).
+
+$BR
+$BR
+\{ ans_rule(40) \}
+\{ AnswerFormatHelp("equations") \}
+END_TEXT
+Context()->normalStrings;
+
+
+######################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 1;
+
+ANS( $answer->cmp() );
+
+COMMENT("MathObject version.");
+
+ENDDOCUMENT();

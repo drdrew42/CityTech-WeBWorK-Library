@@ -1,0 +1,121 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject('Algebra')
+## DBchapter('Fundamentals')
+## DBsection('Real Numbers')
+## Date('6/3/2002')
+## Author('')
+## Institution('')
+## TitleText1('Precalculus')
+## EditionText1('3')
+## AuthorText1('Stewart, Redlin, Watson')
+## Section1('1.1')
+## Problem1('22')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "parserImplicitEquation.pl",
+   "contextFraction.pl",
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->variables->{namePattern} = qr/[a-z][a-z0-9_]*'*/i;
+Context()->variables->are( y => "Real", x => "Real", c => "Real", "y'" => "Real" );
+$a = Real(non_zero_random(-9,9,1));
+$b = Real(random(1,8,1));
+$de = Formula("y'");
+$hom = Formula("(($b)^2*x^2+$a*x*y+y^2)/($a*x^2)")->reduce;
+$sol = Formula("$b*x*tan(($b/$a)*ln(abs(x))+c)"); 
+$getC = Formula("arctan(y/($b*x))-$b/$a*ln(abs(x))");
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+Use a substitute variable to replace \(y\) in order to make this DE separable, then separate and solve:
+$BR
+$BR
+\( $de = $hom \)
+$BR
+$BR
+General Solution (explicitly): \(y(x)=\) \{$sol->ans_rule\}
+$BR
+END_TEXT
+
+$showHint = 5;
+BEGIN_TEXT
+$PAR
+If you don't get this in $showHint tries, you can get a hint.
+END_TEXT
+BEGIN_HINT
+This is a homogeneous DE.
+$BR
+The replacement variable \(v=\frac{y}{x}\) should be used to replace \(y\) in the problem.
+$BR
+$BR
+Don't forget that \(y'\) must also be replaced. It can be found by deriving the equation \(y=v \cdot x\) with respect to \(x\).
+$BR
+$BR
+Solve the new equation (in variables \(x\) and \(v\)) by isolating \(v'\) and then separating the resulting DE using only multiplication and division.
+$BR
+$BR
+Also, remember that your answer must return to the original variables and be explicitly solved for \(y\).
+END_HINT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($sol->cmp( checker=>sub {
+ my($correct,$student,$ansHash)=@_;
+
+ my $dstudent=$student->D('x');
+ my $lhs=Formula("$dstudent");
+ my $rhs=$hom->substitute(y=>$student);
+
+ my $studentC=$getC->substitute(y=>$student);
+ my $dstudentC=$studentC->D('c');
+ my $ddstudentC=$dstudentC->D('c');
+
+ if (($lhs==$rhs) && ($ddstudentC==Formula("0"))) {
+  if ($dstudentC != Formula("0")) {
+   return 1}
+  else {
+   Value->Error("Your answer is not the most general solution, you should have 'c' in your answer as a parameter for the general family of solutions.")}
+  }
+ else {
+  return 0};
+}));
+
+ENDDOCUMENT();        

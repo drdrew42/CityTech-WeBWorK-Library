@@ -1,0 +1,95 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('Modeling with First-Order Differential Equations')
+## DBsection('Linear Model')
+## Date('05/28/2012')
+## Author('Anna Ghazaryan, Fuli Zhang')
+## Institution('Muohio')
+## TitleText1('Differential equations with Boundary-value problem')
+## AuthorText1('Dennis G. Zill')
+## Section1('3.1')
+## Edition('7')
+## Problem1('23')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"unionLists.pl",
+"parserPrime.pl",
+"parserPopUp.pl",
+"answerHints.pl",
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#Setup 
+
+Context("Numeric");
+Context()->variables->are(
+x=>"Real",
+t=>"Real",Deltat=>"Real",
+c=>"Real",
+);
+
+##############################################################
+#
+#  Text
+#
+#
+
+
+
+$a = random(4,5,6);
+
+$answer[0] = Compute("1000-1000*e^(-t/(500/$a))");
+
+$answer[1] = Compute("2-2*e^(-t/(500/$a))");
+$answer[2] = Compute("2-2*e^(-5/(500/$a))");
+$answer[3] = Compute("2");
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+A large tank is filled to capacity with 500 gallons of pure water. Brine containing 2 pounds of salt per gallon is pumped into the tank at a rate of $a gal/min. The well-mixed solution is pumped out at the same rate. Find the number \(A(t)\) of pounds of salt in the tank at time \(t\). What is the concentration \(c(t)\) of the salt in the tank at time \(t\)? At \(t=5\)? What is the concentration of the salt in the tank after a long time \(t\rightarrow\infty\)?
+
+$BR
+$BR
+\(\displaystyle \ A=\) \{ans_rule(15)\} 
+\(\displaystyle \ c=\) \{ans_rule(15)\} 
+\(\displaystyle \ c(5)=\) \{ans_rule(15)\} lb/gal
+\(\displaystyle \ \textrm{lim}c(t)=\) \{ans_rule(15)\} 
+ 
+\{ AnswerFormatHelp("formulas") \}
+
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+$showPartialCorrectAnswers = 0;
+ANS( $answer[0]->cmp() );
+ANS( $answer[1]->cmp() );
+ANS( $answer[2]->cmp() );
+ANS( $answer[3]->cmp() );
+
+ENDDOCUMENT();lim 

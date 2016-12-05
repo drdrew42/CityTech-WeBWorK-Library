@@ -1,0 +1,99 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('Modeling with Higher-Order Differential Equations')
+## DBsection('Linear Models')
+## Date('05/28/2012')
+## Author('Anna Ghazaryan,Fuli Zhang')
+## Institution('Muohio')
+## TitleText1('Differential equations with Boundary-value problem')
+## AuthorText1('Dennis G. Zill')
+## Section1('5.1')
+## Edition('7')
+## Problem1('2')
+
+########################################################################
+
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",
+   "MathObjects.pl",
+   "AnswerFormatHelp.pl",
+   "unionLists.pl",
+   "parserPrime.pl",
+   "parserPopUp.pl",
+   "answerHints.pl",
+   "parserImplicitPlane.pl",
+
+ );
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric")->variables->add(y=>"Real",t=>"Real");
+
+##############################################################
+#
+#  Text
+#
+#
+
+$a = random(40,80,160);
+
+$answer[0] = Formula("320");
+
+$answer[1] = Formula("sqrt(320/$a)/(2*pi)");
+
+
+
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Solve the following problem: 
+$BR
+$BR
+Question:$BR A 20-kilogram mass is attached to a spring. If the frequency of simple harmonic motion is \(2/\pi\) cycles/s, what is the spring constant \(k\)? What is the frequency of simple harmonic motion if the original mass is replaced with an $a-kilogram mass?
+
+$BR
+$BR
+\(\displaystyle \ k=\) \{ans_rule(30)\}N/m.
+$BR
+$BR
+\(\displaystyle \ f=\) \{ans_rule(30)\}cycles/s.
+\{ AnswerFormatHelp("formulas") \}
+
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+ANS( $answer[0]->cmp() );
+ANS( $answer[1]->cmp() );
+
+
+
+
+
+
+
+
+ENDDOCUMENT();   

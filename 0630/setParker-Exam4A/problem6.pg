@@ -1,0 +1,70 @@
+##DESCRIPTION
+##  Polynomial Equations
+## 
+##ENDDESCRIPTION
+## DBsubject(Algebra)
+## DBchapter(Quadratic equations and functions)
+## DBsection(Solve by factoring)
+## Institution(The College of Idaho)
+## Author(RA Cruz)
+## MLT(quadraticNonMonicEq0)
+## Level(2)
+## TitleText1('Essentials of Intermediate Algebra')
+## AuthorText1('Blitzer')
+## EditionText1('1')
+## Section1('5.7')
+## Problem1('')
+## KEYWORDS('polynomial equations')
+## Date: 2007/11
+
+DOCUMENT(); # This should be the first executable line in the problem.
+
+loadMacros(
+  "PGstandard.pl",
+  "MathObjects.pl",
+  "contextInequalitiesAllowStrings.pl"
+);
+
+TEXT(beginproblem());
+
+######################################
+#  Setup
+#  Form:(x+a)(x-a)=0
+
+
+
+$LHS = Formula("3x^3 - 27x")->reduce->TeX;
+$RHS = Formula("0")->reduce->TeX; 
+
+######################################
+#  Main text
+
+BEGIN_TEXT
+Use factoring to solve the polynomial equation:
+ \[  $LHS = $RHS \]
+Answer:  \{ ans_rule(30) \} 
+$BR
+Write your answer as equations separated by the word "or", for example: "x=0 or x=1".
+END_TEXT
+
+######################################
+#  Answer
+
+Context("Inequalities-AllowStrings");
+
+$a1 = 0;
+$a2 = -3;
+$a3 = 3;
+$ans = Compute("x = $a1 or x=$a2 or x=$a3")->reduce;
+ANS($ans->cmp); 
+
+$showPartialCorrectAnswers = 1;
+
+######################################
+
+
+
+
+
+COMMENT('MathObject version');
+ENDDOCUMENT();

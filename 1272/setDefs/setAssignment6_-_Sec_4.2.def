@@ -1,0 +1,12 @@
+
+openDate          = 06/10/2013 at 09:00am EDT
+dueDate           = 06/18/2013 at 01:00am EDT
+answerDate        = 06/18/2013 at 01:01am EDT
+paperHeaderFile   = local/opt/webwork/webwork2/conf/snippets/JREITZDefaultsetHeader.pg
+screenHeaderFile  = local/opt/webwork/webwork2/conf/snippets/JREITZDefaultsetHeader.pg
+problemList       = 
+local/Library/NYCCT/Reitz/1272/BinomialDistribution3.pg, 2, -1 
+local/Library/NYCCT/Reitz/1272/BinomialDistribution4-v2.pg, 4, -1 
+local/Library/NYCCT/Reitz/1272/BinomialDistribution2-v2.pg, 8, -1 
+local/Library/NYCCT/Reitz/1272/BinomialDistribution5.pg, 10, -1 
+

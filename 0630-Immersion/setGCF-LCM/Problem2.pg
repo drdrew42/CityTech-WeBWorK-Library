@@ -1,0 +1,239 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject('Number Theory')
+## DBchapter('Divisibility')
+## DBsection('GCDs and LCMs')
+## Date('6/14/2015')
+## Author('K. Andrew Parker')
+## Institution('NYC City Tech')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "parserPopUp.pl",
+   "scaffold.pl",
+   "niceTables.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer=>"parsed"
+   );
+
+  $sumChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentstring = $ansHash->{preview_text_string};
+     return ($studentstring eq $ansHash->{correct_ans} ? 1 : 0);
+   };
+
+@prime = ( 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 );
+
+$eights = List( 8, 16, 24, 32, 40, 48, 56, 64, 72, 80 );
+$tens = List( 10, 20, 30, 40, 50, 60, 70, 80, 90, 100 );
+$common = List( 40, 80, 120, 160 );
+
+ $A1 = Real( $prime[random(0,2,1)] );
+ $A2 = Real( $prime[random(0,2,1)] );
+ $B1 = Real( $prime[random(0,2,1)] );
+ $B2 = Real( $prime[random(0,2,1)] );
+ $A = Real( 8*$A1*$A2 );
+ $B = Real( 7*$B1*$B2 );
+ $AList = List( Real(2),Real(2),Real(2),$A1,$A2 );
+ $BList = List( Real(7), $B1, $B2 );
+ $ABGCF = Real( gcf($A, $B) );
+ 
+ $ABrem = $ABGCF;
+ $ABList = List( "" );
+
+ foreach my $i (0..2) {
+  while ( $ABrem % $prime[$i] == 0 ) {
+   $ABList = $ABList . List( Real( $prime[$i] ) );
+   $ABrem = $ABrem / $prime[$i];
+  }
+ }
+
+ if ( gcf($A, $B) == 1 ) { $ABList = List( Real(1) ); }
+
+ $AxBrem = $A / $ABGCF;
+ $AxBList = List( "" );
+
+ foreach my $i (0..2) {
+  while ( $AxBrem % $prime[$i] == 0 ) {
+   $AxBList = $AxBList . List( Real( $prime[$i] ) );
+   $AxBrem = $AxBrem / $prime[$i];
+  }
+ }
+
+ $BxArem = $B / $ABGCF;
+ $BxAList = List( "" );
+
+ foreach my $i (0..3) {
+  while ( $BxArem % $prime[$i] == 0 ) {
+   $BxAList = $BxAList . List( Real( $prime[$i] ) );
+   $BxArem = $BxArem / $prime[$i];
+  }
+ }
+
+ $LCMList = $AxBList . $ABList . $BxAList;
+ $LCM = Real( lcm($A, $B) );
+
+##############################################################
+#
+#  Text
+#
+#
+Scaffold::Begin(
+);
+
+Section::Begin( "Part 1: Setup" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Have you ever noticed how, at the grocery store, hot dogs are sold in packages of 10 - but hot dog buns are sold in packages of 8? If you buy one package of each, you're going to have two hot dogs left with no buns. But if you buy another package of buns, you're going to have buns left with no hot dogs. How can we resolve this problem?
+$PAR
+Hot dogs are sold in packages of ten. List the numbers of hot dogs we'll have if we buy 1 package, 2 packages, … up through 10 packages. \{ ans_rule(20)\}
+$PAR
+Hot dog buns are sold in packages of eight. List the numbers of buns we'll have if we buy 1 package, 2 packages, … up through 10 packages. \{ ans_rule(20) \}
+$PAR
+Do you see any numbers that appear in both lists? These numbers are called $BBOLD common multiples $EBOLD of 8 and 10.
+$PAR
+You should see two numbers that appear in both lists. What do you think the next two common multiples will be? List the first four common multiples of 8 and 10. \{ ans_rule(10) \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( $tens->cmp(showLengthHints=>1, ordered=>0) );
+ANS( $eights->cmp(showLengthHints=>1, ordered=>0) );
+ANS( $common->cmp(showLengthHints=>1, ordered=>0) );
+
+Section::End();
+
+Section::Begin( "Part 2: Common Factors" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Hopefully you noticed that ALL the common factors of 8 and 10 are multiples of 40. What's so special about 40? Well, it's the FIRST common factor of 8 and 10. And it's not just that way for 8 and 10, it's that way for the common factors of ANY two numbers. Because of this, the first common factor of any two numbers is given a special name, the $BBOLD Least Common Multiple $EBOLD or usually LCM for short.
+$PAR
+If the numbers we're working with are large, then this method of listing all the multiples of each number and looking for the same number in both lists can be an unnecessarily large amount of work. The good news is that there's an easier way to find the LCM - and once we know the LCM, we know $BITALIC all $EITALIC the other common multiples, because they're just the multiples of the LCM. (Just like what happened with the common multiples of 8 and 10, and how they were all the multiples of 40.)
+$PAR
+So how does this easier method work? Start by doing a factor tree for each number.
+$PAR
+Do a factor tree for 8 and list all the prime factors: \{ans_rule(10)\}
+$PAR
+Do a factor tree for 10 and list all the prime factors: \{ans_rule(10)\}
+$PAR
+Organize the prime factors for 8 and 10 in the following table:
+\{
+ DataTable(
+ [['','Factors of 8 but not 10','Factors of both 8 and 10','Factors of 10 but not 8'],
+  ['8:',ans_rule(5),ans_rule(5),''],
+  ['10:','',ans_rule(5),ans_rule(5)]
+ ],
+ align=>'r c c c',
+);
+\}
+$BR
+Remember: What goes in the middle column should be exactly the same for both 8 and 10 - these are the common prime factors.
+
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( List(2,2,2)->cmp(showLengthHints=>1, ordered=>0) );
+ANS( List(2,5)->cmp(showLengthHints=>1, ordered=>0) );
+ANS( List(2,2)->cmp(showLengthHints=>1, ordered=>0) );
+ANS( Real(2)->cmp() );
+ANS( Real(2)->cmp() );
+ANS( Real(5)->cmp() );
+
+Section::End();
+
+Section::Begin( "Part 3: Finding the LCM" );
+
+Context()->texStrings;
+BEGIN_TEXT
+$PAR
+So, how does the common factors table help us find the Least Common Multiple? Well, instead of focusing on just the middle column, we're now going to use all three columns.
+$PAR
+\{
+ DataTable(
+ [['','Factors of 8 but not 10','Factors of both 8 and 10','Factors of 10 but not 8'],
+  ['8:','2,2','2',''],
+  ['10:','','2','5'],
+  [['LCM:',rowcolor=>'{yellow!50}',rowcss=>"font-weight:bold; "],'2,2','2','5']
+ ],
+ align=>'r r c l',
+);
+\}
+$PAR
+So, if we take the contents of each column (only counting the GCF factors once), we get that the LCM has a factor list of 2,2,2,5. If we multiply all those together we get \( 2 \times 2 \times 2 \times 5 = 4 \times 2 \times 5 = 8 \times 5 = 40 \). This is exactly what we found by writing out the lists of multiples and identifying the first number to appear in both lists.
+$PAR
+Now it's your turn. Find the LCM of $A and $B.
+$PAR
+Do a factor tree and list the prime factors of $A. \{ ans_rule(10) \}
+$BR
+Do a factor tree and list the prime factors of $B. \{ ans_rule(10) \}
+$PAR
+Now fill out the GCF table:
+$BR
+Sometimes, there's no overlapping primes factors - so that means their only common factor is 1. (Remember, 1 is a factor of EVERY number!) So there's no reason to leave any boxes blank!
+\{
+ DataTable(
+ [['','Factors of $A but not $B','Factors of both $A and $B','Factors of $B but not $A'],
+  ['$A:',ans_rule(5),ans_rule(5),''],
+  ['$B:','',ans_rule(5),ans_rule(5)],
+  [['LCM:',rowcolor=>'{yellow!50}',rowcss=>"font-weight:bold; "],ans_rule(5),ans_rule(5),ans_rule(5)]
+ ],
+ align=>'r r c l',
+);
+\}
+$PAR
+Now combine all the factors in the bottom row to make a list of prime factors for the LCM of $A and $B. \{ ans_rule(15) \}
+$PAR
+Finally, multiply all the prime factors in the list together to find the LCM. \{ ans_rule(5) \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS($AList->cmp(showLengthHints=>1, ordered=>0) );
+ANS($BList->cmp(showLengthHints=>1, ordered=>0) );
+ANS($AxBList->cmp(showLengthHints=>1, ordered=>0) );
+ANS($ABList->cmp(showLengthHints=>1, ordered=>0) );
+ANS($ABList->cmp(showLengthHints=>1, ordered=>0) );
+ANS($BxAList->cmp(showLengthHints=>1, ordered=>0) );
+ANS($AxBList->cmp(showLengthHints=>1, ordered=>0) );
+ANS($ABList->cmp(showLengthHints=>1, ordered=>0) );
+ANS($BxAList->cmp(showLengthHints=>1, ordered=>0) );
+ANS($LCMList->cmp(showLengthHints=>1, ordered=>0) );
+ANS($LCM->cmp() );
+
+Section::End();
+
+Scaffold::End();
+
+ENDDOCUMENT();        

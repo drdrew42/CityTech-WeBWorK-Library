@@ -1,0 +1,59 @@
+##DESCRIPTION
+##  Factoring - FINAL EXAM STYLE QUESTION 
+##ENDDESCRIPTION
+
+## DBsubject('Middle school')
+## DBchapter(Polynomials, polynomial functions, and factoring)
+## DBsection('A General Factoring Strategy')
+## KEYWORDS('factoring')
+## Date('10/14/2013')
+## Author('ElHitti')
+## Institution('CityTech')
+
+
+DOCUMENT(); # This should be the first executable line in the problem.
+
+loadMacros(
+  "PGstandard.pl",
+  "MathObjects.pl",
+  "CofIdaho_macros.pl"
+);
+
+TEXT(beginproblem());
+
+######################################
+#  Setup
+
+@alphabet = ("a","x","y");
+$n = random(0,2,1);
+$var= $alphabet[$n];
+Context()->variables->are($var=>'Real');
+
+$a = random(2,7,1);
+do {$b= random(2,7,1);} until (gcd($a,$b)==1);
+do {$c= random(2,7,1);} until (gcd($a,$c)==1);
+
+$polynomial = Formula("$a$var^3 + $b$var^2 - $c$var")->reduce->TeX;
+
+######################################
+#  Main text
+
+BEGIN_TEXT
+Factor the GCF: 
+$PAR
+\( $polynomial = \)  \{ ans_rule(30) \} 
+END_TEXT
+
+######################################
+#  Answer
+
+$answer = "$var* ($a$var^2 + $b$var - $c)";
+ANS(FactoringEvaluator($answer,$var)); 
+
+$showPartialCorrectAnswers = 1;
+
+######################################
+
+
+COMMENT('MathObject version');
+ENDDOCUMENT();

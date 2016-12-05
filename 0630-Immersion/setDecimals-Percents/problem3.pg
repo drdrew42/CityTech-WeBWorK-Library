@@ -1,0 +1,263 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject(‘Arithmetic’)
+## DBchapter(‘’)
+## DBsection(‘’)
+## Date('7/5/2015')
+## Author('K. Andrew Parker')
+## Institution('NYC City Tech')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "parserPopUp.pl",
+   "scaffold.pl",
+   "niceTables.pl",
+   "contextFraction.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer=>"parsed"
+   );
+
+  $formChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentstring = $ansHash->{student_formula};
+     my $correctans = $ansHash->{correct_ans};
+     $studentstring =~ tr/()//d;
+     $correctans =~ tr/()//d;
+     return ( $student==$correct && $studentstring eq $correctans ? 1 : 0);
+   };
+
+
+  $numChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentans=$ansHash->{student_formula};
+     Value->Error("You're on the right track, but your answer should be just a number.") if ( ($studentans ne $student)&&($student==$correct) );
+     return($studentans eq $ansHash->{correct_ans} ? 1 : 0);
+  };
+
+@prime = ( 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 );
+
+@card = ("zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen");
+
+$percent1 = 10*random(2,8,2);
+$percent2 = 5*random(3,19,4);
+do { $percent3 = random(3,99,3); } until ( gcf($percent3,10) == 1 );
+
+$percent3Dec = $percent3/100;
+$percent3Ten = 10*floor($percent3/10);
+$percent3One = $percent3%10;
+
+$A100 = 100*random(1,9,1);
+$A10 = 10*random(0,9,1);
+$A1 = random(1,9,1);
+$A = $A100 + $A10 + $A1;
+
+$ans11 = $percent3Ten*$A100;
+$ans12 = $percent3Ten*$A10;
+$ans13 = $percent3Ten*$A1;
+$ans21 = $percent3One*$A100;
+$ans22 = $percent3One*$A10;
+$ans23 = $percent3One*$A1;
+
+
+##############################################################
+#
+#  Text
+#
+#
+Scaffold::Begin(
+      can_open => "when_previous_correct",
+      is_open  => "first_incorrect"
+);
+
+
+Section::Begin( "Part 1: Percents as fractions" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+The word "percent" is a composite word made up of the two smaller words, "per" and "cent".
+$PAR
+"Per" is a word meaning "for every", and "cent" is a word meaning "one hundred". 
+$BR
+(Think of words like "century" (100 years) or "centipede" (100 legs).)
+$PAR
+So, whenever you see a percentage, we're thinking of that number out of 100.
+$BR
+For example, 75% means "75 out of every 100". So if we wanted 75% of one hundred, that would be easy. But most of the time, we're going to want 75% of some number other than one hundred.
+$PAR
+The easiest way for us to deal with percentages is to deal with them as either fractions or as decimals.
+$BR
+Let's start by looking at percentages as fractions.
+$PAR
+Since percentages are given as parts of 100, it makes sense that they'd be fractions with 100 in the denominator.
+$PAR
+Write $percent1% as a fraction with 100 in the denominator. \{ ans_rule(10) \}
+$BR
+Write $percent2% as a fraction with 100 in the denominator. \{ ans_rule(10) \}
+$BR
+Write $percent3% as a fraction with 100 in the denominator. \{ ans_rule(10) \}
+END_TEXT
+Context()->normalStrings;
+
+ANS(Formula("$percent1/100")->cmp(checker=>$formChecker) );
+ANS(Formula("$percent2/100")->cmp(checker=>$formChecker) );
+ANS(Formula("$percent3/100")->cmp(checker=>$formChecker) );
+
+Section::End();
+
+Section::Begin( "Part 2: Percentages as decimals" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Converting percentages into fractions is pretty easy, right?
+$BR
+So what about the decimal form of a percentage? Well, fractions with 100 in the denominator are easy to express as decimals because there's a decimal place specifically for hundredths.
+$PAR
+Take 0.32 for example. If we were to read that number precisely, we'd say it's "thirty-two hundredths". Thirty-two hundredths is also EXACTLY how we'd write \( \dfrac{32}{100} \).
+$BR
+So we have an equivalence between all three: \( 0.32 \), \( 32% \) and \( \dfrac{32}{100} \).
+$PAR
+Write $percent1% in decimal form. \{ ans_rule(5) \}
+$BR
+Write $percent2% in decimal form. \{ ans_rule(5) \}
+$BR
+Write $percent3% in decimal form. \{ ans_rule(5) \}
+$PAR
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( Real("$percent1/100")->cmp(checker=>$numChecker) );
+ANS( Real("$percent2/100")->cmp(checker=>$numChecker) );
+ANS( Real("$percent3/100")->cmp(checker=>$numChecker) );
+
+Section::End();
+
+Section::Begin( "Part 3: Calculating percentages" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Taking a percentage of a given number just requires multiplying the percent (either as a fraction or as a decimal) times the given number.
+$PAR
+For example:
+$BR
+If we wanted to take 25% of 8, we just need to multiply 25% and 8, which we could do in two different ways.
+$PAR
+The first way is to treat 25% as a fraction: \( \dfrac{25}{100} \times 8 \)
+$BR
+This method works particularly well because we can reduce \( \dfrac{25}{100} \) to be \( \dfrac{1}{4} \), which will multiply much more easily.
+$BR
+So what's \( 8 \times \dfrac{1}{4} \)? Remember that multiplying fractions means multiply the numerators and multiply the denominators straight across (and that as a whole number, 8 can be written as \( \frac{8}{1} \)) so we'll get \( \dfrac{8}{4} \). And if we reduce that fraction, what do we get? \{ ans_rule(5) \}
+$PAR
+$PAR
+$PAR
+The second method uses the decimal form of 25% instead.
+$BR
+What's the decimal form of 25%? \{ ans_rule(5) \}
+$BR
+So our multiplication becomes \( 0.25 \times 8 \).
+$BR
+How many decimal places do we have to ignore in order to have \( 25 \times 8 \) instead? 
+\{ ans_rule(5) \}
+$BR
+And what do we get if we multiply \( 25 \times 8 \)? \{ ans_rule(5) \}
+$BR
+So, if we put our ignored decimal places back, what will our final answer be? 
+\{ ans_rule(5) \}
+END_TEXT
+Context()->normalStrings;
+
+ANS( Real(2)->cmp(checker=>$numChecker) );
+ANS( Real(0.25)->cmp(checker=>$numChecker) );
+ANS( Real(2)->cmp() );
+ANS( Real(200)->cmp(checker=>$numChecker) );
+ANS( Real(2)->cmp(checker=>$numChecker) );
+
+Section::End();
+
+Section::Begin( "Part 4: Practice" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+In the previous example, 25% was a great candidate for using the fraction approach.
+$BR
+But that was primarily because the fraction \( \frac{25}{100} \) reduced so nicely.
+$BR
+This will not always happen, so it is recommended that you use learn to use the decimal approach, because it will always work out the same.
+$PAR
+Find $percent3% of $A.
+$BR
+Of course, the decimal form of $percent3% is $percent3Dec.
+$BR
+How many decimal places do we have to ignore to multiply \( $percent3 \times $A \) instead of \( $percent3Dec \times $A \)? \{ ans_rule(5) \}
+$BR
+Use the box method to multiply \( $percent3 \times $A \)
+\{
+DataTable(
+  [
+    [['\(\times\)', headerrow => 1, midrule => 1],'\($A100\)','\($A10\)','\($A1\)'],
+    ['\($percent3Ten\)',ans_rule(5),ans_rule(5),ans_rule(5)],
+    ['\($percent3One\)',ans_rule(5),ans_rule(5),ans_rule(5)]
+  ], 
+  caption => 'Multiplying \($percent3 \times $A\)',
+  align => 'r | c c c',
+  rowheaders => 1,
+  center => 1
+);
+\}
+$PAR
+So what is the total result of \( $percent3 \times $A \)? \{ ans_rule(5) \}
+$PAR
+And what do we get as the result of \( $percent3Dec \times $A \) once we put our ignored decimal places back? \{ ans_rule(10) \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( Real(2)->cmp() );
+ANS( Real($ans11)->cmp(checker=>$numChecker) );
+ANS( Real($ans12)->cmp(checker=>$numChecker) );
+ANS( Real($ans13)->cmp(checker=>$numChecker) );
+ANS( Real($ans21)->cmp(checker=>$numChecker) );
+ANS( Real($ans22)->cmp(checker=>$numChecker) );
+ANS( Real($ans23)->cmp(checker=>$numChecker) );
+ANS( Real("$percent3*$A")->cmp(checker=>$numChecker) );
+ANS( Real("$percent3Dec*$A")->cmp(checker=>$numChecker) );
+
+Section::End();
+
+
+Scaffold::End();
+
+ENDDOCUMENT();        

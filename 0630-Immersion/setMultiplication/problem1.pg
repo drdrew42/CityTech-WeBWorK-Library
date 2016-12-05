@@ -1,0 +1,284 @@
+##DESCRIPTION
+##  PreAlgebra problem:
+##ENDDESCRIPTION
+
+##KEYWORDS('prealgebra','common core')
+
+## DBsubject('Arithmetic')
+## DBchapter('Integers')
+## DBsection('Multiplication')
+## Date('3/16/2015')
+## Author('Andrew Parker')
+## Institution('NYC CityTech')
+## ProblemTester('')
+## TitleText1('')
+## Publisher('')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "problemRandomize.pl",
+   "parserRadioButtons.pl",
+   "parserPopUp.pl",
+   "scaffold.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+#  Allow for the user to try another version of the problem once they get it correct.
+ProblemRandomize(when=>"Correct",onlyAfterDue=>0);
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer=>"parsed"
+   );
+
+$sumChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentstring = $ansHash->{preview_text_string};
+     return ($studentstring eq $ansHash->{correct_ans} ? 1 : 0);
+};
+
+## Part 1: Working with Multiplication ##
+
+$hourly = Real( 12 + non_zero_random(-.9,.9,.1) ); 
+$hourly -> {format} = "%.2f";
+$hours = Real( 40 );
+
+$total8 = Real( 8*$hourly );
+$totalweek = Real( $hours*$hourly );
+
+## Part 2: Negative factors ##
+
+$rent = Real( 25*random(12,25,1) );
+$negrent = Real( -1*$rent );
+$sumform = Formula( "$negrent+$negrent+$negrent+$negrent");
+$sum = Real($sumform);
+
+## Part 3: ##
+
+$multiples3 = List(3,6,9,12,15,18,21,24,27,30);
+$multiples4 = List(4,8,12,16,20,24,28,32,36,40);
+$multiples5 = List(5,10,15,20,25,30,35,40,45,50);
+
+@ths = ( "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth");
+
+$mult3 = random(3,9,1);
+$mult4 = random(4,9,1);
+$mult5 = random(5,9,1);
+
+$prod3 = Real( 3*$mult3 );
+$prod4 = Real( 4*$mult4 );
+$prod5 = Real( 5*$mult5 );
+
+## Part 4: Practice ##
+  
+@sixes = (0,6,12,18,24,30,36,42,48,54,60);
+@sevens = (0,7,14,21,28,35,42,49,56,63,70);
+@eights = (0,8,16,24,32,40,48,56,64,72,80);
+
+$mult6 = random(5,10,1);
+$mult7 = random(5,10,1);
+$mult8 = random(5,10,1);
+
+$multiples6 = List( 6 );
+$multiples7 = List( 7 );
+$multiples8 = List( 8 );
+
+$prod6 = Real(6*$mult6);
+$prod7 = Real(7*$mult7);
+$prod8 = Real(8*$mult8);
+
+$i=1;
+while ($i < $mult6 ) { 
+  $i = $i + 1;
+  $multiples6 = $multiples6 . List( $sixes[$i] ); 
+};
+
+$i=1;
+while ($i < $mult7 ) { 
+  $i = $i + 1;
+  $multiples7 = $multiples7 . List( $sevens[$i] ); 
+};
+
+$i=1;
+while ($i < $mult8 ) { 
+  $i = $i + 1;
+  $multiples8 = $multiples8 . List( $eights[$i] ); 
+};
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+##    to disable arithmetic operations in the answer.  Student must simplify.
+Context()->operators->undefine("-","/","*");
+
+##############################################################
+# Scaffolding
+Scaffold::Begin(
+      can_open => "when_previous_correct",
+      is_open  => "first_incorrect"
+);
+##############################################################
+Section::Begin("Part 1: Introducing Multiplication");
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Sometimes we need to repeatedly add the same number multiple times. For example, let's suppose you get a job that pays $$hourly an hour and on your first day, you work 8 hours. We would calculate how much you earned on your first day by adding $$hourly + $$hourly + $$hourly + $$hourly + $$hourly + $$hourly + $$hourly + $$hourly.
+$PAR
+How much did you earn on your first day? \{ $total8 -> ans_rule() \}
+$PAR
+If you worked the same hours for five days on your first week, how much would you have earned in total? \{ $totalweek -> ans_rule() \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( $total8->cmp() );
+ANS( $totalweek->cmp() );
+
+Section::End();
+##############################################################
+Section::Begin("Part 2: Multiplication with negatives");
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+This concept applies to negative values also. Let's say you rent an apartment for $$rent per month. This time, $$rent doesn't indicate money you're earning, but is actually money you'll owe. So instead of repeatedly adding $$rent for each month, we'll be repeatedly adding $negrent.
+$PAR
+Write out a sum that expresses four months of rent. (Use addition, but do not find the total yet.) \{ $sumform->ans_rule() \}
+$PAR
+Compute the sum. How much will you owe for four month's rent? \{ $sum->ans_rule() \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( $sumform->cmp(checker=>$sumChecker) );
+ANS( $sum->cmp() );
+
+Section::End();
+
+##############################################################
+Section::Begin("Part 3: Multiples");
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Repeatedly adding the same number happens often enough and is annoying to write out, so the operation of multiplication was created to replace it.
+$PAR
+We're going to be using multiplication a LOT, and it's going to be very important that you know how to multiply quickly and accurately. We will start by counting by twos. We'll start with 2, and then add 2, then add 2 more, and keep going.
+$BCENTER
+2, 4, 6, 8, 10, 12, 14, 16, 18, 20
+$ECENTER
+$BR
+To find the next number in the list, we just continue adding two.
+$PAR
+We call these the $BITALIC multiples $EITALIC of two.
+$BR
+4 is the second multiple of 2,
+$BR
+6 is the third multiple of 2,
+$BR
+8 is the fourth multiple of 2,
+$BR
+and so on…
+$PAR
+$PAR
+Starting with 3 (and ending with 30), list the first 10 multiples of 3:
+$BR
+\{ $multiples3->ans_rule(showHints=>1, showLengthHints=>1, ordered=>1) \}
+$BR
+Starting with 4 (and ending with 40), list the first 10 multiples of 4:
+$BR
+\{ $multiples4->ans_rule(showHints=>1, showLengthHints=>1, ordered=>1) \}
+$BR
+Starting with 5 (and ending with 50), list the first 10 multiples of 5:
+$BR
+\{ $multiples5->ans_rule(showHints=>1, showLengthHints=>1, ordered=>1) \}
+$BR
+What is the $ths[($mult3-1)] multiple of 3? \{ $prod3->ans_rule() \}
+$BR
+What is the $ths[($mult4-1)] multiple of 4? \{ $prod4->ans_rule() \}
+$BR
+What is the $ths[($mult5-1)] multiple of 5? \{ $prod5->ans_rule() \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( $multiples3->cmp() );
+ANS( $multiples4->cmp() );
+ANS( $multiples5->cmp() );
+ANS( $prod3->cmp() );
+ANS( $prod4->cmp() );
+ANS( $prod5->cmp() );
+
+Section::End();
+
+##############################################################
+Section::Begin("Part 4: Practice");
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+List the first $mult6 multiples of six. \{ $multiples6->ans_rule() \}
+$BR
+So, \($mult6 \times 6 =\) \{ $prod6->ans_rule() \}
+$PAR
+List the first $mult7 multiples of seven. \{ $multiples7->ans_rule() \}
+$BR
+So, \($mult7 \times 7 =\) \{ $prod7->ans_rule() \}
+$PAR
+List the first $mult8 multiples of eight. \{ $multiples8->ans_rule() \}
+$BR
+So, \($mult8 \times 8 =\) \{ $prod8->ans_rule() \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( $multiples6->cmp(showHints=>1, showLengthHints=>1, ordered=>1) );
+ANS( $prod6->cmp() );
+ANS( $multiples7->cmp(showHints=>1, showLengthHints=>1, ordered=>1) );
+ANS( $prod7->cmp() );
+ANS( $multiples8->cmp(showHints=>1, showLengthHints=>1, ordered=>1) );
+ANS( $prod8->cmp() );
+
+Section::End();
+
+Scaffold::End();
+
+##############################################################
+#
+#  Answers
+#
+#
+
+
+ENDDOCUMENT();        
+COMMENT('MathObject version. Not randomized.');

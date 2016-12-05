@@ -1,0 +1,82 @@
+##DESCRIPTION
+##  Parker - Sample Exam 1 
+##ENDDESCRIPTION
+
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextFraction.pl",
+   "contextLimitedNumeric.pl",
+   "contextLimitedPolynomial.pl",
+   "parserPopUp.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 0;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("LimitedPolynomial-Strict");
+
+$popup = PopUp(["?", "monomial", "binomial", "trinomial"], "trinomial");
+$ans2 = Formula("-5x^3+3x^2+4");
+$ans3 = Real("3");
+$ans4 = Real("12");
+
+  $formChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentstring = $ansHash->{student_formula};
+     my $correctans = $ansHash->{correct_ans};
+     $studentstring =~ tr/()//d;
+     $correctans =~ tr/()//d;
+     Value->Error("You've got the correct polynomial, but this is not decending-degree form.") if ( ($studentstring ne $correctans)&&($student==$correct) );
+     return ( $student==$correct && $studentstring eq $correctans ? 1 : 0);
+   };
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+\(3x^2-5x^3+4\) is a \{ $popup -> menu() \}
+
+$PAR
+In degree-descending form: \{$ans2->ans_rule\}
+$PAR
+It has degree = \{ $ans3->ans_rule\}
+$PAR
+and evaluating it at \(x = -1\) results in \{$ans4->ans_rule\}
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($popup->cmp);
+ANS($ans2->cmp(checker=>$formChecker) );
+ANS($ans3->cmp);
+ANS($ans4->cmp);
+
+
+ENDDOCUMENT();        

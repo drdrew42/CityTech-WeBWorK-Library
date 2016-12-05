@@ -1,0 +1,114 @@
+assignmentType      = default
+openDate          = 09/28/2015 at 01:47am EDT
+reducedScoringDate = 12/31/1969 at 07:00pm EST
+dueDate           = 10/14/2015 at 03:00am EDT
+answerDate        = 10/14/2015 at 03:00am EDT
+enableReducedScoring = N
+paperHeaderFile   = local/Reitz/CombinedHeaderFile-Reitz.pg
+screenHeaderFile  = local/Reitz/CombinedHeaderFile-Reitz.pg
+description       = 
+restrictProbProgression = 
+emailInstructor   = 
+
+problemListV2 
+problem_start
+problem_id = 1
+source_file = Library/UMN/algebraKaufmannSchwitters/ks_15_1_33.pg
+value = 2
+max_attempts = -1
+showMeAnother = -1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 2
+source_file = Library/Rochester/setAlgebra38Counting/sw10_2_40.pg
+value = 2
+max_attempts = -1
+showMeAnother = -1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 3
+source_file = Library/Rochester/setDiscrete9Counting/ur_dis_9_3.pg
+value = 4
+max_attempts = -1
+showMeAnother = -1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 4
+source_file = Library/Rochester/setAlgebra38Counting/sw10_1_19.pg
+value = 2
+max_attempts = -1
+showMeAnother = -1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 5
+source_file = Library/NAU/setCounting/Counting_4.pg
+value = 3
+max_attempts = -1
+showMeAnother = -1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 6
+source_file = Library/ASU-topics/setCount/sw10_1_33.pg
+value = 8
+max_attempts = -1
+showMeAnother = -1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 7
+source_file = Library/Rochester/setProbability1Combinations/ur_pb_1_9.pg
+value = 6
+max_attempts = -1
+showMeAnother = -1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 8
+source_file = Library/UMN/algebraKaufmannSchwitters/ks_15_2_25.pg
+value = 2
+max_attempts = -1
+showMeAnother = -1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 9
+source_file = Library/Rochester/setProbability2BinomialTh/ur_pb_2_1.pg
+value = 2
+max_attempts = -1
+showMeAnother = -1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 10
+source_file = Library/UMN/algebraKaufmannSchwitters/ks_15_6_2.pg
+value = 4
+max_attempts = -1
+showMeAnother = -1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+

@@ -1,0 +1,11 @@
+
+openDate          = 06/25/2012 at 04:30am EDT
+dueDate           = 07/03/2012 at 11:59am EDT
+answerDate        = 07/04/2012 at 12:01am EDT
+paperHeaderFile   = local/opt/webwork/webwork2/conf/snippets/ReitzHeaderBASIC.pg
+screenHeaderFile  = local/opt/webwork/webwork2/conf/snippets/ReitzHeaderBASIC.pg
+problemList       = 
+Library/ASU-topics/setStat/gust11.pg, 10, -1 
+Library/ASU-topics/setStat/gust12.pg, 8, -1 
+Library/NAU/setStatistics/easy_histogram.pg, 5, -1 
+

@@ -1,0 +1,52 @@
+## DBsubject(Calculus - single variable)
+## DBchapter(Applications of integration)
+## DBsection(Areas between curves)
+## Institution(UCSB)
+## MLT(AI-A-one-noTrig)
+## Level(3)
+## TitleText1('Calculus: Early Transcendentals')
+## AuthorText1('Stewart')
+## EditionText1('5')
+## Section1('6.1')
+## Problem1('13')
+## KEYWORDS('integration', 'area between curves')
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGbasicmacros.pl",
+"PGchoicemacros.pl",
+"PGanswermacros.pl",
+"PGauxiliaryFunctions.pl"
+);
+
+TEXT(&beginproblem);
+$showPartialCorrectAnswers = 1;
+
+Context("Numeric")->flags->set(
+         tolerance=>0.0001,
+         tolType=>absolute
+       );
+
+$xing=List(Real("-4"),Real("4"));
+$ans=Real("512/3");
+
+BEGIN_TEXT
+
+$PAR
+Find the area of the region between the curves \(y=10-x^2\) and \(y=x^2-22.\)
+
+$PAR
+At what x-values do the two curves intersect? \{ans_rule(30)\}
+
+$PAR
+Area between curves = \{ans_rule(30)\}
+
+END_TEXT
+
+ANS($xing->cmp);
+ANS($ans->cmp);
+
+ENDDOCUMENT();

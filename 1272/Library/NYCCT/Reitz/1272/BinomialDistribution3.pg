@@ -1,0 +1,78 @@
+## DESCRIPTION
+##   Discrete Probability Distribution, Mean and Standard Deviation, from binomial experiment
+## ENDDESCRIPTION
+
+## DBsubject('Statistics')
+## Date('March 2013')
+## Author('Jonas Reitz')
+## Institution('NYCCT')
+## TitleText1('')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('')
+
+DOCUMENT();        # This should be the first executable line in the problem.
+
+loadMacros(
+"PG.pl",
+"PGbasicmacros.pl",
+"PGchoicemacros.pl",
+"PGanswermacros.pl",
+"PGgraphmacros.pl",
+"contextIntegerFunctions.pl"
+);
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+
+## Select a category and associated simple percent
+@categories = ("Democrats", "Republicans");
+@simplepercent = (60, 34);
+$cat = random(0,scalar(@categories)-1);
+$p = $simplepercent[$cat]/100;
+$q = 1-$p;
+
+
+## randomize parameter n (number of trials)
+## choose n between 3 and 7
+$n = random(5,7);
+
+## choose value of x for question
+$myx = random(0,$n);
+
+## initialize probabilities variable - is this necessary?
+@probabilities = (0..$n);
+
+
+
+## compute probabilities
+for ( $x = 0; $x <= $n; $x++ )
+    {
+	$probabilities[$x] = C($n,$x)*$p**$x*$q**($n-$x);
+    }
+
+
+## compute mean
+$mean = $n*$p;
+
+## compute standard deviation
+$standarddeviation = sqrt($n*$p*$q);
+
+
+
+BEGIN_TEXT
+
+\( $categories[$cat] \) make up \( $simplepercent[$cat] \)% of the population of New York City.  If  \( $n \) New Yorkers are chosen at random, find the probability that exactly \( $myx \) of them will be \( $categories[$cat] \) .
+
+
+$PAR
+The probability is \{ ans_rule(10) \}.
+
+END_TEXT
+## answers
+ANS(num_cmp($probabilities[$myx], mode=>"arith"));
+
+
+ENDDOCUMENT();       # This should be the last executable line in the problem.

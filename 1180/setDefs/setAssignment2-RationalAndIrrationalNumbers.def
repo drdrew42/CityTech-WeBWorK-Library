@@ -1,0 +1,14 @@
+
+openDate          = 06/03/2012 at 07:36pm EDT
+dueDate           = 06/11/2012 at 11:59pm EDT
+answerDate        = 06/12/2012 at 12:01am EDT
+paperHeaderFile   = local/opt/webwork/webwork2/conf/snippets/ReitzHeaderBASIC.pg
+screenHeaderFile  = local/opt/webwork/webwork2/conf/snippets/ReitzHeaderBASIC.pg
+problemList       = 
+Library/NewHampshire/unh_schoolib/Fractions/frasrs102.pg, 6, -1 
+Library/NewHampshire/unh_schoolib/Fractions/frabrs101.pg, 5, -1 
+Library/NewHampshire/unh_schoolib/Fractions/frabrs201.pg, 6, -1 
+Library/UMN/algebraKaufmannSchwitters/ks_5_2_4.pg, 3, -1 
+Library/UMN/algebraKaufmannSchwitters/ks_5_3_4.pg, 5, -1 
+Library/ma112DB/set1_2/sw1_3_57c.pg, 5, -1 
+

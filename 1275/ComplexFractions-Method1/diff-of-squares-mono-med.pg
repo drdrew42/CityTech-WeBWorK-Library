@@ -1,0 +1,86 @@
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+$rationalChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     Value->Error("It looks like you've canceled too much. Your answer doesn't contain any variables.") if ($student->class ne "Formula");
+     my $negated = 0;
+     if ($student->{tree}->class eq "UOP" && $student->{tree}{uop} eq 'u-') {
+          $student = Formula($student->{tree}->{op});
+          $negated = 1;
+     }
+     Value->Error("Look at the preview answer box. Did you forget parenthesis around your numerator or denominator?") unless (($student->{tree}->class eq "BOP" && $student->{tree}{bop} eq "/") || $student->isConstant);
+     return 0 unless ( ($correct == $student && $negated == 0) || ($correct == (-1*$student) && $negated == 1) );
+     my $cnum = Formula($correct->{tree}{lop});
+     my $snum = Formula($student->{tree}{lop});
+     my $cden = Formula($correct->{tree}{rop});
+     my $sden = Formula($student->{tree}{rop});
+     Value->Error("Your answer can be reduced further") unless ( abs($cnum) == abs($snum) && abs($cden) == abs($sden) );
+     return 1;
+};
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric")->flags->set(reduceConstants=>0,reduceConstantFunctions=>0);
+Context()->variables->are("a"=>Real);
+
+$Nr = random(2,9,1);
+$ND = random(2,9,1);
+$fracN = Formula("(a + $Nr)/$ND")->reduce;
+
+$Dr = $Nr**2;
+$DD = random(2,9,1);
+$Dd = $ND*$DD;
+$fracD = Formula("($Dr - a^2)/$Dd")->reduce;
+
+$ansN = Formula("$DD")->reduce;
+$ansD = Formula("$Nr - a")->reduce;
+
+$ans = Formula("$ansN/$ansD");
+# ->with(test_at=>[[$Nr],[-$Nr]]);
+$ans->{allowUndefinedPoints} = 1;
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Simplify the complex fraction:
+\[ \Large\frac{$fracN}{$fracD} \]
+$BR
+\{ans_rule(25)\}
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans->cmp(checkUndefinedPoints=>0, checker=>$rationalChecker)->withPostFilter(sub { 
+  my $ans = shift; 
+  $ans->{ans_message} = "Your answer isn't completely simplified." 
+    if $ans->{ans_message} eq "The domain of your function doesn't match that of the correct answer";
+  return $ans; 
+}));
+
+ENDDOCUMENT();        

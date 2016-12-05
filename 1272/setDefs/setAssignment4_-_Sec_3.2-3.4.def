@@ -1,0 +1,21 @@
+
+openDate          = 06/10/2013 at 08:00am EDT
+dueDate           = 06/18/2013 at 01:00am EDT
+answerDate        = 06/18/2013 at 01:00am EDT
+paperHeaderFile   = local/opt/webwork/webwork2/conf/snippets/JREITZDefaultsetHeader.pg
+screenHeaderFile  = local/opt/webwork/webwork2/conf/snippets/JREITZDefaultsetHeader.pg
+problemList       = 
+local/Library/UVA-Stat/setStat212-Homework04/stat212-HW04-01-ReitzUpdateMar2013.pg, 2, -1 
+local/Library/UVA-Stat/setStat212-Homework04/stat212-HW04-08-ReitzUpdate2Mar2013.pg, 2, -1 
+Library/ASU-topics/setProbability/cond7.pg, 6, -1 
+Library/ASU-topics/setProbability/cond8.pg, 6, -1 
+local/Library/ASU-topics/setStat/dueck5_2_4-ReitzUpdateMar2013.pg, 4, -1 
+Library/Rochester/setAlgebra38Counting/sw10_2_14.pg, 2, -1 
+Library/Rochester/setAlgebra38Counting/sw10_2_17.pg, 2, -1 
+Library/Rochester/setAlgebra38Counting/sw10_2_40.pg, 2, -1 
+Library/Rochester/setAlgebra38Counting/sw10_2_43.pg, 2, -1 
+Library/Rochester/setAlgebra39Probability/prob2.pg, 6, -1 
+Library/Rochester/setAlgebra39Probability/cards2.pg, 2, -1 
+Library/Rochester/setDiscrete9Counting/ur_dis_9_11.pg, 6, -1 
+Library/Rochester/setAlgebra38Counting/sw10_2_60.pg, 3, -1 
+

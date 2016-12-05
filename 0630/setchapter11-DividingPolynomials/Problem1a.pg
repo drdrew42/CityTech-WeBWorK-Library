@@ -1,0 +1,86 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject('Algebra')
+## DBchapter('Rational equations and functions')
+## DBsection('Simplifying')
+## Date('2/15/2016')
+## Author('Parker')
+## Institution('City Tech')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextLimitedPowers.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->variables->are("x"=>Real, "y"=>Real);
+Context()->noreduce('x^(-1)','(-x)-y');
+LimitedPowers::OnlyNonNegativeIntegers();
+
+$dcoeff = non_zero_random(-6,6,2);
+$dXexp = random(1,5,1);
+$dYexp = random(1,5,1);
+
+$anscoeff = non_zero_random(-8,8,1);
+$ansXexp = random(1,5,1);
+$ansYexp = 0;
+
+$ncoeff = $dcoeff * $anscoeff;
+$nXexp = $dXexp + $ansXexp;
+$nYexp = $dYexp + $ansYexp;
+
+$denominator = Formula("$dcoeff * x**$dXexp * y**$dYexp")->reduce;
+$numerator = Formula("$ncoeff * x**$nXexp * y**$nYexp")->reduce;
+
+$ans = Formula("$anscoeff x**$ansXexp y**$ansYexp")->reduce;
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+Simplify.
+$BR
+$BR
+\( \displaystyle{ \frac{$numerator}{$denominator} } \)
+$BR
+$BR
+\{$ans->ans_rule\}
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS(Compute($ans)->cmp);
+
+
+ENDDOCUMENT();        

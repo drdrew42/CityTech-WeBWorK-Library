@@ -1,0 +1,94 @@
+##KEYWORDS('Differential equaltion')
+
+## DBsubject('Differential Equation')
+## DBchapter('Modeling of First-order of DE')
+## DBsection('Section 3.1 Linear Models')
+## Date('01/23/2012')
+## Author('Anna Ghazaryan, Fuli Zhang')
+## Institution('Miami University')
+## TitleText1('A First Course in Differential Equation')
+## EditionText1('9')
+## AuthorText1('Dennis G.Zill')
+## Section1('3.1')
+## Problem1('40')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",
+   "MathObjects.pl",
+   "AnswerFormatHelp.pl",
+   "unionLists.pl",
+   "parserPrime.pl",
+   "parserPopUp.pl",
+   "answerHints.pl",
+   "parserImplicitPlane.pl",
+
+ );
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric")->variables->add(y=>"Real",k=>"Real",t=>"Real",P0=>"Real");
+
+##############################################################
+#
+#  Text
+#
+#
+$answer[0] = Formula("P0*e^(k*sin(t))")->reduce;
+
+
+
+
+
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Solve the following problem: 
+$BR
+$BR
+Question:$BR The differential equation \(\displaystyle\frac{dP}{dt}=Pk cost\),where \(k\) is a positive constant, is a mathematical model for a population \(P(t)\)that undergoes yearly seasonal fluctuations. Solve the equation subject to \(P(0)=P_0\).Enter P0 as \(P_0\)
+
+
+
+$BR
+$BR
+\(\displaystyle \ P=\) \{ans_rule(30)\}
+
+ 
+\{ AnswerFormatHelp("formulas") \}
+
+
+
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+ANS( $answer[0]->cmp() );
+
+
+
+
+
+
+
+
+ENDDOCUMENT();    

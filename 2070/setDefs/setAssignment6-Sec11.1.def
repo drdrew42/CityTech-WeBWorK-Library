@@ -1,0 +1,44 @@
+assignmentType      = default
+openDate          = 11/19/2015 at 01:00am EST
+reducedScoringDate = 12/31/1969 at 07:00pm EST
+dueDate           = 12/02/2015 at 03:00am EST
+answerDate        = 12/02/2015 at 03:00am EST
+enableReducedScoring = N
+paperHeaderFile   = local/Reitz/CombinedHeaderFile-Reitz.pg
+screenHeaderFile  = local/Reitz/CombinedHeaderFile-Reitz.pg
+description       = 
+restrictProbProgression = 
+emailInstructor   = 
+
+problemListV2 
+problem_start
+problem_id = 1
+source_file = Library/ASU-topics/setDiscrete/katie22.pg
+value = 10
+max_attempts = -1
+showMeAnother = -1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 2
+source_file = Library/ASU-topics/setDiscrete/katie21.pg
+value = 10
+max_attempts = -1
+showMeAnother = -1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+problem_start
+problem_id = 3
+source_file = Library/ASU-topics/setDiscrete/katie20.pg
+value = 10
+max_attempts = -1
+showMeAnother = -1
+prPeriod = 
+counts_parent_grade = 
+att_to_open_children =  
+problem_end
+

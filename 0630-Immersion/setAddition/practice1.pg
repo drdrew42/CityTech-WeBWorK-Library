@@ -1,0 +1,196 @@
+##DESCRIPTION
+##  PreAlgebra problem:
+##ENDDESCRIPTION
+
+##KEYWORDS('prealgebra','common core')
+
+## DBsubject('Arithmetic')
+## DBchapter('Integers')
+## DBsection('Addition/subtraction')
+## Date('3/4/2015')
+## Author('Andrew Parker')
+## Institution('NYC CityTech')
+## ProblemTester('')
+## TitleText1('')
+## Publisher('')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "problemRandomize.pl",
+   "parserPopUp.pl",
+   "scaffold.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+#  Allow for the user to try another version of the problem once they get it correct.
+ProblemRandomize(when=>"Correct",onlyAfterDue=>0);
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 0;
+
+##############################################################
+#
+#  Setup
+#
+#
+
+  @pos=("0","+","++","+++","++++","+++++","++++++","+++++++","++++++++","+++++++++");
+
+## Do NOT ask students to input "-" as a string. It WILL NOT WORK.
+  @neg=("0","-","--","---","----","-----","------","-------","--------","---------");
+
+@cancel = ();
+@remaining = ();
+@compute = ();
+@A = ();
+@B = ();
+
+foreach my $i (0..4) {
+  $A[$i] = non_zero_random(-8,8,1)*15;
+  do { $B[$i] = non_zero_random(-8,8,1)*15; } until ( abs($B[$i]) != abs($A[$i]) );
+  $compute[$i] = Real($A[$i] + $B[$i]);
+  if ( $A[$i]*$B[$i] < 0 ) {
+    $cancel[$i] = "Yes";
+  } else {
+    $cancel[$i] = "No";
+  }
+  if ( $compute[$i] < 0 ) {
+    $remaining[$i] = "Negative";
+  } else {
+    $remaining[$i] = "Positive";
+  }
+}
+
+## Part 1: Does it cancel? ##
+
+$yesno0=PopUp(["?","Yes","No"], $cancel[0]);
+$yesno1=PopUp(["?","Yes","No"], $cancel[1]);
+$yesno2=PopUp(["?","Yes","No"], $cancel[2]);
+$yesno3=PopUp(["?","Yes","No"], $cancel[3]);
+$yesno4=PopUp(["?","Yes","No"], $cancel[4]);
+
+## Part 2: Which symbol will remain?##
+
+$posneg0=PopUp(["?","Positive","Negative"], $remaining[0]);
+$posneg1=PopUp(["?","Positive","Negative"], $remaining[1]);
+$posneg2=PopUp(["?","Positive","Negative"], $remaining[2]);
+$posneg3=PopUp(["?","Positive","Negative"], $remaining[3]);
+$posneg4=PopUp(["?","Positive","Negative"], $remaining[4]);
+
+
+## Part 3: Doing the computation##
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+##    to disable arithmetic operations in the answer.  Student must simplify.
+Context()->operators->undefine("+","-","/","*");
+Context()->strings->add( 
+ "+" => {},
+ "++" => {},
+ "+++" => {},
+ "++++" => {},
+ "+++++" => {},
+ "++++++" => {},
+ "+++++++" => {},
+ "++++++++" => {},
+ "+++++++++" => {},
+# "-" => {} ## DO NOT USE, DERP.
+ "--" => {},
+ "---" => {},
+ "----" => {},
+ "-----" => {},
+ "------" => {},
+ "-------" => {},
+ "--------" => {},
+ "---------" => {},
+);
+
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+A.) $A[0] + $B[0] , will there be cancellation? \{ $yesno0->menu() \}
+$BR
+$A[0] + $B[0] , which symbols will remain after adding? \{ $posneg0->menu() \}
+$BR
+$A[0] + $B[0] = \{ $compute[0]->ans_rule() \}
+$BR
+
+$PAR
+B.) $A[1] + $B[1] , will there be cancellation? \{ $yesno1->menu() \}
+$BR
+$A[1] + $B[1] , which symbols will remain after adding? \{ $posneg1->menu() \}
+$BR
+$A[1] + $B[1] = \{ $compute[1]-> ans_rule() \}
+$BR
+
+$PAR
+C.) $A[2] + $B[2] , will there be cancellation? \{ $yesno2->menu() \}
+$BR
+C.) $A[2] + $B[2] , which symbols will remain after adding? \{ $posneg2->menu() \}
+$BR
+C.) $A[2] + $B[2] = \{ $compute[2]-> ans_rule() \}
+$BR
+
+$PAR
+D.) $A[3] + $B[3] , will there be cancellation? \{ $yesno3->menu() \}
+$BR
+D.) $A[3] + $B[3] , which symbols will remain after adding? \{ $posneg3->menu() \}
+$BR
+D.) $A[3] + $B[3] = \{ $compute[3]-> ans_rule() \}
+$BR
+
+$PAR
+E.) $A[4] + $B[4] , will there be cancellation? \{ $yesno4->menu() \}
+$BR
+E.) $A[4] + $B[4] , which symbols will remain after adding? \{ $posneg4->menu() \}
+$BR
+E.) $A[4] + $B[4] = \{ $compute[4]-> ans_rule() \}
+$BR
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( $yesno0->cmp() );
+ANS( $posneg0->cmp() );
+ANS( $compute[0]->cmp() );
+ANS( $yesno1->cmp() );
+ANS( $posneg1->cmp() );
+ANS( $compute[1]->cmp() );
+ANS( $yesno2->cmp() );
+ANS( $posneg2->cmp() );
+ANS( $compute[2]->cmp() );
+ANS( $yesno3->cmp() );
+ANS( $posneg3->cmp() );
+ANS( $compute[3]->cmp() );
+ANS( $yesno4->cmp() );
+ANS( $posneg4->cmp() );
+ANS( $compute[4]->cmp() );
+
+
+##############################################################
+#
+#  Answers
+#
+#
+
+
+ENDDOCUMENT();        
+COMMENT('MathObject version.');

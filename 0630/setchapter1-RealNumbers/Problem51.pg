@@ -1,0 +1,84 @@
+##DESCRIPTION
+##  Real Numbers - FINAL EXAM STYLE QUESTION 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'real numbers', 'PEMDAS')
+
+## DBsubject('Middle school')
+## DBchapter('Algebraic expressions and integers')
+## DBsection('Order Of Operations')
+## Date('10/7/2013')
+## Author('ElHitti')
+## Institution('CityTech')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context() -> flags -> set(
+  reduceConstants=>0,
+  reduceConstantFunction=>0
+);
+
+$A=non_zero_random(-5,6,2);
+$B=non_zero_random(2,7,1);
+$C=non_zero_random(-5,5,1);
+$D=non_zero_random(1,10,1);
+$E=non_zero_random(-5,-1,1);
+
+$display=Formula("$A+$B($C+$D*$E)");
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Evaluate.
+$BR
+\( \displaystyle{ $display } \)
+$BR
+\{ ans_rule( 20 ) \}
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+##############################################################
+#
+#  Answers
+#
+#
+
+$ans = $display -> reduce;
+Context()->operators->undefine("^","**","+","*","-","/");
+
+
+ANS($display->with(tolerance=>.0001)->cmp);
+# relative tolerance --3.1412 is incorrect but 3.1413 is correct
+# default tolerance is .01 or one percent.
+
+
+ENDDOCUMENT();        

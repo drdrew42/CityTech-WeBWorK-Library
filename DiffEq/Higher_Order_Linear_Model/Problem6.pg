@@ -1,0 +1,101 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('Modeling with Higher-Order Differential Equations')
+## DBsection('Linear Models')
+## Date('05/28/2012')
+## Author('Anna Ghazaryan,Fuli Zhang')
+## Institution('Muohio')
+## TitleText1('Differential equations with Boundary-value problem')
+## AuthorText1('Dennis G. Zill')
+## Section1('5.1')
+## Edition('7')
+## Problem1('22')
+
+########################################################################
+
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",
+   "MathObjects.pl",
+   "AnswerFormatHelp.pl",
+   "unionLists.pl",
+   "parserPrime.pl",
+   "parserPopUp.pl",
+   "answerHints.pl",
+   "parserImplicitPlane.pl",
+
+ );
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric")->variables->add(y=>"Real",t=>"Real");
+
+##############################################################
+#
+#  Text
+#
+#
+
+
+$a = random(4,5,6);
+
+
+$answer[0] = Formula("$a te^(-2sqrt(2)t)");
+$answer[1] = Formula("1/(2sqrt(2))");
+$answer[2] = Formula("$a/(2sqrt(2))e^(-1)");
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Solve the following problem: 
+$BR
+Question:$BR A 4-foot spring measures 8 feet long after a mass weighing 8 pounds is attached to it. The medium through which the mass moves offers a damping force numerically equal to \(\sqrt{2}\) times the instantaneous velocity. Find the equation of motion if the mass is initially released from the equilibrium position with a downward velocity of $a ft/s. Find the time at which the mass attains its extreme displacement from the equilibrium position. What is the position of the mass at this instant? (Use t as independent variable)
+
+$BR
+$BR
+equation of motion \(\displaystyle \ x=\) \{ans_rule(30)\}.
+$BR
+$BR
+the mass attains its extreme displacement from the equilibrium position\(\displaystyle \ t=\) \{ans_rule(30)\}second.
+$BR
+$BR
+position at this instant\(\displaystyle \ x=\) \{ans_rule(30)\}feet.
+ 
+\{ AnswerFormatHelp("formulas") \}
+
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+ANS( $answer[0]->cmp() );
+ANS( $answer[1]->cmp() );
+ANS( $answer[2]->cmp() );
+
+
+
+
+
+
+
+ENDDOCUMENT();

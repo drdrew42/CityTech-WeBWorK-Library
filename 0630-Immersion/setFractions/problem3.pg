@@ -1,0 +1,297 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject(‘Arithmetic’)
+## DBchapter(‘Fractions/rational numbers’)
+## DBsection(‘Reducing fractions’)
+## Date('7/3/2015')
+## Author('K. Andrew Parker')
+## Institution('NYC City Tech')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextFraction.pl",
+   "parserPopUp.pl",
+   "scaffold.pl",
+   "niceTables.pl",
+   "PGessaymacros.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer=>"parsed"
+   );
+
+Context()->operators->set('*'=>{TeX=>"\times "});
+Context()->operators->set(' *'=>{TeX=>"\times "});
+Context()->operators->set('* '=>{TeX=>"\times "});
+Context()->update;
+
+  $formChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentstring = $ansHash->{preview_text_string};
+     return ($studentstring eq $ansHash->{correct_ans} ? 1 : 0);
+   };
+
+  $numChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentans=$ansHash->{original_student_ans};
+     Value->Error("You're on the right track, but your answer should be just a number.") if ( ($studentans ne $student)&&($student==$correct) );
+     return($studentans eq $ansHash->{correct_ans} ? 1 : 0);
+  };
+
+
+@prime = ( 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 );
+@card = ("zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen");
+
+do { $nick1 = random(2,13,1); } until ( gcf($nick1,20) == 1 );
+do { $nick2 = random(2,13,1); } until ( gcf($nick2,20) == 1 && $nick1 != $nick2 && $nick1+$nick2 < 20 );
+$nicksum = $nick1+$nick2;
+
+do { $dimes1 = random(3,9,2); } until ( gcf($dimes1,10) == 1 );
+do { $pennies1 = random(7,67,2); } until ( gcf($pennies1,100) == 1 && ($pennies1+$dimes1*10 < 100) );
+$pennysum = $dimes1+$pennies1;
+$dime1pennies = 10*$dimes1;
+$pennyvalue = 10*$dimes1+$pennies1;
+
+$quarters2 = random(1,3,1);
+do { $dimes2 = random(1,9,2); } until ( gcf($dimes1,10) == 1 );
+$quartNicks = 5*$quarters2;
+$dimeNicks = 2*$dimes2;
+$sumNicks = $quartNicks+$dimeNicks;
+
+##############################################################
+#
+#  Text
+#
+#
+
+
+Scaffold::Begin(
+      can_open => "when_previous_correct",
+      is_open  => "first_incorrect"
+);
+
+Section::Begin( "Part 1: Adding Fractions" );
+
+Context("LimitedFraction")->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer=>"parsed",
+     showMixedNumbers=>0,
+     allowMixedNumbers=>0,
+     reduceFractions=>0,
+     requirePureFractions=>1
+   );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Adding fractions can be as simple as adding coins.
+$PAR
+That is, just so long as we're adding the same $BITALIC denomination $EITALIC of coins.
+$PAR
+If we add $card[$nick1] nickels to $card[$nick2] nickels, how many nickels do we have total? \{ ans_rule(5) \}
+$PAR
+How would $card[$nick1] nickels be represented as a fraction of a dollar? \{ ans_rule(5) \}
+$PAR
+How would $card[$nick2] nickels be represented as a fraction of a dollar? \{ ans_rule(5) \}
+$PAR
+How would we represent our total amount of nickels as a fraction of a dollar? 
+\{ans_rule(5) \}
+$PAR
+$PAR
+Take a look at the first two fractions and how they add together to give us the total fraction.
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( Real($nicksum)->cmp(checker=>$numChecker) );
+ANS( Fraction($nick1,20)->cmp(studentsMustReduceFractions=>0) );
+ANS( Fraction($nick2,20)->cmp(studentsMustReduceFractions=>0) );
+ANS( Fraction($nicksum,20)->cmp(studentsMustReduceFractions=>0) );
+
+Section::End();
+
+Section::Begin( "Part 2: Adding with different denominators" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+So, we saw that $card[$nick1] nickels, \( \dfrac{$nick1}{20} \), adds together nicely with $card[$nick2] nickels, \( \dfrac{$nick2}{20} \), to make a total of $card[$nicksum] nickels, \( \dfrac{$nicksum}{20} \).
+$PAR
+So, it should be pretty clear what happened, though it might not be clear why the fractions worked the way did.
+$PAR
+Clearly, the numerators $nick1 and $nick2 got added together to make $nicksum, the numerator for the sum.
+$PAR
+But WHY didn't the denominators get added together?
+$PAR
+Well, remember what the denominators represent. Having 20 in the denominator tells us that we're dealing with a coin who's value is \(\frac{1}{20}^{th}\) of a dollar. Or, in other words, the denominator tells us that we're dealing with nickels. 
+$BR
+$BBOLD $BITALIC So, if the denominator changed into something other than 20, then that means we somehow wouldn't end up with nickels! $EITALIC $EBOLD
+$PAR
+But if the denominators don't change when we add fractions, then why are they even there?
+$BR
+Again, remember that the denominators essentially tell us which coins we're working with. We're going to require that the denominators are the SAME before we can proceed with the addition. Basically, all that means is that we have to have the same type of coins if we're going to try to add them together.
+$PAR
+Say we have $card[$dimes1] dimes and $card[$pennies1] pennies. 
+$BR
+(Of course, we know how much money that is, but let's stay in the realm of fractions for a minute.)
+$BR
+What fraction of a dollar does $card[$dimes1] dimes represent? \{ ans_rule(5) \}
+$BR
+What fraction of a dollar does $pennies1 pennies represent? \{ ans_rule(10) \}
+$PAR
+But if we try to simply add the number of coins together, like we did for the nickels, the result doesn't make sense. The sum of the numbers of coins is $pennysum, but they're not all dimes, and they're not all pennies either.
+$PAR
+However, we all understand these coins, so how many cents do we have with $dimes1 dimes and $pennies1 pennies? \{ ans_rule(5) \}
+$PAR
+And how would we represent that value as a fraction of a dollar? \{ ans_rule(5) \}
+END_TEXT
+Context()->normalStrings;
+
+ANS(Fraction($dimes1,10)->cmp() );
+ANS(Fraction($pennies1,100)->cmp() );
+ANS(Real($pennyvalue)->cmp(checker=>$numChecker) );
+ANS(Fraction($pennyvalue,100)->cmp() );
+
+Section::End();
+
+Section::Begin( "Part 3: Getting a common denominator" );
+
+Context("Numeric");
+Context()->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer=>"parsed"
+   );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+In order to add our $dimes1 dimes and $pennies1 pennies together as fractions, we first have to convert them into the same kind of coin.
+$BR
+Our $pennies1 pennies can't be converted evenly to any other kind of coin, so we'll have to convert the dimes into pennies so that we're dealing with all the same coins.
+$BR
+How many pennies will we get by exchanging our $card[$dimes1] dimes for pennies? 
+\{ ans_rule(5) \}
+$BR
+Express the number of pennies from this exchange as a fraction of a dollar. 
+\{ ans_rule(10) \}
+$BR
+Then, if we add the pennies that we got by exchanging the dimes to the $pennies1 pennies that we already had, how many pennies would we have total? \{ ans_rule(5) \}
+$BR
+Express our total coins as a fraction of a dollar. \{ ans_rule(10) \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS(Real($dime1pennies)->cmp(checker=>$numChecker) );
+ANS(Formula("$dime1pennies/100")->cmp(checker=>$formChecker) );
+ANS(Real($pennyvalue)->cmp(checker=>$numChecker) );
+ANS(Formula("$pennyvalue/100")->cmp(checker=>$formChecker) );
+
+Section::End();
+
+Section::Begin( "Part 4: Formalizing the process" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+We started with $dimes1 dimes, \( \dfrac{$dimes1}{10} \), and attempted to add $pennies1 pennies, \( \dfrac{$pennies1}{100} \).
+$PAR
+The problem was that we had two different types of coins, as evidenced by the differing denominators.
+$PAR
+We solved that problem by exchanging each dime for 10 pennies. This meant that instead of having $dimes1 dimes, we instead had \( 10 \times $dimes1 \) pennies, \( \dfrac{10 \times $dimes1}{10 \times 10} \). By exchanging the coins, our numerator and denominator were both multiplied by 10.
+$PAR
+Equipped with our new fractions, \( \dfrac{$dime1pennies}{100} \) and \( \dfrac{$pennies1}{100} \), we could now add them. (Both because they now have the same denominator, and having the same denominator is the same as having the same kind of coins.)
+$PAR
+Adding the two fractions together follows the same pattern as our first example with the nickels. Add the number of coins, and don't change the denominator, because we still have the same coins after we add. Our final result? \( \dfrac{$pennyvalue}{100} \).
+$PAR
+This was all made possible by getting the same denominator for both fractions.
+$PAR
+And we got to the same denominator by multiplication. It wasn't necessary in the last example, but there's nothing stopping us from exchanging $BITALIC both $EITALIC types of coins for a third type of coin.
+$PAR
+Because we use multiplication to arrive at a common denominator, we are going to want to find a common multiple for our denominators. And because we don't want to deal with larger numbers than we absolutely have to, we're going to try to find the $BBOLD least $EBOLD common multiple.
+$PAR
+Let's consider a new example.
+$PAR
+Say we're given $card[$quarters2] quarters and $card[$dimes2] dimes to add together.
+$BR
+Express our $card[$quarters2] quarters as a fraction of a dollar. \{ ans_rule(5) \}
+$BR
+Express our $card[$dimes2] dimes as a fraction of a dollar. \{ ans_rule(5) \}
+$BR
+Of course, we could exchange all the coins for pennies, but is there a better way?
+$BR
+What is the Least Common Multiple of the two denominators? \{ ans_rule(5) \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS(Formula("$quarters2/4")->cmp(checker=>$formChecker) );
+ANS(Formula("$dimes2/10")->cmp(checker=>$formChecker) );
+ANS(Real(20)->cmp() );
+
+Section::End();
+
+Section::Begin( "Part 5: Practice" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Continuing with the example, we're trying to add $card[$quarters2] quarters, \( \dfrac{$quarters2}{4} \), and $card[$dimes2] dimes, \( \dfrac{$dimes2}{10} \).
+$PAR
+You've successfully identified 20 as the Least Common Multiple for the denominators.
+$PAR
+What do we need to multiply both the numerator and denominator of the first fraction by, in order to end up with 20 in the denominator? \{ ans_rule(5) \}
+$BR
+Express \( \dfrac{$quarters2}{4} \) as an equivalent fraction with 20 in the denominator.
+\{ ans_rule(10) \}
+$PAR
+What do we need to multiply both the numerator and denominator of the second fraction by, in order to end up with 20 in the denominator? \{ ans_rule(5) \}
+$BR
+Express \( \dfrac{$dimes2}{10} \) as an equivalent fraction with 20 in the denominator.
+\{ ans_rule(10) \}
+$PAR
+Now that you have fractions equivalent to the ones we started with, and they have the same denominator, add them together and give the result. \{ ans_rule(10) \}
+END_TEXT
+Context()->normalStrings;
+
+ANS(Real(5)->cmp() );
+ANS(Formula("$quartNicks/20")->cmp(checker=>$formChecker) );
+ANS(Real(2)->cmp() );
+ANS(Formula("$dimeNicks/20")->cmp(checker=>$formChecker) );
+ANS(Formula("$sumNicks/20")->cmp(checker=>$formChecker) );
+
+Section::End();
+
+Scaffold::End();
+
+ENDDOCUMENT();        

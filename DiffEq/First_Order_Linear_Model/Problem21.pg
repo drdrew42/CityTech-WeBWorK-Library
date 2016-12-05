@@ -1,0 +1,97 @@
+##DESCRIPTION
+##  Differential Equation
+##ENDDESCRIPTION
+
+##KEYWORDS('Differential equaltion')
+
+## DBsubject('Differential Equation')
+## DBchapter('Introduction to DE')
+## DBsection('Section 1.3 Differential Equations as Mathematical Models')
+## Date('01/23/2012')
+## Author('Anna Ghazaryan, Fuli Zhang')
+## Institution('Miami University')
+## TitleText1('A First Course in Differential Equation')
+## EditionText1('9')
+## AuthorText1('Dennis G.Zill')
+## Section1('1.3')
+## Problem1('7')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",
+   "MathObjects.pl",
+   "AnswerFormatHelp.pl",
+   "unionLists.pl",
+   "parserPrime.pl",
+   "parserPopUp.pl",
+   "answerHints.pl",
+   "parserImplicitPlane.pl",
+
+ );
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric")->variables->add(y=>"Real",k=>"Real");
+
+##############################################################
+#
+#  Text
+#
+#
+$answer[0] = Formula("kx(1000-x)")->reduce;
+$answer[1] = Formula("1")->reduce;
+
+
+
+
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Set up a differential equation and additional conditions (if any) for the following problems. Do NOT solve the problem: 
+$BR
+$BR
+Question:$BR At a time denoted as \(t=0\), a student carrying a new flu virus comes back to an isolated campus that has a fixed number of 1,000 people. Determine a differential equation for the number of people \(x(t)\) who have contracted the flu if the rate at which the disease spreads is proportional to the number of interactions between the people who have the flu and the number of people who have not yet been exposed to it. What is \(x(0)\)?(Please use k as proportional constant)
+$BR
+$BR
+\(\displaystyle \ \frac{dx}{dt}=\) \{ans_rule(30)\}(Your answer should be in terms of \(k\) and \(x\))
+$BR
+$BR
+\(\displaystyle \ x(0)=\) \{ans_rule(30)\} 
+ 
+\{ AnswerFormatHelp("formulas") \}
+
+
+
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+ANS( $answer[0]->cmp() );
+ANS( $answer[1]->cmp() );
+
+
+
+
+
+
+
+ENDDOCUMENT();        

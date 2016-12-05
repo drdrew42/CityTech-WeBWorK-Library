@@ -1,0 +1,90 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('Laplace Transform')
+## DBsection('Systems of linear equation")
+## Date('06/11/2012')
+## Author('Anna Ghazaryan,Fuli Zhang')
+## Institution('Muohio')
+## TitleText1('Differential equations with Boundary-value problem')
+## AuthorText1('Dennis G. Zill')
+## Section1('7.6')
+## Edition('7')
+## Problem1('6')
+
+###############################################################
+
+
+DOCUMENT(); 
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"parserAssignment.pl",
+"unionLists.pl",
+);
+
+TEXT(beginproblem());
+
+
+#############################
+#  Setup
+
+Context("Numeric");
+Context()->variables->are(
+t=>"Real"
+);
+
+$x0 = 0;
+$y0 = 1;
+
+$x = Formula("-sqrt(3)e^(-t/2)sin(sqrt(3)/2 t)");
+$y = Formula("e^(-t/2)cos(sqrt(3)/2 t)");
+
+
+
+######################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+Use either Laplace Transform or method of elimination to solve the systems
+$PAR
+\[
+\begin{array}{lcl}
+x'+x-y'+y & = & 0\\
+x'+y'+2y & = & 0 
+\end{array}
+\]
+$BR
+$BR
+if \( x(0) = $x0 \) and \( y(0) = $y0 \).
+$BR
+$BR
+\( x(t) = \) 
+\{ ans_rule(40) \}
+\{ AnswerFormatHelp("formulas") \}
+$BR
+\( y(t) = \) 
+\{ ans_rule(40) \}
+\{ AnswerFormatHelp("formulas") \}
+END_TEXT
+Context()->normalStrings;
+
+
+######################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 1;
+
+ANS( $x->cmp() );
+ANS( $y->cmp() );
+
+
+COMMENT("MathObject version.");
+
+ENDDOCUMENT();

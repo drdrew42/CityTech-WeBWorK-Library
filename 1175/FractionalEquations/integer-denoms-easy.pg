@@ -1,0 +1,70 @@
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextFraction.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+# (x - r1)/A - (x - r2)/B = M/N -> (B-A)x = ABM/N +Br1 - Ar2
+
+Context("Numeric")->flags->set(reduceConstants=>0, reduceConstantFunctions=>0);
+
+$N = list_random(2,3,5);
+$M = random(1,$N-1,1);
+$b = random(3,5,1);
+$B = $b*$N;
+$A = random(2,$B-1,1);
+
+$r1 = random(-1,1,2)*random(2,6,1);
+do { $r2 = random(-1,1,2)*random(2,6,1); } until ( abs($r1) != abs($r2) );
+
+$frac1 = Formula("(x-$r1)/$A")->reduce;
+$frac2 = Formula("(x-$r2)/$B")->reduce;
+$equals = Formula("$M/$N");
+
+Context("LimitedFraction")->flags->set(showMixedNumbers=>0);
+
+$num = $A*$b*$M + $B*$r1 - $A*$r2;
+$den = $B - $A;
+$ans = Fraction($num, $den)->reduce;
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Solve for x:
+
+\[ $frac1 - $frac2 = $equals \]
+
+$PAR
+\{ans_rule(10)\}
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans->cmp);
+
+ENDDOCUMENT();        

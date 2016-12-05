@@ -1,0 +1,62 @@
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextFraction.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+# Standard quadratic / a^2
+
+Context("Numeric")->flags->set(reduceConstants=>0, reduceConstantFunctions=>0);
+Context()->variables->are("a"=>Real);
+
+$R1 = random(-1,1,2)*random(2,9,1);
+$R2 = random(-1,1,2)*random(2,9,1);
+
+$B = -$R1 - $R2;
+$C = $R1*$R2;
+
+$LHS = Formula("$C/a^2 + $B/a")->reduce;
+$RHS = Formula("-1")->reduce;
+
+$ans = List(Real($R1), Real($R2));
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Solve for a:
+
+\[ $LHS = $RHS \]
+
+$PAR
+x = \{ans_rule(10)\}
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans->cmp);
+
+ENDDOCUMENT();        

@@ -1,0 +1,89 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('introduction of systems')
+## DBsection("First-order systems and applications")
+## Date('06/11/2012')
+## Author('Anna Ghazaryan,Fuli Zhang')
+## Institution('Muohio')
+## TitleText1('Differential equations with Boundary-value problem')
+## AuthorText1('David E. Penney')
+## Section1('5.1')
+## Edition('7')
+## Problem1('15')
+
+###############################################################
+
+
+DOCUMENT(); 
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"parserAssignment.pl",
+"unionLists.pl",
+);
+
+TEXT(beginproblem());
+
+
+#############################
+#  Setup
+
+Context("Numeric");
+Context()->variables->are(
+t=>"Real"
+);
+
+$a=random(1,2,3);
+$b=random(1,2,3);
+$x = Formula("$a cos(2t) + $b/4 sin(2t)");
+$y = Formula("$b cos(2t) - 4*$a sin(2t)");
+
+
+
+######################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+Use either Laplace Transform or method of elimination to solve the systems
+$PAR
+\[
+\begin{array}{lcl}
+x' & = & y/2\\
+y' & = & -8x 
+\end{array}
+\]
+$BR
+$BR
+if \( x(0) = $a \) and \(y(0) = $b\).
+$BR
+$BR
+\( x(t) = \) 
+\{ ans_rule(40) \}
+\{ AnswerFormatHelp("formulas") \}
+$BR
+\( y(t) = \) 
+\{ ans_rule(40) \}
+\{ AnswerFormatHelp("formulas") \}
+END_TEXT
+Context()->normalStrings;
+
+
+######################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 1;
+
+ANS( $x->cmp() );
+ANS( $y->cmp() );
+
+
+COMMENT("MathObject version.");
+
+ENDDOCUMENT();

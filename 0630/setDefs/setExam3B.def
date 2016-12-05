@@ -1,0 +1,154 @@
+assignmentType      = default
+openDate          = 04/13/2016 at 11:15am EDT
+reducedScoringDate = 05/25/2015 at 05:00pm EDT
+dueDate           = 04/15/2016 at 11:20am EDT
+answerDate        = 04/15/2016 at 11:20am EDT
+enableReducedScoring = N
+paperHeaderFile   = defaultHeader
+screenHeaderFile  = defaultHeader
+description       = 
+restrictProbProgression = 
+emailInstructor   = 
+
+problemListV2 
+problem_start
+problem_id = 1
+source_file = local/setParker-Exam3B/question1.pg
+value = 10
+max_attempts = 1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 2
+source_file = local/setParker-Exam3B/question2.pg
+value = 10
+max_attempts = 1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 3
+source_file = local/setParker-Exam3B/question3.pg
+value = 10
+max_attempts = 1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 4
+source_file = local/setParker-Exam3B/question4.pg
+value = 10
+max_attempts = 1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 5
+source_file = local/setParker-Exam3B/question5.pg
+value = 10
+max_attempts = 1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 6
+source_file = local/setParker-Exam3B/question6.pg
+value = 10
+max_attempts = 1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 7
+source_file = local/setParker-Exam3B/problem7.pg
+value = 10
+max_attempts = 1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 8
+source_file = local/setParker-Exam3B/question8.pg
+value = 10
+max_attempts = 1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 9
+source_file = local/setParker-Exam3B/question9.pg
+value = 10
+max_attempts = 1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 10
+source_file = local/setParker-Exam3B/question10.pg
+value = 10
+max_attempts = 1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 11
+source_file = local/setParker-Exam3B/question11.pg
+value = 10
+max_attempts = 1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 12
+source_file = local/setParker-Exam3B/question12.pg
+value = 10
+max_attempts = 1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 13
+source_file = local/setParker-Exam3B/question13.pg
+value = 10
+max_attempts = 1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 14
+source_file = local/setParker-Exam3B/question14.pg
+value = 10
+max_attempts = 1
+showMeAnother = 
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+

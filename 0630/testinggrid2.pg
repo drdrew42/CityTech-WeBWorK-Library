@@ -1,0 +1,91 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject('Arithmetic')
+## DBchapter('Percents')
+## DBsection('Calculations')
+## Date('6/3/2002')
+## Author('')
+## Institution('')
+## TitleText1('Precalculus')
+## EditionText1('3')
+## AuthorText1('Stewart, Redlin, Watson')
+## Section1('1.1')
+## Problem1('22')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "PGgraphmacros.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+
+$tens = random(0,9,1);
+$units = random(1,9,1);
+
+($WIDTH,$HEIGHT,$TEXSIZE)=(200,200,150);
+# now initialize the graph
+$graph2 = init_graph(0,0, 2,2,size=>[$WIDTH,$HEIGHT]);
+$scale=100;
+$poly = new GD::Polygon;
+foreach $pt ([0,0], [0,2], [.2,2],[.2,0])
+   {$poly->addPt($pt->[0]*$scale,$pt->[1]*$scale)}
+$blue = $graph2->im->colorAllocate(100,100,255);
+$graph2->im->filledPolygon($poly,$blue);
+for($x=0;$x<11;$x++)
+{$y=.2*$x;
+$graph2->moveTo($y,0);
+$graph2->lineTo($y ,2 ,'black');
+$graph2->moveTo(0,$y);
+$graph2->lineTo(2 ,$y ,'black');
+}
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$BCENTER
+\{ image( insertGraph($graph2), tex_size=>$TEXSIZE,
+    height=>$HEIGHT, width=>$WIDTH
+    ) \}
+$ECENTER
+
+END_TEXT
+Context()->normalStrings;
+
+
+
+##############################################################
+#
+#  Answers
+#
+#
+
+
+
+ENDDOCUMENT();        

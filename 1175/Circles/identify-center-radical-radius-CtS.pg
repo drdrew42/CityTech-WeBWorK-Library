@@ -1,0 +1,85 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "PGML.pl",
+   "contextLimitedFactor.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric")->variables->are(x=>Real,y=>Real);
+Context()->flags->set(reduceConstants=>0, reduceConstantFunctions=>0, formatStudentAnswer=>'parsed');
+Parser::Number::NoDecimals();
+
+Context()->{error}{msg}{"You are not allowed to type decimal numbers in this problem"} 
+  = "Decimal approximations are not allowed for this problem, use 'sqrt(...)' instead.";
+
+$h = non_zero_random(-8,8,1);
+$k = non_zero_random(-8,8,1);
+$r2 = random(5,9,1)**2+non_zero_random(-4,4,1);
+$r = Compute("sqrt($r2)");
+
+$XB = 2*$h;
+$XC = ($h)**2;
+
+$YB = 2*$k;
+$YC = ($k)**2;
+
+$C = $XC+$YC-$r2;
+
+$LHS = Formula("x^2 - $XB x + y^2 - $YB y + $C")->reduce;
+$RHS = Formula("0");
+
+Context("LimitedFactor")->variables->are(x=>Real, y=>Real);
+$standard = Formula("(x-$h)^2 + (y-$k)^2")->reduce;
+
+Context("Point");
+$center = Point($h,$k);
+
+##############################################################
+#
+#  Text
+#
+#
+
+BEGIN_PGML
+
+Rewrite the equation of this circle in standard form:
+
+>> [` [$LHS] = [$RHS] `] <<
+
+Standard Form: [_______________]{$standard} [` = `] [_____]{$r2}
+
+* _Remember_: Standard Form for a circle is [` (x-H)^2 + (y-K)^2 = R^2 `]
+
+Center: [__________]{$center}
+
+Radius: [_____]{$r}
+
+* Do not use decimal approximations.
+* Enter radicals such as [` \sqrt{15} `] as 'sqrt(15)' instead of using rational exponents.
+* You do not need to reduce your radicals for this problem.
+
+END_PGML
+
+##############################################################
+#
+#  Answers
+#
+#
+
+
+ENDDOCUMENT();        

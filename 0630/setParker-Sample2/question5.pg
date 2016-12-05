@@ -1,0 +1,62 @@
+##DESCRIPTION
+##  Parker - Sample Exam 1 
+##ENDDESCRIPTION
+
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextFraction.pl",
+   "contextLimitedNumeric.pl",
+   "contextLimitedPolynomial.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("LimitedPolynomial-Strict")->variables->are(x=>"Real",y=>"Real");
+
+$ans1 = Formula("(7/4)y");
+$ans2 = Formula("-4x+3x^2y+1");
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+\( \dfrac{-5xy^2+12xy^2}{4xy} \) = \{$ans1->ans_rule\}
+
+$PAR
+\( \dfrac{16x^2y-12x^3y^2-4xy}{-4xy} \) = \{$ans2->ans_rule\}
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans1->cmp);
+ANS($ans2->cmp);
+
+
+ENDDOCUMENT();        

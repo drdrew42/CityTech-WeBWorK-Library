@@ -1,0 +1,117 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('Higher-Order Differential Equations')
+## DBsection('Variation of Parameters')
+## Date('05/28/2012')
+## Author('Anna Ghazaryan,Fuli Zhang')
+## Institution('Muohio')
+## TitleText1('Differential equations with Boundary-value problem')
+## AuthorText1('Dennis G. Zill')
+## Section1('4.6')
+## Edition('7')
+## Problem1('11')
+
+########################################################################
+DOCUMENT(); 
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"parserAssignment.pl",
+"unionLists.pl",
+);
+
+TEXT(beginproblem());
+
+
+#############################
+#  Setup
+
+Context("Numeric");
+Context()->variables->add(
+A=>"Real",B=>"Real",y=>"Real",t=>"Real",
+'a'=>'Parameter','b'=>'Parameter'
+);
+
+
+$diffeq = "y'' + y = cos^{2}x"; # tex
+
+$ygeneral = Formula("Ae^(-x)+Be^(-2x)+e^(-x)ln(1+e^(x))+e^(-2x)ln(1+e^(x))-e^(-x)");
+
+
+######################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+Use the method of variation of parameters to find the general solution to the given equations.
+Then check your answer by using the method of undetermined coefficients.\(\displaystyle y''+3y'+2y=\frac{1}{1+e^{x}}\).  
+Use \( A \) and \( B \) in your answer to denote 
+arbitrary constants.
+$BR
+$BR
+\( y = \)
+\{ ans_rule(40) \}
+\{ AnswerFormatHelp("formulas") \}
+
+
+END_TEXT
+Context()->normalStrings;
+
+
+######################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 1;
+
+
+
+
+ANS( $ygeneral->cmp( checker => sub {
+    my ( $correct, $student, $self ) = @_;
+    my $stu   = Formula($student);
+
+    ################################
+    #  Check for arbitrary constants
+    #
+    Value->Error("Is your answer the most general solution?") 
+    if ( 
+      Formula($stu->D('A'))==Formula(0) || 
+      Formula($stu->D('B'))==Formula(0) 
+    );
+
+    ############################################
+    #  Check for linear independence (Wronskian)
+    #
+    my $x = Real(1.24);
+
+    my $a11 = $stu->eval(A=>1,B=>0,x=>$x,y=>0);
+    my $a12 = $stu->eval(A=>0,B=>1,x=>$x,y=>0);
+ 
+    my $a21 = $stu->D('x')->eval(A=>1,B=>0,x=>$x,y=>0);
+    my $a22 = $stu->D('x')->eval(A=>0,B=>1,x=>$x,y=>0);
+
+    my $wronskian = $a11*$a22 - $a21*$a12;
+
+    Value->Error("Your functions are not linearly independent or your answer is not complete") 
+    if ($wronskian==Real(0));
+
+    ########################################################
+    #  Check that the student answer is a solution to the DE
+    #
+    my $stux  = Formula($stu->D('x'));
+    my $stuxx = Formula($stu->D('x','x'));
+    my $stuDE = Formula($stuxx + 3*$stux+ 2*$stu);
+    return ($stuDE==Formula("1/(1+e^{x})"));
+
+}));
+
+
+COMMENT("MathObject version.");
+
+ENDDOCUMENT();

@@ -1,0 +1,150 @@
+## DESCRIPTION
+## Higher order ODEs: constant coefficient higher order homogeneous linear ODEs
+## ENDDESCRIPTION
+
+## KEYWORDS('differential equations','second order linear ODE','constant coefficients')
+
+## DBsubject('Differential Equations')
+## DBchapter('Higher Order Differential Equations')
+## DBsection('Higher Order Linear')
+## Date('01/30/2011')
+## Author('Paul Pearson')
+## Institution('Fort Lewis College')
+## TitleText1('')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('')
+
+
+##############################
+#  Initialization
+
+DOCUMENT(); 
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"contextFraction.pl",
+);
+
+TEXT(beginproblem());
+
+#############################
+#  Setup
+
+Context("Fraction");
+Context()->variables->{namePattern} = qr/[a-z][a-z0-9_]*'*/i;
+Context()->variables->are( u => "Real", "u'" => "Real", "u''" => "Real", t => "Real" );
+Context()->variables->set("u''"=>{limits=>[-10,10]},"u'"=>{limits=>[5,15]},u=>{limits=>[-10,10]},t=>{limits=>[0,2*$pi]});
+
+Context()->reduction->set(
+'(-x)-y'=>0, # turn off the reduction rule (-x)-y = -(x+y)
+'(-x)+y'=>0, # turn off the reduction rule (-x)+y = y-x 
+);  
+
+sub context::Fraction::Real::cmp_defaults
+{Value::Real::cmp_defaults(@_)};
+
+Context()->flags->set(
+  reduceConstants=>0,
+  reduceConstantFunctions=>0,
+  tolerance => 0.00001,
+  tolType => "absolute",
+);
+
+# redefine sine to prevent students from entering exactly
+# what they were given
+
+Context()->functions->remove("sin");
+package NewFunc;
+
+# this next line makes the function a 
+# function from reals to reals
+
+our @ISA = qw(Parser::Function::numeric);
+sub sin {
+  shift; my $x = shift;
+  return CORE::sin($x*3.14159265358979/180);
+}
+package main;
+
+# Make it work on formulas as well as numbers
+# if uncommented, this next line will generate error messages
+#sub sin {Parser::Function->call('sin',@_)} 
+#  Add the new functions to the Context
+
+Context()->functions->add( sin => {class => 'NewFunc', TeX => '\sin'}, );
+
+$weight = 2**random(1,5,1);
+$m = Fraction($weight, 32);
+$realm = Real( $m );
+$L = 3*2**random(1,7,2);
+$k = $weight*12/$L;
+$w0 = sqrt( $k/$realm );
+$w = $w0;
+$F0 = random(1,9,1);
+
+$B = Fraction( $F0/(-2*$realm*$w) );
+$realB = Real( $B );
+$u0 = Fraction( -$realB/$w0 );
+$u0inches = $u0 * 12;
+
+
+$de = Formula( "$m*u'' + $k*u" )->reduce;
+$F = Formula( "$F0*sin($w*t)" );
+
+$u = Formula( "sqrt(2)*$u0*cos($w0*t-pi/4) + $B*t*cos($w*t)" );
+
+########################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+A $weight pound object is suspended from a spring which stretches an additional $L inches under the extra weight. If the object is stretched another \($u0inches\) inches and released at \(t = 0\) with an external force \( F(t) = $F \) also beginning at \(t = 0\), find a formula describing the displacement of the object. You may only use cosines in your answer.
+$BR
+$BR
+What is the formula for the displacement of the object?
+$BR
+\( u(t) = \) \{ $u->ans_rule() \}
+\{ AnswerFormatHelp("formulas") \}
+$BR
+$BR
+END_TEXT
+
+$showHint = 3;
+BEGIN_HINT
+Mass is calculated to be \(\frac{weight}{gravity}\). Remember that gravity is 32 \(ft\)/\(sec^2\)
+$BR
+The spring constant, \(k\), is \(\frac{weight}{displacement}\) where displacement is measured in FEET (not inches).
+$BR
+Therefore, you ought to have found the differential equation to be
+$BR
+\[ $de = $F \]
+$BR
+Find the characteristic polynomial, its roots, and the general homogeneous solution:
+$BR
+\[ u(t) = C_1 \cos( \omega_0 t ) + C_2 \sin( \omega_0 t )\]
+$BR
+Find the non-homogeneous solution:
+\[ U(t) = A \cos( $w t ) + B \cos( $w t ) \]
+$BR
+Use \(U\), \(U'\) and \(U''\) in the differential equation to solve for \(A\) and \(B\).
+$BR
+And, finally, use the initial conditions to find the values of \(C_1\) and \(C_2\). 
+$BR
+$BR
+END_HINT
+Context()->normalStrings;
+
+##########################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 1;
+
+ANS( $u->cmp() );
+
+COMMENT("MathObject version.  Redefines the sine function internally.");
+
+ENDDOCUMENT();

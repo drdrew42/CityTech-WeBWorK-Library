@@ -1,0 +1,88 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('Series Solution Differential Equations')
+## DBsection('Power Series Solution')
+## Date('05/28/2012')
+## Author('Anna Ghazaryan,Fuli Zhang')
+## Institution('Muohio')
+## TitleText1('Differential equations with Boundary-value problem')
+## AuthorText1('Dennis G. Zill')
+## Section1('6.1')
+## Edition('7')
+## Problem1('27')
+
+###############################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",
+   "MathObjects.pl",
+   "AnswerFormatHelp.pl",
+   "unionLists.pl",
+   "parserPrime.pl",
+   "parserPopUp.pl",
+   "answerHints.pl",
+   "parserImplicitPlane.pl",
+
+ );
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric")->variables->add(y=>"Real",c=>"Real");
+
+##############################################################
+#
+#  Text
+#
+#
+$answera = Formula("1+x^2/4-7x^4/96");
+$answerb = Formula("x-x^3/6+7x^5/120");
+
+
+
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Find two power series solutions of the given differential equation about the ordinary point \(x=0\): 
+$BR
+$BR
+\(\displaystyle (x^{2}+2)y''+3xy'-y=0\).(Please write three terms in each blank)
+
+$BR
+$BR
+\(y_{1}=\) \{ ans_rule(30) \} \(+...\) and  \(y_{2}=\) \{ ans_rule(30) \} \(+...\) \{ AnswerFormatHelp("formulas") \}
+
+
+
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+$showPartialCorrectAnswers = 1;
+
+ANS( $answera->cmp() );
+ANS( $answerb->cmp() );
+
+COMMENT("MathObject version.");
+
+ENDDOCUMENT();

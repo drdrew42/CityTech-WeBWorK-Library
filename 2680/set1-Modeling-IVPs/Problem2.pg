@@ -1,0 +1,87 @@
+##DESCRIPTION
+##  Find an equilibrium solution. Word Problem.
+##ENDDESCRIPTION
+
+##KEYWORDS('equilibrium', 'word problem')
+
+## DBsubject('Differential Equations')
+## DBchapter('Introduction')
+## DBsection('Introduction to Differential Equations')
+## Date('6/3/2013')
+## Author('Andrew Parker')
+## Institution('NYC College of Technology')
+## TitleText1('Elementary Differential Equations and Boundary Value Problems')
+## EditionText1('10')
+## AuthorText1('Boyce, DiPrima')
+## Section1('1.1')
+## Problem1('22')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->variables->remove(x);
+Context()->variables->add( v => "Real", t => "Real" );
+$mass = Real(random(1,10,1));
+$gamma = Real(non_zero_random(1,5,.5));
+$term = Compute("$mass * 9.8 / $gamma");
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+A $mass kg object is falling with $gamma kg/s drag coefficient. What is the terminal velocity of the object?
+$BR
+\{$term->ans_rule\}
+END_TEXT
+
+$showHint = 5;
+BEGIN_TEXT
+$PAR
+If you don't get this in $showHint tries, you can get a hint.
+END_TEXT
+BEGIN_HINT
+The terminal velocity of an object is the value of an equilibrium solution to the differential equation that models the velocity of the falling object.
+$BR
+The differential equation describing falling objects is \(m \frac{dv}{dt} = mg - \gamma v\).
+$BR
+Using the techniques of the first two problems, find the terminal velocity.
+END_HINT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($term->cmp);
+# relative tolerance --3.1412 is incorrect but 3.1413 is correct
+# default tolerance is .01 or one percent.
+
+
+ENDDOCUMENT();        

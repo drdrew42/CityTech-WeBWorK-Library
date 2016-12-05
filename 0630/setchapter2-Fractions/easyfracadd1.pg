@@ -1,0 +1,102 @@
+#DESCRIPTION
+## Author('Andrew Parker')
+## Institution('CUNY-CityTech')
+#ENDDESCRIPTION
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+"MathObjects.pl",
+"contextFraction.pl",
+);
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+Context("Fraction")->flags->set(
+   strictFractions=>1,
+   requireProperFractions=>1,
+   showProperFractions =>1,
+   allowMixedNumbers=>1,
+   reduceConstants=>0,
+);
+
+@primes=(7,11,13,17,19);
+  
+$d1=$primes[random(0,4,1)];
+$na1=random(1,$d1/2,1);
+$nb1=random(1,$d1/2,1);
+$n1=$na1+$nb1;                       ## REQUIRED FOR strictFractions=>1
+$ans1=Fraction("$n1/$d1");
+
+$d2=2*random(3,7,1);
+$na2=random(1,$d2/2,2);
+$nb2=random(1,$d2/2-1,2);
+$n2=$na2+$nb2;
+$ans2=Fraction("$n2/$d2");
+
+$d3=2*random(4,9,1);
+$na3=round(random($d3/2,$d3-1,2));
+$nb3=round(random($d3/2+1,$d3-1,2));
+$n3=$na3+$nb3 - $d3;
+$ans3=Fraction("1 $n3/$d3");
+
+$d4=2*random(4,9,1);
+$na4=round(random($d4/2,$d4-1,2));
+$nb4=round(random($d4/2,$d4-1,2));
+$n4=$na4+$nb4 - $d4;
+$ans4=Fraction("1 $n4/$d4");
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Add the following fractions. Be sure to $BBOLD reduce your answer $EBOLD and $BBOLD use mixed fraction form $EBOLD instead of improper fractions.
+
+$PAR
+\(\frac{$na1}{$d1} + \frac{$nb1}{$d1}\)=    \{ans_rule(3)\}
+\{ 
+knowlLink("Click for a hint", 
+value=>"These two fractions already have the same denominator, so add the numerators and keep the common denominator.") 
+\}
+
+$PAR
+\(\frac{$na2}{$d2} + \frac{$nb2}{$d2}\)=    \{ans_rule(3)\} 
+\{ 
+knowlLink("Click for a hint", 
+value=>"Sometimes fractions that didn't reduce before adding will produce a sum that DOES reduce.") 
+\}
+
+$PAR
+\(\frac{$na3}{$d3} + \frac{$nb3}{$d3}\)=     \{ans_rule(3)\}
+\{ 
+knowlLink("Click for a hint", 
+value=>"Sometimes adding proper fractions results in an improper fraction. For this problem, you need to write your answer in Mixed Fraction form instead of Improper Fraction form.") 
+\}
+
+$PAR
+\(\frac{$na4}{$d4} + \frac{$nb4}{$d4}\)=     \{ans_rule(3)\}
+\{ 
+knowlLink("Click for a hint", 
+value=>"Be sure to reduce your answer, and make sure you're answering with a mixed fraction instead of an improper fraction.") 
+\}
+
+$PAR
+Remember that fractions with numerators larger than the denominator are called "improper fractions". If your answer is an improper fraction, you'll need to convert it to mixed fraction form because the instructions specifically tell you to.
+
+$PAR
+Also remember that if your final answer is not reduced - in other words, if both the numerator and denominator have a common factor - you'll need to reduce the fraction before entering it into WeBWorK. (You'll be required to reduce fractions for full credit on quizzes and tests also, so this is very important.)
+
+END_TEXT
+Context()->normalStrings;
+
+ANS($ans1->cmp(studentsMustReduceFractions=>1));
+ANS($ans2->cmp(studentsMustReduceFractions=>1));
+ANS($ans3->cmp(studentsMustReduceFractions=>1));
+ANS($ans4->cmp(studentsMustReduceFractions=>1));
+
+COMMENT('MathObject version');
+ENDDOCUMENT();
+## DBsubject(Middle school)
+## DBchapter('Fractions')
+## DBsection('')

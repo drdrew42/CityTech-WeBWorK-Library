@@ -1,0 +1,64 @@
+#DESCRIPTION
+##Type of
+#ENDDESCRIPTION
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+"MathObjects.pl",
+"contextFraction.pl",
+);
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+       Context("LimitedFraction")->flags->set(
+         requireProperFractions=>1,
+         showProperFractions =>1,
+        );
+  
+$a1=random(28,40,4 );$b1=$a1%16;$c1=($a1-$b1)/16;$ans1=$c1+Fraction(" $b1/16");
+$a3=random(35,55,5);$b3=$a3%25;$c3=($a3-$b3)/25;$ans3=$c3+Fraction(" $b3/25");
+$a5=random(21,39,6);$b5=$a5%15; $c5=($a5-$b5)/15;$ans5=$c5+Fraction(" $b5/15");
+$a6=random(26,38,2);$b6=$a6%20;$c6=($a6-$b6)/20;$ans6=$c6+Fraction(" $b6/20");
+$a8=random(33,45,6 );$b8=$a8%24;$c8=($a8-$b8)/24;$ans8=$c8+Fraction(" $b8/24");
+
+BEGIN_TEXT
+Write each improper fraction as a mixed number in simplest form.
+$PAR
+\(\frac{$a1 }{16 }\)=    \{ans_rule(10)\}.
+\{ 
+ knowlLink("click for hint", value=>escapeSolutionHTML(EV3P('Hint: It is
+ easiest to $BBOLD first reduce $EBOLD the improper fraction, $BBOLD then
+ convert $EBOLD it to a mixed number.  
+ $PAR For example: \\( \\frac{35}{14} \\), we first notice that 7 is the GCF of 35 and 14.
+ $PAR
+ $BBOLD First reduce: $EBOLD \\( \\frac{35}{14} = \\frac{5}{2} \\),  
+ $PAR
+ because 35 divided by 7 is 5 and then 14 divided by 7 is 2; 
+ $PAR
+ and $BBOLD then convert: $EBOLD \\( \\frac{5}{2} = 2 \\frac{1}{2}\\),
+ $PAR
+ because 2 goes into 5 twice with a remainder of 1.' )), base64=>1); 
+\}
+
+$PAR
+\(\frac{$a3 }{25 }\)=    \{ans_rule(10)\}.$PAR
+\(\frac{$a5 }{15 }\)=    \{ans_rule(10)\}.$PAR
+\(\frac{$a6 }{20 }\)=    \{ans_rule(10)\}.$PAR
+\(\frac{$a8 }{24 }\)=    \{ans_rule(10)\}.$PAR
+
+
+END_TEXT
+ANS($ans1->cmp);
+ANS($ans3->cmp);
+ANS($ans5->cmp);
+ANS($ans6->cmp);
+ANS($ans8->cmp);
+
+COMMENT('MathObject version');
+ENDDOCUMENT();
+## DBsubject(Middle school)
+## DBchapter('Fractions')
+## DBsection('')

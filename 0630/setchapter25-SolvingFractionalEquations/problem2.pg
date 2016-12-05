@@ -1,0 +1,75 @@
+##DESCRIPTION
+##Arithmetic
+##ENDDESCRIPTION
+## DBsubject(Algebra)
+## DBchapter(Rational equations and functions)
+## DBsection(Rational equations)
+## Institution(Univeristy of Utah)
+## Author(Utah ww group)
+## MLT(Reciprocals)
+## Level(2)
+## TitleText1('Intermediate Algebra')
+## AuthorText1('Ron Larson and Robert P. Hostetler')
+## EditionText1('4')
+## Section1('.')
+## Problem1('')
+## KEYWORDS('algebra')
+
+## MathObject conversion of
+## Library/Utah/Intermediate_Algebra/set4_Linear_Equations_and_Inequalities/s4p12.pg
+
+DOCUMENT();        # This should be the first executable line in the problem.
+
+loadMacros(
+"PG.pl",
+"PGbasicmacros.pl",
+"PGchoicemacros.pl",
+"PGanswermacros.pl",
+"PGauxiliaryFunctions.pl",
+"MathObjects.pl"
+);
+
+TEXT(beginproblem());
+Context("Numeric");
+
+$a = random(2,10,2);
+$b = random(1,9,2);
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+The solution of the equation
+\[ \frac{1}{x-$a} = \frac{2}{x+$b} \]
+$PAR
+is \(x = \) \{ ans_rule(20) \}.
+
+END_TEXT
+Context()->normalStrings;
+
+$ans = Real(2*$a+$b);
+
+
+ANS($ans->cmp);
+
+BEGIN_SOLUTION
+
+$BR $BBOLD Solution:$EBOLD 
+$PAR
+This problem is a basic proportion, starting with the equality of two fractions.
+$BR
+Multiply both sides of the equation by the LCD of the two fractions.
+$BR
+The LCD of \( x-$a \) and \( x+$b \) is just their product, because they have no common factor.
+$BR
+After multiplying both sides by \( (x-$a)(x+$b) \) we have:
+\[\frac{(x-$a)(x+$b)}{x-$a} = \frac{2(x-$a)(x + $b)}{x+$b}.\]
+Both fractions have common factors in their respective numerators and denominators, so we reduce them to get:
+\[x+$b = 2(x-$a)\]
+This is just a linear equation which we can then solve to find
+\(x = $ans \).
+
+END_SOLUTION
+
+COMMENT("MathObjects version");
+ENDDOCUMENT();        # This should be the last executable line in the problem.

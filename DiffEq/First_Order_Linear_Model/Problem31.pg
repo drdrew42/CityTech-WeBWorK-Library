@@ -1,0 +1,89 @@
+##KEYWORDS('Differential equaltion')
+
+## DBsubject('Differential Equation')
+## DBchapter('Modeling of First-order of DE')
+## DBsection('Section 3.1 Linear Models')
+## Date('01/23/2012')
+## Author('Anna Ghazaryan, Fuli Zhang')
+## Institution('Miami University')
+## TitleText1('A First Course in Differential Equation')
+## EditionText1('9')
+## AuthorText1('Dennis G.Zill')
+## Section1('3.1')
+## Problem1('Problem 2')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",
+   "MathObjects.pl",
+   "AnswerFormatHelp.pl",
+   "unionLists.pl",
+   "parserPrime.pl",
+   "parserPopUp.pl",
+   "answerHints.pl",
+   "parserImplicitPlane.pl",
+
+ );
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric")->variables->add(y=>"Real",k=>"Real",M=>"Real",A=>"Real");
+
+##############################################################
+#
+#  Text
+#
+#
+$answer[0] = Formula("6")->reduce;
+$answer[1] = Formula("45")->reduce;
+
+
+
+
+
+Context()->texStrings;
+BEGIN_TEXT
+Solve the following problem: 
+$BR
+$BR
+Question:$BR A 4-lb roast, initially at \(50^\circ\)F, is placed in a \(375^\circ\)F oven at 5:00pm. After 75 minutes it is found that the temperature \(T(t)\) of the roast is \(125^\circ\)F. When will the roast be \(150^\circ\)F (Medium rare)?
+$BR
+$BR
+\(\displaystyle \ t=\) \{ans_rule(5)\}\(:\) \{ans_rule(5)\}pm
+ 
+\{ AnswerFormatHelp("formulas") \}
+
+
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+ANS( $answer[0]->cmp() );
+ANS( $answer[1]->cmp() );
+
+
+
+
+
+
+
+
+ENDDOCUMENT();     

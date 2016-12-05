@@ -1,0 +1,93 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('Modeling with First-Order Differential Equations')
+## DBsection('Linear Model')
+## Date('05/28/2012')
+## Author('Anna Ghazaryan, Fuli Zhang')
+## Institution('Muohio')
+## TitleText1('Differential equations with Boundary-value problem')
+## AuthorText1('Dennis G. Zill')
+## Section1('3.1')
+## Edition('7')
+## Problem1('13')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"unionLists.pl",
+"parserPrime.pl",
+"parserPopUp.pl",
+"answerHints.pl",
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+#Context("Numeric")->variables->add(t=>"Real",u=>"Real",r=>"Real",I0=>"Real",k=>"Real");
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+
+
+$a = random(60,70,80);
+
+$answer[0] = Compute("10+($a-10)*e^(2*ln(40/($a-10)))");
+
+$answer[1] = Compute("ln(5/($a-10))/(2*ln(40/($a-10)))");
+
+
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+ A thermometer is removed from a room where the temperature is \($a^\circ\)F and is taken outside where the air temperature is \(10^\circ\)F.After one-half minute the thermometer reads \(50^\circ\)F.What is the reading of the thermometer at \(t=1\) minute? How long will it take the thermometer to reach \(15^\circ\)F? (Please retain two decimal places)
+$BR
+$BR
+\(\displaystyle \ T(1)=\) \{ans_rule(15)\}\( ^\circ\)F
+$BR
+$BR
+\(\displaystyle \ t=\) \{ans_rule(15)\} minutes
+ 
+\{ AnswerFormatHelp("formulas") \}
+
+
+
+
+END_TEXT
+Context()->normalStrings;
+
+
+##############################################################
+#
+#  Answers
+#
+#
+$showPartialCorrectAnswers = 0;
+ANS( $answer[0]->cmp() );
+ANS( $answer[1]->cmp() );
+
+ENDDOCUMENT();    
+

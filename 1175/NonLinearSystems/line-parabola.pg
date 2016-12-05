@@ -1,0 +1,82 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "PGML.pl",
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric")->variables->are(x=>Real,y=>Real);
+
+$H = non_zero_random(-6,6,1);
+$K = non_zero_random(-6,6,1);
+
+$parabola = Formula("(x-$H)^2+$K")->reduce;
+
+$x0 = random(-3,3,1);
+do { $x1 = random(-5,5,1); } until( $x0 != $x1 );
+
+$y0 = $parabola->eval(x=>$x0);
+$y1 = $parabola->eval(x=>$x1);
+
+$delX = $x0 - $x1;
+$delY = $y0 - $y1;
+
+$gcf = gcf($delX,$delY);
+$delX = $delX/$gcf;
+$delY = $delY/$gcf;
+
+# y - y0 = m ( x - x0 )
+# delx y - delY x = delX y0 - delY x0
+
+$C = $delX * $y0 - $delY * $x0;
+
+$line = Formula("$delX y - $delY x")->reduce;
+
+Context("Point");
+Parser::Number::NoDecimals();
+
+$ans = List( Point($x0,$y0), Point($x1,$y1) );
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+BEGIN_PGML
+
+Solve the following system of equations.
+
+* Because these systems are non-linear, you may have more than one solution.
+* If you have more than one solution, enter your answers as a comma-separated list.
+
+[` y = [$parabola] `]
+
+[` [$line] = [$C] `]
+
+Solution(s): [_______________]{$ans}
+
+END_PGML
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ENDDOCUMENT();        

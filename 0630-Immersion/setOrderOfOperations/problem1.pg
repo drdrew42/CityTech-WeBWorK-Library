@@ -1,0 +1,305 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject(‘Algebra’)
+## DBchapter(‘Properties of exponents, rational exponents and radicals’)
+## DBsection(‘Properties of exponents’)
+## Date('6/14/2015')
+## Author('K. Andrew Parker')
+## Institution('NYC City Tech')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "parserRadioButtons.pl",
+   "parserPopUp.pl",
+   "scaffold.pl",
+   "niceTables.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer=>"parsed"
+   );
+
+  $sumChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentstring = $ansHash->{preview_text_string};
+     return ($studentstring eq $ansHash->{correct_ans} ? 1 : 0);
+   };
+
+  $numChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentans=$ansHash->{original_student_ans};
+     Value->Error("You're on the right track, but your answer should be just a number.") if ( ($studentans ne $student)&&($student==$correct) );
+     return($studentans eq $ansHash->{correct_ans} ? 1 : 0);
+  };
+
+
+@prime = ( 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 );
+
+@radio[0] = RadioButtons(
+  ["Exponents","Multiplication","They are equally powerful."],
+  "Exponents", # correct answer
+  last => ["They are equally powerful."],
+);
+
+@radio[1] = RadioButtons(
+  ["Exponents","Division","They are equally powerful."],
+  "Exponents", # correct answer
+  last => ["They are equally powerful."],
+);
+
+@radio[2] = RadioButtons(
+  ["Exponents","Addition","They are equally powerful."],
+  "Exponents", # correct answer
+  last => ["They are equally powerful."],
+);
+
+@radio[3] = RadioButtons(
+  ["Exponents","Subtraction","They are equally powerful."],
+  "Exponents", # correct answer
+  last => ["They are equally powerful."],
+);
+
+@radio[4] = RadioButtons(
+  ["Multiplication","Division","They are equally powerful."],
+  "They are equally powerful.", # correct answer
+  last => ["They are equally powerful."],
+);
+
+@radio[5] = RadioButtons(
+  ["Multiplication","Addition","They are equally powerful."],
+  "Multiplication", # correct answer
+  last => ["They are equally powerful."],
+);
+
+@radio[6] = RadioButtons(
+  ["Multiplication","Subtraction","They are equally powerful."],
+  "Multiplication", # correct answer
+  last => ["They are equally powerful."],
+);
+
+@radio[7] = RadioButtons(
+  ["Division","Addition","They are equally powerful."],
+  "Division", # correct answer
+  last => ["They are equally powerful."],
+);
+
+@radio[8] = RadioButtons(
+  ["Division","Subtraction","They are equally powerful."],
+  "Division", # correct answer
+  last => ["They are equally powerful."],
+);
+
+@radio[9] = RadioButtons(
+  ["Addition","Subtraction","They are equally powerful."],
+  "They are equally powerful.", # correct answer
+  last => ["They are equally powerful."],
+);
+
+@r = ();
+$r[0] = random(0,9,1);
+do { $r[1] = random(0,9,1); } until ( $r[1] != $r[0] );
+do { $r[2] = random(0,9,1); } until ( ($r[2] != $r[0]) && ($r[2] != $r[1]) );
+do { $r[3] = random(0,9,1); } until ( ($r[3] != $r[0]) && ($r[3] != $r[1]) && ($r[3] != $r[2]) );
+do { $r[4] = random(0,9,1); } until ( ($r[4] != $r[0]) && ($r[4] != $r[1]) && ($r[4] != $r[2]) && ($r[4] != $r[3]) );
+
+$B1 = random(1,9,1);
+$B2 = random(2,6,1);
+$B3 = random(1,9,1);
+$step1 = Real($B2**2);
+$formstep1 = Formula("$B1 * $step1 - $B3");
+$step2 = Real($B1*$step1);
+$formstep2 = Formula("$step2 - $B3");
+$final = $B1*$B2**2-$B3;
+$popupB1 = RadioButtons(["Multiplication: $B1 &times $B2", "Exponents: $B2 ^ 2", "Subtraction: 2 - $B3"], 
+  "Exponents: $B2 ^ 2", 
+  order=>["Multiplication: $B1 &times $B2","Exponents: $B2 ^ 2","Subtraction: 2 - $B3"]
+);
+$popupB2 = RadioButtons(["Multiplication","Subtraction"], "Multiplication");
+
+$A1 = random(4,9,1);
+$A2 = random(1,9,1);
+$A3 = random(3,8,1);
+$A = Real("$A1 - $A2 + $A3");
+##############################################################
+#
+#  Text
+#
+#
+
+Scaffold::Begin(
+      can_open => "when_previous_correct",
+      is_open  => "first_incorrect"
+);
+
+Section::Begin( "Part 1: The power of operations" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Let's start by reviewing the basic math operations:
+$PAR
+First, we learned about addition and subtraction; and we learned how any subtraction problem can be re-written as an addition problem using the technique that we called keep-change-change. Because subtraction can be replaced with addition, neither can be considered "more powerful" than the other. 
+$PAR
+Then, we started using multiplication as an abbreviation for repeated addition, so that we could write something like \( 5+5+5+5+5+5 \) as \(5 \times 6\). This should tell us that somehow multiplication is "more powerful" than addition and subtraction.
+$PAR
+Division is really just a question about multiplication, so we should see that division and multiplication are roughly equals in the same kind of way that addition and subtraction are also similar.
+$PAR
+Finally, we come to exponents, which are an abbreviation for repeated multiplication (which is already an abbreviation itself). Expressions that use exponents can be written out as repeated multiplication, and each of those multiplications can be likewise written out as repeated addition: 
+$BR
+\( 3^4 = 3 \times 3 \times 3 \times 3 \) 
+$BR
+\( ( 3 \times 3 ) \times 3 \times 3 = ( 3 + 3 + 3 ) \times 3 \times 3 \)
+$BR
+\( ( 3 + 3 + 3 ) \times 3 \times 3 = ( (3 + 3 + 3) + (3 + 3 + 3) + (3 + 3 + 3) ) \times 3 \)
+$BR
+\( ( 3 + 3 + 3 + 3 + 3 + 3 + 3 + 3 + 3 ) \times 3 = ( 3 + 3 + 3 + 3 + 3 + 3 + 3 + 3 + 3 ) + ( 3 + 3 + 3 + 3 + 3 + 3 + 3 + 3 + 3 ) + ( 3 + 3 + 3 + 3 + 3 + 3 + 3 + 3 + 3 ) \)
+$PAR
+So, when it comes to how "powerful" each operation is, we have the following breakdown:
+$BCENTER
+\{
+DataTable(
+  [
+     ['Exponents','The most powerful operation'],
+     ['Multiplication and Division','Equal to each other in power, not as much as exponents, but more than addition and subtraction'],
+     ['Addition and Subtraction','Also equal to each other in power, tied for least powerful'],
+  ],
+  align=>'c l',
+  columnscss=>['font-weight:bold; ','font-style:italic; color:red; ']
+);
+\}
+$ECENTER
+
+$PAR
+In each of the following, select the most powerful operation:
+$PAR
+1.) \{ $radio[$r[0]]->buttons() \}
+$PAR
+2.) \{ $radio[$r[1]]->buttons() \}
+$PAR
+3.) \{ $radio[$r[2]]->buttons() \}
+$PAR
+4.) \{ $radio[$r[3]]->buttons() \}
+$PAR
+5.) \{ $radio[$r[4]]->buttons() \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( $radio[$r[0]]->cmp );
+ANS( $radio[$r[1]]->cmp );
+ANS( $radio[$r[2]]->cmp );
+ANS( $radio[$r[3]]->cmp );
+ANS( $radio[$r[4]]->cmp );
+
+Section::End();
+
+Section::Begin( "Part 2: The order of operations" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+In mathematics, and particularly in real-world situations, we'll come across situations that require multiple operations to be performed. When reading or writing these expressions that use more than one operation, it will be very important that we understand the implied order of operations.
+$PAR
+The operations will be performed in the order of which ones are most powerful, as we discussed in the section above. This means that exponents, as the most powerful operation, will happen first. They will be followed by multiplication and division, which are tied for second most powerful. And after all exponents, multiplication, and division have been completed, we'll finally do the addition and subtractions.
+$PAR
+In the expression \( $B1 \times $B2 \wedge 2 - $B3 \), which operation should be done first?
+$BR
+\{ $popupB1->buttons() \}
+$PAR
+The only potentially confusing part about this order of operations happens with the two pairs of equally powerful operations: multiplication/division and addition/subtraction. Because multiplication and division are equally powerful, they'll be performed in whichever order they appear in the problem as we read from left to right.
+$PAR
+For example, in the expression \( 6 \div 2 \times 3 \) , we see that multiplication and division are the only two operations appearing. We know that neither one of them is more powerful than the other, so we do them in order from left to right. This means that the first operation we'll perform is \( 6 \div 2 \), and then we'll take that result and multiply by 3.
+$PAR
+What do we get if we evaluate the expression \( 6 \div 2 \times 3 \) ? \{ans_rule(5)\}
+$PAR
+The same reasoning applies to addition and subtraction. They're equally powerful, so we do them in the order that they appear in the expression as we read from left to right.
+$PAR
+What do we get if we evaluate the expression \( $A1 - $A2 + $A3 \) ? \{ans_rule(5)\}
+END_TEXT
+Context()->normalStrings;
+
+ANS( $popupB1->cmp() );
+ANS( Real(9)->cmp(checker=>$numChecker) );
+ANS( $A->cmp(checker=>$numChecker) );
+
+Section::End();
+
+Section::Begin( "Part 3: Practice" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Let's return to the example \( $B1 \times $B2 \wedge 2 - $B3 \) , where you correctly identified the exponent operation \( $B2 \wedge 2 \) as the one that should come first.
+$PAR
+What is the result of evaluating \( $B2 \wedge 2 \) ? \{ ans_rule(5) \}
+$PAR
+Rewrite the expression \( $B1 \times $B2 \wedge 2 - $B3 \), replacing \( $B2 \wedge 2 \) with it's evaluation. \{ ans_rule(10) \}
+$PAR
+Which operation should come next?
+$BR
+\{ $popupB2->buttons() \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( $step1->cmp(checker=>$numChecker) );
+ANS( $formstep1->cmp(checker=>$sumChecker) );
+ANS( $popupB2->cmp() );
+
+Section::End();
+
+Section::Begin( "Part 4: Practice (cont.)" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+You correctly selected multiplication as the next step in working out \( $B1 \times $step1 - $B3 \)
+$PAR
+Perform the multiplication and give the result: \{ans_rule(5)\}
+$PAR
+Rewrite \( $B1 \times $step1 - $B3 \), replacing \( $B1 \times $step1 \) with it's evaluation.
+\{ ans_rule(10) \}
+$PAR
+Perform the final operation to find the full result of \( $B1 \times $B2 \wedge 2 - $B3 \) . 
+\{ans_rule(5)\}
+
+END_TEXT
+Context()->normalStrings;
+
+
+Section::End();
+
+ANS( $step2->cmp(checker=>$numChecker) );
+ANS( $formstep2->cmp(checker=>$sumChecker) );
+ANS( Real($final)->cmp(checker=>$numChecker) );
+
+Scaffold::End();
+
+ENDDOCUMENT();        

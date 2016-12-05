@@ -1,0 +1,278 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject(‘Algebra’)
+## DBchapter(‘Properties of exponents, rational exponents and radicals’)
+## DBsection(‘Properties of exponents’)
+## Date('7/1/2015')
+## Author('K. Andrew Parker')
+## Institution('NYC City Tech')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextFraction.pl",
+   "parserPopUp.pl",
+   "scaffold.pl",
+   "niceTables.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("LimitedFraction");
+Context()->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer=>"parsed",
+     allowMixedFractions=>1
+   );
+
+  $sumChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentstring = $ansHash->{preview_text_string};
+     return ($studentstring eq $ansHash->{correct_ans} ? 1 : 0);
+   };
+
+  $numChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentans=$ansHash->{original_student_ans};
+     Value->Error("You're on the right track, but your answer should be just a number.") if ( ($studentans ne $student)&&($student==$correct) );
+     return($studentans eq $ansHash->{correct_ans} ? 1 : 0);
+  };
+
+
+@prime = ( 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 );
+
+$pay = random(15,30,1);
+$evenpay = $pay*4;
+$totalpay = $evenpay+1;
+Context()->flags->set( requireProperFractions=>1 );
+$mixedpay = Compute("$pay 1/4");
+$payplus = $pay+1;
+
+$exWhole = random(3,9,1);
+$exDen = $prime[random(1,3)];
+$exRem = random(2,$exDen-1,1);
+$exNice = $exWhole*$exDen;
+$exNum = $exNice+$exRem;
+$exMixed = Compute("$exWhole $exRem/$exDen");
+
+$ExWhole = random(3,9,1);
+do { $ExDen = $prime[random(1,3)]; } until ( $ExDen != $exDen );
+$ExRem = random(2,$ExDen-1,1);
+$ExNice = $ExWhole*$ExDen;
+$ExNum = $ExNice+$ExRem;
+Context()->flags->set( requireProperFractions=>0 );
+
+##############################################################
+#
+#  Text
+#
+#
+
+
+Scaffold::Begin(
+      can_open => "when_previous_correct",
+      is_open  => "first_incorrect"
+);
+
+Section::Begin( "Part 1: Ugly Division" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+What happens when division doesn't work out "nicely"?
+$PAR
+For instance, say you and three of your friends agree to do a job that pays $$totalpay.
+$BR
+After the job is completed, you need to split the $$totalpay amongst the four of you.
+$BR
+But, of course, $totalpay doesn't divide evenly by 4. (Because 4 is not a factor of $totalpay.)
+$PAR
+How do we resolve this situation?
+$BR
+First, we can divide up most of the $$totalpay. 
+$BR
+What is the largest number less than $totalpay that 4 $BITALIC will $EITALIC divide evenly? \{ans_rule(5)\}
+$BR
+What do we get if we divide that number by 4? \{ans_rule(5)\}
+$BR
+And how many dollars still need to be divided? \{ans_rule(5)\}
+END_TEXT
+Context()->normalStrings;
+
+ANS(Real($evenpay)->cmp(checker=>$numChecker) );
+ANS(Real($pay)->cmp(checker=>$numChecker) );
+ANS(Real(1)->cmp(checker=>$numChecker) );
+
+Section::End();
+
+Section::Begin( "Part 2: Mixed Fractions" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Of course, the fair way to divide the last dollar is to split it into four equal pieces, and give each person once piece. Each of those pieces will represent $BBOLD one-quarter $EBOLD of a dollar.
+$BR
+Specifically, that quarter of a dollar must represent $BITALIC less than one $EITALIC dollar.
+$PAR
+Of course, we're talking about fractions here, so how do they look mathematically?
+$PAR
+In dividing up the $$totalpay, we ended up giving each person $pay whole dollars PLUS one-quarter of a dollar. Symbolically, this looks like \($pay + \dfrac{1}{4}\). This is a fraction, and more specifically it is in what we call $BBOLD mixed-fraction form. $EBOLD Mixed fractions are easily recognized, as they consist of a whole number (in this case \($pay\), and a proper fraction (the \(\dfrac{1}{4}\) ). 
+$BR
+When we say that \(\dfrac{1}{4}\) is a proper fraction, we mean that we don't have enough quarters to make another whole dollar. In other words, the numerator is smaller than the denominator.
+$BR
+Sometimes, you'll see mixed fractions written without the addition sign: \( $pay \dfrac{1}{4} \)
+$BR
+To get used to how mixed fractions are entered in WeBWorK, enter our mixed fraction in this box. Use a space between the whole number and the fraction instead of the "+" sign, and use the "/" symbol to create the fraction. \{ ans_rule(10) \}
+$PAR
+We also could have taken each individual dollar and split it amongst the four people.
+$BR
+How many quarters would each person have received if we split each individual dollar? \{ ans_rule(5) \}
+$PAR
+
+END_TEXT
+Context()->normalStrings;
+
+Context()->flags->set(requireProperFractions=>1);
+ANS($mixedpay->cmp() );
+ANS(Real($totalpay)->cmp(checker=>$numChecker) );
+
+Section::End();
+
+Section::Begin( "Part 3: Improper Fractions" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+So, if we split each dollar into quarters and give everyone one quarter of each dollar, then everyone receives $totalpay quarters.
+$BR
+Symbolically, this looks like \(\dfrac{$totalpay}{4}\) , and we call this $BBOLD improper-fraction form $EBOLD. It's easy to recognize a fraction in improper form, because the numerator is larger than the denominator. This means that we can actually do some division, usually with a remainder, but we can at least get some whole numbers out of it. 
+$BR
+In this case, \(\dfrac{$totalpay}{4}\) is improper because we have more than enough quarters to make whole dollars. 
+$BR
+(It should not be surprising that we have exactly enough quarters to make $pay dollars with one quarter left over.)
+$PAR
+$PAR
+Because both methods split the total pay amongst the same four people, this improper fraction will be equivalent to our mixed fraction, \( $pay \dfrac{1}{4} \) .
+$PAR
+Improper fractions are the easiest way to deal with "messy" division problems.
+$BR
+If two numbers won't divide evenly, then the improper-fraction form is formed from the division without any work necessary. For example: The division we started out trying to do, \( $totalpay \div 4 \) didn't divide evenly, and the resulting improper fraction is formed from the same two numbers we started with \( \dfrac{$totalpay}{4} \).
+$PAR
+The problem with improper-fraction form, though, is that it is not very easy to estimate it's value. In this case, it's like we're looking at a pile of $totalpay quarters and trying to guess at how much money we've got. The mixed fraction form, \( $pay \dfrac{1}{4} \) tells us immediately that we have slightly more than $$pay, but not quite $$payplus.
+$BR
+However, the downside of mixed fractions is that it's more difficult to do calculations with them.
+$PAR
+\{
+DataTable(
+  [
+    [['',headerrow=>1,midrule=>1],'Pros','Cons'],
+    ['Improper Fractions','Easier to do calculations with','Hard to tell their value'],
+    ['Mixed Fractions','Harder to do calculations with','Easy to see their value']
+  ],
+  caption=>'Comparing Fraction Forms',
+  align=>'c c c',
+  columnscss=>['color:red','','']
+);
+\}
+$PAR
+It's going to be important for us to be able to go back and forth between the improper and mixed fraction forms for the same fraction because each form has it's uses.
+$PAR
+To turn an improper fraction into a mixed fraction, follow these steps. We'll use \(\frac{$exNum}{$exDen}\) as an example:
+$PAR
+1.) First, remember that \( \frac{$exNum}{$exDen} \) is just a different way of expressing \( $exNum \div $exDen \). Now, because $exNum is not a multiple of $exDen, our answer will not be a whole number. However, there is a largest multiple of $exDen that's still less than $exNum. What is it? \{ans_rule(5)\}
+$BR
+2.) $exNum is larger than this multiple of $exDen, but by how much? (This is our remainder, and as is always the case with division, our remainder must be less than $exDen.) \{ ans_rule(5) \}
+$BR
+3.) So, your answer from 1.) should be divisible by $exDen. What do we get if we do that division? \{ ans_rule(5) \} 
+$BR
+4.) And your answer from 2.) should be less than $exDen, so of course it won't be divisible by $exDen, but this leftover amount must still be divided. What fraction do we get from the remainder? \{ ans_rule(5) \}
+$BR
+5.) Now we have both pieces of the mixed fraction. So what is the mixed fraction form of \( \dfrac{$exNum}{$exDen} \) ? \{ ans_rule(10) \} 
+
+END_TEXT
+Context()->normalStrings;
+
+ANS(Real($exNice)->cmp(checker=>$numChecker) );
+ANS(Real($exRem)->cmp(checker=>$numChecker) );
+ANS(Real($exWhole)->cmp(checker=>$numChecker) );
+ANS(Fraction($exRem,$exDen)->cmp(checker=>$numChecker) );
+ANS($exMixed->cmp() );
+
+Section::End();
+
+Section::Begin( "Part 4: Now back the other way" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+It's also going to be important to convert mixed fractions back to improper form. We'll do this more often because calculations are usually much easier in improper form than they'll be in mixed-fraction form.
+$PAR
+So, in our original example, each person received \( $pay \dfrac{1}{4} \) dollars. We can tell right away that improper fraction will have a denominator of 4, since that never changes in mixed-fraction or improper form. (No matter what, we're always splitting the pay between 4 people.)
+$PAR
+So, to get back to the improper fraction, we've got to re-collect the $$pay from each of the four people. How much will that give us back? \{ ans_rule(5) \}
+$PAR
+And if we add in the the remainder of 1 from the \( \dfrac{1}{4} \), how much will we have total? \{ ans_rule(5) \}
+$PAR
+This agrees with the original improper fraction for splitting our total pay amongst the 4 workers. What is this improper fraction? \{ ans_rule(5) \}
+$PAR
+$PAR
+So let's try a fresh example. We'll convert \( $ExWhole \dfrac{$ExRem}{$ExDen} \) to an improper fraction.
+$PAR
+1.) First, identify how many people we're splitting between. (In other words, what is our denominator for this problem?) \{ ans_rule(5) \}
+$BR
+2.) Still looking at the fractional part of our mixed fraction, how much must have been leftover? 
+\{ ans_rule(5) \}
+$BR
+3.) Now, how much will we have if we collect $ExWhole from each person? 
+\{ ans_rule(5) \}
+$BR
+4.) So what will we have if we combine that with the leftovers? 
+\{ ans_rule(5) \}
+$BR
+5.) Finally, we're ready to give the improper form of our mixed fraction. \{ ans_rule(10) \}
+
+END_TEXT
+Context()->normalStrings;
+
+Context("Numeric")->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer=>"parsed"
+   );
+
+ANS(Real($evenpay)->cmp(checker=>$numChecker) );
+ANS(Real($totalpay)->cmp(checker=>$numChecker) );
+ANS(Formula("$totalpay/4")->cmp(checker=>$formChecker) );
+ANS(Real($ExDen)->cmp(checker=>$numChecker) );
+ANS(Real($ExRem)->cmp(checker=>$numChecker) );
+ANS(Real($ExNice)->cmp(checker=>$numChecker) );
+ANS(Real($ExNum)->cmp(checker=>$numChecker) );
+ANS(Formula("$ExNum/$ExDen")->cmp(checker=>$formChecker) );
+
+Section::End();
+
+Scaffold::End();
+
+ENDDOCUMENT();        

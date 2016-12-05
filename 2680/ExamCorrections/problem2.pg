@@ -1,0 +1,88 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject('Algebra')
+## DBchapter('Fundamentals')
+## DBsection('Real Numbers')
+## Date('6/3/2002')
+## Author('')
+## Institution('')
+## TitleText1('Precalculus')
+## EditionText1('3')
+## AuthorText1('Stewart, Redlin, Watson')
+## Section1('1.1')
+## Problem1('22')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->variables->{namePattern} = qr/[a-z][a-z0-9_]*'*/i;
+Context()->variables->are( y => "Real", t => "Real", c => "Real", "y'" => "Real" );
+
+$de = Formula("4t*y'+2*y")->reduce;
+$hom = Formula("3t*e^{t^3}/y^3")->reduce;
+
+$v = Formula("y^4")->reduce;
+$mu = Formula("t^2")->reduce;
+$sol = Formula("(t^(-2)*e^(t^3)+c*t^(-2))^(1/4)")->with(limits=>[0,2]); 
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+Find the general solution for the following differential equation:
+$BR
+\( $de = $hom \)
+$BR
+$BR
+What substitution will you make? \(v(t)=\)\{$v->ans_rule\}
+$BR
+$BR
+After substituting, what is the integrating factor? \(\mu(t)=\)\{$mu->ans_rule\}
+$BR
+$BR
+General Solution: \(y(t)=\)\{$sol->ans_rule\} 
+END_TEXT
+
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($v->cmp);
+ANS($mu->cmp);
+ANS($sol->cmp);
+
+ENDDOCUMENT();        

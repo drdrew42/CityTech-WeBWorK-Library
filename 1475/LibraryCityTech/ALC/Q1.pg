@@ -1,0 +1,82 @@
+# DESCRIPTION
+# 
+# WeBWorK problem written by Kate Poirier <kpoirier@citytech.cuny.edu>
+# ENDDESCRIPTION
+
+## Tagged by glr 10/24/08
+
+## Author('Kate Poirier');
+## DBsubject(Algebra)
+## DBchapter(Solving radical equations)
+## DBsection(Solving radical equations)
+## Institution(NYCCT-CUNY)
+## MLT()
+## MLTleader(1)
+## Level(3)
+## MO(1)
+## TitleText1('')
+## AuthorText1('')
+## EditionText1('')
+## Section1('')
+## Problem1('')
+## TitleText2('')
+## AuthorText2('')
+## EditionText2('')
+## Section2('')
+## Problem2('')
+## TitleText3('')
+## AuthorText3('')
+## EditionText3('')
+## Section3('')
+## Problem3('')
+## KEYWORDS('')
+
+
+
+
+DOCUMENT();
+loadMacros(
+"PG.pl",
+"PGbasicmacros.pl",
+"PGchoicemacros.pl",
+"PGanswermacros.pl",
+"PGauxiliaryFunctions.pl",
+"MathObjects.pl",
+);
+
+Context("Numeric");
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 0;
+
+$a = 5;
+$ans1 = List("$a");
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Solve: 
+
+$PAR
+\( \sqrt{a+11}=a-1 \)
+
+$PAR
+Separate multiple solutions by commas.
+
+$PAR
+\(a = \) \{ ans_rule(35) \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS($ans1->cmp(showHints =>0, showLengthHints => 0));
+
+
+
+
+
+Context()->normalStrings;
+
+
+;
+ENDDOCUMENT();

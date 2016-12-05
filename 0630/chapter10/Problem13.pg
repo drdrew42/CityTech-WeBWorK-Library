@@ -1,0 +1,84 @@
+###DESCRIPTION
+## This "is" the Library file '[TMPL]/Library/CollegeOfIdaho/setAlgebra_05_02_MultiplyPolynomials/52IntAlg_07_MultPoly.pg'
+## This problems asks students to multiply a monomial with a binomial. 
+##
+##ENDDESCRIPTION
+## DBsubject('Intermediate Algebra')
+## DBchapter('Ch 05: Polynomials, Polynomial Functions, and Factoring')
+## DBsection('Multiplication of Polynomials')
+## KEYWORDS('polynomials')
+## TitleText1('Essentials of Intermediate Algebra')
+## EditionText1('1')
+## AuthorText1('Blitzer')
+## Section1('5.2')
+## Problem1('')
+## Author('RA Cruz')
+## Institution('The College of Idaho')
+## Date: 2007/10
+
+DOCUMENT(); # This should be the first executable line in the problem.
+
+loadMacros(
+  "PGstandard.pl",
+  "MathObjects.pl",
+  "contextLimitedPolynomial.pl",
+#  "CofIdaho_macros.pl"
+);
+
+TEXT(beginproblem());
+
+######################################
+#  Setup
+
+Context("LimitedPolynomial"); 
+Context()->variables->are(x=>'Real',y=>'Real');
+
+$a= random(1,5,1);
+$b1 = random(2,5,1);
+$b0 = random(-5,-1,1);
+$b2 = random(30,50,5);
+$b3 = non_zero_random(-5,5,1);
+
+$n1=random(2,4,1);
+$n2=random(2,4,1);
+$n3=random(2,4,1);
+
+$poly1 = Formula("$a x y^$n1")->reduce;
+$poly2 = Formula("$b1 x^($n2) y^($n3) + $b0 x y")->reduce;
+$poly3 = Formula("$b2 x^($n2+1) y^($n1+$n3)+$b3 x^2 y^($n1+1)")->reduce;
+
+######################################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+Multiply the monomial and the polynomial:
+$BR $BR
+  \( $poly1 ($poly2) - $poly3 \)
+$BR $BR
+Answer:  \{ ans_rule(40) \} 
+END_TEXT
+Context()->normalStrings;
+
+######################################
+#  Answer
+
+$c1 = $a*$b1-$b2;
+$c0 = $a*$b0+$b3;
+$ae1 = $n2+1;
+$ae0 = 2;
+$be1 = $n1+$n3;
+$be0 = $n1+1;
+
+Context()->flags->set(singlePowers=>1);
+$ans = Formula("$c1*x^$ae1*y^$be1 + $c0*x^$ae0*y^$be0")->reduce;
+
+ANS($ans->cmp); 
+
+$showPartialCorrectAnswers = 1;
+
+######################################
+
+
+COMMENT('MathObject version');
+ENDDOCUMENT();

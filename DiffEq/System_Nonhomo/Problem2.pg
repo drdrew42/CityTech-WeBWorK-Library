@@ -1,0 +1,240 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('Systems of Linear Differential Equations')
+## DBsection('Nonhomogeneous Linear System")
+## Date('06/11/2012')
+## Author('Anna Ghazaryan,Fuli Zhang')
+## Institution('Muohio')
+## TitleText1('Differential equations with Boundary-value problem')
+## AuthorText1('Dennis G. Zill')
+## Section1('8.3')
+## Edition('7')
+## Problem1('2`')
+
+###############################################################
+
+#Initialization
+
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"PGmatrixmacros.pl",
+"MathObjects.pl",
+"parserMultiAnswer.pl",
+"unionLists.pl"
+);
+
+TEXT(beginproblem());
+
+
+##################################
+#  Setup
+
+Context("Numeric");
+Context()->variables->are(
+t=>"Real"
+);
+
+
+#  The matrix for the system
+$a[0][0] = 5;
+$a[0][1] = 9;
+$a[1][0] = -1;
+$a[1][1] = 11; 
+
+$a11 = $a[0][0];   $a12 = $a[0][1];
+$a21 = $a[1][0];   $a22 = $a[1][1];
+
+
+
+
+ 
+
+# Correct complementary solution
+$yc1top = Compute("3e^(8t)");
+$yc1bot = Compute("e^(8t)");
+
+$yc2top = Compute("3te^(8t)+2e^(8t)");
+$yc2bot = Compute("te^(8t)+e^(8t)");
+
+
+
+$multianshom = MultiAnswer($yc1top, $yc1bot, $yc2top, $yc2bot)->with(
+
+  singleResult => 1,
+  allowBlankAnswers => 1,
+  format =>  "C<sub>1</sub> &lt;%s, %s&gt; + C<sub>2</sub> &lt;%s, %s&gt;",
+  tex_format =>  "C_1 \left\lbrack\begin{array}{rr} %s \\ %s \end{array}\right\rbrack + ".
+                 "C_2 \left\lbrack\begin{array}{rr} %s \\ %s \end{array}\right\rbrack",
+
+  checker => sub {
+      my ( $correct, $student, $self ) = @_;
+      # my ( $c1, $c2, $c3, $c4 ) = @{$correct};
+      my ( $s1, $s2, $s3, $s4 ) = @{$student};
+
+      Value::Error('Answers should be non-constant functions, '.
+      'and <b>every answer blank must be filled</b> to get feedback.') unless 
+      $s1->isFormula && $s2->isFormula && $s3->isFormula && $s4->isFormula;
+
+      my ( $s1p, $s2p, $s3p, $s4p ) = ( $s1->D('t'), $s2->D('t'), $s3->D('t'), $s4->D('t') ); 
+
+      my $left  = (($s1p == $a11*$s1 + $a12*$s2) && 
+                   ($s2p == $a21*$s1 + $a22*$s2));
+
+      my $right = (($s3p == $a11*$s3 + $a12*$s4) && 
+                   ($s4p == $a21*$s3 + $a22*$s4));
+      
+      my $notparallel = ($s1*$s4 != $s2*$s3);
+
+      if ($left && !$right) { 
+          $self->setMessage(1,"The vector on the left is correct.");
+          return 0.67;
+      }
+      if ($right && !$left) { 
+          $self->setMessage(1,"The vector on the right is correct.");
+          return 0.67;
+      }
+      if ($left && $right && !$notparallel) { 
+          $self->setMessage(1,"Your solutions are linearly dependent.");
+          return 0.67; 
+      }
+      if ($left && $right && $notparallel) { return 1; } else { return 0; }
+
+  }
+);
+
+
+
+
+
+
+# Particular solution
+
+# Vector g(t) = < -($k+1), -t >
+# Guess solution of the form <scalar1, scalar2> + <scalar3,scalar4> t
+
+$yptop = Compute("1/2");
+$ypbot = Compute("-1/2");
+
+
+$multianspart = MultiAnswer( $yptop, $ypbot )->with(
+    singleResult => 1,
+    checkTypes => 0,
+    allowBlankAnswers => 1,
+    format =>  "&lt;%s, %s&gt;",
+    tex_format =>  "\left\lbrack\begin{array}{rr} %s \\ %s \end{array}\right\rbrack",
+
+    checker => sub {
+        my ($correct, $student, $self ) = @_;
+        my ( $c1, $c2 ) = @{$correct};
+	my ( $s1, $s2 ) = @{$student};
+
+        #Value::Error('Answers should be non-constant functions, '.
+        #'and <b>every answer blank must be filled</b> to get feedback.') unless 
+        #$s1->isFormula && $s2->isFormula;
+
+        if ( ($c1 == $s1) && ($c2 != $s2) ) {
+           $self->setMessage(1,"The top entry is correct.");
+           return [1,0];
+        }
+
+        if ( ($c1 != $s1) && ($c2 == $s2) ) {
+           $self->setMessage(1,"The bottom entry is correct.");
+           return [0,1];
+        }
+
+        if ( ($c1 == $s1) && ($c2 == $s2) ) { return [1,1]; } else { return [0,0]; }
+
+   }
+);
+
+
+
+
+#######################################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Consider the problem
+\[
+\displaystyle
+\ \boldsymbol{\vec{y}^{\, \prime}}
+=
+\left\lbrack
+\begin{array}{rr}
+$a[0][0] & $a[0][1] \\
+$a[1][0] & $a[1][1]
+\end{array} 
+\right\rbrack
+\boldsymbol{\vec{y}}
++ \left\lbrack
+\begin{array}{c}
+2 \\
+6
+\end{array} 
+\right\rbrack\]
+
+\{ BeginList('OL',type=>'a') \}
+
+$ITEMSEP
+$ITEM Form the complementary solution to the homogeneous equation.
+$BR
+$BR
+\{ 
+mbox(
+[
+' \( \boldsymbol{\vec{y}}_C(t) = C_1 \)', 
+display_matrix([[$multianshom->ans_rule(15)],[$multianshom->ans_rule(15)]]),
+' \( + \ C_2 \) ', 
+display_matrix([[$multianshom->ans_rule(15)],[$multianshom->ans_rule(15)]]),
+],
+allowbreaks=>'yes'
+) 
+\}
+
+$ITEMSEP
+$ITEM Construct a particular solution 
+$BR
+\{ 
+mbox(
+[
+'\( \boldsymbol{\vec{y}}_P(t) = \)',
+display_matrix([[$multianspart->ans_rule(15)],[$multianspart->ans_rule(15)]]),
+],
+allowbreaks=>'yes'
+) 
+\}
+
+\{ EndList('OL',type=>'a') \}
+$BR
+$BR
+The general solution \( \boldsymbol{\vec{y}}(t) = \boldsymbol{\vec{y}}_C(t) + \boldsymbol{\vec{y}}_P(t) \)
+
+END_TEXT
+Context()->normalStrings;
+
+
+###################################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 1;
+
+ANS( $multianshom->cmp() );
+ANS( $multianspart->cmp() );
+
+COMMENT('MathObject version. Complex eigenvalues with negative real part -1 +/- b i.');
+
+ENDDOCUMENT();
+
+
+
+
+

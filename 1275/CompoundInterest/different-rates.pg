@@ -1,0 +1,70 @@
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "PGML.pl",
+   "contextCurrency.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Currency");
+
+$principal = random(15000,35000,1000);
+$principal = Currency("$principal")->with(trimTrailingZeros=>1);
+@interval = ("quarterly", "monthly", "weekly", "daily");
+@numInt = (4,12,52,365);
+
+$i = random(0,3,1);
+$n = $numInt[$i];
+
+$years = random(3,7,1);
+
+$r1 = random(3,4,0.5);
+$r2 = random(4.5,5.5,0.5);
+$r3 = random(6,7,0.5);
+$r4 = random(7.5,9,0.5);
+
+$A1 = Currency("$principal*(1+$r1/(100*$n))^($n*$years)");
+$A2 = Currency("$principal*(1+$r2/(100*$n))^($n*$years)");
+$A3 = Currency("$principal*(1+$r3/(100*$n))^($n*$years)");
+$A4 = Currency("$principal*(1+$r4/(100*$n))^($n*$years)");
+
+##############################################################
+#
+#  Text
+#
+#
+
+BEGIN_PGML
+
+Suppose an investor deposits [$principal] into an account for which interest is compounded [$interval[$i]]. Find the amount of money in the account after [$years] years using the following interest rates.
+
+1. If [` r = [$r1]% `], then the investment is worth [__________]{$A1->cmp(promoteReals=>1)} after [$years] years.
+1. If [` r = [$r2]% `], then the investment is worth [__________]{$A2->cmp(promoteReals=>1)} after [$years] years.
+1. If [` r = [$r3]% `], then the investment is worth [__________]{$A3->cmp(promoteReals=>1)} after [$years] years.
+1. If [` r = [$r4]% `], then the investment is worth [__________]{$A4->cmp(promoteReals=>1)} after [$years] years.
+
+* **Round your answers to the nearest cent.**
+
+END_PGML
+
+##############################################################
+#
+#  Answers
+#
+#
+
+
+
+ENDDOCUMENT();        

@@ -1,0 +1,73 @@
+##DESCRIPTION
+##  Parker - Sample Exam 1 
+##ENDDESCRIPTION
+
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextFraction.pl",
+   "contextLimitedNumeric.pl",
+   "contextLimitedPolynomial.pl",
+   "contextScientificNotation.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("LimitedPolynomial-Strict")->variables->are(x=>"Real",y=>"Real",a=>"Real");
+
+$ans1=Formula("2x^3-15x^2+6x");
+$ans2=Formula("9x^2y^2");
+$ans3=Formula("16a^2-9");
+$ans4=Formula("9x^2-12x+4");
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Multiply and combine like terms:
+$BR
+$PAR
+
+\( 2x^2(x-6)-x(3x+5)+11x \) = \{ ans_rule(15) \}
+$PAR
+\( 8x(xy^2)+3xy(xy)-2x^2y^2 \) = \{ ans_rule(15) \}
+$PAR
+\( (4a-3)(4a+3) \) = \{ ans_rule(15) \}
+$PAR
+\( (3x-2)^2 \) = \{ ans_rule(15) \}
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans1->cmp);
+ANS($ans2->cmp);
+ANS($ans3->cmp);
+ANS($ans4->cmp);
+
+
+ENDDOCUMENT();        

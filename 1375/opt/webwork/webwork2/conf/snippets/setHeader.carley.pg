@@ -1,0 +1,75 @@
+DOCUMENT();
+
+loadMacros(
+	"PG.pl",
+	"PGbasicmacros.pl",
+	
+);
+
+
+####################################################
+#
+# The item below printed out only when a hardcopy is made.
+#
+####################################################
+
+TEXT($BEGIN_ONE_COLUMN);
+
+TEXT(MODES(TeX =>EV3(<<'END_TEXT'),HTML=>""));
+
+\noindent {\large \bf $studentName}
+\hfill
+\noindent {\large \bf \{protect_underbar($courseName)\}  
+$sectionNumber   }
+\par
+
+END_TEXT
+
+##########################################################
+# 
+# Items printed both to the screen when a hardcopy is made.
+#
+# You can insert a url pointing to your course's home page 
+# a few lines below.  Remove the comment (#) symbol from the line
+# to make it active.
+#
+##########################################################
+
+BEGIN_TEXT
+
+$BBOLD WeBWorK  assignment number \{ protect_underbar($setNumber) \}  is due :  $formattedDueDate. $EBOLD
+
+$PAR
+
+$PAR
+Login to Blackboard 
+$BR
+(https://cunyportal.cuny.edu/cpr/authenticate/portal_login.jsp)
+$BR
+for the course contains the syllabus, grading policy and other information.  
+$PAR
+END_TEXT
+
+###########################################################
+# EDIT ABOVE 'END_TEXT'
+###########################################################
+
+###########################################################
+#
+# The item below will be printed for both the screen version and the
+# hardcopy version.
+#
+###########################################################
+BEGIN_TEXT
+
+$PAR
+You can use the Feedback button on each problem
+page to send e-mail to the professors. 
+
+
+
+END_TEXT
+
+TEXT($END_ONE_COLUMN);
+
+ENDDOCUMENT();        # This should be the last executable line in the problem.

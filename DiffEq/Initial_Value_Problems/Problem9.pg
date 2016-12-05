@@ -1,0 +1,77 @@
+##DESCRIPTION
+##  Solving an easy differential equation 
+##ENDDESCRIPTION
+
+##KEYWORDS('differential equations')
+
+## DBsubject('Differential Equations')
+## DBchapter('Introduction')
+## DBsection('Real Numbers')
+## Date('01/7/2012')
+## Author('Anna Ghazaryan')
+## Institution('Muohio')
+## TitleText1('Precalculus')
+## EditionText1('3')
+## AuthorText1('Zill')
+## Section1('1.1')
+## Problem1('23')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"unionLists.pl",
+"answerHints.pl",
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+#Context("Numeric")->variables;
+
+
+##############################################################
+#
+#  Text
+#
+#
+$y =  Formula("(1/2.)sin(2x) +1");
+$answer[0] = Compute("$y");
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+Solve the following initial-value problem: 
+\(y'=cos(2x)\), \(y(0)=1\)
+
+$BR
+\( y(x) = \) \{ ans_rule(30) \} 
+\{ AnswerFormatHelp("formulas") \}
+
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS( $answer[0]->cmp() );
+
+
+ENDDOCUMENT();        

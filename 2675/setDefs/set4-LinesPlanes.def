@@ -1,0 +1,94 @@
+assignmentType      = default
+openDate          = 02/04/2016 at 03:27am EST
+reducedScoringDate = 09/20/2015 at 10:00pm EDT
+dueDate           = 02/26/2016 at 08:27am EST
+answerDate        = 02/27/2016 at 08:27am EST
+enableReducedScoring = N
+paperHeaderFile   = setDemo/paperHeaderFile1.pg
+screenHeaderFile  = setDemo/screenHeaderFile1.pg
+description       = 
+restrictProbProgression = 
+emailInstructor   = 
+
+problemListV2 
+problem_start
+problem_id = 1
+source_file = Library/Rochester/setVectors4PlanesLines/ur_vc_2_9.pg
+value = 1
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 2
+source_file = Library/Rochester/setVectors4PlanesLines/ur_vc_2_13.pg
+value = 1
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 3
+source_file = Library/Rochester/setVectors4PlanesLines/ur_vc_2_14.pg
+value = 1
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 4
+source_file = Library/272/setStewart12_5/problem_13.pg
+value = 1
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 5
+source_file = Library/272/setStewart12_5/problem_14.pg
+value = 1
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 6
+source_file = Library/Union/setMVlinesplanes/lines-2.pg
+value = 1
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 7
+source_file = Library/UMN/calculusStewartET/s_12_5_32.pg
+value = 1
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+problem_start
+problem_id = 8
+source_file = Library/UMN/calculusStewartET/s_12_5_24.pg
+value = 1
+max_attempts = -1
+showMeAnother = 1
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 1 
+problem_end
+

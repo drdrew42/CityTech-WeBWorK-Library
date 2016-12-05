@@ -1,0 +1,111 @@
+## DESCRIPTION
+## Higher order ODEs: constant coefficient second order homogeneous linear ODEs
+## ENDDESCRIPTION
+
+## KEYWORDS('differential equations','second order linear ODE','constant coefficients')
+
+## DBsubject('Differential Equations')
+## DBchapter('Higher Order Differential Equations')
+## DBsection('Second Order Linear')
+## Date('03/04/2013')
+## Author('Andrew Parker')
+## Institution('NYC CityTech')
+## TitleText1('Elementary DE and BVP')
+## EditionText1('10th Edition')
+## AuthorText1('Boyce & DiPrima')
+## Section1('3.1')
+## Problem1('1')
+
+
+##############################
+#  Initialization
+
+DOCUMENT(); 
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"parserAssignment.pl",
+);
+
+TEXT(beginproblem());
+
+
+#############################
+#  Setup
+
+Context("Numeric");
+Context()->variables->{namePattern} = qr/[a-z][a-z0-9_]*'*/i;
+Context()->variables->are(
+y=>"Real", "y'"=>"Real", "y''"=>"Real", r=>"Real", t=>"Real"
+);
+#Context()->flags->set(
+#    formatStudentAnswer=>'parsed',
+#    reduceConstants=>0,
+#    reduceConstantFunctions=>0,
+#);
+#parser::Assignment->Allow;
+
+# Roots for characteristic polynomial
+
+$r1 = non_zero_random(-9,9,1);
+$r2 = non_zero_random(-9,9,1);
+
+# Non-repeated roots
+
+if ($r1==$r2) {
+    $r2 = $r1 + 1
+};
+
+# Coefficients for characteristic polynomial
+
+$B = -$r1 + -$r2;
+$C = -$r1*-$r2;
+
+$char = Formula("r^2+$B*r+$C");
+$roots = List("$r1,$r2");
+$solutions = List("e^($r1*t),e^($r2*t)");
+
+# Form homogeneous differential equation
+
+$de = Formula("y'' + $B*y' + $C*y")->reduce;
+$hom = Formula("0");
+
+######################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+\($de = $hom\)
+$BR
+$BR
+(a) Give the characteristic polynomial for the differential equation. (use \(r\) as your variable.)
+$BR
+\{$char->ans_rule\}
+$BR
+$BR
+(b) List the roots of the characteristic polynomial for the differential equation.
+$BR
+\{$roots->ans_rule\}
+$BR
+$BR
+(c) List the basic solutions for the differential equation, i.e. \(y_1(t)\), \(y_2(t)\).
+$BR
+\{$solutions->ans_rule\}
+END_TEXT
+Context()->normalStrings;
+
+
+######################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 1;
+
+ANS( $char->cmp );
+ANS( $roots->cmp );
+ANS( $solutions->cmp);
+
+COMMENT("MathObject version.");
+
+ENDDOCUMENT();

@@ -1,0 +1,76 @@
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+$rationalChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     Value->Error("Look at the preview answer box. Did you forget parenthesis around your numerator or denominator?") unless $student->{tree}->class eq "BOP" && $student->{tree}{bop} eq "/";
+     return 0 unless $correct == $student;
+     my $cnum = Formula($correct->{tree}{lop});
+     my $snum = Formula($student->{tree}{lop});
+     my $cden = Formula($correct->{tree}{rop});
+     my $sden = Formula($student->{tree}{rop});
+     Value->Error("Your answer can be reduced further") unless ($cnum == $snum && $cden == $sden);
+     return 1;
+};
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric")->flags->set(reduceConstants=>0,reduceConstantFunctions=>0);
+Context()->variables->are("x"=>Real,"y"=>Real);
+
+$NN = random(1,9,1);
+do { $ND = random(1,9,1); } until ( gcf($NN,$ND) == 1 );
+$Nx = random(4,6,1);
+$Ny = random(4,6,1);
+$fracN = Formula("($NN x^$Nx)/($ND y^$Ny)")->reduce;
+
+do { $DN = random(1,9,1); } until ( gcf($DN, $NN) == 1 );
+do { $DD = random(1,9,1); } until ( gcf($DD, $ND) == 1 && gcf($DD,$DN) == 1 );
+$Dx = random(1,$Nx-1,1);
+$Dy = $Ny;
+$fracD = Formula("($DN x^$Dx)/($DD x y^$Dy)")->reduce;
+
+$ansN = Formula("$NN*$DD x^($Nx-$Dx+1)")->reduce;
+$ansD = Formula("$ND*$DN")->reduce;
+
+$ans = Formula("$ansN/$ansD");
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Simplify the complex fraction:
+\[ \Large\frac{$fracN}{$fracD} \]
+$BR
+\{ans_rule(25)\}
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans->cmp(checker=>$rationalChecker));
+
+ENDDOCUMENT();        

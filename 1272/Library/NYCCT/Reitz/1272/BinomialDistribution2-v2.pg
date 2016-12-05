@@ -1,0 +1,91 @@
+## DESCRIPTION
+##   Discrete Probability Distribution, Mean and Standard Deviation, from binomial experiment
+## ENDDESCRIPTION
+
+## DBsubject('Statistics')
+## Date('March 2013')
+## Author('Jonas Reitz')
+## Institution('NYCCT')
+## TitleText1('')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('')
+
+DOCUMENT();        # This should be the first executable line in the problem.
+
+loadMacros(
+"PG.pl",
+"PGbasicmacros.pl",
+"PGchoicemacros.pl",
+"PGanswermacros.pl",
+"PGgraphmacros.pl",
+"contextIntegerFunctions.pl"
+);
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+
+## randomize parameter n (number of trials)
+## choose n between 3 and 7
+$n = random(5,7);
+
+
+## initialize probabilities variable - is this necessary?
+@probabilities = (0..$n);
+
+## randomize parameter p (success) and calculate q (failure)
+$p = random(30,70, 5)/100;  ## choose p between .30 and .70, increments of .05
+$q = 1-$p;
+
+
+## compute probabilities
+for ( $x = 0; $x <= $n; $x++ )
+    {
+	$probabilities[$x] = C($n,$x)*$p**$x*$q**($n-$x);
+    }
+
+
+## compute mean
+$mean = $n*$p;
+
+## compute standard deviation
+$standarddeviation = sqrt($n*$p*$q);
+
+## build table for inclusion in text
+
+$table = begintable(2);
+$table = $table . row("x", "P(x)");
+
+for ( $x = 0; $x <= $n; $x++ )
+    {
+	$table = $table . row("\( $x \)", ans_rule(10) );
+    }
+$table = $table . endtable();
+
+
+
+BEGIN_TEXT
+
+In a large high school, the probability that any student will own an iPhone is \( $p \).  A selection of \( $n \) students is made at random.  Consider the random variable \( x = \) the number of students (out of \( $n \) ) that own an iPhone.  Find the probability distribution for \( x \).
+
+$BCENTER
+$table
+$ECENTER
+
+$PAR
+Find the mean \( \mu = \) \{ ans_rule(10) \} and standard deviation \( \sigma = \) \{ ans_rule(10) \} of \( x \).
+
+
+END_TEXT
+## answers
+for ( $x = 0; $x <= $n; $x++ )
+    {
+     ANS(num_cmp($probabilities[$x], mode=>"arith"));
+    }
+ANS(num_cmp($mean, mode=>"arith"));
+ANS(num_cmp($standarddeviation, mode=>"arith"));
+
+
+ENDDOCUMENT();       # This should be the last executable line in the problem.

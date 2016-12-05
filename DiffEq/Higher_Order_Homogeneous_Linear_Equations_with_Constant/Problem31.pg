@@ -1,0 +1,120 @@
+##DESCRIPTION
+##  Differential Equation
+##ENDDESCRIPTION
+
+##KEYWORDS('Differential equaltion')
+
+## DBsubject('Differential Equation')
+## DBchapter('Higher-Order DE')
+## DBsection('Section 4.3 Linear Equation')
+## Date('03/01/2012')
+## Author('Anna Ghazaryan, Fuli Zhang')
+## Institution('Miami University')
+## TitleText1('A First Course in Differential Equation')
+## EditionText1('9')
+## AuthorText1('Dennis G.Zill')
+## Section1('4.3')
+## Problem1('1')
+
+
+
+##############################
+#  Initialization
+
+DOCUMENT(); 
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"parserAssignment.pl",
+);
+
+TEXT(beginproblem());
+
+
+#############################
+#  Setup
+
+Context("Numeric");
+Context()->variables->add(
+A=>"Real",B=>"Real",y=>"Real",
+);
+parser::Assignment->Allow;
+
+$a=0;
+$b=1/4;
+$bma = $b-$a;
+$ab = $a*$b;
+
+$diffeq = "4y'' + y' = 0"; # tex
+
+$answer = Formula("y = A + B e^(-x/4)");
+
+######################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+Find the general solution to \( $diffeq \).
+In your answer, use \( A \) and \( B \) to 
+denote arbitrary constants and \( x \) 
+the independent variable.
+$BR
+$BR
+\{ ans_rule(40) \}
+\{ AnswerFormatHelp("equations") \}
+END_TEXT
+Context()->normalStrings;
+
+
+######################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 1;
+
+ANS( $answer->cmp( checker => sub {
+    my ( $correct, $student, $self ) = @_;
+    my $stu   = Formula($student->{tree}{rop});
+
+    ################################
+    #  Check for arbitrary constants
+    #
+    Value->Error("Is your answer the most general solution?") 
+    if ( 
+      Formula($stu->D('A'))==Formula(0) || 
+      Formula($stu->D('B'))==Formula(0) 
+    );
+
+    ############################################
+    #  Check for linear independence (Wronskian)
+    #
+    my $x = Real(1.24);
+
+    my $a11 = $stu->eval(A=>1,B=>0,x=>$x,y=>0);
+    my $a12 = $stu->eval(A=>0,B=>1,x=>$x,y=>0);
+ 
+    my $a21 = $stu->D('x')->eval(A=>1,B=>0,x=>$x,y=>0);
+    my $a22 = $stu->D('x')->eval(A=>0,B=>1,x=>$x,y=>0);
+
+    my $wronskian = $a11*$a22 - $a21*$a12;
+
+    Value->Error("Your functions are not linearly independent or your answer is not complete") 
+    if ($wronskian==Real(0));
+
+    ########################################################
+    #  Check that the student answer is a solution to the DE
+    #
+    my $stux  = Formula($stu->D('x'));
+    my $stuxx = Formula($stu->D('x','x'));
+    my $stuDE = Formula($stuxx+$bma*$stux - $ab*$stu)
+    ->with(test_points=>[[1,1,1,0],[1,1,0,0],[2,1,1,0],[1,2,0,0]]);
+
+    return ($stuDE==Formula(0));
+
+}));
+
+
+COMMENT("MathObject version.");
+
+ENDDOCUMENT();

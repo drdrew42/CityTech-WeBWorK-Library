@@ -1,0 +1,99 @@
+##DESCRIPTION
+##  Factoring Trinomials
+## 
+##ENDDESCRIPTION
+## DBsubject(Algebra)
+## DBchapter(Factoring)
+## DBsection(Factoring: special forms)
+## Institution(The College of Idaho)
+## Author(RA Cruz)
+## MLT(perfectSq)
+## Level(2)
+## MO(1)
+## TitleText1('Essentials of Intermediate Algebra')
+## AuthorText1('Blitzer')
+## EditionText1('1')
+## Section1('5.6')
+## Problem1('')
+## KEYWORDS('factoring')
+## Date: 2007/11 --Updated 2013/09 -rac
+## Completely re-written: 10/24/16 - KAP
+
+DOCUMENT(); # This should be the first executable line in the problem.
+
+loadMacros(
+  "PGstandard.pl",
+  "MathObjects.pl",
+  "contextLimitedFactor.pl",  
+#  "bizarroArithmetic.pl"
+);
+
+TEXT(beginproblem());
+
+######################################
+#  Setup
+
+$a= random(2,6,1);
+$b = random(-1,1,2);
+
+$polynomial = Formula("$a^2 x^2 - (2 $a) x + $b")->reduce;
+$ifFactors = Formula("($a x - 1)^2");
+
+Context("LimitedFactor")->variables->are(x=>[Real, limits=>[-15,15]]);
+# Context()->flags->set(reduceConstants=>0,reduceConstantFunctions=>0);
+Context()->strings->add('Does not factor'=>{});
+Parser::Number::NoDecimals();
+
+
+$ans = ($b>0) ? Formula("$ifFactors") : String('Does not factor');
+
+######################################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+Factor completely: 
+$PAR
+\( $polynomial = \)  \{ ans_rule(30) \} 
+$PAR
+Enter "Does not factor" if the polynomial does not factor.
+END_TEXT
+Context()->normalStrings;
+
+######################################
+#  Answer
+
+$showPartialCorrectAnswers = 1;
+
+ANS($ans->cmp(checker=>sub{
+    my ($correct,$student,$ans) = @_;
+    return 0 if $ans->{isPreview} || $correct != $student;
+    $student = $ans->{student_formula};
+    $correct = $correct->{original_formula} if defined $correct->{original_formula};
+    # check for equivalence when bizarro arithmetic is enforced
+    Context()->flags->set(bizarroSub=> 1,bizarroAdd=> 1, bizarroPow=> 1, bizarroDiv=>1);
+    delete $correct->{test_values}, $student->{test_values};
+    my $OK = ($correct == $student); # check if equal when arithmetic is replace by bizarro arithmetic
+    Context()->flags->set(bizarroSub=> 0,bizarroAdd=> 0, bizarroPow=> 0, bizarroDiv=>0);
+    delete $correct->{test_values}, $student->{test_values};
+    $factorableObject = Context()->flag("factorableObject");
+    Value::Error("Your answer is equivalent to the $factorableObject in the correct answer, but not completely factored or simplified") unless $OK;
+    return $OK;
+}));
+
+######################################
+#  Solution
+
+$tex = $ifFactors->TeX;
+$solution = $polynomial->TeX;
+if ($b<=0) {$solution = "\mbox{The polynomial does not factor.}";}
+
+SOLUTION(EV3(<<'END_SOLUTION'));
+$PAR SOLUTION $PAR
+
+\($solution = $tex\)
+
+END_SOLUTION
+
+;
+ENDDOCUMENT();

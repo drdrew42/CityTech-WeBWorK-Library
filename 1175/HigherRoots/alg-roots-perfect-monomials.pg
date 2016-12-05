@@ -1,0 +1,91 @@
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "PGchoicemacros.pl",
+   "answerHints.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric")->variables->are("a"=>Real);
+Context()->variables->set( a => { limits=>[-2,2] } );
+Context()->strings->are(undefined => {}, imaginary => {alias => "undefined"});
+
+$A = Formula("a")->with(test_at=>[[1],[-1]]);
+$absA = Formula("abs(a)")->with(test_at=>[[1],[-1]]);
+
+@problem = ( "\(\large{\sqrt{a^2}}\)","\(\large{\sqrt[3]{a^3}}\)", "\(\large{\sqrt[4]{a^4}}\)", "\(\large{\sqrt[5]{a^5}}\)", "\(\large{\sqrt[6]{a^6}}\)", "\(\large{\sqrt[7]{a^7}}\)" );
+@ans = ( $absA, $A, $absA, $A, $absA, $A );
+
+@slice = NchooseK(6,4);
+@subQ = @problem[@slice];
+@subA = @ans[@slice];
+
+@perm = NchooseK(4,4);
+@inv = invert(@perm);
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+$PAR
+Evaluate without using a calculator. Write "undefined" or "imaginary" if your result is not a real number.
+$PAR
+a) $subQ[$perm[0]] = \{ans_rule(10)\}
+$PAR
+b) $subQ[$perm[1]] = \{ans_rule(10)\}
+$PAR
+c) $subQ[$perm[2]] = \{ans_rule(10)\}
+$PAR
+d) $subQ[$perm[3]] = \{ans_rule(10)\}
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($subA[$perm[0]]->cmp->withPostFilter(AnswerHints(
+  sub { 
+    my ($correct,$student,$ans) = @_;
+    return ( $student != $correct && $student == Compute("a") );
+  }  => "Be careful with even powers and roots!"
+)));
+ANS($subA[$perm[1]]->cmp->withPostFilter(AnswerHints(
+  sub { 
+    my ($correct,$student,$ans) = @_;
+    return ( $student != $correct && $student == Compute("a") );
+  }  => "Be careful with even powers and roots!"
+)));
+ANS($subA[$perm[2]]->cmp->withPostFilter(AnswerHints(
+  sub { 
+    my ($correct,$student,$ans) = @_;
+    return ( $student != $correct && $student == Compute("a") );
+  }  => "Be careful with even powers and roots!"
+)));
+ANS($subA[$perm[3]]->cmp->withPostFilter(AnswerHints(
+  sub { 
+    my ($correct,$student,$ans) = @_;
+    return ( $student != $correct && $student == Compute("a") );
+  }  => "Be careful with even powers and roots!"
+)));
+
+ENDDOCUMENT();        

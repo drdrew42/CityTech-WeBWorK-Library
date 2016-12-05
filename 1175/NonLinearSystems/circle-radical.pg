@@ -1,0 +1,78 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "PGML.pl",
+   "answerHints.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric")->variables->are(x=>Real,y=>Real);
+
+$x0 = random(2,8,1);
+$x1 = -$x0 + 1;
+$absx1 = abs($x1);
+
+$C = abs($x0*$x1);
+
+$circleL = Formula("x^2 + y^2")->reduce;
+$circleR = Formula("$C");
+
+Context("Point");
+Context()->flags->set(reduceConstants=>0,reduceConstantFunctions=>0, displayStudentAnswer=>'parsed');
+Parser::Number::NoDecimals();
+
+Context()->{error}{msg}{"You are not allowed to type decimal numbers in this problem"} 
+  = "Decimals are not allowed for this problem, please use exact forms (such as 'sqrt') instead of decimal approximations.";
+
+
+$ansExtra = List( Compute("($x0,sqrt($x0))"), Compute("($absx1,sqrt($absx1))") );
+$ans= List( Compute("($x0,sqrt($x0))") );
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+BEGIN_PGML
+
+Solve the following system of equations.
+
+* Because these systems are non-linear, you may have more than one solution.
+* If you have more than one solution, enter your answers as a comma-separated list.
+* Use 'sqrt(...)' to enter radical answers, do not use decimal approximations.
+
+[` y = \sqrt{x} `]
+
+[` [$circleL] = [$circleR] `]
+
+Solution(s): [_______________]
+
+END_PGML
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans->cmp->withPostFilter( AnswerHints(
+    $ansExtra=>["Did you check that your points satisfy BOTH equations?", replaceMessage=>1]
+)));
+
+ENDDOCUMENT();        

@@ -1,0 +1,178 @@
+## DESCRIPTION
+## Higher order ODEs: constant coefficient higher order homogeneous linear ODEs
+## ENDDESCRIPTION
+
+## KEYWORDS('differential equations','second order linear ODE','constant coefficients')
+
+## DBsubject('Differential Equations')
+## DBchapter('Higher Order Differential Equations')
+## DBsection('Higher Order Linear')
+## Date('01/30/2011')
+## Author('Paul Pearson')
+## Institution('Fort Lewis College')
+## TitleText1('')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('')
+
+
+##############################
+#  Initialization
+
+DOCUMENT(); 
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"parserImplicitPlane.pl",
+);
+
+TEXT(beginproblem());
+
+#############################
+#  Setup
+
+Context("ImplicitPlane");
+Context()->variables->{namePattern} = qr/[a-z][a-z0-9_]*'*/i;
+Context()->variables->are( u => "Real", "u'" => "Real", "u''" => "Real", t => "Real" );
+Context()->variables->set("u''"=>{limits=>[-10,10]},"u'"=>{limits=>[5,15]},u=>{limits=>[-10,10]});
+
+# Context("Numeric")->variables->are(t=>"Real");
+Context()->reduction->set(
+'(-x)-y'=>0, # turn off the reduction rule (-x)-y = -(x+y)
+'(-x)+y'=>0, # turn off the reduction rule (-x)+y = y-x 
+);  
+
+Context()->flags->set(
+#  reduceConstants=>0,
+  reduceConstantFunctions=>0,
+  tolerance => 0.0001,
+  tolType => "absolute",
+);
+
+# redefine sine to prevent students from entering exactly
+# what they were given
+
+Context()->functions->remove("sin");
+package NewFunc;
+
+# this next line makes the function a 
+# function from reals to reals
+
+our @ISA = qw(Parser::Function::numeric);
+sub sin {
+  shift; my $x = shift;
+  return CORE::sin($x*3.14159265358979/180);
+}
+package main;
+
+# Make it work on formulas as well as numbers
+# if uncommented, this next line will generate error messages
+#sub sin {Parser::Function->call('sin',@_)} 
+#  Add the new functions to the Context
+
+Context()->functions->add( sin => {class => 'NewFunc', TeX => '\sin'}, );
+
+$f = Formula("sqrt(t)"); #in order to display radicals instead of decimals
+
+$i = random(0,1);
+$j = random(0,1);
+
+@displace = qw(stretched compressed);
+@velocity = qw(downward upward);
+$stretch = @displace[$i];
+$updown = @velocity[$j];
+@L = (1,2,3,4,6,8,12,16,24,32,48,64);
+$k = random(2,11,1);
+do { $l = random(1,10,1); } until ($l < $k);
+
+$A = (-1)**($i)*@L[$l];
+do { $B = (-1)**($j)*random(1,9,1); } until ($B != $A);
+
+$length = @L[$k]; #measured in inches
+$temp = 384 / $length;
+$omega = $f -> substitute( t=>$temp ); #undamped frequency
+$weight = 2**(random(1,5,1)); #measured in pounds
+$y0 = $A;
+$absy0 = Real(abs($y0));
+$Dy0 = $B * $omega;
+$absDy0 = abs($B) * $omega;
+
+$RR = $A*$A/144+$B*$B;
+$R = $f -> substitute( t=>$RR );
+$phase = atan2($B, $A/12);
+
+$answer1 = Formula("$R cos($omega t - $phase)")->reduce;
+
+# For hints
+$mass = $weight / 32;
+$spconst = 12*$weight/$length;
+$de = ImplicitPlane("$mass*u'' + $spconst*u = 0")->reduce;
+
+########################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+A $weight pound object is suspended from a spring. The spring stretches an extra $length inches with the weight attached. If the spring is $stretch by $absy0 inches and released with an $updown velocity of \($absDy0\) feet per second, find a formula describing the displacement of the object using only a single cosine function.
+$BR
+$BR
+What is the differential equation for this spring-and-mass system? (Use \(u\) as the dependent variable.)
+$BR
+\{ans_rule(30)\}
+$BR
+$BR
+What is the formula for the displacement of the object?
+$BR
+\( u(t) = \) \{ ans_rule(30) \}
+\{ AnswerFormatHelp("formulas") \}
+$BR
+$BR
+END_TEXT
+Context()->normalStrings;
+
+$showHint = 3;
+BEGIN_HINT
+Mass is calculated to be \(\frac{weight}{gravity}\). Remember that gravity is 32 \(ft\)/\(sec^2\)
+$BR
+The spring constant, \(k\), is \(\frac{weight}{displacement}\) where displacement is measured in FEET (not inches).
+$BR
+Therefore, you ought to have found the differential equation to be
+$BR
+\[ mass * u'' + k * u = 0\]
+$BR
+Find the characteristic polynomial, its roots, and the general homogeneous solution:
+$BR
+\[ u(t) = A \cos( \omega t ) + B \sin( \omega t )\]
+$BR
+And then use the initial conditions to find the values of \(A\) and \(B\). 
+$BR
+Remember that "stretching" and the "downward" direction count as the 'positive' direction, and that "compression" and "upwards" count as 'negative'.
+$BR
+$BR
+Once you know those values, apply the difference formula for cosine to rewrite your solution as
+\[u(t) = R \cos( \omega t - \gamma )\]
+where 
+\[ R = \sqrt{A^2+B^2} \] 
+$BR
+\[ \sin( \gamma ) = \frac{B}{R} \] 
+$BR
+\[ \cos( \gamma ) = \frac{A}{R} \] 
+$BR
+and end up with \(u(t)\) as a single cosine function.
+END_HINT
+
+##########################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 1;
+
+ANS( $de->cmp() );
+ANS( $answer1->cmp() );
+
+COMMENT("MathObject version.  Redefines the sine function internally.");
+
+ENDDOCUMENT();
+

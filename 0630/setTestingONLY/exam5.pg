@@ -1,0 +1,45 @@
+DOCUMENT();        
+
+loadMacros(  
+"PGstandard.pl",        
+"MathObjects.pl",      
+"parserRadioButtons.pl",
+"contextCurrency.pl"
+);
+
+TEXT(beginproblem());
+
+$showPartialCorrectAnswers = 0;
+
+Context("Currency");
+
+$A = Currency(random(7.05, 20.91, 0.35));
+
+$product1 = ($A * 8.875) /100;
+$product2 = ($A * 8.875 + 10.15) /100;
+$product3 = ($A * 8.875 + 20.23) / 100;
+$product4 = ($A * 8.875 - 10.02) / 100;
+
+# labels=>"ABC" is required in order to solve the student answer display problems
+$multchoice = RadioButtons(
+  ["$product1",
+   "$product2",
+   "$product3",
+   "$product4"], 
+   "$product1",labels=>"ABC");
+
+
+## Use $DOLLAR for "$" and $PERCENT for "%"
+Context()->texStrings;
+BEGIN_TEXT
+
+You order a Veggie Burrito from Chipotle for \($A\); if New York State charges 8.875$PERCENT, how much do you pay in sales tax for your burrito?
+
+$PAR \{$multchoice->buttons()\}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS($multchoice->cmp());
+
+ENDDOCUMENT();

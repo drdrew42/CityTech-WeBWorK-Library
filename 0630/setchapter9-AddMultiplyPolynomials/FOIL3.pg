@@ -1,0 +1,49 @@
+## DESCRIPTION
+## Algebra: Basic Algebra, Algebraic Expressions
+## ENDDESCRIPTION
+
+## DBsubject(Algebra)
+## DBchapter(Operations on polynomial and rational expressions)
+## DBsection(Polynomials: multiply)
+## Date('2/15/2016')
+## Author('Parker')
+## Institution('City Tech')
+## KEYWORDS('algebra, polynomial operations')
+
+
+DOCUMENT();     
+loadMacros(
+           "MathObjects",     
+           "PGstandard.pl",     
+           "contextLimitedPolynomial.pl",
+);     
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+$a1=random(2,5,1);
+$a2=random(2,10,1);
+
+$poly1 = Formula("$a1 x + $a2")->reduce;
+$poly2 = Formula("$a1 x - $a2")->reduce;
+
+Context()->texStrings;
+BEGIN_TEXT
+$PAR
+Multiply. $BR \(($a1 x -$a2)($a1 x+$a2)\)
+$PAR 
+\{ans_rule(15) \}
+$BR
+END_TEXT
+Context()->normalStrings;
+
+Context("LimitedPolynomial-Strict");
+Context()->flags->set(singlePowers=>1);
+
+$c2 = $a1**2;
+$c0 = $a2**2;
+
+$ans = Formula("$c2*x^2 - $c0")->reduce;
+ANS( $ans->cmp() );
+
+ENDDOCUMENT();

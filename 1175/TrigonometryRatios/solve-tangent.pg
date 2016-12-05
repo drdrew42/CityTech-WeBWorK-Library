@@ -1,0 +1,60 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "PGML.pl",
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(reduceConstants=>0, reduceConstantFunctions=>0);
+Parser::Number::NoDecimals();
+
+$opp = random(2,7,1);
+do { $adj = random(5,11,1); } until (gcf($opp,$adj) == 1);
+$rad = $opp**2 + $adj**2;
+$hyp = Formula("sqrt($rad)");
+
+$sin = Formula("$opp/$hyp");
+$cos = Formula("$adj/$hyp");
+$tan = Formula("$opp/$adj");
+$sec = Formula("$hyp/$adj");
+$csc = Formula("$hyp/$opp");
+$cot = Formula("$adj/$opp");
+
+##############################################################
+#
+#  Text
+#
+#
+
+BEGIN_PGML
+
+Given a right triangle with [`` \tan(\theta) = [$tan] ``], determine the value of the other trigonometric ratios of [` \theta `].
+
+1. [` \sin(\theta) = `] [__________]{$sin}
+1. [` \cos(\theta) = `] [__________]{$cos}
+1. [` \sec(\theta) = `] [__________]{$sec}
+1. [` \csc(\theta) = `] [__________]{$csc}
+1. [` \cot(\theta) = `] [__________]{$cot}
+
+Use exact notation, not decimal approximations.
+
+If you need to write a number such as [` \sqrt{3} `], type out _sqrt(3)_.
+
+END_PGML
+
+ENDDOCUMENT();        

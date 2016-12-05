@@ -1,0 +1,262 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject(‘Algebra’)
+## DBchapter(‘Properties of exponents, rational exponents and radicals’)
+## DBsection(‘Properties of exponents’)
+## Date('7/5/2015')
+## Author('K. Andrew Parker')
+## Institution('NYC City Tech')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "parserPopUp.pl",
+   "scaffold.pl",
+   "niceTables.pl",
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer=>"parsed"
+   );
+
+  $commaChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $matches = 0;
+     my $studentstr = $ansHash->{original_student_ans};
+     if (($studentstr =~ m/^[-+]?\d{1,3}(\,\d{3})*$/) or ($studentstr =~ m/^[-+]?\d+$/)) {
+          $matches = 1;
+     }
+     return $matches;
+   };
+
+  $formChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentstring = $ansHash->{student_formula};
+     my $correctans = $ansHash->{correct_ans};
+     $studentstring =~ tr/()//d;
+     $correctans =~ tr/()//d;
+     return ( $student==$correct && $studentstring eq $correctans ? 1 : 0);
+   };
+
+
+  $numChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentans=$ansHash->{student_formula};
+     Value->Error("You're on the right track, but your answer should be just a number.") if ( ($studentans ne $student)&&($student==$correct) );
+     return($studentans eq $ansHash->{correct_ans} ? 1 : 0);
+  };
+
+
+@prime = ( 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 );
+
+$exampleSig = random(11,99,2);
+$exampleTen = floor($exampleSig/10);
+$exampleOne = $exampleSig%10;
+$exampleExp = random(3,5,1);
+$example = $exampleSig*10**$exampleExp;
+$exampleDec = $exampleSig/10;
+@exampleDig = ( 0,0,0,0,0,0,0 );
+$exampleDig[$exampleExp]=$exampleOne;
+$exampleDig[$exampleExp+1]=$exampleTen;
+$examplePower = $exampleExp+1;
+
+$example2Sig = random(11,99,2);
+$example2Ten = floor($example2Sig/10);
+$example2One = $example2Sig%10;
+$example2Exp = random(3,5,1);
+$example2 = $example2Sig*10**$example2Exp;
+$example2Dec = $example2Sig/10;
+@example2Dig = ( 0,0,0,0,0,0,0 );
+$example2Dig[$example2Exp]=$example2One;
+$example2Dig[$example2Exp+1]=$example2Ten;
+$example2Power = $example2Exp+1;
+
+##############################################################
+#
+#  Text
+#
+#
+
+Scaffold::Begin(
+      can_open => "when_previous_correct",
+      is_open  => "first_incorrect"
+);
+
+Section::Begin( "Part 1: Introducing Scientific Notation" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Often times, especially in the sciences, we must deal with very large numbers.
+$BR
+For instance, how far away from the Sun is Neptune?
+$BR
+The answer is roughly 2.8 BILLION miles.
+$PAR
+Using 2.8 billion as a number is rather odd. What is the decimal point doing between the 2 and the 8? We're definitely not talking about 2.8 miles, that wouldn't even get us out of the city, much less from the Sun to Neptune.
+$PAR
+Saying 2.8 billion is a way of abbreviating the number itself, so that we don't have to write out so many zeros. What would 2.8 billion look like if we wrote out all the zeros?
+$BR
+Do not use any commas in your answer. \{ ans_rule(15) \}
+$PAR
+Can you see why we'd want to avoid writing out all those zeros? It's tricky to read and it's tricky to write. All those zeros look the same, and it's easy to miss one or accidentally count an extra zero that's not actually there.
+$PAR
+This is why we have $BBOLD scientific notation. $EBOLD
+$BR
+Using 2.8 billion as an abbreviation for the actual number with all the zeros is very close to actual scientific notation.
+$PAR
+All decimal places correspond to powers of ten.
+$BR
+Of course, the tens place corresponds to \( 10^1 \),
+$BR
+The hundreds place corresponds to \( 10^2 = 100 \)
+$BR
+The thousands place corresponds to \( 10^3 = 1000 \)
+$BR
+The ten-thousands place corresponds to \( 10^4 = 10000 \)
+$BR
+\( \ldots \)
+Which power of ten should be used for "billions"? \{ ans_rule(5) \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( Real(2800000000)->cmp() );
+ANS( Real(9)->cmp() );
+
+Section::End();
+
+Section::Begin( "Part 2: Converting to Scientific Notation" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+We said above that 2.8 billion is close to scientific notation, but not quite.
+$BR
+In $BITALIC proper $EITALIC scientific notation, we'd write it as \( 2.8 \times 10^9 \)
+$BR
+Where 2.8 corresponds to the leading non-zero digits, and \(10^9\) comes from the power of ten corresponding to the billions place, which is where the 2 actually belongs.
+$PAR
+$PAR
+So, the first thing we do when converting a number into scientific notation is to look at the digits that come before the long string of zeros.
+$PAR
+For example, if we were going to convert $example into scientific notation, we'd start by looking at $exampleSig. 
+$PAR
+Now, for $BITALIC proper $EITALIC scientific notation, we only allow ONE digit before the decimal place. (Unlike the lottery signs that tell you the jackpot is 63.6 million.)
+$BR
+Write $exampleSig with a decimal point right after the first digit. \{ ans_rule(5) \}
+$PAR
+The second step is to figure out which decimal place that leading digit is in and the power of ten that it corresponds to.
+$PAR
+Use the table to write out the digits of $example in their proper decimal places:
+$BR
+Remember to put zeros in any unspecified decimal places.
+\{
+DataTable(
+  [
+    ['millions','hund-thousands','ten-thousands','thousands','hundreds','tens','ones'],
+    ['\(10^6\)','\(10^5\)','\(10^4\)','1000','100','10','1'],
+    [ans_rule(2),ans_rule(2),ans_rule(2),ans_rule(2),ans_rule(2),ans_rule(2),ans_rule(2)]
+  ],
+  caption=>'Decimal Place Values for $example'
+);
+\}
+$PAR
+Which power of ten corresponds to the first digit of $example? 
+$BR
+Remember to use \( \wedge \) for exponents. \{ ans_rule(5) \}
+$PAR
+Using our example as a model, what is $example in scientific notation? \{ ans_rule(10) \}
+END_TEXT
+Context()->normalStrings;
+
+ANS(Real( $exampleDec)->cmp() );
+ANS(Real( $exampleDig[6])->cmp() );
+ANS(Real( $exampleDig[5])->cmp() );
+ANS(Real( $exampleDig[4])->cmp() );
+ANS(Real( $exampleDig[3])->cmp() );
+ANS(Real( $exampleDig[2])->cmp() );
+ANS(Real( $exampleDig[1])->cmp() );
+ANS(Real( $exampleDig[0])->cmp() );
+ANS(Formula("10^$examplePower")->cmp(checker=>$formChecker) );
+ANS(Formula("$exampleDec*10^$examplePower")->cmp(checker=>$formChecker) );
+
+Section::End();
+
+Section::Begin( "Part 3: Converting from Scientific Notation" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+So, to convert a number in scientific notation back into standard form we'll work the same process in reverse.
+$PAR
+For example:
+$BR
+Convert \( $example2Dec \times 10^$example2Power \) to standard form.
+$PAR
+Start by ignoring the decimal in $example2Dec. What do we get? \{ ans_rule(5) \}
+$PAR
+Identify the decimal place corresponding to \( 10^$example2Power \). 
+$BR
+Fill that decimal place with the first non-zero digit of your previous answer. 
+$BR
+Continue filling boxes to the right until you run out of specified digits. 
+$BR
+Fill the rest of the boxes with zeros.
+\{
+DataTable(
+  [
+    ['millions','hund-thousands','ten-thousands','thousands','hundreds','tens','ones'],
+    ['\(10^6\)','\(10^5\)','\(10^4\)','1000','100','10','1'],
+    [ans_rule(2),ans_rule(2),ans_rule(2),ans_rule(2),ans_rule(2),ans_rule(2),ans_rule(2)]
+  ],
+  caption=>'Decimal Place Values for \( $example2Dec \times 10^$example2Power\)'
+);
+\}
+$PAR
+So what is \( $example2Dec \times 10^$example2Power\) in standard form? 
+$BR
+Remember, don't use commas with large numbers in WeBWorK. \{ ans_rule(10)\}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( Real( $example2Sig )->cmp() );
+ANS(Real( $example2Dig[6])->cmp() );
+ANS(Real( $example2Dig[5])->cmp() );
+ANS(Real( $example2Dig[4])->cmp() );
+ANS(Real( $example2Dig[3])->cmp() );
+ANS(Real( $example2Dig[2])->cmp() );
+ANS(Real( $example2Dig[1])->cmp() );
+ANS(Real( $example2Dig[0])->cmp() );
+ANS(Real( $example2)->cmp(checker=>$numChecker) );
+
+Section::End();
+Scaffold::End();
+
+ENDDOCUMENT();        

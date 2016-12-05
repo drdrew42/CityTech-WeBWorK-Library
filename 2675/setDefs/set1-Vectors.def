@@ -1,0 +1,74 @@
+assignmentType      = default
+openDate          = 02/07/2016 at 08:56pm EST
+reducedScoringDate = 12/31/1969 at 07:00pm EST
+dueDate           = 02/17/2016 at 11:59pm EST
+answerDate        = 02/18/2016 at 11:59pm EST
+enableReducedScoring = N
+paperHeaderFile   = setDemo/paperHeaderFile1.pg
+screenHeaderFile  = setDemo/screenHeaderFile1.pg
+description       = 
+restrictProbProgression = 0
+emailInstructor   = 0
+
+problemListV2 
+problem_start
+problem_id = 1
+source_file = Library/Union/setMVvectors/vectors-3b.pg
+value = 5
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 2
+source_file = Library/WHFreeman/Rogawski_Calculus_Early_Transcendentals_Second_Edition/12_Vector_Geometry/12.2_Vectors_in_Three_Dimensions/12.2.11.pg
+value = 5
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 3
+source_file = Library/Union/setMVvectors/vectors-5a.pg
+value = 5
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 4
+source_file = Library/WHFreeman/Rogawski_Calculus_Early_Transcendentals_Second_Edition/12_Vector_Geometry/12.1_Vectors_in_the_Plane/12.1.29.pg
+value = 3
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 5
+source_file = Library/WHFreeman/Rogawski_Calculus_Early_Transcendentals_Second_Edition/12_Vector_Geometry/12.1_Vectors_in_the_Plane/12.1.23.pg
+value = 3
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 6
+source_file = Library/WHFreeman/Rogawski_Calculus_Early_Transcendentals_Second_Edition/12_Vector_Geometry/12.2_Vectors_in_Three_Dimensions/12.2.27.pg
+value = 5
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+

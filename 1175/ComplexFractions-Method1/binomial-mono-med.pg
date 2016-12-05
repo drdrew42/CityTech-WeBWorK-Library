@@ -1,0 +1,74 @@
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+$rationalChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     Value->Error("Look at the preview answer box. Did you forget parenthesis around your numerator or denominator?") unless $student->{tree}->class eq "BOP" && $student->{tree}{bop} eq "/";
+     return 0 unless $correct == $student;
+     my $cnum = Formula($correct->{tree}{lop});
+     my $snum = Formula($student->{tree}{lop});
+     my $cden = Formula($correct->{tree}{rop});
+     my $sden = Formula($student->{tree}{rop});
+     Value->Error("Your answer can be reduced further") unless ($cnum == $snum && $cden == $sden);
+     return 1;
+};
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric")->flags->set(reduceConstants=>0,reduceConstantFunctions=>0);
+# Context()->variables->are("r"=>Real,"s"=>Real,"w"=>Real);
+
+$Nr = random(2,9,1)*random(-1,1,2);
+$ND = random(2,5,1);
+$Nx = random(1,3,1);
+$fracN = Formula("(x - $Nr)/($ND x^$Nx)")->reduce;
+
+do { $DN = random(2,6,1); } until ( gcf($ND,$DN) == 1 );
+$Dr = $Nr * $DN;
+$DD = $ND**2;
+$fracD = Formula("($DN x - $Dr)/$DD")->reduce;
+
+$ansN = Formula("$ND")->reduce;
+$ansD = Formula("$DN x^$Nx")->reduce;
+
+$ans = Formula("$ansN/$ansD");
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Simplify the complex fraction:
+\[ \Large\frac{$fracN}{$fracD} \]
+$BR
+\{ans_rule(25)\}
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans->cmp(checker=>$rationalChecker));
+
+ENDDOCUMENT();        

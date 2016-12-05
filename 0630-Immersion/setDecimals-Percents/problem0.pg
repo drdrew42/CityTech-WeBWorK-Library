@@ -1,0 +1,233 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject(‘Arithmetic’)
+## DBchapter(‘’)
+## DBsection(‘’)
+## Date('7/5/2015')
+## Author('K. Andrew Parker')
+## Institution('NYC City Tech')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "parserPopUp.pl",
+   "scaffold.pl",
+   "niceTables.pl",
+   "contextFraction.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer=>"parsed"
+   );
+
+  $formChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentstring = $ansHash->{student_formula};
+     my $correctans = $ansHash->{correct_ans};
+     $studentstring =~ tr/()//d;
+     $correctans =~ tr/()//d;
+     return ( $student==$correct && $studentstring eq $correctans ? 1 : 0);
+   };
+
+
+  $numChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentans=$ansHash->{student_formula};
+     Value->Error("You're on the right track, but your answer should be just a number.") if ( ($studentans ne $student)&&($student==$correct) );
+     return($studentans eq $ansHash->{correct_ans} ? 1 : 0);
+  };
+
+@prime = ( 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 );
+
+@card = ("zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen");
+
+$dec1000 = 0;
+$dec100 = random(0,9,1);
+$dec10 = random(0,9,1);
+$dec1 = random(0,9,1);
+$decTenth = random(0,9,1);
+$decHundth = random(0,9,1);
+$decThousth = 0;
+$decimal1 = 1000*$dec1000+100*$dec100+10*$dec10+$dec1+.1*$decTenth+.01*$decHundth+.001*$decThousth;
+
+$decA1000 = 0;
+$decA100 = random(0,9,1);
+$decA10 = random(0,9,1);
+$decA1 = random(0,9,1);
+$decATenth = random(0,9,1);
+$decAHundth = random(0,9,1);
+$decAThousth = 0;
+$loopA = $decA1000*10**6+$decA100*10**5+$decA10*10**4+$decA1*10**3+$decATenth*10**2+$decAHundth*10+$decBThousth;
+$decimalA = 1000*$decA1000+100*$decA100+10*$decA10+$decA1+$decATenth/10+$decAHundth/100+$decBThousth;
+
+$decB1000 = 0;
+$decB100 = random(0,9,1);
+$decB10 = random(0,9,1);
+$decB1 = random(0,9,1);
+$decBTenth = random(0,9,1);
+$decBHundth = random(0,9,1);
+$decBThousth = random(1,9,1);
+$loopB = $decB1000*10**6+$decB100*10**5+$decB10*10**4+$decB1*10**3+$decBTenth*10**2+$decBHundth*10+$decBThousth;
+$decimalB = 1000*$decB1000+100*$decB100+10*$decB10+$decB1+$decBTenth/10+$decBHundth/100+$decBThousth/1000;
+
+$answerAB = $decimalA + $decimalB;
+$answerloop = $loopA+$loopB;
+@digitAB = ( );
+
+foreach my $i (0..6) {
+  my $j = 6-$i;
+  $digitAB[$i] = floor($answerloop/10**$j);
+  $answerloop = $answerloop - $digitAB[$i]*10**$j;
+}
+
+##############################################################
+#
+#  Text
+#
+#
+Scaffold::Begin(
+      can_open => "when_previous_correct",
+      is_open  => "first_incorrect"
+);
+
+
+Section::Begin( "Part 1: Place Values" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Just like fractions allow us to talk about values between zero and one, so do decimals.
+$BR
+In fact, decimals and fractions are very closely related.
+$BR
+Take a look at the following table:
+\{
+DataTable(
+  [
+    ['thousands','hundreds','tens','ones','\(\cdot\)','tenths','hundredths','thousandths'],
+    ['1000','100','10','1','\(\cdot\)','\(\dfrac{1}{10}\)','\(\dfrac{1}{100}\)','\(\dfrac{1}{1000}\)']
+  ],
+  caption=>'Decimal Place Values'
+);
+\}
+$PAR
+When working with decimal values, it is going to be CRUCIAL that we keep an eye on where our decimal place is. If we don't, then we may end up treating a 7 like a 70 or 700, or treating a 0.4 like a 0.04 or 0.004. Just as 7, 70 and 700 are all very different quantities, so are 0.4, 0.04 and 0.004.
+$PAR
+Line up $decimal1 with the table below.
+$BR
+Put a zero in any decimal place that is unspecified.
+\{
+DataTable(
+  [
+    ['thousands','hundreds','tens','ones','\(\cdot\)','tenths','hundredths','thousandths'],
+    [ans_rule(2),ans_rule(2),ans_rule(2),ans_rule(2),'\(\cdot\)',ans_rule(2),ans_rule(2),ans_rule(2)]
+  ],
+  caption=>'Decimal Place Values for $decimal1'
+);
+\}
+$PAR
+Why do we get to put zeros in for any unspecified decimal place?
+$BR
+It's pretty clear for any whole number. Obviously 3 is the same as 03 or 003, but we don't write those zeros because we don't need to say that we have "no hundreds" or "no tens". The same goes for digits after the decimal place. How many times have you seen $5 as a price and understood automatically that it means the same as $5.00?
+$PAR
+The leading zeros before the decimal point or any trailing zeros at the end of a decimal point are unnecessary, but we can put them there if we need to. So, if we wanted to, we could write 3 as 0000003.000000000. It looks ugly, but it might come in useful.
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( Real($dec1000)->cmp() );
+ANS( Real($dec100)->cmp() );
+ANS( Real($dec10)->cmp() );
+ANS( Real($dec1)->cmp() );
+ANS( Real($decTenth)->cmp() );
+ANS( Real($decHundth)->cmp() );
+ANS( Real($decThousth)->cmp() );
+
+Section::End();
+
+Section::Begin( "Part 2: Adding decimal numbers" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+The most important part of adding decimal numbers is that we MUST align their decimal points BEFORE we begin adding.
+$BR
+It wouldn't make any sense for us to be adding tens digits to hundreds digits, for example. After we added them, would we have tens? No, because some of them were hundreds. Would they be hundreds? No, because some of them were tens.
+$BR
+So we wouldn't have an appropriate decimal place to put our sum in.
+$PAR
+Let's practice on \( $decimalA + $decimalB \). First, for each number, line up the digits in the table. Then add in each column, carrying just like you would with a normal addition problem.
+$BR
+(Remember to put a zero in any unspecified decimal place.)
+\{
+DataTable(
+  [
+    ['','thousands','hundreds','tens','ones','\(\cdot\)','tenths','hundredths','thousandths'],
+    ['$decimalA',ans_rule(2),ans_rule(2),ans_rule(2),ans_rule(2),'\(\cdot\)',ans_rule(2),ans_rule(2),ans_rule(2)],
+    [['$decimalB', midrule=>1],ans_rule(2),ans_rule(2),ans_rule(2),ans_rule(2),'\(\cdot\)',ans_rule(2),ans_rule(2),ans_rule(2)],
+    ['SUM',ans_rule(2),ans_rule(2),ans_rule(2),ans_rule(2),'\(\cdot\)',ans_rule(2),ans_rule(2),ans_rule(2)]
+  ],
+  caption=>'Adding $decimalA + $decimalB',
+  align=>'r | c c c c c c c c'
+);
+\}
+$PAR
+Notice that after we lined up each decimal number's decimal point, we didn't end up adding the last digits of each number. Putting a zero in the (unspecified) thousandths place of $decimalA ended up making a difference after all!
+$BR
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( Real($decA1000)->cmp() );
+ANS( Real($decA100)->cmp() );
+ANS( Real($decA10)->cmp() );
+ANS( Real($decA1)->cmp() );
+ANS( Real($decATenth)->cmp() );
+ANS( Real($decAHundth)->cmp() );
+ANS( Real($decAThousth)->cmp() );
+
+ANS( Real($decB1000)->cmp() );
+ANS( Real($decB100)->cmp() );
+ANS( Real($decB10)->cmp() );
+ANS( Real($decB1)->cmp() );
+ANS( Real($decBTenth)->cmp() );
+ANS( Real($decBHundth)->cmp() );
+ANS( Real($decBThousth)->cmp() );
+
+ANS( Real($digitAB[0])->cmp() );
+ANS( Real($digitAB[1])->cmp() );
+ANS( Real($digitAB[2])->cmp() );
+ANS( Real($digitAB[3])->cmp() );
+ANS( Real($digitAB[4])->cmp() );
+ANS( Real($digitAB[5])->cmp() );
+ANS( Real($digitAB[6])->cmp() );
+
+Section::End();
+
+Scaffold::End();
+
+ENDDOCUMENT();        

@@ -1,0 +1,94 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "PGML.pl",
+   "answerHints.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+# Find a line that connects 2 of the 12 integer points on the circle of radius 5 @ (0,0)
+
+Context("Numeric")->variables->are(x=>Real,y=>Real);
+
+@x = (5,4,3,0);
+@y = (0,3,4,5);
+
+$j = random(0,3,1);
+
+$x1 = random(-1,1,2)*$x[$j];
+$y1 = random(-1,1,2)*$y[$j];
+
+do { 
+  $i = random(1,2,1);
+  $x0 = random(-1,1,2)*$x[$i];
+  $y0 = random(-1,1,2)*$y[$i];
+} until ( $x0 != $x1 && $y0 != $y1 );  # we don't want horizontal or vertical lines
+
+$delX = $x0-$x1;
+$delY = $y0-$y1;
+$gcf = gcf($delX,$delY);
+$delX = $delX/$gcf;
+$delY = $delY/$gcf;
+
+$lineL = Formula("$delY x - $delX y")->reduce;
+$lineR = $lineL->eval(x=>$x0, y=>$y0);
+
+$circleL = Formula("x^2 + y^2")->reduce;
+$circleR = Formula("25");
+
+Context("Point");
+Context()->flags->set(reduceConstants=>0,reduceConstantFunctions=>0, displayStudentAnswer=>'parsed');
+Parser::Number::NoDecimals();
+
+Context()->{error}{msg}{"You are not allowed to type decimal numbers in this problem"} 
+  = "Decimals are not allowed for this problem, please use exact forms (such as 'sqrt') instead of decimal approximations.";
+
+
+$ans= List( Point($x0,$y0), Point($x1,$y1) );
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+BEGIN_PGML
+
+Solve the following system of equations.
+
+[` [$lineL] = [$lineR] `]
+
+[` [$circleL] = [$circleR] `]
+
+Solution(s): [_______________]{$ans}
+
+* Enter your answers as points: [` (x,y) `]
+* Because these systems are non-linear, you may have more than one solution.
+* If you have more than one solution, enter your answers as a list of points: [` (x_0, y_0), (x_1, y_1) `]
+* Use 'sqrt(...)' to enter radical answers, do not use decimal approximations.
+
+END_PGML
+
+##############################################################
+#
+#  Answers
+#
+#
+
+
+ENDDOCUMENT();        

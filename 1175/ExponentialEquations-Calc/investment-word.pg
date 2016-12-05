@@ -1,0 +1,67 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "PGML.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->variables->are(t=>Real);
+
+$init = random(3000,15000,1000);
+$double = 2*$init;
+$percent = random(3,12,1);
+$rate = $percent/100;
+
+$time = Real("log(2)/$rate");
+
+Context("LimitedNumeric");
+$time = Real("$time")->with(tolType=>'absolute',tolerance=>0.005);
+
+##############################################################
+#
+#  Text
+#
+#
+
+BEGIN_PGML
+
+Suppose $[$init] is invested at [$percent]% interest compounded continuously. How long will it take for the investment to grow to $[$double]?  
+
+Use the model [`` A(t) = P e^{rt} ``] and round your answer to the nearest hundredth of a year.  
+
+It will take [______] years for the investment to reach $[$double].
+
+  
+* Recall the change of base formula for logarithms: [` \log_b(A) `] can be calculated as [`` \frac{\ln(A)}{\ln(b)} ``]
+
+END_PGML
+
+ANS($time->cmp->withPostFilter(sub { 
+  my $ans = shift; 
+  my $student = $ans->{student_ans};
+  my $correct = $ans->{correct_ans};
+  $ans->{ans_message} = "You're close, but you may have rounded too much." 
+    if ( abs($student - $correct) < 0.5 && abs($student-$correct) > 0.005 );
+  $ans->{ans_message} = "Your answer should not contain parenthesis. Compute the result as a number." 
+    if $ans->{ans_message} eq "Unexpected character '('";
+  $ans->{ans_message} = "Your answer should not contain any operations. Compute the final result as a number." 
+    if ( $ans->{ans_message} eq "Can't use '^' in this context" || $ans->{ans_message} eq "Can't use '+' in this context" || $ans->{ans_message} eq "Can't use '-' in this context" || $ans->{ans_message} eq "Can't use '*' in this context" || $ans->{ans_message} eq "Can't use '/' in this context" );
+  return $ans; 
+}));
+
+ENDDOCUMENT();        

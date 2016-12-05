@@ -1,0 +1,55 @@
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextFraction.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("LimitedFraction")->flags->set(showMixedNumbers=>0);
+Context()->strings->are(undefined => {}, imaginary => {alias => "undefined"});
+
+$N = random(2,11,1);
+do { $D = random(2,11,1); } until ( gcf($N,$D) == 1 );
+
+$N2 = $N**2;
+$D2 = $D**2;
+
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+$PAR
+Evaluate without using a calculator. Write "undefined" or "imaginary" if your result is not a real number.
+$PAR
+\(\displaystyle \sqrt{\frac{$N2}{$D2}}\) = \{ans_rule(10)\}
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS(Fraction($N,$D)->cmp);
+
+ENDDOCUMENT();        

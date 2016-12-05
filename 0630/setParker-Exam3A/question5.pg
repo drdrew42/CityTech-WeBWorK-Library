@@ -1,0 +1,67 @@
+##DESCRIPTION
+##  Parker - Sample Exam 1 
+##ENDDESCRIPTION
+
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextFraction.pl",
+   "contextLimitedNumeric.pl",
+   "contextLimitedPolynomial.pl",
+   "parserPopUp.pl",
+   "CofIdaho_macros.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 0;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric")->variables->are( x=>"Real", y=>"Real");
+
+$p[0]=45;
+$p[2]=5;
+
+$expanded=Formula("$p[0]y^3-$p[2]x^2y^3")->reduce;
+
+$c=5;
+$r[0]=3;
+$factored=Formula("$c*y^3*($r[0]+x)($r[0]-x)")->reduce;
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Factor completely:
+$PAR
+\($expanded\) = \{ $factored->ans_rule \}
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS(FactoringEvaluator($factored,["x","y"]));
+
+
+ENDDOCUMENT();        

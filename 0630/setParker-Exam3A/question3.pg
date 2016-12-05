@@ -1,0 +1,68 @@
+##DESCRIPTION
+##  Parker - Sample Exam 1 
+##ENDDESCRIPTION
+
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextFraction.pl",
+   "contextLimitedNumeric.pl",
+   "contextLimitedPolynomial.pl",
+   "parserPopUp.pl",
+   "CofIdaho_macros.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 0;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric")->variables->are( x=>"Real", y=>"Real");
+
+$p[0]=1;
+$p[1]=-1;
+$p[2]=-42;
+
+$expanded=Formula("$p[0]x^2+$p[1]x+$p[2]")->reduce;
+
+$r[0]=-7;
+$r[1]=6;
+$factored=Formula("(x+$r[0])(x+$r[1])")->reduce;
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Factor completely:
+$PAR
+\($expanded\) = \{ $factored->ans_rule \}
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS(FactoringEvaluator($factored,["x"]));
+
+
+ENDDOCUMENT();        

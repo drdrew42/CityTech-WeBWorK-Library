@@ -1,0 +1,11 @@
+
+openDate          = 06/18/2012 at 06:16am EDT
+dueDate           = 06/25/2012 at 11:59pm EDT
+answerDate        = 06/26/2012 at 12:01am EDT
+paperHeaderFile   = local/opt/webwork/webwork2/conf/snippets/ReitzHeaderBASIC.pg
+screenHeaderFile  = local/opt/webwork/webwork2/conf/snippets/ReitzHeaderBASIC.pg
+problemList       = 
+Library/NewHampshire/unh_schoolib/Geometry_Figures/gfgcns201.pg, 6, -1 
+Library/NewHampshire/unh_schoolib/Geometry_Figures/gfghrs301.pg, 4, -1 
+Library/NewHampshire/NECAP/grade8/gr8-2006/n8-2006-3s.pg, 3, -1 
+

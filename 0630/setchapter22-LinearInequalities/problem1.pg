@@ -1,0 +1,76 @@
+##DESCRIPTION
+## DBsubject(Algebra)
+## DBchapter(Linear equations and functions)
+## DBsection(Linear inequalities)
+## Institution(Univeristy of Utah)
+## Author(Utah ww group)
+## MLT(linINn)
+## Level(2)
+## TitleText1('Mathematical Applications')
+## AuthorText1('Ronald J. Harshbarger and James J. Reynolds')
+## EditionText1('8')
+## Section1('.')
+## Problem1('')
+## KEYWORDS('algebra')
+
+## Type: evaluation
+
+##ENDDESCRIPTION
+
+## MathObject conversion of 
+## Library/Utah/Business_Algebra/set3_Inequalities_and_Linear_Programming/p01.pg
+
+DOCUMENT();        # This should be the first executable line in the problem.
+
+
+
+loadMacros(
+"PG.pl", 
+"PGbasicmacros.pl", 
+"PGchoicemacros.pl",
+"PGanswermacros.pl",
+"PGauxiliaryFunctions.pl",
+"MathObjects.pl",
+"contextInequalities.pl"
+);
+
+TEXT(beginproblem());
+
+$showPartialCorrectAnswers = 1;
+$showPartialCredit = 1;
+
+Context("Inequalities-Only");
+
+$a = random(2,9,1);
+
+$b = random(2,9,1);
+
+$c = random(2,9,1);
+
+$co1 = $b-$c;
+
+# output the text of the problem
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Solve the inequality:
+$PAR
+\( $a x + $b < $co1 \)
+$PAR
+
+Answer: \{ ans_rule(10) \}
+
+END_TEXT
+Context()->normalStrings;
+
+$ans = Compute("x < -$c/$a");
+
+ANS($ans->cmp);
+
+COMMENT("MathObject version");
+ENDDOCUMENT();        # This should be the last executable line in the problem.
+
+
+

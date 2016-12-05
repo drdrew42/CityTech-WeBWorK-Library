@@ -1,0 +1,23 @@
+
+openDate          = 08/19/2012 at 01:58pm EDT
+dueDate           = 08/26/2012 at 01:58pm EDT
+answerDate        = 09/02/2012 at 01:58pm EDT
+paperHeaderFile   = defaultHeader
+screenHeaderFile  = defaultHeader
+problemList       = 
+Library/Rochester/setTrig07Identity/srw7_2_1.pg, 1, -1 
+Library/Rochester/setTrig07Identity/p7.pg, 1, -1 
+Library/Rochester/setTrig07Identity/srw7_2_3.pg, 1, -1 
+Library/Rochester/setTrig07Identity/p12.pg, 1, -1 
+Library/Rochester/setTrig07Identity/p2.pg, 1, -1 
+Library/Rochester/setTrig07Identity/srw7_2_5.pg, 1, -1 
+Library/NAU/setTrigHalfDouble/SineHalf2.pg, 1, -1 
+Library/NAU/setTrigHalfDouble/CosineHalf2.pg, 1, -1 
+Library/NAU/setTrigHalfDouble/TanHalf2.pg, 1, -1 
+Library/NAU/setTrigHalfDouble/TanHalf.pg, 1, -1 
+Library/NAU/setTrigHalfDouble/SineHalf.pg, 1, -1 
+Library/NAU/setTrigHalfDouble/CosineHalf.pg, 1, -1 
+Library/Rochester/setTrig07Identity/srw7_3_5.pg, 1, -1 
+Library/Rochester/setTrig07Identity/srw7_3_7.pg, 1, -1 
+Library/Rochester/setTrig07Identity/srw7_3_3.pg, 1, -1 
+
