@@ -1,0 +1,98 @@
+## DESCRIPTION
+## This problem asks students to solve word problems for linear equations 
+## ENDDESCRIPTION
+## KEYWORDS('word problems, linear equations')
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## BookChapter('Word Problems for Linear Equations)
+## BookEdition('3')
+## BookAuthor('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## BookChapter('18')
+## Date('07/12/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "problemRandomize.pl",
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+#  Allow for the user to try another version of the problem once they get it correct.
+ProblemRandomize(when=>"Correct",onlyAfterDue=>0);
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+
+
+
+
+$a = random(2,19,1);
+$b = random(10,20,1);
+$ans1 = Compute("2*x-$a")->reduce;
+$ans2 = Compute($b);
+$ans3 = Compute(($b+$a)/2)->reduce;
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Translate the phrase into an equation and use x to represent the unknown number:
+$PAR
+$BCENTER
+If \($a\) is subtracted from twice an unknown number, the difference is \( $b \):
+
+$ECENTER
+$PAR
+
+\{ans_rule(20)\} = \{ans_rule(20)\}
+
+$PAR
+$BCENTER
+Sove for x:
+$ECENTER
+$PAR
+\( x \) = \{ans_rule(20)\}
+END_TEXT
+Context()->normalStrings;
+
+$showHint = 3;
+BEGIN_HINT
+Remember that "difference" involves subtracting.
+END_HINT
+
+##############################################################
+#
+#  Answers
+#
+#
+
+Context()->normalStrings;
+
+ANS($ans1->cmp);
+ANS($ans2->cmp);
+ANS($ans3->cmp);
+
+
+ENDDOCUMENT();        

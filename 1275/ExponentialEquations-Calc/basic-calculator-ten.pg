@@ -1,3 +1,16 @@
+##DESCRIPTION
+##  Algebra problem: Solve an exponential equation by taking the logarithm of both sides, and using a scientific calculator
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'exponential', 'exponential equation', 'logarithms', 'logarithm')
+## DBsubject(Algebra)
+## DBchapter(Exponential and logarithmic expressions and functions)
+## DBsection(Exponential and logarithmic equations)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -23,7 +36,7 @@ Context("Numeric");
 
 $base = Real("10");
 $exp = random(-3,-1,1);
-$result = $base**$exp + non_zero_random(-0.01, 0.01, .00153);
+do { $result = $base**$exp + non_zero_random(-0.01, 0.01, .00153); } until ( $result > 0 );
 
 $ans = log($result)/log($base);
 
@@ -64,5 +77,6 @@ ANS($ans->cmp->withPostFilter(sub {
   return $ans; 
 }));
 
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

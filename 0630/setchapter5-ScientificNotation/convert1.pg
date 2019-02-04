@@ -47,8 +47,6 @@ Context()->flags->set(format => "%.1f"); # keep students from "counting the zero
 BEGIN_TEXT
 
 2)  Write \($real2\) in scientific notation: \{ans_rule(10)\} $PAR
-3)  Write \($a3 \times 10^{$n3}\) in standard notation: \{ans_rule(10)\} $PAR
-
 END_TEXT 
 Context()->normalStrings;
 
@@ -62,7 +60,7 @@ $sn2 = ScientificNotation($real2);
 
 ANS($sn1->cmp());
 ANS($sn2->cmp());
-ANS($real3->cmp());
+
 
 Context()->flags->set(format => "%.${N}f#"); #make sure the decimal is displayed properly
 Context()->texStrings;
@@ -76,9 +74,8 @@ Identify the significant digits: $d2 $BR
 Determine where we want the decimal place to end up for scientific notation: $a2 $BR
 Count the shift in decimal places: $n2 $BR
 Final result: \( $a2 \times 10^$n2 \)
-$PAR
-3) \( $a3 \times 10^$n3 \) suggests that we are talking about a much larger number than just $a3 $BR Each time we multiply by ten, the significant digits shift to the next higher decimal place. $BR If we repeat this $n3 times, we end up with $real3
-  
+
+
 END_SOLUTION
 
 COMMENT('MathObject version');

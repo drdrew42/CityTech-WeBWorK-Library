@@ -1,0 +1,203 @@
+## DESCRIPTION
+## This problem asks students to simplify rational expressions
+## ENDDESCRIPTION
+## KEYWORDS(Rational ExpressionsÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ)
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## BookChapter(Adding and Subtracting Rational Expressions)
+## BookEdition('3')
+## BookAuthor('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## BookChapter('23')
+## Date('07/17/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+
+
+DOCUMENT(); # This should be the first executable line in the problem.
+
+loadMacros(
+
+  "PGstandard.pl",
+  "MathObjects.pl",
+  "CofIdaho_macros.pl",
+   "contextLimitedPolynomial.pl",
+   "contextLimitedPowers.pl",
+"PGauxiliaryFunctions.pl",
+   "contextRationalFunction.pl",
+   "parserMultiAnswer.pl",
+
+);
+
+Context("Numeric");
+Context()->variables->are("x"=>Real);
+Context()->noreduce('x^(-1)');
+LimitedPowers::OnlyNonNegativeIntegers();
+
+
+Context()->texStrings;
+
+TEXT(beginproblem());
+
+
+
+
+
+
+
+$A = random(2,5,1);
+$B = 3*$A;
+$C = 2*$A;
+$D = list_random(7,11,1);
+$E = list_random(7,11,1);
+
+
+$f1 = Formula("($D) / ($A*x**2)")->reduce->TeX;
+$f2 = Formula("($E) / ($B*x)")->reduce->TeX;
+
+######################################
+#  Main text
+BEGIN_TEXT
+A.  Perform the indicated operation. Simplify the result, if possible.
+\[ $f1 - $f2 \]
+$PAR
+Answer:  \{ ans_rule(25) \} $BR
+END_TEXT
+
+######################################
+#  Answer
+
+Context()->normalStrings;
+
+
+$ans = Formula("(3*$D-$E*x)/(3*$A*x**2)");
+
+ANS($ans->cmp(checker=>$cmp));
+
+
+$showPartialCorrectAnswers = 1;
+
+###################################### 
+
+
+;
+
+
+
+Context("Numeric");
+Context()->variables->add(y=>'Real'); 
+Context()->variables->add(z=>'Real'); 
+
+$a = random(3,7,2);
+$b = random(2,8,2);
+$c = random(11,13,2);
+$d = random(1,4,1);
+$e = random(1,4,1);
+$f = random(1,2,1);
+
+$poly1 = Compute("$b x y^($d)") -> reduce;
+$poly2 = Compute("$a x^($f)") -> reduce;
+$poly3 = Compute("2*$a x y^($d+2)") -> reduce;
+$poly4 = Compute("2*$c y") -> reduce;
+$poly5 = Compute("$a y^2 z^($f)") -> reduce;
+$poly6 = Compute("$c x^($e)") -> reduce;
+
+if ($a == 3 && $b == 6) {
+$ans1 = Formula("($b/3) x^($e-$f+2)*y^(2*$d-1)");
+$ans2 = Formula("($a)/3 z^($f)");
+} else{
+$ans1 = Formula("$b x^($e-$f+2)*y^(2*$d-1)");
+$ans2 = Formula("$a z^($f)");
+}
+
+########################################################################
+
+$mp = MultiAnswer($ans1,$ans2)->with(
+         singleResult => 0,
+         checker => sub {
+            my ($correct,$student,$self) = @_;  # get the parameters
+            
+            my ( $p1, $p2 ) = @{$correct};      # get the correct num, denom
+            my ( $p1stu, $p2stu ) = @{$student};# get the student's num, denom
+
+            my $isPreview = $main::inputs_ref->{previewAnswers};
+
+            
+            $numeratorValid   = ( $p1==$p1stu || Compute("-1")*$p1==$p1stu );
+            $denominatorValid = ( $p2==$p2stu || Compute("-1")*$p2==$p2stu );
+            $quotientValid    = ( $p1/$p2 == Compute($p1stu)/Compute($p2stu) );
+
+            if (! $isPreview) { # Don't show messages if previewing....
+              Value::Error("Your numerator is incorrect") 
+                unless $numeratorValid;
+              Value::Error("Your denominator is incorrect") 
+                unless $denominatorValid;
+              Value::Error("One of your answers has the wrong sign") 
+                unless $quotientValid;
+            }
+
+            return $quotientValid;
+            },
+        );
+
+########################################################################
+
+Context()->texStrings;
+BEGIN_TEXT
+B.  Perform the indicated operations involving the three rational expressions 
+\[
+\frac{$poly1}{$poly2} \cdot \frac{$poly3}{$poly4} \div \frac{$poly5}{$poly6}
+\]
+Express your answer in simplest form \(\frac{A}{B}\).$PAR
+Answer: \(A =\) \{$mp->ans_rule(20)\} and \(B =\) \{$mp->ans_rule(20)\}$BR
+END_TEXT
+Context()->normalStrings;
+
+########################################################################
+
+ANS( $mp->cmp );
+
+
+###########################################################################
+# setup contexts and variables 
+###########################################################################
+$var1 = uc(list_random('x','y','z','w','p','q','r','s','t','u','v'));
+$var2 = uc(list_random('x','y','z','w','p','q','r','s','t','u','v'));
+$var3 = uc(list_random('x','y','z','w','p','q','r','s','t','u','v'));
+Context()->variables->are(lc($var1)=>"Real", uc($var1)=>"Real", lc($var2)=>"Real", uc($var2)=>"Real", lc($var3)=>"Real", uc($var3)=>"Real");
+
+$eqn = "\displaystyle $var1 = 1 - \frac{$var2}{$var3}";
+
+$answer = Formula("$var2/(1-$var1)");
+
+
+BEGIN_HINT
+You have arrived at an incorrect answer.  Please look at the following links to improve your skills:
+<a href="https://www.khanacademy.org/math/algebra2/rational-expressions-equations-and-functions/modal/v/dividing-monomials">Simplifying rational expressions-- monomials</a>,
+
+<a href="https://www.khanacademy.org/math/algebra2/rational-expressions-equations-and-functions/modal/v/algebraic-expression-adding-fractions">Adding and Subtracting fractions</a>,
+and 
+
+<a href="https://www.khanacademy.org/math/algebra2/rational-expressions-equations-and-functions/multiplying-and-dividing-rational-expressions/v/multiplying-and-dividing-rational-expressions-monomial-numerator-denominator">Multiplying and Dividing fractions</a>
+END_HINT
+
+ENDDOCUMENT();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

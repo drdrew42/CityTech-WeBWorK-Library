@@ -1,20 +1,16 @@
 ##DESCRIPTION
-##  Algebra problem: true or false for inequality 
+##  Algebra problem: Simplify expressions using properties of exponents 
 ##ENDDESCRIPTION
 
-##KEYWORDS('algebra', 'inequality', 'fraction')
+##KEYWORDS('algebra', 'exponent', 'simplify exponents')
 
-## DBsubject('Algebra')
-## DBchapter('Fundamentals')
-## DBsection('Real Numbers')
-## Date('6/3/2002')
-## Author('')
-## Institution('')
-## TitleText1('Precalculus')
-## EditionText1('3')
-## AuthorText1('Stewart, Redlin, Watson')
-## Section1('1.1')
-## Problem1('22')
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of exponents)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
 
 ########################################################################
 
@@ -42,7 +38,7 @@ $one = random(0,13,1);
 # Force students to combine exponents within fractions
 $fractionChecker = sub {
   my ($correct,$student,$ans) = @_;
-  Value->Error("Your answer should be a fraction. Make sure you put parenthesis around your numerator and denominator.") unless $student->{tree}->class eq "BOP" && $student->{tree}{bop} eq "/";
+  Value->Error("Your answer should be a fraction. Make sure you put parenthesis around your numerator and denominator.") unless ($student->{tree}->class eq "BOP" && $student->{tree}{bop} =~ m!/!);
   return 0 unless $correct == $student;
   my $cden = Formula($correct->{tree}{rop});
   my $sden = Formula($student->{tree}{rop});
@@ -127,5 +123,22 @@ ANS($answer->cmp(checker=>$fractionChecker) );
 #    if $ans->{ans_message} eq "The domain of your function doesn't match that of the #correct answer";
 #  return $ans; 
 #}));
+
+Context()->texStrings;
+BEGIN_HINT
+
+It may be useful to consider \( \displaystyle $problem \) as \( \displaystyle \left(\frac{$dispN}{$dispD}\right)\left(\frac{$var[$one]^{$m1}}{$var[$one]^{$m2}}\right)\left(\frac{$var[$two]^{$n1}}{$var[$two]^{$n2}}\right) \)
+$PAR
+Reduce each piece and recombine your answers without using negative exponents.
+
+END_HINT
+BEGIN_SOLUTION
+
+\( \displaystyle $problem = \left(\frac{$dispN}{$dispD}\right)\left(\frac{$var[$one]^{$m1}}{$var[$one]^{$m2}}\right)\left(\frac{$var[$two]^{$n1}}{$var[$two]^{$n2}}\right) = \left(\frac{$nCoeff}{$dCoeff}\right) \left($var[$one]^{($m1-$m2)}\right) \left($var[$two]^{($n1-$n2)}\right) = \left(\frac{$nCoeff}{$dCoeff}\right) \left($var[$one]^{-$mAns}\right) \left($var[$two]^{$nAns}\right) = $answer \) 
+
+END_SOLUTION
+Context()->normalStrings;
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Algebra problem: Solve a quadratic equation using the quadratic formula
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'quadratic equation', 'quadratic formula')
+
+## DBsubject(Algebra)
+## DBchapter(Quadratic equations and functions)
+## DBsection(Quadratic formula)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -54,7 +68,9 @@ $roots = List( $r1, $r2 );
 
 BEGIN_PGML
 
-List the roots of the parabola [` y = [$quadratic] `]  
+List the roots of the parabola: [` y = [$quadratic] `]  
+
+In other words, list the solutions of the equation: [` 0 = [$quadratic] `]  
 
 [` x = `] [____________________]{$roots}
 
@@ -62,5 +78,7 @@ List the roots of the parabola [` y = [$quadratic] `]
 * Separate multiple roots with a comma.
 
 END_PGML
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

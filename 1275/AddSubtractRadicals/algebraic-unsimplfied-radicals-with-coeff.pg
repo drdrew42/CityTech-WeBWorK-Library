@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Algebra problem: Simplify and then add or subtract expressions involving radicals
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'radical', 'radicals', 'radical expression')
+
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of rational exponents and radicals)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -65,11 +79,17 @@ $c = $out1 * $c1 + $out2 * $c2;
 
 $rad1 = $rad*$c1**2;
 $rad2 = $rad*$c2**2;
-$rad3 = $rad*$c3**2;
+# $rad3 = $rad*$c3**2;
 
 $problem = Formula("$out1 p sqrt( $rad1 p^2 ) + $out2 p^2 sqrt( $rad2 )");
 
 $ans = Formula("$c p^2 sqrt( $rad )");
+
+### For solutions
+$c12 = $c1**2;
+$c22 = $c2**2;
+$cOut1 = $c1*$out1;
+$cOut2 = $c2*$out2;
 
 ##############################################################
 #
@@ -112,5 +132,43 @@ ANS($ans->cmp(checker => sub {
   return $ans; 
 }));
 
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
+
+Context()->texStrings;
+BEGIN_HINT
+
+Try simplifying each radical separately.
+$PAR
+You might find that they have a common factor after all!
+
+END_HINT
+BEGIN_SOLUTION
+
+$BBOLD First, reduce \( $out1 p \sqrt{$rad1 p^2} \): $EBOLD $BR
+\( \displaystyle $out1 p \sqrt{$rad1 p^2} = $out 1 \sqrt{$c12 \cdot $rad \cdot p^2} \)
+$BR
+\( \displaystyle $out1 p \sqrt{$c12 \cdot $rad \cdot p^2} = $out1 \cdot p \cdot \sqrt{$c12} \cdot \sqrt{$rad} \cdot \sqrt{p^2} \)
+$BR
+\( \displaystyle $out1 \cdot p \cdot \sqrt{$c12} \cdot \sqrt{$rad} \cdot \sqrt{p^2} = $out1 \cdot p \cdot $c1 \cdot \sqrt{$rad} \cdot p = $cOut1 p^2 \sqrt{$rad} \)
+$PAR
+$BBOLD Then reduce \( $out2 p^2 \sqrt{$rad2} \): $EBOLD $BR
+\( \displaystyle $out2 p^2 \sqrt{$rad2} = $out2 p^2 \sqrt{$c22 \cdot $rad} \)
+$BR
+\( \displaystyle $out2 p^2 \sqrt{$c22 \cdot $rad} = $out2 \cdot p^2 \cdot \sqrt{$c22} \cdot \sqrt{$rad} \)
+$BR
+\( \displaystyle $out2 \cdot p^2 \cdot \sqrt{$c22} \cdot \sqrt{$rad} = $out2 \cdot p^2 \cdot $c2 \sqrt{$rad} = $cOut2 p^2 \sqrt{$rad} \)
+$PAR
+$BBOLD Now return to the original problem with our simplified radicals: $EBOLD $BR
+\( \displaystyle $problem = $cOut1 p^2 \sqrt{$rad} + $cOut2 p^2 \sqrt{$rad} \)
+$PAR
+Factor out the \( \sqrt{$rad} \): $BR
+\( \displaystyle $cOut1 p^2 \sqrt{$rad} + $cOut2 p^2 \sqrt{$rad} = \sqrt{$rad} \left( $cOut1 p^2 + $cOut2 p^2 \right) \)
+$PAR
+Combine the like terms: $BR
+\( \displaystyle \sqrt{$rad} \left( $cOut1 p^2 + $cOut2 p^2 \right) = \sqrt{$rad}\left( $c p^2 \right) = $ans \)
+$BR
+
+END_SOLUTION
+Context()->normalStrings;
 
 ENDDOCUMENT();        

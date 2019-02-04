@@ -1,0 +1,76 @@
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextLimitedPowers.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+$rationalChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     return 0 if ($student->class ne "Formula");
+     if ($student->{tree}->class eq "UOP" && $student->{tree}{uop} eq 'u-') {
+          $student = Formula($student->{tree}->{op});
+     }
+     Value->Error("Check the answer preview box. Maybe you forgot parenthesis around your numerator or denominator?") unless $student->{tree}->class eq "BOP" && $student->{tree}{bop} eq "/";
+     return 0 unless $correct == $student;
+     my $cnum = Formula($correct->{tree}{lop});
+     my $snum = Formula($student->{tree}{lop});
+     my $cden = Formula($correct->{tree}{rop});
+     my $sden = Formula($student->{tree}{rop});
+     Value->Error("Your answer can be reduced further") unless (abs($cnum) == abs($snum) && abs($cden) == abs($sden));
+     return 1;
+};
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+LimitedPowers::OnlyPositiveIntegers();
+
+$prime = list_random(3,5,7,11);
+$ans_numer = random(6,11,1);
+do{ $a_num = random(floor($prime*$ans_numer/3),ceil($prime*$ans_numer*2/3),1); } until ( gcf($a_num, $prime) == 1 );
+$b_num = $ans_numer * $prime - $a_num;
+
+$a = Formula("$a_num/($prime*x)");
+$b = Formula("$b_num/($prime*x)");
+
+$ans = Formula("$ans_numer/x");
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Combine and simplify if possible.
+$PAR
+\[ $a + $b \]
+$PAR
+\{ ans_rule(20) \}
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans->cmp(checker=>$rationalChecker));
+
+ENDDOCUMENT();        

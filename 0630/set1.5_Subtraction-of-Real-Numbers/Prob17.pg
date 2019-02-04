@@ -53,6 +53,9 @@ do {$t4 = random(2,15,1);} until (($t4 != $t3) && ($t4 != $t2) && ($t1 - $t2 + $
 
 Context()->texStrings;
 BEGIN_TEXT
+$PAR
+OPTIONAL
+$PAR
 An elevator started at floor \( $t1 \). It then went down \( $t2 \) floors, then up \( $t3 \) floors and then down \( $t4 \) floors. The elevator is at floor \{ ans_rule(10) \}.
  
 $BR

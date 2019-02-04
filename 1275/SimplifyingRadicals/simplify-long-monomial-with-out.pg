@@ -1,3 +1,20 @@
+##DESCRIPTION
+##  Algebra problem: Simplify square root involving monomials
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'radical', 'radicals', 'radical expression')
+
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of rational exponents and radicals)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
+
+########################################################################
+
 ########################################################################
 
 DOCUMENT();      
@@ -50,6 +67,27 @@ $rad = Formula("$radCo a^$expA b^$expB c^$expC")->reduce;
 
 $ans = Formula("$outCoeff*$coeff a^($ansA+$outA) b^($ansB+$outB) c^($ansC+$outC) sqrt($coeff a^$remA b^$remB c^$remC)")->reduce;
 
+### For solutions ###
+$coeff2 = $coeff**2; 
+
+$evenA = 2*$ansA;
+$evenB = 2*$ansB;
+$evenC = 2*$ansC;
+
+$splitA = "\sqrt{a^{$evenA}}";
+$splitA = ($remA == 1) ? $splitA . "\sqrt{a}" : $splitA;
+$splitB = "\sqrt{b^{$evenB}}";
+$splitB = ($remB == 1) ? $splitB . "\sqrt{b}" : $splitB;
+$splitC = "\sqrt{c^{$evenC}}";
+$splitC = ($remC == 1) ? $splitC . "\sqrt{c}" : $splitC;
+
+$redA = "a^{$ansA}";
+$redA = ($remA == 1) ? $redA . "\sqrt{a}" : $redA;
+$redB = "b^{$ansB}";
+$redB = ($remB == 1) ? $redB . "\sqrt{b}" : $redB;
+$redC = "c^{$ansC}";
+$redC = ($remC == 1) ? $redC . "\sqrt{c}" : $redC;
+
 ##############################################################
 #
 #  Text
@@ -76,5 +114,37 @@ Context()->normalStrings;
 #
 
 ANS($ans-> cmp);
+
+Context()->texStrings;
+BEGIN_HINT
+
+Try breaking up the problem into separate radicals.
+$BR
+Remember: \( \displaystyle \sqrt{XY} = \sqrt{X}\sqrt{Y} \)
+$PAR
+Make sure you don't lose track of the \($out\) while you work on simplifying the radical.
+END_HINT
+BEGIN_SOLUTION
+
+$BBOLD Break up the radical: $EBOLD $BR
+\( \displaystyle $out \sqrt{$rad} = \left($out\right) \sqrt{$radCo} \sqrt{a^{$expA}} \sqrt{b^{$expB}} \sqrt{c^{$expC}} \)
+$BR
+Make sure you don't forget about the \( $out \) while we simplify all these radicals!
+$PAR
+$BBOLD Simplify each radical separately: $EBOLD $BR
+\( \displaystyle \sqrt{$radCo} = \sqrt{$coeff2} \sqrt{$coeff} = $coeff \sqrt{$coeff} \)
+$BR
+\( \displaystyle \sqrt{a^{$expA}} = $splitA = $redA \)
+$BR
+\( \displaystyle \sqrt{b^{$expB}} = $splitB = $redB \)
+$BR
+\( \displaystyle \sqrt{c^{$expC}} = $splitC = $redC \)
+$PAR
+$BBOLD Put it all back together again: $EBOLD $BR
+\( \displaystyle \left($out\right) \left($coeff \sqrt{$coeff}\right) \left($redA\right) \left($redB\right) \left($redC\right) = $ans \)
+END_SOLUTION
+Context()->normalStrings;
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

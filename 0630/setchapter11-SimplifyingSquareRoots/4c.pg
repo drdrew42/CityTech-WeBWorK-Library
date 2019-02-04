@@ -1,0 +1,71 @@
+## DESCRIPTION
+## This problem asks students to combine like radicals
+## ENDDESCRIPTION
+## KEYWORDS('Roots')
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## BookChapter(Ã¢ÂÂSimplifying Square RootsÃ¢ÂÂ)
+## DBsection('') 
+## BookSection(Ã¢ÂÂSimplifying Square RootsÃ¢ÂÂ)
+## Date('07/05/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+## TitleText1('Arithmetic | Algebra')
+## EditionText1('3')
+## AuthorText1('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## Section1('11')
+
+## KEYWORDS('algebra', 'radicals')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+"contextLimitedNumeric.pl"
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+########################################################################
+
+install_problem_grader(~~&std_problem_grader);
+
+$showPartialCorrectAnswers = 0;
+
+TEXT(beginproblem());
+
+########################################################################
+
+Context("Numeric");
+
+$a = random(3,8,1);
+$b = random($a,9,1);
+$e = Compute("2*$a-3*$b")->reduce;
+
+Context("LimitedNumeric");
+$ans1 = Compute("$e") ;
+$ans2 = Compute("2");
+########################################################################
+
+Context()->texStrings;
+BEGIN_TEXT
+Simplify:
+\[
+-$b \sqrt{18}  + $a \sqrt{8}
+\]
+into the form \(A \sqrt{C}\), where \(A\) and \(C\) are all integers.
+$PAR
+Answer: \(A =\) \{ans_rule(20)\} and \(C =\) \{ans_rule(20)\}
+$HR
+END_TEXT
+Context()->normalStrings;
+
+########################################################################
+
+ANS( $ans1->cmp );
+ANS( $ans2->cmp );
+
+ENDDOCUMENT();        

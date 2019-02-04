@@ -28,6 +28,9 @@ Context()->{error}{msg}{"The numerator must be less than the denominator in a pr
 $ans = Fraction($cups,4);
 
 BEGIN_TEXT
+$PAR
+OPTIONAL
+$PAR
 Nick uses \(\frac{1}{4}\) cup of vinegar for every 1 cup of olive oil when making salad dressing.$BR
 How many cups of vinegar will Nick need if he uses $cups cups of olive oil in his salad dressing? $BR
 \{ ans_rule(10) \}

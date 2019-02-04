@@ -1,0 +1,82 @@
+## DESCRIPTION
+## This problem asks students to combine like terms.
+## ENDDESCRIPTION
+
+## KEYWORDS('Equations')
+
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## DBchapter('Adding and Subtracting Polynomial Expressions') 
+## BookChapter('Adding and Subtracting Polynomial Expressions')
+## DBsection('') 
+## BookSection('Adding and Subtracting Polynomial Expressions')
+## Date('06/30/2017')
+## Author('ElHitti')
+## Institution('ElHitti')
+## TitleText1('Arithmetic | Algebra')
+## EditionText1('1')
+## AuthorText1('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## Section1('8')
+
+
+
+########################################
+#  Initialization
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"contextLimitedPolynomial.pl",
+"PGcourse.pl",
+);
+
+TEXT(beginproblem());
+
+#######################################
+#  Set-up
+
+Context("LimitedPolynomial");
+Context()->flags->set(singlePowers=>1);
+
+$a = random(2,8,2);
+$b = random(2,8,2);
+$c = random(3,9,2);
+$d = random(3,9,2);
+
+
+$A = $b - $c;
+
+if ($A == 0) { $a = $a + 1; $A = 1; }
+
+
+$expression1 = "\( $a x^2 - $b x   \)";
+
+$expression2 = "\( $c x +  $d  \)";
+
+
+$answer = Formula("-1*$a x**2 + ($c + $b) x + $d")->reduce;
+
+################################################
+#  Main text
+
+BEGIN_TEXT
+
+Subtract $expression1 from $expression2.
+$PAR
+The answer is \{ ans_rule(30) \}
+
+END_TEXT
+
+
+################################################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 1;
+
+ANS($answer->cmp());
+
+
+COMMENT('MathObject version');
+ENDDOCUMENT();

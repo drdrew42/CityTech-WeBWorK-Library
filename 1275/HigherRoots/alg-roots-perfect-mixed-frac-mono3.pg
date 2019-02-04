@@ -1,3 +1,19 @@
+##DESCRIPTION
+##  Algebra problem: Evaluating square root of mixed monomial and fraction
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'radical', 'radicals', 'radical expression', 'monomials')
+
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of rational exponents and radicals)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
+########################################################################
+
 DOCUMENT();      
 
 loadMacros(
@@ -25,7 +41,7 @@ Context()->strings->are(undefined => {}, imaginary => {alias => "undefined"});
 
 $c = random(2,9,1);
 $m = random(1,6,1);
-do { $n = random(1,6,1); } until ( $m != $n );
+do { $n = random(1,6,1); } until ( $m != $n && ($m+$n) % 2 != 0 );
 
 $c2 = $c**2;
 $m2 = 2*$m;
@@ -35,6 +51,9 @@ $problem = Formula("sqrt((h^$m2 k^$n2)/$c2)");
 
 $H = ($m %2 == 0) ? Formula("h^$m") : Formula("abs(h^$m)");
 $K = ($n %2 == 0) ? Formula("k^$n") : Formula("abs(k^$n)");
+
+$H = $H->reduce;
+$K = $K->reduce;
 
 $ans = Formula("($H $K)/$c")->with(test_at=>[[-1,1], [1,-1]] );
 $ans = $ans->reduce;
@@ -68,5 +87,46 @@ ANS($ans->cmp->withPostFilter(AnswerHints(
     return ( $student != $correct && $student == Compute("h^$m k^$n / $c") );
   }  => "Be careful with even powers and roots!"
 )));
+
+Context()->texStrings;
+BEGIN_HINT
+
+Recall the properties of exponents: $BR
+\( (AB)^n = A^n B^n \)
+$BR
+\( \left(\frac{A}{B}\right)^n = \frac{A^n}{B^n} \)
+$PAR
+This holds for radicals as well: $BR
+\( \sqrt[n]{AB} = \sqrt[n]{A} \sqrt[n]{B} \)
+$BR
+\( \sqrt[n]{\frac{A}{B}} = \frac{\sqrt[n]{A}}{\sqrt[n]{B}} \)
+$PAR
+Remember that the \(n\)-th power acts differently on negative values, depending on whether \(n\) is even or odd...
+$PAR
+When simplifying the expression above, consider whether or not each separated radical can be negative, and how your answer reflects that possibility ($BITALIC or impossibility $EITALIC)...
+END_HINT
+BEGIN_SOLUTION
+
+$BBOLD Begin by separating your radical: $EBOLD
+$PAR
+\( \displaystyle $problem = \frac{\sqrt{h^{$m2}} \sqrt{k^{$n2}}}{\sqrt{$c2}} \)
+$PAR
+Note that each radical will be positive for all values of \(h\) and \(k\).
+$PAR
+$BBOLD Deal with each radical separately: $EBOLD
+$BR
+Make sure that you're preserving the always-positive nature of each radical: $PAR
+\( \sqrt{$c2} = $c \) $BR
+\( \sqrt{h^{$m2}} = $H \) $BR
+\( \sqrt{k^{$n2}} = $K \) $BR
+$PAR
+$BBOLD Put it all back together: $EBOLD $BR
+$PAR
+\( \displaystyle $problem = \frac{\sqrt{h^{$m2}} \sqrt{k^{$n2}}}{\sqrt{$c2}} = $ans \)
+
+END_SOLUTION
+Context()->normalStrings;
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

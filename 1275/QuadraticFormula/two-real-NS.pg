@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Algebra problem: Solve a quadratic equation using the quadratic formula
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'quadratic equation', 'quadratic formula')
+
+## DBsubject(Algebra)
+## DBchapter(Quadratic equations and functions)
+## DBsection(Quadratic formula)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -30,12 +44,14 @@ Context()->noreduce('(-x)+y', '(-x)-y');
 
 $A = non_zero_random(-9,9,1);
 $C = non_zero_random(-9,9,1);
-do { $B = non_zero_random(-20,20,1) } until ( $B**2 > 4*$A*$C );
+do { 
+    $B = non_zero_random(-20,20,1);
+    $discriminant = Compute("($B)**2 - 4*$A*$C")->reduce;
+    } until ( $discriminant > 0 && round(sqrt($discriminant)) != sqrt($discriminant) );
 
 $quadratic = Formula("$A*x**2 + $B*x + $C")->reduce;
 
 $oppB = Compute("-$B")->reduce;
-$discriminant = Compute("($B)**2 - 4*$A*$C")->reduce;
 $denom = Compute("2*$A")->reduce;
 
 $r1 = Formula( "( $oppB + sqrt( $discriminant ) ) / $denom" );
@@ -50,7 +66,9 @@ $roots = List( $r1, $r2 );
 
 BEGIN_PGML
 
-List the roots of the parabola [` y = [$quadratic] `]  
+List the roots of the parabola: [` y = [$quadratic] `]  
+
+In other words, list the solutions of the equation: [` 0 = [$quadratic] `]  
 
 [` x = `] [____________________]{$roots}  
 
@@ -58,5 +76,7 @@ List the roots of the parabola [` y = [$quadratic] `]
 * Separate multiple roots with a comma.
 
 END_PGML
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

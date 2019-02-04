@@ -1,0 +1,65 @@
+## DESCRIPTION
+## This problem asks students to solve word problems for linear equations 
+## ENDDESCRIPTION
+## KEYWORDS('word problems`,`linear equations')
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## BookChapter('Word Problems for Linear Equations')
+## BookEdition('3')
+## BookAuthor('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## BookChapter('18')
+## Date('07/12/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+
+
+DOCUMENT();
+
+loadMacros("PG.pl",
+           "PGbasicmacros.pl",
+           "PGchoicemacros.pl",
+           "PGanswermacros.pl",
+           "PGgraphmacros.pl",
+           "PGauxiliaryFunctions.pl",
+           "PGgraphmacros.pl",
+           "MathObjects.pl",
+           "PGcourse.pl"
+);
+
+TEXT(beginproblem());
+
+Context("Numeric")->variables->are( n=>'Real' );
+
+
+$showPartialCorrectAnswers = 1;
+
+$y1 = list_random(800,1600);
+$y2 = list_random(10,25);
+$ans1 = Compute("3*$y1/(8*$y2)")->reduce;
+$ans2 = Compute("$y1/(8*$y2)")->reduce;
+
+
+Context()->texStrings;
+BEGIN_TEXT
+
+A gardener needs to fence an area that has the shape of a rectangle. It is three times as long as it is wide. He spends $$y1 on the fence that costs $$y2 per linear foot. What are the dimensions of the area?
+
+$BR
+Length  = \{ ans_rule(20) \} 
+$BR
+Width  = \{ ans_rule(20) \} 
+
+END_TEXT
+Context()->normalStrings;
+
+
+ANS( Compute($ans1)->cmp() );
+ANS( Compute($ans2)->cmp() );
+
+
+
+Context()->texStrings;
+
+
+Context()->normalStrings;
+ENDDOCUMENT();

@@ -1,0 +1,63 @@
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "PGchoicemacros.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->strings->are(undefined => {}, imaginary => {alias => "undefined"});
+
+@problem = ( "\(\large{\sqrt[3]{-1}}\)", "\(\large{\sqrt[4]{-1}}\)", "\(\large{\sqrt[5]{-1}}\)", "\(\large{\sqrt[6]{-1}}\)" );
+@ans = ( Real(-1), String("undefined"), Real(-1), String("undefined") );
+
+@perm = NchooseK(4,4);
+@inv = invert(@perm);
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+$PAR
+Evaluate without using a calculator. Write "undefined" or "imaginary" if your result is not a real number.
+$PAR
+a) $problem[$perm[0]] = \{ans_rule(10)\}
+$PAR
+b) $problem[$perm[1]] = \{ans_rule(10)\}
+$PAR
+c) $problem[$perm[2]] = \{ans_rule(10)\}
+$PAR
+d) $problem[$perm[3]] = \{ans_rule(10)\}
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans[$perm[0]]->cmp);
+ANS($ans[$perm[1]]->cmp);
+ANS($ans[$perm[2]]->cmp);
+ANS($ans[$perm[3]]->cmp);
+
+
+ENDDOCUMENT();        

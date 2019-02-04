@@ -1,3 +1,18 @@
+##DESCRIPTION
+##  Algebra problem: Add rational expressions
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'algebra, operations with rational expressions', 'algebra, simplifying rational expression', 'rational expressions', 'rational expression')
+## DBsubject(Algebra)
+## DBchapter(Operations on polynomial and rational expressions)
+## DBsection(Rational expressions: add, subtract)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
+########################################################################
+
 DOCUMENT();      
 
 loadMacros(
@@ -14,13 +29,18 @@ $showPartialCorrectAnswers = 1;
 
 $rationalChecker = sub {
      my ($correct,$student,$ansHash) = @_; 
-     Value->Error("Check the answer preview box. Maybe you forgot parenthesis around your numerator or denominator?") unless $student->{tree}->class eq "BOP" && $student->{tree}{bop} eq "/";
-     return 0 unless $correct == $student;
+     $studentRaw = $student;
+     Value->Error("Your answer doesn't contain any variables. <BR> Perhaps you oversimplified?") unless $student->class eq "Formula";
+     if ($student->{tree}->class eq "UOP" && $student->{tree}{uop} eq 'u-') {
+          $student = Formula($student->{tree}->{op});
+     }
+     Value->Error("Check the answer preview box. Maybe you forgot parenthesis around your numerator or denominator?") unless $student->{tree}->class eq "BOP" && $student->{tree}{bop} =~ m!/!;
+     return 0 unless $correct == $studentRaw;
      my $cnum = Formula($correct->{tree}{lop});
      my $snum = Formula($student->{tree}{lop});
      my $cden = Formula($correct->{tree}{rop});
      my $sden = Formula($student->{tree}{rop});
-     Value->Error("Your answer can be reduced further") unless ($cnum == $snum && $cden == $sden);
+     Value->Error("Your answer can be reduced further") unless (abs($cnum) == abs($snum) && abs($cden) == abs($sden));
      return 1;
 };
 
@@ -54,6 +74,7 @@ $frac1 = Formula("$n1/$denom");
 $frac2 = Formula("$n2/$denom");
 
 $ans = Formula("$nAns/($dAns*x)");
+$nAnsPre = Formula("$nAns*x + $nAns*$r")->reduce; #for solution
 
 ##############################################################
 #
@@ -81,5 +102,40 @@ Context()->normalStrings;
 #
 
 ANS($ans->cmp(checker=>$rationalChecker));
+
+Context()->texStrings;
+BEGIN_HINT
+
+These two fractions already have a common denominator - so you may simply add the numerators together. $BR
+Remember, you may only combine $BITALIC like terms! $EITALIC
+$PAR
+Make sure that you're subtracting correctly!
+$PAR
+Also, don't forget to reduce your final answer, if possible.
+
+END_HINT
+BEGIN_SOLUTION
+
+The denominators are already the same, so we may add the fractions: $BR
+\( \displaystyle $frac1 + $frac2 = \frac{($n1) + ($n2)}{$denom} = \frac{$nAnsPre}{$denom} \)
+$PAR
+Now, can our result be simplified? $BR
+The numerator has a common factor: $BR
+\( $nAnsPre = $nAns(x + $r) \) $BR
+The denominator also has a common factor: $BR
+\( $denom = $dAns x ( x + $r ) \)
+$PAR
+We can now rewrite our answer: $BR
+\( \displaystyle \frac{$nAns(x+$r)}{$dAns x ( x + $r )} 
+= \left(\frac{$nAns}{$dAns x}\right) \left(\frac{x + $r}{x + $r}\right) 
+= \left(\frac{$nAns}{$dAns x}\right) \left( 1 \right) \)
+$PAR
+The monomials have no common factor to reduce, so we have our answer: $BR
+\( \displaystyle $ans \)
+
+END_SOLUTION
+Context()->normalStrings;
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

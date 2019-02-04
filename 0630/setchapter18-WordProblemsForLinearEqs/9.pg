@@ -1,0 +1,62 @@
+## DESCRIPTION
+## This problem asks students to solve word problems for linear equations 
+## ENDDESCRIPTION
+## KEYWORDS('word problems`,`linear equations')
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## BookChapter('Word Problems for Linear EquationsÃÂÃÂ¢ÃÂÃÂÃÂÃÂ)
+## BookEdition('3')
+## BookAuthor('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## BookChapter('18')
+## Date('07/12/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+
+
+DOCUMENT();
+
+loadMacros("PG.pl",
+           "PGbasicmacros.pl",
+           "PGchoicemacros.pl",
+           "PGanswermacros.pl",
+           "PGgraphmacros.pl",
+           "PGauxiliaryFunctions.pl",
+           "PGgraphmacros.pl",
+           "MathObjects.pl",
+           "PGcourse.pl"
+);
+
+TEXT(beginproblem());
+
+Context("Numeric")->variables->are( n=>'Real' );
+
+
+$showPartialCorrectAnswers = 1;
+
+$y1 = list_random(100,150);
+$y2 = list_random(2,2.5);
+$y3 = list_random(6,7,8);
+$ans = "($y1*$y3/$y2)";
+
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Joe drives $y1 miles in $y2 hours. At the same rate, how many miles will he be able to drive in $y3 hours?
+
+$BR
+\{ ans_rule(20) \} 
+
+END_TEXT
+Context()->normalStrings;
+
+
+ANS( Compute($ans)->cmp() );
+
+
+
+Context()->texStrings;
+
+
+Context()->normalStrings;
+ENDDOCUMENT();

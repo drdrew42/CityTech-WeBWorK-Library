@@ -1,0 +1,74 @@
+## DESCRIPTION
+## This problem asks students to combine like radicals
+## ENDDESCRIPTION
+## KEYWORDS('Roots')
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## BookChapter(âSimplifying Square Rootsâ)
+## DBsection('') 
+## BookSection(âSimplifying Square Rootsâ)
+## Date('07/05/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+## TitleText1('Arithmetic | Algebra')
+## EditionText1('3')
+## AuthorText1('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## Section1('11')
+## KEYWORDS('algebra', 'radicals', 'exponents')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+########################################################################
+
+install_problem_grader(~~&std_problem_grader);
+
+$showPartialCorrectAnswers = 0;
+
+TEXT(beginproblem());
+
+########################################################################
+
+Context("Numeric");
+Context()->variables->are(x=>'Real');
+
+$a1 = random(3,8,1);
+$b1 = random(2,8,2);
+$b2 = random(2,8,2);
+ 
+$a2 = Compute("$a1 * 2") -> reduce;
+$b = Compute("$b1 + $b2") ->reduce;
+
+$a = Compute("$a1");
+
+$bb = $b/2;
+$ans1 = Compute("$a*x^$bb");
+$ans2 = Compute("2");
+########################################################################
+
+Context()->texStrings;
+BEGIN_TEXT
+Simplify:
+\[
+(\sqrt{$a1 x^{$b1}})(\sqrt{$a2 x^{$b2}})
+\]
+Write your answer in the simplest radical form \(A \sqrt{C} \), where \(A\) (quantity outside the radical) and \(C\) ((quantity intside the radical) are either integers or monomials. 
+$BR$BR
+Answer: \(A =\) \{ans_rule(20)\} and \(C =\) \{ans_rule(20)\}
+END_TEXT
+Context()->normalStrings;
+
+########################################################################
+
+ANS( $ans1->cmp );
+ANS( $ans2->cmp );
+
+ENDDOCUMENT();        

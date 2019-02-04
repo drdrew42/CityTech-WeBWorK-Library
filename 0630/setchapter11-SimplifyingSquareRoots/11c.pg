@@ -1,0 +1,78 @@
+## DESCRIPTION
+## This problem asks students to combine like radicals
+## ENDDESCRIPTION
+## KEYWORDS('Roots')
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## BookChapter(ÃÂÃÂ¢ÃÂÃÂÃÂÃÂSimplifying Square RootsÃÂÃÂ¢ÃÂÃÂÃÂÃÂ)
+## DBsection('') 
+## BookSection(ÃÂÃÂ¢ÃÂÃÂÃÂÃÂSimplifying Square RootsÃÂÃÂ¢ÃÂÃÂÃÂÃÂ)
+## Date('07/05/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+## TitleText1('Arithmetic | Algebra')
+## EditionText1('3')
+## AuthorText1('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## Section1('11')
+## KEYWORDS('algebra', 'radicals', 'exponents')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+########################################################################
+
+install_problem_grader(~~&std_problem_grader);
+
+$showPartialCorrectAnswers = 0;
+
+TEXT(beginproblem());
+
+########################################################################
+
+Context("Numeric");
+Context()->variables->are(a=>'Real');
+Context()->variables->add(b=>'Real');
+
+$c = list_random(-6,-5,-4,-3,-2,2,3,4,5);
+$d = random(5,7,2);
+$e = random(3,7,2);
+$f = random(2,6,2);
+
+
+$g = Compute("4*$d");
+$aa = Compute("2*$c*a^(($e-1)/2 +1 )b^($f/2)");
+$bb = Compute("$d*a");
+
+Context()->normalStrings;
+$ans1 = Compute($aa);
+$ans2 = Compute($bb);
+
+########################################################################
+
+Context()->texStrings;
+BEGIN_TEXT
+Assume that \(a\) and \(b\) represent positive real numbers.  Simplify the expression
+\[
+$c a \sqrt{$g a^{$e} b^{$f}}
+\]
+into the simplest radical form \(A \sqrt{C} \), where \(A\) and \(C\) are either integers or monomials.
+$PAR
+Answer: \(A =\) \{ans_rule(20)\} and \(C =\) \{ans_rule(20)\}
+$HR
+END_TEXT
+Context()->normalStrings;
+
+########################################################################
+
+ANS( $ans1->cmp );
+ANS( $ans2->cmp );
+
+ENDDOCUMENT();        

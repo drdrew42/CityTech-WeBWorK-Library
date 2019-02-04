@@ -1,0 +1,248 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject('Arithmetic')
+## DBchapter('Integers')
+## DBsection('Division')
+## Date('6/10/2015')
+## Author('K. Andrew Parker')
+## Institution('NYC City Tech')
+## TitleText1('')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "parserPopUp.pl",
+   "scaffold.pl",
+   "niceTables.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+# Allow students to "Show Me Another" after finishing correctly
+# ProblemRandomize(when=>"Correct",onlyAfterDue=>0);
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer=>"parsed"
+   );
+
+  $sumChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentstring = $ansHash->{preview_text_string};
+     return ($studentstring eq $ansHash->{correct_ans} ? 1 : 0);
+   };
+
+  $numChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentans=$ansHash->{original_student_ans};
+     Value->Error("You're on the right track, but your answer should be just a number.") if ( ($studentans ne $student)&&($student==$correct) );
+     return($studentans eq $ansHash->{correct_ans} ? 1 : 0);
+  };
+
+ @prime = ( 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 );
+
+$list30 = List( 2,3,5 );
+$neglist30 = $list30 . List( -1 );
+
+ $X = Real($prime[random(0,1,1)]);
+ $Y = Real($prime[random(0,2,1)]);
+ do{ $Z = Real($prime[random(2,4,1)]); } until ( $X*$Y*$Z != 30 );
+ $XYZList = List( Real(-1), $X, $Y, $Z );
+ $negXYZ = Real($X*$Y*$Z*-1);
+ $XY = Real("$X*$Y");
+ $XYList = List( $X, $Y );
+ $negZ = Real("$Z*-1");
+ $negZList = List( -1, $Z );
+ $negY = Real("$Y*-1");
+ $negYList = List( -1, $Y );
+ $XZ = Real("$X*$Z");
+ $XZList = List( $X, $Z );
+
+##############################################################
+#
+#  Text
+#
+#
+Scaffold::Begin(
+      can_open => "when_previous_correct",
+      is_open  => "first_incorrect"
+);
+
+Section::Begin("Part 1: Factor Trees for negative numbers");
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+We've seen how factor trees can be used to find the unique list of prime factors for a number. No matter how we begin factoring, if we continue to break down each piece until we're left with nothing but primes, the list will be the same every time.
+$PAR
+But what about negative numbers? Let's start by looking at the factors of -30.
+$BR
+Do a factor tree for positive 30, and write out the list of prime factors: \{ans_rule(10)\}
+$PAR
+Of course, we can write -30 as the product of several different pairs of factors:
+$BR
+\{
+DataTable(
+  [
+    ['\(-5 \times 6\)','\(5 \times -6\)'],
+    ['\(-3 \times 10\)','\(3\times -10\)'],
+    ['\(-2 \times 15\)','\(2 \times -15\)'],
+  ],
+  caption=>'Different ways to factor -30'
+  );
+\}
+$PAR
+And if we keep breaking down any of the non-primes (and maybe some rearranging thanks to the commutative property of multiplication), we get one of the following combinations:
+\{
+DataTable(
+  [
+    ['\(-2\)','\(\times\)','\(3\)','\(\times\)','\(5\)'],
+    ['\(2\)','\(\times\)','\(-3\)','\(\times\)','\(5\)'],
+    ['\(2\)','\(\times\)','\(3\)','\(\times\)','\(-5\)']
+  ],
+  align=>'c c c c c'
+)
+\}
+In each of the three factorings listed above, there's one more factoring step to be done. (Hint: try to factor the negative number in each of the three lines.) In each case, you'll end up with the same list of four factors. What will this list of four factors be? 
+$BR \{ans_rule(10)\}
+$PAR
+How does this list of factors compare to your list of factors for positive 30?
+END_TEXT
+Context()->normalStrings;
+
+ANS( $list30->cmp(showLengthHints=>1, ordered=>0) );
+ANS( $neglist30->cmp(showLengthHints=>1, ordered=>0) );
+
+Section::End();
+
+Section::Begin( "Part 2: Practice" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+In the last part, you hopefully saw that the only difference between the factor lists for 30 and -30 was the inclusion of -1 as a factor of -30. This is going to be true for the factor trees of ALL negative numbers. Every negative number is \(-1 \times \) the positive version of that same number.
+$PAR
+So, in short, every factor list for a negative number will include a -1, followed by the usual factor tree for the positive version of the number.
+$PAR
+Try it for \($negXYZ\). Do a factor tree, and split off -1 right away.
+$BR
+\{
+ DataTable(
+  [
+   ['','','\($negXYZ\)','',''],
+   ['','/','','\',''],
+   ['\(-1\)','','','',ans_rule(2)]
+  ], 
+  align => 'c c c c c',
+ );
+\}
+Now finish the factor tree on the right side and list all the prime factors of \($negXYZ\). (Don't forget to include -1!) \{ans_rule(10)\}
+END_TEXT
+Context()->normalStrings;
+
+ANS( Real("$X*$Y*$Z")->cmp() );
+ANS( $XYZList->cmp(showLengthHints=>1, ordered=>0) );
+Section::End();
+
+Section::Begin( "Part 3: Division with negative numbers" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+So, how does division work with negative numbers?
+$PAR
+Who says it has to be any different?
+$BR
+If you're asked to calculate \( $negXYZ \div $XY \), remember that you're being asked for the $BITALIC multiple $EITALIC of $XY that results in $negXYZ.
+$PAR
+We already know that the factor list for $negXYZ is $XYZList.
+$BR
+And that's because \( -1 \times $X \times $Y \times $Z = $negXYZ \) .
+$PAR
+So if we want to know what to multiply $XY by in order to get $XYZList, we'll do what we did for positive numbers. Start by looking at the prime factor list for $XY.
+$BR
+List the prime factors of $XY. \{ ans_rule(5) \}
+$PAR
+Look at your answer above, and compare it to the list for $negXYZ. 
+$BR
+What's in the list for $negXYZ that's $BBOLD not $EBOLD in your list for $XY? \{ ans_rule(5) \}
+$PAR
+And what do you get if you multiply all the missing elements together? \{ ans_rule(5) \}
+$PAR
+Is this the multiple of $XY that we're looking for? Multiply your last answer by $XY, what do you get? \{ ans_rule(5) \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( $XYList->cmp(showLengthHints=>1, ordered=>0) );
+ANS( $negZList->cmp(showLengthHints=>1, ordered=>0) );
+ANS( $negZ->cmp(checker=>$numChecker) );
+ANS( $negXYZ->cmp(checker=>$numChecker) );
+
+Section::End();
+
+Section::Begin( "Part 4: Practice" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Just to summarize the previous section, you were asked to divide \( $negXYZ \div $XY \).
+$BR
+First, we looked at the list of factors for $negXYZ , which was $XYZList ; because \( -1 \times $X \times $Y \times $Z = $negXYZ \) .
+$BR
+Then we looked at the list of factors for $XY , which was $XYList ; again because \( $X \times $Y = $XY \)
+$PAR
+If we replace $negXYZ and $XY from the original question with their corresponding product of factors, we get \( (-1 \times $X \times $Y \times $Z) \div ($X \times $Y) \) .
+$PAR
+And if we think of division as a question about multiplication, then we're really being asked: \( ($X \times $Y) \times \underline{\hspace{1cm}} = -1 \times $X \times $Y \times $Z \) ?
+$PAR
+And at this point it should be clear that putting \( (-1 \times $Z) \) in the blank will make both sides equal. (Remember that we have the associative property of multiplication to allow us to rearrange the parenthesis and the commutative property of multiplication to allow us to change the order of the factors.)
+$PAR
+$PAR
+Use the same process to find \( $negXYZ \div $negY \).
+$PAR
+What are the factors of $negY ? \{ ans_rule(5) \}
+$BR
+List the factors that are in $negXYZ 's list but not in $negY 's list. \{ans_rule(5)\}
+$BR
+So what is \( $negXYZ \div $negY \)? \{ans_rule(5)\}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( $negYList->cmp(showLengthHints=>1, ordered=>0) );
+ANS( $XZList->cmp(showLengthHints=>1, ordered=>0) );
+ANS( $XZ->cmp(checker=>$numChecker) );
+
+Section::End();
+
+Scaffold::End();
+
+ENDDOCUMENT();        

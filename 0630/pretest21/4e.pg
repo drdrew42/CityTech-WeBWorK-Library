@@ -1,0 +1,86 @@
+## DESCRIPTION
+## This problem asks students to combine like radicals
+## ENDDESCRIPTION
+## KEYWORDS('Roots')
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## BookChapter(ÃÂSimplifying Square RootsÃÂ)
+## DBsection('') 
+## BookSection(ÃÂSimplifying Square RootsÃÂ)
+## Date('07/05/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+## TitleText1('Arithmetic | Algebra')
+## EditionText1('3')
+## AuthorText1('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## Section1('11')
+
+## KEYWORDS('algebra', 'radicals')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+"contextLimitedNumeric.pl"
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+########################################################################
+
+install_problem_grader(~~&std_problem_grader);
+
+$showPartialCorrectAnswers = 0;
+
+TEXT(beginproblem());
+
+########################################################################
+
+Context("Numeric");
+
+$a = random(-8,-3,1);
+$b = random(2,9,1);
+$c = list_random(2,3,5);
+$d = random(1,7,1);
+$e= Compute("3*$a - 2*$b")->reduce;
+$ee = Compute("$d * $c")->reduce;
+$cc = Compute("$c * $c")->reduce;
+
+Context("LimitedNumeric");
+$ans1 = Compute("$e");
+$ans2 = Compute("2");
+$ans3 = Compute("$ee");
+
+########################################################################
+
+Context()->texStrings;
+BEGIN_TEXT
+Simplify:
+\[
+ $a \sqrt{18} - $b \sqrt{8} + $d \sqrt{$cc} 
+\]
+into the form \(A \sqrt{C}\) + \(B\), where \(A\), \(C\) and \(B\) are all integers.
+$PAR
+Answer: \(A =\) \{ans_rule(20)\}, \(C =\) \{ans_rule(20)\} and \(B =\) \{ans_rule(20)\}
+$HR
+END_TEXT
+Context()->normalStrings;
+
+########################################################################
+
+ANS( $ans1->cmp );
+ANS( $ans2->cmp );
+ANS( $ans3->cmp );
+
+BEGIN_HINT
+You have arrived at an incorrect answer.  Please look at the following links to improve your skills:
+
+<a href="https://www.khanacademy.org/math/algebra/rational-exponents-and-radicals/alg1-simplify-square-roots/v/simplifying-square-roots-1">simpligying square roots</a>,
+and 
+
+<a href="https://www.khanacademy.org/math/algebra-home/alg-exp-and-log/miscellaneous-radicals/v/adding-and-simplifying-radicals">adding and simplifying radicals</a>
+END_HINT
+ENDDOCUMENT();        

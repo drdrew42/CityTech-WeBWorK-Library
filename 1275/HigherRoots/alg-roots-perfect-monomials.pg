@@ -1,3 +1,19 @@
+##DESCRIPTION
+##  Algebra problem: Evaluating higher roots of monomials
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'radical', 'radicals', 'radical expression', 'monomials')
+
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of rational exponents and radicals)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
+########################################################################
+
 DOCUMENT();      
 
 loadMacros(
@@ -87,5 +103,45 @@ ANS($subA[$perm[3]]->cmp->withPostFilter(AnswerHints(
     return ( $student != $correct && $student == Compute("a") );
   }  => "Be careful with even powers and roots!"
 )));
+
+Context()->texStrings;
+BEGIN_HINT
+
+$BBOLD Be careful! $EBOLD $BR
+Yes, \( \sqrt[n]{x^n} = x \), but only for positive values of \( x \) and \( x^n \)!
+$PAR
+Remember that the \(n\)-th power acts differently on negative values, depending on whether \(n\) is even or odd...
+$PAR
+In the various problems above, replace \(a\) with \(-1\), and see what happens. Do you always get back the \(-1\) that you started with?
+$PAR
+If you're still stuck, try replacing the \(a\)s with other negative numbers and see what happens...
+
+END_HINT
+BEGIN_SOLUTION
+
+$BBOLD \(n\)-th powers and \(n\)-th roots behave differently when it comes to negative values of \(a\). $EBOLD
+$PAR
+Odd powers of \(a\) are positive when \(a\) is positive, and negative when \(a\) is negative.
+$BR
+Odd roots behave the same way, meaning that \(\sqrt[n]{a^n} = a\) for all values of \(a\).
+$PAR
+However, even powers of \(a\) are positive no matter whether \(a\) is positive OR negative!
+$BR
+This means that when \(n\) is even, \(a^n\) will always be positive.
+$BR
+As a result, \( \sqrt[n]{a^n} \) will also be positive for any value of \(a\).
+$PAR
+So what does \( \sqrt[n]{a^n} \) simplify to? 
+$BR
+Do we know of an operation that always gives us the positive version of whatever number we give it?
+$PAR
+How about absolute value?
+$BR
+\( \sqrt[n]{a^n} = |a| \) when \(n\) is even.
+
+END_SOLUTION
+Context()->normalStrings;
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

@@ -57,13 +57,17 @@ BEGIN_TEXT
 Perform the computation and write the result in scientific notation:
 $PAR
 \( \displaystyle \frac{( $num1 )( $num2 )}{$den} \) =  \{ ans_rule(20) \}
+$PAR
+
+The number to the left of 'x' must be in the form of '0.0'
+
 END_TEXT
 Context()->normalStrings;
 ######################################
 #  Answers
 
 
-$answer = Compute($a * $b * 10**($n1+$n2-$n3))->reduce;
+$answer = ScientificNotation($a * $b * 10**($n1+$n2-$n3));
 ANS($answer->cmp);	
 
 $showPartialCorrectAnswers = 1;

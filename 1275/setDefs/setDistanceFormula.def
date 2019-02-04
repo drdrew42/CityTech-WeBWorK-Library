@@ -1,12 +1,12 @@
 assignmentType      = default
-openDate          = 06/03/2016 at 11:59pm EDT
+openDate          = 05/15/2016 at 12:17am EDT
 reducedScoringDate = 12/31/1969 at 07:00pm EST
-dueDate           = 08/22/2016 at 11:59pm EDT
+dueDate           = 08/20/2016 at 11:37pm EDT
 answerDate        = 08/22/2016 at 11:59pm EDT
 enableReducedScoring = N
 paperHeaderFile   = defaultHeader
-screenHeaderFile  = defaultHeader
-description       = 
+screenHeaderFile  = local/DistanceFormula/DistanceFormulaHeader.pg
+description       = Refresher on distance formula.<n>Includes an applied problem to identify a right triangle.
 restrictProbProgression = 0
 emailInstructor   = 0
 
@@ -16,8 +16,8 @@ problem_id = 1
 source_file = local/DistanceFormula/two-points.pg
 value = 1
 max_attempts = -1
-showMeAnother = -1
-prPeriod = 
+showMeAnother = -2
+prPeriod = -1
 counts_parent_grade = 0
 att_to_open_children = 0 
 problem_end
@@ -26,8 +26,8 @@ problem_id = 2
 source_file = local/DistanceFormula/three-points-right-triangle.pg
 value = 1
 max_attempts = -1
-showMeAnother = -1
-prPeriod = 
+showMeAnother = -2
+prPeriod = -1
 counts_parent_grade = 0
 att_to_open_children = 0 
 problem_end

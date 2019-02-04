@@ -1,0 +1,60 @@
+## DESCRIPTION
+## This problem asks students to solve equations by factoring 
+## ENDDESCRIPTION
+## KEYWORDS('graphing `,`linear equations')
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## BookChapter(`Graphing Linear Equationsâ)
+## BookEdition('3')
+## BookAuthor('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## BookChapter('26')
+## Date('07/12/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+
+
+DOCUMENT();        # This should be the first executable line in the problem.
+
+loadMacros(
+"PG.pl",
+"PGbasicmacros.pl",
+"extraAnswerEvaluators.pl",
+"PGanswermacros.pl",
+"PGauxiliaryFunctions.pl"
+);
+
+$showPartialCorrectAnswers = 1;
+
+TEXT(beginproblem());
+Context("Point");
+
+$a = non_zero_random(-6,6,1);
+
+# for display purpose only - reduction rules don't apply to points
+$na = Real("-1*$a")->reduce;
+
+$Xint = Compute("($a,0)");
+$Yint = Compute("(0,$na)");
+$slp = Compute("1");
+
+
+BEGIN_TEXT
+Find the slope, the \(x\)- and \(y\)-intercepts of the graph of the equation
+\(y=x-$a\).
+$PAR
+The slope is \{ans_rule(20)\}
+$PAR
+The \(x\)-intercept is \{$Xint->ans_array\}
+$BR
+$PAR
+The \(y\)-intercept is \{$Yint->ans_array\}
+$BR
+END_TEXT
+
+
+
+ANS( $slp ->cmp() );
+ANS( $Xint->cmp() );
+ANS( $Yint->cmp() );
+
+ENDDOCUMENT();        # This should be the last executable line in the problem.

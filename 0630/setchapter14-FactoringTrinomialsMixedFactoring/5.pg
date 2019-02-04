@@ -1,0 +1,77 @@
+## DESCRIPTION
+## This problem asks students to factor trinomials
+## ENDDESCRIPTION
+## KEYWORDS('factor')
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## BookChapter('Factoring Trinomials and Mixed Factoring')
+## Date('07/07/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+## TitleText1('Arithmetic | Algebra')
+## EditionText1('3')
+## AuthorText1('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## Section1('14')
+
+
+DOCUMENT(); # This should be the first executable line in the problem.
+
+loadMacros(
+  "PGstandard.pl",
+  "MathObjects.pl",
+  "CofIdaho_macros.pl"
+);
+
+TEXT(beginproblem());
+
+######################################
+#  Setup
+
+Context()->variables->are(x=>'Real',y=>'Real');
+
+$a= random(2,3,1);
+
+$polynomial = Formula("x^2 + (2*$a) x y+ $a^4 y^2")->reduce->TeX;
+
+######################################
+#  Main text
+
+BEGIN_TEXT
+OPTIONAL 
+$PAR
+Factor: 
+$PAR
+\( $polynomial = \)  \{ ans_rule(30) \} 
+END_TEXT
+
+######################################
+#  Answer
+
+$answer = "x^2 + 2*$a x y+ $a^4 y^2";
+ANS(FactoringEvaluator("Does not factor",$answer,["x","y"])); 
+
+$showPartialCorrectAnswers = 1;
+
+######################################
+
+
+;
+ENDDOCUMENT();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

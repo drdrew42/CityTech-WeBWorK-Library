@@ -1,0 +1,118 @@
+##DESCRIPTION
+##  Find a general solution. Integrating factor method.
+##ENDDESCRIPTION
+
+##KEYWORDS('integrating factor')
+
+## DBsubject('Differential Equations')
+## DBchapter('Introduction')
+## DBsection('Linear ODEs and the Integrating Factor')
+## Date('6/3/2013')
+## Author('Andrew Parker')
+## Institution('NYC College of Technology')
+## TitleText1('Elementary Differential Equations and Boundary Value Problems')
+## EditionText1('10')
+## AuthorText1('Boyce, DiPrima')
+## Section1('1.1')
+## Problem1('22')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->variables->{namePattern} = qr/[a-z][a-z0-9_]*'*/i;
+Context()->variables->are( y => "Real", t => "Real", c => "Real", "y'" => "Real" );
+$a = Real(non_zero_random(-9,9,1));
+$b = Real(non_zero_random(-9,9,1));
+$de = Formula("t*y'+y")->reduce;
+$hom = Formula("$a * t * cos( $b * t )")->reduce;
+$mu = Formula("t");
+$sol = Formula("$a / $b * sin($b * t) + $a / ($b)^2 * 1 / t * cos( $b * t ) + c / t");
+$getC = Formula("y-($a / $b * sin($b * t) + $a / ($b)^2 * 1 / t * cos( $b * t ))*t");
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+Find the general solution for the following differential equation:
+$BR
+\( $de = $hom \)
+$BR
+$BR
+\(y(t)=\)\{$sol->ans_rule\}
+END_TEXT
+
+$showHint = 5;
+BEGIN_TEXT
+$PAR
+If you don't get this in $showHint tries, you can get a hint.
+END_TEXT
+BEGIN_HINT
+Recall that we first consider the complementary equation, \(y'+p(x)y=0\), and find a solution \(y_1(x)\).
+$BR
+$BR
+Note that \(y_1(x)\) can be any particular solution to the complementary equation (you are free to choose the constant to be any number) - to simplify things, we usually just let the constant equal zero.
+$BR
+$BR
+Next, we guess that a solution to the original equation will have the form \(y=\mu\cdot y_1\).  Since we have found \(y_1\), it remains to find \(\mu\).
+$BR
+$BR
+Calculate \(y'\) using the solution \(y_1\) found above, and substitute \(y\) and \(y'\) into the original equation.  Simplify, and solve for \(\mu\).  Use lower case 'c' for your constant of integration.
+$BR
+$BR
+Next, substitute \(\mu\) and \(y_1\) into \(y=\mu\cdot y_1\) to obtain the general solution \(y\).
+END_HINT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+# ANS($mu->cmp);
+ANS( $sol->cmp( checker => sub {
+    my ( $correct, $student, $self ) = @_;
+
+    my $Dstudent = $student->D('t');
+    my $studentC = $getC->substitute(y=>"$student");
+    my $DstudentC = $studentC->D('c');
+    my $rhs = $hom->substitute(y=>"$student");
+#    my $lhs = Formula("t*$Dstudent + $student");
+    my $lhs = $de->substitute("y'"=>"$Dstudent", y=>"$student");
+
+    if ($DstudentC == Formula("0")) {
+       Value->Error("Your answer is not the most general solution. Where's 'c'?");
+    };
+
+    return ($lhs == $rhs && $DstudentC != Formula("0"));
+}));
+
+
+COMMENT('Includes hint.');
+ENDDOCUMENT();        

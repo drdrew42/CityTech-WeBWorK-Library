@@ -1,0 +1,78 @@
+## DBsubject(Algebra)
+## DBchapter(Functions)
+## DBsection(Function notation)
+## Level(3)
+## MO(1)
+## MLT(PolyNumInputOnly)
+DOCUMENT(); 
+
+loadMacros(
+  "PGstandard.pl",
+  "MathObjects.pl",
+  "parserMultiAnswer.pl",
+  "PGcourse.pl"
+);
+
+TEXT(beginproblem());
+
+##############################################
+#  Setup
+
+Context("Numeric");
+Context()->variables->add(t=>"Real");
+#Context("Fraction-NoDecimals");
+
+$a = random(2,6,1);
+$b = random(2,3,1);
+
+$f = Formula("$a - $b * t**2");
+
+$t = random(-3,-2,1);
+
+$answer = $f->eval(t=>$t);
+
+Context()->operators->undefine("+","-","*","/","**","^");
+Context()->functions->disable("All");
+
+##############################################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Let \( f(t) = $f.\)  Evaluate \( f($t) \).
+$BR
+$BR
+\( t = \) 
+\{ans_rule(10)\} 
+
+$BR
+$BR
+$HR
+Note: Your answer should be completely simplified.
+Unsimplified answers will not be accepted.  
+
+END_TEXT
+Context()->normalStrings;
+
+##################################################
+#  Answer evaluation
+
+install_problem_grader(~~&std_problem_grader);
+
+$showPartialCorrectAnswers = 0;
+
+ANS($answer->cmp() );
+
+
+;
+BEGIN_HINT
+You have arrived at an incorrect answer.  Please look at the following links to improve your skills:
+
+
+<a href="https://www.khanacademy.org/math/algebra/algebra-functions/evaluating-functions/v/what-is-a-function"> Functions</a>,
+and 
+
+<a href="https://www.khanacademy.org/math/algebra/algebra-functions/evaluating-functions/v/understanding-function-notation-example-1">function examples</a>
+END_HINT
+ENDDOCUMENT();

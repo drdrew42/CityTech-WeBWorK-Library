@@ -1,8 +1,8 @@
 assignmentType      = default
-openDate          = 04/18/2016 at 10:46am EDT
+openDate          = 11/21/2016 at 07:27pm EST
 reducedScoringDate = 10/29/2015 at 02:00pm EDT
-dueDate           = 05/02/2016 at 10:46am EDT
-answerDate        = 05/02/2016 at 10:46am EDT
+dueDate           = 11/30/2016 at 07:27pm EST
+answerDate        = 11/30/2016 at 07:27pm EST
 enableReducedScoring = N
 paperHeaderFile   = defaultHeader
 screenHeaderFile  = defaultHeader
@@ -17,7 +17,7 @@ source_file = Library/NewHampshire/unh_schoolib/Graphs/grapns101.pg
 value = 1
 max_attempts = -1
 showMeAnother = 0
-prPeriod = 
+prPeriod = 0
 counts_parent_grade = 0
 att_to_open_children = 0 
 problem_end
@@ -27,7 +27,7 @@ source_file = Library/NewHampshire/unh_schoolib/Graphs/grabrs101.pg
 value = 1
 max_attempts = -1
 showMeAnother = 0
-prPeriod = 
+prPeriod = 0
 counts_parent_grade = 0
 att_to_open_children = 0 
 problem_end
@@ -37,7 +37,7 @@ source_file = Library/NewHampshire/unh_schoolib/Graphs/grabrs102.pg
 value = 1
 max_attempts = -1
 showMeAnother = 0
-prPeriod = 
+prPeriod = 0
 counts_parent_grade = 0
 att_to_open_children = 0 
 problem_end
@@ -47,7 +47,7 @@ source_file = Library/Rochester/setAlgebra06EqnGraphs/srw1_8_39.pg
 value = 1
 max_attempts = -1
 showMeAnother = 0
-prPeriod = 
+prPeriod = 0
 counts_parent_grade = 0
 att_to_open_children = 0 
 problem_end
@@ -57,7 +57,7 @@ source_file = Library/UMN/algebraKaufmannSchwitters/ks_7_1_prob01.pg
 value = 1
 max_attempts = -1
 showMeAnother = 0
-prPeriod = 
+prPeriod = 0
 counts_parent_grade = 0
 att_to_open_children = 0 
 problem_end
@@ -67,7 +67,7 @@ source_file = Library/UMN/algebraKaufmannSchwitters/ks_7_1_prob02.pg
 value = 1
 max_attempts = -1
 showMeAnother = 0
-prPeriod = 
+prPeriod = 0
 counts_parent_grade = 0
 att_to_open_children = 0 
 problem_end

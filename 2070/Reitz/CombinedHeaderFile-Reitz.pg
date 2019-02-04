@@ -77,10 +77,10 @@ EOT
 
 BEGIN_TEXT
 $PAR
-This is a homework assignment for MAT 2071, Fall 2016, New York City College of Technology, taught by Prof. Reitz.
+This is a homework assignment for MAT 2071, Fall 2018, New York City College of Technology, taught by Prof. Reitz.
 
 $PAR
-See the course web page for more information http://openlab.citytech.cuny.edu/2016-fall-mat-2071-reitz/
+See the course web page for more information http://openlab.citytech.cuny.edu/2018-fall-mat-2071-reitz/
 
 $PAR
 Here's the list of 

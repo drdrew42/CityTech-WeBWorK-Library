@@ -1,0 +1,106 @@
+###DESCRIPTION
+## Polynomials
+## 
+##ENDDESCRIPTION
+## DBsubject(Algebra)
+## DBchapter(Polynomials)
+## DBsection('')
+## KEYWORDS('polynomials, degree')
+## TitleText1('Arithmetic | Algebra')
+## EditionText1('1')
+## AuthorText1('')
+## Section1('7')
+## Problem1('')
+## Author('ElHitti')
+## Institution('City Tech')
+## Date: 6/28/2017
+
+DOCUMENT(); # This should be the first executable line in the problem.
+
+loadMacros(
+  "PGstandard.pl",
+  "PGchoicemacros.pl",
+  "MathObjects.pl"
+);
+
+TEXT(beginproblem());
+
+######################################
+#  Setup
+
+$a= non_zero_random(-1,-1,1);  
+$b= random(-1,1,2);  
+$c= random(-5,5,2);
+$d= non_zero_random(-9,9,1);    
+
+$na = random(5,8,2);
+$nb = $na - random(2,3,1);
+
+$poly = nicestring([$a,$c,$d],["x^$na","x",""]);
+$term1 = "$a*x**$na";
+$term2 = "$c*x";
+$term3 =  "$d";
+
+
+######################################
+
+#  Main text
+
+
+BEGIN_TEXT
+
+$BR
+
+
+
+The degree of the polynomial \( $poly \) is \{ ans_rule(10) \}
+
+END_TEXT
+
+
+######################################
+
+#  Answer
+
+
+
+
+$ans = $na;
+
+ANS(num_cmp($ans)); 
+
+
+$showPartialCorrectAnswers = 1;
+
+######################################
+
+
+;
+ENDDOCUMENT();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

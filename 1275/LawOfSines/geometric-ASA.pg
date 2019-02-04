@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Trigonometry problem: Use the Law of Sines to complete solving a triangle
+##ENDDESCRIPTION
+
+##KEYWORDS('trigonometry', 'law of sines', 'analytic trigonometry', 'triangle')
+
+## DBsubject(Trigonometry)
+## DBchapter(Triangle Trigonometry)
+## DBsection(Law of sines (angle-side-angle))
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -304,5 +318,7 @@ Context()->flags->set(
 ANS(Real($sideA)->cmp);
 ANS(Real($sideB)->cmp);
 ANS(Real($angleC)->cmp);
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

@@ -1,0 +1,81 @@
+##DESCRIPTION
+## Simplify Exponents
+## 
+##ENDDESCRIPTION
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents)
+## DBsection(Properties of exponents)
+## Institution(City Tech)
+## Author(ElHitti)
+## MLT(Mult_exponents_multivar)
+## Level()
+## MO(1)
+## TitleText1('Arithmetic | Algebra')
+## AuthorText1('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## EditionText1('3')
+## Section1('5')
+## Problem1('')
+## KEYWORDS('real numbers','algebraic expressions')
+## Date: 6/26/2017
+
+DOCUMENT();        # This should be the first executable line in the problem.
+
+loadMacros(
+  "PGstandard.pl",
+  "MathObjects.pl",
+  "contextLimitedPowers.pl",
+  "answerHints.pl"
+);
+
+TEXT(beginproblem());
+
+######################################
+#  Setup
+
+@alphabet = ("a","b","x","y");
+$choose = random(0,2,2);
+$var1 = $alphabet[ $choose ];
+$var2 = $alphabet[ $choose + 1 ];
+Context()->variables->are($var1=>'Real',
+                          $var2=>'Real');
+
+$n = random(2,15,1);
+
+
+######################################
+#  Main text
+
+BEGIN_TEXT
+Rewrite the following expression without parentheses. Simplify your answer: 
+$PAR
+\( ($var1 $var2)^{$n} \)=  \{ ans_rule(20) \}
+
+
+END_TEXT
+
+######################################
+#  Answers
+
+Context()->operators->set(@LimitedPowers::OnlyPositiveIntegers);
+
+$ans=Formula(" $var1^($n)*$var2^($n)")->reduce;
+
+ANS($ans->cmp->withPostFilter(AnswerHints(
+   sub {
+       my ($correct,$student,$ah) = @_;
+       ##Count the number of variables--(Better if checked for reduced constants too.)
+       my $CorrectVariableNumber = $correct =~ tr/a-zA-Z//;  
+       my $StudentVariableNumber = $student =~ tr/a-zA-Z//;
+       return $ah->{score}==1 && $CorrectVariableNumber<$StudentVariableNumber;
+       } => ["Simplify your answer.", 
+             checkCorrect => 1, 
+             score => 0]
+)));
+
+$showPartialCorrectAnswers = 1;
+
+######################################
+
+
+;
+ENDDOCUMENT();

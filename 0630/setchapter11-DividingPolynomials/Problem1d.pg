@@ -8,7 +8,8 @@
 ## DBchapter('Rational equations and functions')
 ## DBsection('Simplifying')
 ## Date('2/15/2016')
-## Author('Parker')
+## Updated('5/7/2015')
+## Author('Parker' 'ElHitti')
 ## Institution('City Tech')
 
 ########################################################################
@@ -35,38 +36,34 @@ $showPartialCorrectAnswers = 1;
 #
 #
 Context("Numeric");
-Context()->variables->are("x"=>Real, "y"=>Real);
+Context()->variables->are("x"=>Real, "y"=>Real,"z"=>Real);
 Context()->noreduce('x^(-1)','(-x)-y');
 LimitedPowers::OnlyNonNegativeIntegers();
 
 $ncoeff = non_zero_random(-6,6,2);
 $dXexp = random(6,10,1);
 $dYexp = random(1,5,1);
+$dZexp = random(1,5,1);
 
 $anscoeff = non_zero_random(-8,8,1);
 $ansXexp = random(1,5,1);
 $ansYexp = random(1,5,1);
+$ansZexp = random(1,5,1);
 
 $dcoeff = $ncoeff * $anscoeff;
-$nXexp = $dXexp - $ansXexp;
+$nXexp = $dXexp + $ansXexp;
 $nYexp = $dYexp + $ansYexp;
+$nZexp = $dZexp + $ansZexp;
 
-$denominator = Formula("$dcoeff * x**$dXexp * y**$dYexp")->reduce;
-$numerator = Formula("$ncoeff * x**$nXexp * y**$nYexp")->reduce;
+$denominator = Formula("$dcoeff * x**$dXexp * y**$dYexp * z**$dZexp")->reduce;
+$numerator = Formula("$ncoeff * x**$nXexp * y**$nYexp * z**$nZexp")->reduce;
 
 Context("RationalFunction");
-Context()->variables->are(x=>'Real',y=>'Real');
-$cmp = sub {
-  my ($correct,$student,$ans) = @_;
-  return 0 unless $correct == $student;
-  return 0 unless $student->{tree}->class eq "BOP" && $student->{tree}{bop} eq "/";
-  my $cnum = Formula($correct->{tree}{lop});
-  my $snum = Formula($student->{tree}{lop});
-Value->Error("Your answer isn't reduced") unless ($cnum == $snum || -1*$cnum == $snum);
-  return 1;
-};
+Context()->variables->are(x=>'Real',y=>'Real',z=>'Real');
 
-$ans = Formula("y**$ansYexp / ($anscoeff * x**$ansXexp)");
+
+
+$ans = Formula("( x**$ansXexp * y**$ansYexp * z**$ansZexp) / ($anscoeff)");
 
 ##############################################################
 #

@@ -1,8 +1,8 @@
 assignmentType      = default
-openDate          = 05/09/2016 at 10:46am EDT
-reducedScoringDate = 10/29/2015 at 02:00pm EDT
-dueDate           = 05/13/2016 at 10:46am EDT
-answerDate        = 05/13/2016 at 10:46am EDT
+openDate          = 11/30/2016 at 02:27pm EST
+reducedScoringDate = 12/31/1969 at 07:00pm EST
+dueDate           = 12/07/2016 at 11:59pm EST
+answerDate        = 12/07/2016 at 11:59pm EST
 enableReducedScoring = N
 paperHeaderFile   = defaultHeader
 screenHeaderFile  = defaultHeader
@@ -13,81 +13,61 @@ emailInstructor   = 0
 problemListV2 
 problem_start
 problem_id = 1
-source_file = local/set7.2_Solving-Substitution-or-Elimination/sys_two_equations_multiple_choice.pg
+source_file = local/Library/ASU-topics/set119LinearSystems/p18.pg
 value = 1
 max_attempts = -1
 showMeAnother = -1
-prPeriod = 
+prPeriod = -1
 counts_parent_grade = 0
 att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 2
-source_file = local/Library/ASU-topics/set119LinearSystems/p18.pg
+source_file = local/setchapter27-SolvingSystemLinearEquationsAlgebraically/2.pg
 value = 1
 max_attempts = -1
 showMeAnother = -1
-prPeriod = 
+prPeriod = -1
 counts_parent_grade = 0
 att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 3
-source_file = Library/maCalcDB/setLinearAlgebra1Systems/ur_la_1_4a.pg
+source_file = local/setchapter27-SolvingSystemLinearEquationsAlgebraically/1b.pg
 value = 1
 max_attempts = -1
 showMeAnother = -1
-prPeriod = 
+prPeriod = -1
 counts_parent_grade = 0
 att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 4
-source_file = Library/Rochester/setAlgebra32EqnSystems/sw7_2_7.pg
+source_file = local/setchapter27-SolvingSystemLinearEquationsAlgebraically/1d.pg
 value = 1
 max_attempts = -1
 showMeAnother = -1
-prPeriod = 
+prPeriod = -1
 counts_parent_grade = 0
 att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 5
-source_file = Library/maCalcDB/setAlgebra32EqnSystems/linearsystem_2_2.pg
+source_file = Library/Rochester/setAlgebra32EqnSystems/sw7_2_7.pg
 value = 1
 max_attempts = -1
 showMeAnother = -1
-prPeriod = 
+prPeriod = -1
 counts_parent_grade = 0
 att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 6
-source_file = Library/TCNJ/TCNJ_LinearSystems/problem11.pg
+source_file = local/setchapter27-SolvingSystemLinearEquationsAlgebraically/3.pg
 value = 1
 max_attempts = -1
 showMeAnother = -1
-prPeriod = 
-counts_parent_grade = 0
-att_to_open_children = 0 
-problem_end
-problem_start
-problem_id = 7
-source_file = Library/ASU-topics/set119LinearSystems/p8.pg
-value = 1
-max_attempts = -1
-showMeAnother = -1
-prPeriod = 
-counts_parent_grade = 0
-att_to_open_children = 0 
-problem_end
-problem_start
-problem_id = 8
-source_file = Library/NAU/setLinearModeling/easylinearmodeling4.pg
-value = 1
-max_attempts = -1
-showMeAnother = -1
-prPeriod = 
+prPeriod = -1
 counts_parent_grade = 0
 att_to_open_children = 0 
 problem_end

@@ -1,0 +1,156 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject('Number Theory')
+## DBchapter('Divisibility')
+## DBsection('GCDs and LCMs')
+## Date('7/5/2015')
+## Author('K. Andrew Parker')
+## Institution('NYC City Tech')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "niceTables.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer=>"parsed"
+   );
+
+@prime = ( 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 );
+
+do{
+ $A1 = Real( $prime[random(0,2,1)] );
+ $A2 = Real( $prime[random(0,2,1)] );
+ $A3 = Real( $prime[random(0,2,1)] );
+ $B1 = Real( $prime[random(0,2,1)] );
+ $B2 = Real( $prime[random(0,2,1)] );
+ $A = Real( $A1*$A2*$A3 );
+ $B = Real( $B1*$B2 );
+} until ( gcf($A,$B) != 1 );
+ $AList = List( $A3,$A1,$A2 );
+ $BList = List( $B1, $B2 );
+ $ABGCF = Real( gcf($A, $B) );
+ 
+ $ABrem = $ABGCF;
+ $ABList = List( "" );
+
+ foreach my $i (0..2) {
+  while ( $ABrem % $prime[$i] == 0 ) {
+   $ABList = $ABList . List( Real( $prime[$i] ) );
+   $ABrem = $ABrem / $prime[$i];
+  }
+ }
+
+# if ( gcf($A, $B) == 1 ) { $ABList = List( Real(1) ); }
+
+ $AxBrem = $A / $ABGCF;
+ $AxBList = List( "" );
+
+ foreach my $i (0..2) {
+  while ( $AxBrem % $prime[$i] == 0 ) {
+   $AxBList = $AxBList . List( Real( $prime[$i] ) );
+   $AxBrem = $AxBrem / $prime[$i];
+  }
+ }
+
+if ( gcf($A, $B) == $A ) { $AxBList = List( Real(1) ); }
+
+ $BxArem = $B / $ABGCF;
+ $BxAList = List( "" );
+
+ foreach my $i (0..3) {
+  while ( $BxArem % $prime[$i] == 0 ) {
+   $BxAList = $BxAList . List( Real( $prime[$i] ) );
+   $BxArem = $BxArem / $prime[$i];
+  }
+ }
+
+if ( gcf($A, $B) == $B ) { $BxAList = List( Real(1) ); }
+
+ $LCMList = $AxBList . $ABList . $BxAList;
+
+#$LCMList = $ABList;
+#if ( $AxBList->extract(1) != 1 ) { $LCMList = $LCMList . $AxBList; }
+#if ( $BxAList->extract(1) != 1 ) { $LCMList = $LCMList . $BxAList; }
+
+ $LCM = Real( lcm($A, $B) );
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+
+BEGIN_TEXT
+
+$PAR
+Find the LCM of $A and $B.
+$PAR
+Do a factor tree and list the prime factors of $A. \{ ans_rule(10) \}
+$BR
+Do a factor tree and list the prime factors of $B. \{ ans_rule(10) \}
+$BR
+List the overlapping prime factors from both lists. \{ ans_rule(10) \}
+$BR
+Multiply the overlapping primes together to get the GCF of $A and $B. \{ ans_rule(5) \}
+$PAR
+Now fill out the table:
+\{
+ DataTable(
+ [['','Factors of $A but not $B','Factors of both $A and $B','Factors of $B but not $A'],
+  ['$A:',ans_rule(5),ans_rule(5),''],
+  ['$B:','',ans_rule(5),ans_rule(5)],
+  [['LCM:',rowcolor=>'{yellow!50}',rowcss=>"font-weight:bold; "],ans_rule(5),ans_rule(5),ans_rule(5)]
+ ],
+ align=>'r r c l',
+);
+\}
+$PAR
+Now combine all the factors in the bottom row to make a list of prime factors for the LCM of $A and $B. \{ ans_rule(15) \}
+$PAR
+Multiply all the prime factors in the list together to find the LCM. \{ ans_rule(5) \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS($AList->cmp(showLengthHints=>1, ordered=>0) );
+ANS($BList->cmp(showLengthHints=>1, ordered=>0) );
+ANS($ABList->cmp(showLengthHints=>1, ordered=>0) );
+ANS($ABGCF->cmp() );
+ANS($AxBList->cmp(showLengthHints=>1, ordered=>0) );
+ANS($ABList->cmp(showLengthHints=>1, ordered=>0) );
+ANS($ABList->cmp(showLengthHints=>1, ordered=>0) );
+ANS($BxAList->cmp(showLengthHints=>1, ordered=>0) );
+ANS($AxBList->cmp(showLengthHints=>1, ordered=>0) );
+ANS($ABList->cmp(showLengthHints=>1, ordered=>0) );
+ANS($BxAList->cmp(showLengthHints=>1, ordered=>0) );
+ANS($LCMList->cmp(showLengthHints=>1, ordered=>0) );
+ANS($LCM->cmp() );
+
+ENDDOCUMENT();        

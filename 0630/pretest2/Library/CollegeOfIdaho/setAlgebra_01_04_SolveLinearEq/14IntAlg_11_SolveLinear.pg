@@ -1,0 +1,124 @@
+##DESCRIPTION
+## Solve a linear equation
+## 
+##ENDDESCRIPTION
+## DBsubject(Algebra)
+## DBchapter(Linear equations and functions)
+## DBsection(Linear equations)
+## Institution(The College of Idaho)
+## Author(RA Cruz)
+## MLT(LinearEquations_06)
+## MLTleader(1)
+## Level(3)
+## MO(1)
+## TitleText1('Essentials of Intermediate Algebra')
+## AuthorText1('Blitzer')
+## EditionText1('1')
+## Section1('1.4')
+## Problem1('')
+## KEYWORDS('linear equations','solving equations')
+## Date: 2007/08
+
+DOCUMENT(); # This should be the first executable line in the problem.
+
+loadMacros(
+  "PGstandard.pl",
+  "Parser.pl",
+  "MathObjects.pl",
+  "contextLimitedNumeric.pl",
+  "PGcourse.pl"
+);
+
+TEXT(beginproblem());
+
+######################################
+#  Setup
+#  Note: Values are chosen to have a solution
+
+$a = random(3,5,2);
+$b = random(2,3,1);
+$c = $b - 1;
+$d = random(2,3,1);
+$e = $b * $d;
+
+######################################
+#  Main text
+
+BEGIN_TEXT
+Solve the equation for \( x \):
+\[ \frac{x}{$a} + \frac{$c}{$b} = \frac{x}{$e}\]
+$PAR
+\( x = \) \{ans_rule(10) \}
+$BR
+END_TEXT
+
+######################################
+#  Answers
+
+Context("LimitedNumeric-StrictFraction"); 
+
+($num,$den)= reduce($a * $c * $d, $a - $b * $d);
+$ans = Compute("$num/$den");
+if ($den==1) {$ans = Compute("$num");}
+ANS($ans->cmp);
+
+$showPartialCorrectAnswers = 1;
+
+######################################
+##############################################
+#  Setup
+
+Context("Numeric")->variables->are(t=>'Real');
+
+$a = random(2,9,1);
+$b = random(2,8,2);
+do { $c = random(3,9,2); } until ($c != $a);
+do { $d = random(1,9,1); } until ($d != $c);
+
+$num = $c * $d + $b;
+$den = $a * $c + $b;
+
+$answer = Compute("$num / $den");
+
+##############################################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+Multiplying both sides of the equation 
+\( \displaystyle $a t + \frac{ $b(t-1) }{ $c } = $d \)
+by 
+\{ ans_rule(10) \}, 
+we can clear the denominator and obtain the equation
+$BR
+$BR
+\{ ans_rule(20) \} = \{ ans_rule(20) \}
+
+$BR
+$BR
+This equation can be solved for
+$BR
+$BR
+\( t \) =  \{ans_rule(20)\} 
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( Compute("$c")->cmp() );
+
+ANS( Compute("$a * $c t + $b(t-1)")->cmp() );
+ANS( Compute("$c * $d")->cmp() );
+
+ANS( $answer->cmp() );
+#####################
+
+;
+BEGIN_HINT
+You have arrived at an incorrect answer.  Please look at the following links to improve your skills:
+<a href="https://www.khanacademy.org/math/algebra/one-variable-linear-equations/alg1-variables-on-both-sides/v/solving-equations-with-the-distributive-property-2">solving equations with the distributive property</a>
+
+and 
+
+<a href="https://www.khanacademy.org/math/algebra/one-variable-linear-equations/alg1-variables-on-both-sides/v/ex-2-multi-step-equation">multi step equation</a>
+END_HINT
+ENDDOCUMENT();

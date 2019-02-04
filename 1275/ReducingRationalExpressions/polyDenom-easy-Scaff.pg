@@ -1,20 +1,15 @@
 ##DESCRIPTION
-##  Algebra problem: true or false for inequality 
+##  Algebra problem: Reduce a given rational expression
 ##ENDDESCRIPTION
 
-##KEYWORDS('algebra', 'inequality', 'fraction')
-
-## DBsubject('Algebra')
-## DBchapter('Fundamentals')
-## DBsection('Real Numbers')
-## Date('6/3/2002')
-## Author('')
-## Institution('')
-## TitleText1('Precalculus')
-## EditionText1('3')
-## AuthorText1('Stewart, Redlin, Watson')
-## Section1('1.1')
-## Problem1('22')
+##KEYWORDS('algebra', 'algebra, operations with rational expressions', 'algebra, simplifying rational expression', 'rational expressions', 'rational expression', 'factoring')
+## DBsubject(Algebra)
+## DBchapter(Operations on polynomial and rational expressions)
+## DBsection(Simplify rational expressions)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
 
 ########################################################################
 
@@ -35,14 +30,19 @@ $showPartialCorrectAnswers = 1;
 
 $rationalChecker = sub {
      my ($correct,$student,$ansHash) = @_; 
-     Value->Error("Your answer should be an algebraic expression") unless $student->class eq "Formula";
-     Value->Error("Make sure you're placing parenthesis around your numerator and denominator") unless $student->{tree}->class eq "BOP" && $student->{tree}{bop} eq "/";
-     return 0 unless $correct == $student;
+     my $negated = 1; #-1 for negated=TRUE
+     Value->Error("Your answer doesn't contain any variables. <BR> Perhaps you oversimplified?") unless $student->class eq "Formula";
+     if ($student->{tree}->class eq "UOP" && $student->{tree}{uop} eq 'u-') {
+          $student = Formula($student->{tree}->{op});
+          $negated = -1;
+     }
+     Value->Error("Check the answer preview box. Maybe you forgot parenthesis around your numerator or denominator?") unless $student->{tree}->class eq "BOP" && $student->{tree}{bop} =~ m!/!;
+     return 0 unless $correct == $student*$negated;
      my $cnum = Formula($correct->{tree}{lop});
      my $snum = Formula($student->{tree}{lop});
      my $cden = Formula($correct->{tree}{rop});
      my $sden = Formula($student->{tree}{rop});
-     Value->Error("Your answer can be reduced further") unless ($cnum == $snum && $cden == $sden);
+     Value->Error("Your answer can be reduced further") unless ($cnum == $snum*$negated || $cden == $sden*$negated);
      return 1;
 };
 
@@ -51,7 +51,7 @@ $rationalChecker = sub {
 #  Setup
 #
 #
-Context("RationalFunction");
+Context("Numeric");
 
 $nCoeff = random(2,9,1);
 do { $dCoeff = random(2,9,1); } until ( gcf($nCoeff,$dCoeff) == 1 );
@@ -119,5 +119,6 @@ ANS(FactoringEvaluator($factorDenom,["x"]) );
 ANS($commonFactor->cmp);
 ANS($answer->cmp(showDomainErrors=>0, checker=>$rationalChecker));
 
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

@@ -1,20 +1,16 @@
 ##DESCRIPTION
-##  Algebra problem: true or false for inequality 
+##  Algebra problem: Simplify expressions using properties of exponents 
 ##ENDDESCRIPTION
 
-##KEYWORDS('algebra', 'inequality', 'fraction')
+##KEYWORDS('algebra', 'exponent', 'simplify exponents')
 
-## DBsubject('Algebra')
-## DBchapter('Fundamentals')
-## DBsection('Real Numbers')
-## Date('6/3/2002')
-## Author('')
-## Institution('')
-## TitleText1('Precalculus')
-## EditionText1('3')
-## AuthorText1('Stewart, Redlin, Watson')
-## Section1('1.1')
-## Problem1('22')
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of exponents)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
 
 ########################################################################
 
@@ -42,7 +38,7 @@ $one = random(0,13,1);
 # Force students to combine exponents within fractions
 $fractionChecker = sub {
   my ($correct,$student,$ans) = @_;
-  Value->Error("Your answer should be a fraction. Make sure you put parenthesis around your numerator and denominator.") unless $student->{tree}->class eq "BOP" && $student->{tree}{bop} eq "/";
+  Value->Error("Your answer should be a fraction. Make sure you put parenthesis around your numerator and denominator.") unless $student->{tree}->class eq "BOP" && $student->{tree}{bop} =~ m!/!;
   return 0 unless $correct == $student;
   my $cden = Formula($correct->{tree}{rop});
   my $sden = Formula($student->{tree}{rop});
@@ -57,7 +53,7 @@ Value->Error("Your answer isn't completely simplified") unless $cden == $sden;
 #
 #
 Context("Numeric");
-
+Context()->noreduce('x^(-a)');
 Context()->variables->are( 
   $var[$one]=>Real, 
   $var[$two]=>Real
@@ -82,6 +78,9 @@ if ( $n1 == 1 ) {
   $n = $n1 + $n2;
   $answer = Formula("$coeff*$var[$two]^$n/$var[$one]^$m")->with(testAt=>[[0,0]])->reduce;
 };
+
+$mLiteral = $m1+$m2;  #for solution
+$nLiteral = $n1+$n2;     #for solution
 
 $problemA = Formula("($aCoeff*$var[$one]^$m1*$var[$two]^$n1)")->reduce;
 $problemB = Formula("($bCoeff*$var[$one]^$m2*$var[$two]^$n2)")->reduce;
@@ -131,5 +130,36 @@ ANS($answer->cmp(checker=>$fractionChecker) );
 #    if $ans->{ans_message} eq "The domain of your function doesn't match that of the #correct answer";
 #  return $ans; 
 #}));
+
+Context()->texStrings;
+BEGIN_HINT
+
+There are several ways of simplifying this problem.
+$BR
+Recall the exponent property: \( B^m \cdot B^n = B^{(m+n)} \)
+$PAR
+And recall that negative exponents may be rewritten: \( B^{-n} = \frac{1}{B^n} \)
+
+END_HINT
+BEGIN_SOLUTION
+
+This is just one way of handling this problem...
+$BR
+Deal with each component separately:
+$PAR
+\( $aCoeff \cdot $bCoeff = $coeff \)
+$BR
+\( $var[$one]^{$m1} \cdot $var[$one]^{$m2} = $var[$one]^{($m1+ $m2)} = $var[$one]^{$mLiteral} \)
+$BR
+\( $var[$two]^{$n1} \cdot $var[$two]^{$n2} = $var[$two]^{($n1+ $n2)} = $var[$two]^{$nLiteral} \)
+$PAR
+Putting these together, we have:
+$BR
+\( \displaystyle $coeff \cdot $var[$one]^{$mLiteral} \cdot $var[$two]^{$nLiteral} = $answer \)
+
+END_SOLUTION
+Context()->normalStrings;
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

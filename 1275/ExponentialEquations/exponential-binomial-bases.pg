@@ -1,3 +1,18 @@
+##DESCRIPTION
+##  Algebra problem: Solve an exponential equation
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'exponential', 'exponential equation')
+## DBsubject(Algebra)
+## DBchapter(Exponential and logarithmic expressions and functions)
+## DBsection(Exponential and logarithmic equations)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
+
+
 ########################################################################
 
 DOCUMENT();      
@@ -37,7 +52,7 @@ $ans = -$x2 - $x1*$b;
 $a = $a*$x1;
 
 Context("LimitedFraction");
-Context()->flags->set(reduceConstants=>0, reduceConstantFunctions=>0);
+Context()->flags->set(reduceConstants=>0, reduceConstantFunctions=>0, showMixedNumbers=>0);
 Context()->variables->are(x=>Real);
 
 $ans = Fraction($ans,$a)->reduce;
@@ -58,5 +73,7 @@ Solve the exponential equation by using the property that [` b^x = b^y `] means 
 [` x = `] [_____]{$ans}
 
 END_PGML
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

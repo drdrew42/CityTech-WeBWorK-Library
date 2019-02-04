@@ -1,0 +1,62 @@
+## DESCRIPTION
+## This problem asks students to solve equations by factoring 
+## ENDDESCRIPTION
+## KEYWORDS('factoring `,`quadratic equations')
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## BookChapter(`Solving Quadratic Equations by FactoringÃ¢ÂÂ)
+## BookEdition('3')
+## BookAuthor('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## BookChapter('20')
+## Date('07/12/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+
+
+DOCUMENT(); # This should be the first executable line in the problem.
+
+loadMacros(
+  "PGstandard.pl",
+  "MathObjects.pl",
+  "contextInequalitiesAllowStrings.pl"
+);
+
+TEXT(beginproblem());
+
+######################################
+Context()->variables->add(y => "Real");
+
+
+$a = random(2,4,1);  
+$b= list_random(5,7,11); 
+
+
+######################################
+#  Main text
+
+BEGIN_TEXT
+Solve the quadratic equation by factoring:
+ \[  $a y^2 = $b y \]
+\( y = \)   \{ ans_rule(20) \} or  \{ ans_rule(20) \}
+END_TEXT
+
+######################################
+#  Answer
+Context("LimitedNumeric-StrictFraction"); 
+
+
+$ans1 = Compute("$b/$a");
+$ans2 = Compute("0");
+
+ANS($ans1->cmp); 
+ANS($ans2->cmp); 
+
+
+$showPartialCorrectAnswers = 1;
+
+######################################
+
+
+;
+ENDDOCUMENT();
+      

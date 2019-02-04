@@ -19,6 +19,9 @@ $laps = list_random(2,3,5,6);
 $dist = Real($laps*$quarterMI);
 
 BEGIN_TEXT
+$PAR
+OPTIONAL
+$PAR
 Courtney walks $laps laps around a \(\frac{1}{4}\)-mile track.$BR
 [1 mile is 5280 feet].$BR
 How long is one lap? \{ans_rule(5)\} feet.

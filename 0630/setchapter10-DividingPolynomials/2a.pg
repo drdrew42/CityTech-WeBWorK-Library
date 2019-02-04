@@ -1,0 +1,97 @@
+## DESCRIPTION
+## This problem asks students to combine like terms.
+## ENDDESCRIPTION
+## KEYWORDS('Polynomials')
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## DBchapter(Ã¢ÂÂDividing Polynomial Expressions') 
+## BookChapter('Dividing Polynomial Expressions')
+## DBsection('') 
+## BookSection(Dividing Polynomial Expressions')
+## Date('06/30/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+## TitleText1('Arithmetic | Algebra')
+## EditionText1('3')
+## AuthorText1('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## Section1('10')
+
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextLimitedPolynomial.pl",
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->variables->are("x"=>Real);
+Context()->noreduce('x^(-1)','(-x)-y');
+
+$dcoeff=random(2,10,1);
+$dxexp=random(1,9,1);
+
+
+$anscoeff1=non_zero_random(-10,10,1);
+$anscoeff2=non_zero_random(-10,10,1);
+$ansxexp1=random(1,9,1);
+do { $ansxexp2=random(1,9,1); } until ($ansxexp1 != $ansxexp2);
+
+
+$ncoeff1 = $anscoeff1*$dcoeff;
+$ncoeff2 = $anscoeff2*$dcoeff;
+$nxexp1 = $ansxexp1+$dxexp;
+$nxexp2 = $ansxexp2+$dxexp;
+
+
+$denominator = Formula("$dcoeff*x**$dxexp")->reduce;
+$numerator = Formula("$ncoeff1*x**$nxexp1 - $ncoeff2*x**$nxexp2")->reduce;
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+Simplify.
+$BR
+$BR
+\( \displaystyle{ \frac{$numerator}{$denominator} } \)
+$BR
+$BR
+\{ans_rule(20)\}
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+Context("LimitedPolynomial-Strict");
+Context()->variables->are("x"=>Real, "y"=>Real);
+$ans = Formula("$anscoeff1*x**$ansxexp1 - $anscoeff2*x**$ansxexp2")->reduce;
+
+ANS($ans->cmp);
+
+
+ENDDOCUMENT();        

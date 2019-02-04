@@ -1,0 +1,74 @@
+## DESCRIPTION
+## This problem asks students to solve linear equations
+## ENDDESCRIPTION
+## KEYWORDS('solutions','linear equations')
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## BookChapter('Solving Linear Equationsâ)
+## BookEdition('3')
+## BookAuthor('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## BookChapter('16')
+## Date('07/10/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+#"PGgraphmacros.pl",
+ "MathObjects.pl",
+# "compoundProblem.pl",
+#"contextCurrency.pl",
+#"contextInequalities.pl",
+#"unionTables.pl",
+# "unionLists.pl",
+#"unionMacros.pl",
+#"contextLeadingZero.pl",
+"contextFraction.pl",
+"answerHints.pl",
+"problemPanic.pl",
+
+#"PGauxiliaryFunctions.pl", #for lcm, gcd,etc
+);
+#for currency use Context("Currency") then Currency($A);
+#Then, in the text use $DOLLAR $a
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+Context("Numeric");
+
+$c1=random(4,8,2);
+$c2=random(5,7,2);
+Context("Fraction");
+$c=Compute("$c1/$c2");
+$d1=random(3,7,2);
+$d=Compute("$d1/4");
+$ans2=$d/$c;
+Context("Numeric");
+
+
+
+BEGIN_TEXT
+Solve the equation:
+$PAR
+If \( \frac{$c1}{$c2} x= \frac{$d1}{4}\) then \(x= \) \{ans_rule(3)\}
+
+
+END_TEXT
+	
+	ANS($ans2->cmp);
+	
+BEGIN_SOLUTION
+$PAR Solution $PAR
+Divide both sides by the coefficient of x. Remember, if you have to divide by a fraction you must multiply by its reciprocal.
+END_SOLUTION
+
+
+;
+ENDDOCUMENT();
+## DBsubject(Algebra)
+## DBchapter(Algebra of real numbers and simplifying expressions)
+## DBsection(Solving linear equations in one variable)
+## Level(2)
+## MO(1)

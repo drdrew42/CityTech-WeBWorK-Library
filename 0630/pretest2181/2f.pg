@@ -1,0 +1,193 @@
+###DESCRIPTION
+## Factoring Polynomials 
+##ENDDESCRIPTION
+## DBsubject(Algebra)
+## DBchapter(Factoring)
+## DBsection(Factoring: common factors)
+## Institution(City Tech)
+## Author(ElHitti)
+## TitleText1('Arithmetics | Algebra')
+## AuthorText1('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## EditionText1('3')
+## Section1('12')
+## KEYWORDS('polynomials','factoring')
+## Date: 7/6/2017
+
+DOCUMENT(); # This should be the first executable line in the problem.
+
+loadMacros(
+  "PGstandard.pl",
+  "MathObjects.pl",  
+  "contextPolynomialFactors.pl",
+  "contextLimitedPowers.pl",
+  "contextInequalitiesAllowStrings.pl",
+  "CofIdaho_macros.pl"
+#####Doesn't do non-x variables with higher powers well
+#  "contextPolynomialFactors.pl",  
+#  "contextLimitedPowers.pl"
+#####Put back when fixed
+);
+
+TEXT(beginproblem());
+######################################
+######################################
+######################################
+#  Setup
+#  Form: (d1 x + n1)(d2 x + n2)=0
+
+$n1 = 1; # random(2,9,1);  
+$d1 = random(2,7,1);
+$n2 = non_zero_random(-9,-9,1);
+$d2 = 1; # non_zero_random(-4,-1,1);
+
+$r1 = -1 * $n1 / $d1;
+$r2 = -1 * $n2 / $d2;
+
+$a = $d1 * $d2;  
+$b = $d1*$n2 + $n1*$d2;
+$c = $n1 * $n2;
+
+$polynomial = Formula("$a x^2 + $b x + $c")->reduce->TeX;
+
+######################################
+#  Main text
+
+BEGIN_TEXT
+Use factoring to solve the polynomial equation:
+ \[  $polynomial = 0 \]
+Answer:  \{ ans_rule(20) \} 
+END_TEXT
+
+######################################
+#  Answer
+
+Context("Inequalities-AllowStrings");
+
+
+$ans = Compute("x = $r1 or x=$r2")->reduce;
+ANS($ans->cmp); 
+
+$showPartialCorrectAnswers = 1;
+
+######################################
+
+
+
+COMMENT('MathObject version');
+
+
+;
+ENDDOCUMENT();
+######################################
+#  Setup
+
+Context("Numeric");
+Context()->variables->are(x=>'Real',y=>'Real');
+
+$a = random(1,3,1);  #$a and $b must be relatively prime.
+do {$b = random(2,4,1);} until (gcd($a,$b)==1);
+$d = list_random(5,7);
+$c = random(2,5,1); 
+$n = random(2,3,1);
+$m = Compute("$n - 1")->reduce;
+
+$polynomial = Formula("($a^4*$c)x^4 y^$n+ ($b^2*$c) x^$n y^2 - $c * $d x y")->reduce->TeX;
+
+######################################
+#  Main text
+
+BEGIN_TEXT
+Factor the greatest common factor:  
+$PAR
+\( $polynomial = \)  \{ ans_rule(30) \} 
+END_TEXT
+
+######################################
+#  Answer
+
+$showPartialCorrectAnswers = 1;
+
+$answer = "$c*x*y*($a^4*x^3*y^$m + $b^2*x^$m*y-$d)";
+ANS(FactoringEvaluator($answer,["x","y"]));  
+######################################
+#  Setup
+
+$a = random(2,4,1);  #$a and $b must be relatively prime.
+do {$b = random(2,5,1);} until (gcd($a,$b)==1);
+
+$polynomial = Formula("$a^2 x^2 - $b^2")->reduce->TeX;
+
+######################################
+#  Main text
+
+BEGIN_TEXT
+$BR
+Factor completely: 
+$PAR
+\( $polynomial = \)  \{ ans_rule(30) \} 
+END_TEXT
+
+######################################
+#  Answer
+
+$showPartialCorrectAnswers = 1;
+
+Context("PolynomialFactors-Strict");
+Context()->flags->set(singleFactors=>1);
+LimitedPowers::OnlyIntegers(
+minPower => 0, maxPower => $n
+);
+
+Context()->{error}{msg}{"Powers must be integer constants"} 
+  = "Not completely factored";
+
+Context()->strings->add('Does not factor'=>{});
+
+#$answer = "($a*x - $b)* ($a *x + $b)"); #old
+#ANS(FactoringEvaluator($answer,"x"));
+
+$answer = Compute("($a x - $b)($a x + $b)");
+ANS($answer->cmp); 
+;
+
+######################################
+######################################
+#  Setup
+
+$a= random(2,4,1);
+do {$b = random(3,5,1);} until (gcd($a,$b)==1);
+
+$polynomial = Formula("$a x^2 - ($a*$b -1) x - $b")->reduce->TeX;
+
+######################################
+#  Main text
+
+BEGIN_TEXT
+Factor:  
+$PAR
+\( $polynomial = \) \{ ans_rule(30) \} 
+END_TEXT
+
+######################################
+#  Answer
+
+$answer="($a * x + 1) * ( x - $b)";
+ANS(FactoringEvaluator($answer,"x")); 
+
+$showPartialCorrectAnswers = 1;
+
+#####################
+BEGIN_HINT
+You have arrived at an incorrect answer.  Please look at the following link to improve your skills:
+<a href=https://www.khanacademy.org/math/algebra/polynomial-factorization/modal/v/factoring-and-the-distributive-property-3">factoring</a>,
+<a href=https://www.khanacademy.org/math/algebra/polynomial-factorization/factoring-polynomials-2-quadratic-forms/v/factoring-trinomials-by-grouping-5">factoring by grouping</a>,
+and
+<a href=https://www.khanacademy.org/math/algebra/polynomial-factorization/factoring-quadratics-diff-of-squares/v/difference-of-squares-intro">difference of squares</a>.
+
+
+END_HINT
+
+
+
+;
+ENDDOCUMENT();

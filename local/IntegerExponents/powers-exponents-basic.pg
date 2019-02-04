@@ -1,0 +1,101 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject('Algebra')
+## DBchapter('Fundamentals')
+## DBsection('Real Numbers')
+## Date('6/3/2002')
+## Author('')
+## Institution('')
+## TitleText1('Precalculus')
+## EditionText1('3')
+## AuthorText1('Stewart, Redlin, Watson')
+## Section1('1.1')
+## Problem1('22')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextLimitedPowers.pl",
+   "contextLimitedPolynomial.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+# Select two variables for this problem
+@var = ("a", "b", "c", "d", "m", "n", "p", "q", "r", "s", "w", "x", "y", "z" );
+$one = random(0,13,1);
+do { $two = random(0,13,1); } until ( $one != $two );
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("LimitedPolynomial-Strict");
+
+Context()->variables->are( $var[$one]=>Real, $var[$two]=>Real );
+
+$m1 = random(3,9,1);
+$m2 = random(2,4,1);
+$mA = $m1 * $m2;
+
+$ansMA = Formula("$var[$one]^$mA");
+
+$c3 = random(2,5,1)*random(-1,1,2);
+$m3 = random(3,9,1);
+$m4 = random(2,3,1);
+$mB = $m3 * $m4;
+$cB = $c3 ** $m4;
+
+$ansMB = Formula("$cB*$var[$two]^$mB");
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+$PAR
+$BITALIC (a) $EITALIC Simplify \( ( $var[$one]^{$m1} )^{$m2} \) and write your answer without using negative exponents.
+$PAR
+\{$ansMA->ans_rule\}
+$PAR
+$BITALIC (b) $EITALIC Simplify \( ( $c3 $var[$two]^{$m3} )^{$m4} \) and write your answer without using negative exponents.
+$PAR
+\{$ansMB->ans_rule\}
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+Context()->{error}{msg}{"You can only raise a variable to a power in a polynomial"} 
+  = "You need to simplify your answer more";
+Context()->{error}{msg}{"You can only use powers of a variable in a polynomial"} 
+  = "Please compute the highlighted exponent";
+Context()->{error}{msg}{"You can only use '*' between coefficents and variables in a polynomial"} 
+  = "Simplify your answer by computing the highlighted multiplication";
+Context()->{error}{msg}{"Exponents must be positive integers in a polynomial"} 
+  = "Rewrite your answer without using negative exponents";
+
+ANS(Compute($ansMA)->cmp);
+ANS(Compute($ansMB)->cmp);
+
+ENDDOCUMENT();        

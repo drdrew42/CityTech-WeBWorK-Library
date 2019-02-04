@@ -46,8 +46,7 @@ $a3=$b3*$x3;
 Context()->texStrings;
 
 BEGIN_TEXT
-Put in simplest form.$BR
-For example if \(\frac{3}{7}\) were the answer you would put 3/7 in the answer box.$PAR 
+Simplify: $PAR
 
 1) \(\frac{$a1}{$b1}\)=\{ans_rule(2)\} 
 \{ knowlLink("click for hint", value=>"To reduce this fraction, you must find a common factor for $a1 and $b1. $BITALIC Aren't they both even? $EITALIC") \}

@@ -1,0 +1,60 @@
+##DESCRIPTION
+## Simplify Exponents
+## 
+##ENDDESCRIPTION
+## DBsubject(Arithmetic)
+## DBchapter(Properties of Exponents)
+## DBsection(Exponentiation)
+## Institution(City Tech)
+## Author(ElHitti)
+## Level(2)
+## MO(1)
+## TitleText1('Arithmetic | Algebra')
+## AuthorText1('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## EditionText1('3')
+## Section1('5')
+## Problem1('')
+## KEYWORDS('exponents','zero')
+## Date: 6/26/2017
+
+DOCUMENT();        # This should be the first executable line in the problem.
+
+loadMacros(
+  "PGstandard.pl",
+  "MathObjects.pl",
+  "contextLimitedNumeric.pl"
+);
+
+TEXT(beginproblem());
+
+######################################
+#  Setup
+
+
+$num1 = random(2,5,1);
+
+
+######################################
+#  Main text
+
+BEGIN_TEXT
+Use the zero-exponent rule to simplify:
+$PAR
+\( ($num1 x)^0 \) =  \{ ans_rule(20) \}
+END_TEXT
+
+######################################
+#  Answers
+
+Context("LimitedNumeric");
+
+$ans = Real(1);
+ANS($ans->cmp);
+
+$showPartialCorrectAnswers = 1;
+
+######################################
+
+
+;
+ENDDOCUMENT();

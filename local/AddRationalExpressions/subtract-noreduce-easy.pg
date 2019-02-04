@@ -1,0 +1,88 @@
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextLimitedPowers.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+$rationalChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     Value->Error("Check the answer preview box. Maybe you forgot parenthesis around your numerator or denominator?") unless $student->{tree}->class eq "BOP" && $student->{tree}{bop} eq "/";
+     return 0 unless $correct == $student;
+     my $cnum = Formula($correct->{tree}{lop});
+     my $snum = Formula($student->{tree}{lop});
+     my $cden = Formula($correct->{tree}{rop});
+     my $sden = Formula($student->{tree}{rop});
+     Value->Error("Your answer can be reduced further") unless ($cnum == $snum && $cden == $sden);
+     return 1;
+};
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric")->noreduce('(-x)+y', '(-x)-y');
+LimitedPowers::OnlyPositiveIntegers();
+
+$dCoeff = 1;
+
+$dr1 = random(3,9,1);
+$dr2 = random(-9,-3,1);
+$dA = $dCoeff;
+$dB = $dCoeff * ( $dr1 + $dr2 );
+$dC = $dCoeff * $dr1 * $dr2;
+$denom = Formula("$dA*x^2+$dB*x+$dC")->reduce;
+
+$nAans = random(2,10,2);
+do{ $nA1 = random(2,8,2); } until ( $nA1 != $nAans );
+$nA2 = $nA1 - $nAans;
+
+$nBans = non_zero_random(-9,9,2);
+$nB1 = non_zero_random(-8,8,1);
+$nB2 = $nB1 - $nBans;
+
+$n1 = Formula("$dCoeff * $nA1 * x + $dCoeff * $nB1")->reduce;
+$n2 = Formula("$dCoeff * $nA2 * x + $dCoeff * $nB2")->reduce;
+$nAns = Formula("$nAans * x + $nBans")->reduce;
+
+$frac1 = Formula("$n1/$denom");
+$frac2 = Formula("$n2/$denom");
+
+$ans = Formula("$nAns/$denom")->reduce;
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Combine and simplify if possible.
+$PAR
+\[ $frac1 - $frac2 \]
+$PAR
+\{ ans_rule(20) \}
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans->cmp(checker=>$rationalChecker));
+
+ENDDOCUMENT();        

@@ -1,3 +1,20 @@
+##DESCRIPTION
+##  Algebra problem: Simplify square root of a fraction
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'radical', 'radicals', 'radical expression')
+
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of rational exponents and radicals)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
+
+########################################################################
+
 ########################################################################
 
 DOCUMENT();      
@@ -24,9 +41,10 @@ Parser::Number::NoDecimals;
 #
 #
 
-$ansDen = random(2,5,1);
-$common = random(2,4,1);
+$ansDen = random(2,6,1);
+$common = random(2,5,1);
 $radDen = $ansDen**2 * $common;
+$Den2 = $ansDen**2;
 
 $ans = Fraction(1,$ansDen);
 
@@ -56,5 +74,34 @@ Context()->normalStrings;
 #
 
 ANS($ans->cmp);
+
+Context()->texStrings;
+BEGIN_HINT
+
+Try reducing the fraction first.
+$PAR
+Don't forget the property of exponents:
+\( \displaystyle \left(\frac{A}{B}\right)^n = \frac{A^n}{B^n} \)
+$BR
+holds for radicals as well:
+$BR
+\( \displaystyle \sqrt[n]{\frac{A}{B}} = \frac{\sqrt[n]{A}}{\sqrt[n]{B}} \)
+
+END_HINT
+BEGIN_SOLUTION
+
+$BBOLD Reduce the fraction: $EBOLD $BR
+\( \displaystyle \sqrt{\frac{$common}{$radDen}} = \sqrt{\frac{1}{$Den2}} \)
+$PAR
+$BBOLD Split the radical: $EBOLD $BR
+\( \displaystyle \sqrt{\frac{1}{$Den2}} = \frac{\sqrt{1}}{\sqrt{$Den2}} \)
+$PAR
+$BBOLD Simplify the radical: $EBOLD $BR
+\( \displaystyle \frac{\sqrt{1}}{\sqrt{$Den2}} = \frac{1}{$ansDen} \)
+
+END_SOLUTION
+Context()->normalStrings;
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

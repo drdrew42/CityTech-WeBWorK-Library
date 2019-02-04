@@ -1,0 +1,60 @@
+## DESCRIPTION
+## This problem asks students to solve a fractional equation
+## ENDDESCRIPTION
+## KEYWORDS(âRational Expressionsâ)
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## BookChapter(âSolving Fractional Equations)
+## BookEdition('3')
+## BookAuthor('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## BookChapter('24')
+## Date('07/13/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+
+
+## Adapted from Library/Utah/Trigonometry/set2_Algebra/s2p7.pg
+
+DOCUMENT();        # This should be the first executable line in the problem.
+
+loadMacros(
+"PG.pl",
+"PGbasicmacros.pl",
+"PGchoicemacros.pl",
+"PGanswermacros.pl",
+"PGauxiliaryFunctions.pl",
+"MathObjects.pl",
+"contextFraction.pl"
+);
+
+TEXT(beginproblem());
+Context("LimitedFraction")->flags->set(showMixedNumbers=>0);
+
+$a = random(2,10,2);
+$b = random(1,9,2);
+$c = random(2,9,1);
+$d = random(2,4,1);
+$e = $c+1;
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Solve the fractional equation by cross multiplication:
+\[ \frac{x+$b}{$d x+$a} = \frac{$c}{$e} \]
+$PAR
+\(x = \) \{ ans_rule(20) \}.
+
+END_TEXT
+Context()->normalStrings;
+
+$ans = Fraction($c*$a-$e*$b,$e-$c*$d);
+
+ANS($ans->cmp);
+
+Context()->texStrings;
+
+Context()->normalStrings;
+
+COMMENT("MathObject version");
+ENDDOCUMENT();        # This should be the last executable line in the problem.

@@ -1,0 +1,109 @@
+#DESCRIPTION
+##  Algebra: Coordinates and Graphs
+##ENDDESCRIPTION
+
+
+## DBsubject(Algebra)
+## DBchapter(Linear equations and functions)
+## DBsection(Equations of lines: general)
+## Date(12/01/2009)
+## Institution(University of Minnesota)
+## Author(Justin Sukiennik)
+## MLT(Slope_from_two_points)
+## Level(3)
+## MO(1)
+## TitleText1('Algebra for College Students')
+## AuthorText1('Kaufmann, Schwitters')
+## EditionText1('8')
+## Section1('7.5')
+## Problem1('12')
+## KEYWORDS('algebra', 'coordinate', 'line', 'linear')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+  "PGstandard.pl",
+  "MathObjects.pl",
+  "parserImplicitPlane.pl",
+  "PGcourse.pl"
+);
+
+########################################################################
+
+TEXT(beginproblem());
+
+$showPartialCorrectAnswers = 1;
+##########################################
+######################################
+
+########################################################################
+
+$a = random(-5,-2,1);
+$b = random(-3,-1,1);
+$c = random(5,8,1);
+
+Context("ImplicitPlane");
+Context()->variables->are(x=>"Real",y=>"Real");
+
+$ans1 = ImplicitPlane("y-2=(($b-2)/($a-$c))x-(($b-2)/($a-$c))*$c");
+$ans2 = Compute("($b-2)/($a-$c)");
+
+########################################################################
+
+Context()->texStrings;
+BEGIN_TEXT
+Write the equation of the line that contains the two points \(P = ($a,$b)\) and \(Q = ($c,2).\)
+$PAR
+Equation: \{ans_rule(40)\}
+$HR
+What is the slope \(m\) of this line?
+$PAR
+Slope: \(m =\) \{ans_rule(20)\} 
+$HR
+END_TEXT
+Context()->normalStrings;
+
+########################################################################
+
+ANS( $ans1->cmp);
+ANS( $ans2->cmp);
+
+
+BEGIN_HINT
+You have arrived at an incorrect answer.  Please look at the following link to improve your skills:
+<a href="https://www.khanacademy.org/math/algebra-basics/alg-basics-graphing-lines-and-slope/alg-basics-writing-slope-intercept/v/equation-of-a-line-3">Equation for a line</a>.
+END_HINT
+ENDDOCUMENT();
+#  Setup
+
+$x1=  random(-4,4,1);
+$y1 = random(-4,4,1);
+$x2 = $x1 + non_zero_random(-2,2,1);
+$y2 = random(-4,4,1);;
+ 
+######################################
+#  Main text
+
+BEGIN_TEXT
+REVIEW: Find the slope and the equation for the line passing through the points:  \( ($x1, $y1) \) and \( ($x2, $y2) \).
+$PAR
+a)  \( m =\)  \{ ans_rule(10) \} 
+$PAR
+b)  The equation for the line:  \{ ans_rule(20) \}
+END_TEXT
+
+######################################
+#  Answer
+
+$ans_a = Compute(($y2-$y1)/($x2-$x1));
+ANS($ans_a->cmp); 
+
+$b = $y2 - $ans_a * $x2;
+$ans_b = "y = $ans_a x + $b";
+ANS(SlopeIntercept_equation_cmp($ans_b)); 
+
+$showPartialCorrectAnswers = 1;
+
+######################################

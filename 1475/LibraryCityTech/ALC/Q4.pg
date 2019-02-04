@@ -57,7 +57,7 @@ BEGIN_TEXT
 
 Evaluate the integral.
 $PAR
-Hint: This integral is easy to evaluate if you sketch the graph of the function first.
+Hint: This integral is easy to evaluate if you sketch the graph of the function first. What shape does the graph have?
 
 $PAR
 \( \int_0^{10} \sqrt{25-(x-5)^2} dx \)

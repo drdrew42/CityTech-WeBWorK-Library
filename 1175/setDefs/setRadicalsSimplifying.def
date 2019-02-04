@@ -1,14 +1,14 @@
 assignmentType      = default
 openDate          = 02/08/2012 at 11:57am EST
-reducedScoringDate = 12/31/1969 at 07:00pm EST
+reducedScoringDate = 04/19/2012 at 12:57pm EDT
 dueDate           = 04/19/2012 at 12:57pm EDT
 answerDate        = 04/19/2012 at 12:57pm EDT
 enableReducedScoring = N
 paperHeaderFile   = hardHeader.pg
 screenHeaderFile  = setHeader.pg
 description       = 
-restrictProbProgression = 
-emailInstructor   = 
+restrictProbProgression = 0
+emailInstructor   = 0
 
 problemListV2 
 problem_start
@@ -16,139 +16,139 @@ problem_id = 1
 source_file = Library/UMN/algebraKaufmannSchwitters/ks_5_2_4.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 2
 source_file = Library/ma117DB/set1/srw1_2_7c.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 3
 source_file = Library/Rochester/setAlgebra02ExponentsRadicals/srw1_2_17.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 4
 source_file = Library/maCalcDB/setAlgebra02ExponentsRadicals/srw1_2_80.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 5
 source_file = Library/UMN/algebraKaufmannSchwitters/ks_5_2_18.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 6
 source_file = Library/Rochester/setAlgebra02ExponentsRadicals/srw1_2_9.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 7
 source_file = Library/Rochester/setAlgebra02ExponentsRadicals/Test1_10.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 8
 source_file = Library/Rochester/setAlgebra02ExponentsRadicals/sw1_3_49.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 9
 source_file = Library/UMN/algebraKaufmannSchwitters/ks_5_2_30.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 10
 source_file = Library/UMN/algebraKaufmannSchwitters/ks_5_2_36.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 11
 source_file = Library/UMN/algebraKaufmannSchwitters/ks_5_3_24.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 12
 source_file = Library/UMN/algebraKaufmannSchwitters/ks_5_3_34.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 13
 source_file = Library/UMN/algebraKaufmannSchwitters/ks_5_6_52.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 14
 source_file = Library/UMN/algebraKaufmannSchwitters/ks_5_2_prob01.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 

@@ -1,3 +1,18 @@
+##DESCRIPTION
+##  Algebra problem: Rewrite a logarithmic equation in exponential form
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'logarithm', 'logarithms', 'laws of logarithms')
+
+## DBsubject(Algebra)
+## DBchapter(Exponential and logarithmic expressions and functions)
+## DBsection(Logarithmic functions)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
+
 ########################################################################
 
 DOCUMENT();      
@@ -84,5 +99,32 @@ END_PGML
 #  Answers
 #
 #
+
+BEGIN_PGML_HINT
+
+[` \log_{[$base]}([$result]) = [$exp] `]
+
+This tells us that `[$exp]` is the _power of [$base]_ that gives a result of [$result].
+
+How can we write the same thing using exponents instead of logs?
+
+* What is the base?
+* What is the exponent?
+* What is the result?
+END_PGML_HINT
+
+BEGIN_PGML_SOLUTION
+
+* The base is [$base]
+* Logarithms *are* exponents, so the exponent is `[$exp]`
+* The result is `[$result]`
+
+In exponential form, we're saying:
+[` [$base]^{[$exp]} = [$result] `]
+
+END_PGML_SOLUTION
+
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

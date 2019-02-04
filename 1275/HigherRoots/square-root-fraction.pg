@@ -1,3 +1,19 @@
+##DESCRIPTION
+##  Algebra problem: Evaluating square roots of fractions
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'radical', 'radicals', 'radical expression')
+
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of rational exponents and radicals)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
+########################################################################
+
 DOCUMENT();      
 
 loadMacros(
@@ -51,5 +67,29 @@ Context()->normalStrings;
 #
 
 ANS(Fraction($N,$D)->cmp);
+
+Context()->texStrings;
+BEGIN_HINT
+
+Recall the property of exponents: \( \displaystyle \left(\frac{A}{B}\right)^n = \frac{A^n}{B^n} \)
+$PAR
+This holds for square roots as well... \( \displaystyle \sqrt{\frac{A}{B}} = \frac{\sqrt{A}}{\sqrt{B}} \)
+END_HINT
+BEGIN_SOLUTION
+
+$PAR
+$BBOLD Begin by simplifying: $EBOLD $BR
+\( \displaystyle \sqrt{\frac{$N2}{$D2}} = \frac{\sqrt{$N2}}{\sqrt{$D2}} \)
+$PAR
+$BBOLD Then simplify each radical. $EBOLD $BR
+\( \sqrt{$N2} \) is \( $N \), and \( \sqrt{$D2} \) is \( $D \).
+$PAR
+$BBOLD And put it all back together: $EBOLD $BR
+\( \displaystyle \frac{\sqrt{$N2}}{\sqrt{$D2}} = \frac{$N}{$D} \)
+
+END_SOLUTION
+Context()->normalStrings;
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

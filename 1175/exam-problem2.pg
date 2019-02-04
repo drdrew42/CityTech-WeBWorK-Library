@@ -1,0 +1,80 @@
+##DESCRIPTION
+##   Evaluation of a simple algebraic expression
+##ENDDESCRIPTION
+
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of exponents)
+## Date(12/14/16)
+## Institution(CityTech)
+## Author(K. Andrew Parker)
+## KEYWORDS('algebra','exponent')
+## MLT(Division_exponents_one_var)
+
+## Edited version of Library/maCalcDB/setAlgebra02ExponentsRadicals/sw1_3_19.pg
+## Use bizarroArithmetic to check for completely reduced form.
+
+DOCUMENT();        # This should be the first executable line in the problem.
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "bizarroArithmetic.pl"
+);
+
+TEXT(beginproblem());
+
+Context("Numeric")->operators->set(
+'*' => {class => 'bizarro::BOP::multiply', isCommand => 1},
+' *' => {class => 'bizarro::BOP::multiply', isCommand => 1},
+'* ' => {class => 'bizarro::BOP::multiply', isCommand => 1},
+'**' => {class => 'bizarro::BOP::power', isCommand => 1, perl=>undef},
+'^' => {class => 'bizarro::BOP::power', isCommand => 1, perl=>undef},
+);
+
+Context()->variables->are(x=>[Real,limits=>[0,2]]);
+
+Context()->operators->undefine("+"," +","+ ");
+Context()->operators->undefine("-"," -","- ");
+Context()->operators->undefine("/"," /","/ ");
+Context()->functions->disable("All");
+
+Context()->{error}{msg}{"Can't use '+' in this context"} 
+  = "Addition is disabled for this problem. Simplify the sum and resubmit your answer.";
+Context()->{error}{msg}{"Can't use '-' in this context"} 
+  = "Subtraction is disabled for this problem. Simplify the difference and resubmit your answer.";
+Context()->{error}{msg}{"Can't use '/' in this context"} 
+  = "Division is disabled for this problem. Simplify the quotient and resubmit your answer.";
+
+$a = random(2,9,1);
+$b = random(5,7,1);
+$c = random(2,5,1);
+
+TEXT(EV2(<<EOT));
+Reduce the expression 
+\[ \frac{x^{$a}(2x)^{$b}}{x^{$c}} \]
+and write it in the form: \(c x^e\). $BR
+\{ ans_rule(10) \}
+EOT
+
+$ans1 = 2**$b;
+$ans2 = $a+$b-$c;
+
+$ans = Formula("$ans1*x^$ans2");
+
+ANS($ans->cmp(checker=>sub{
+      my ( $correct, $student, $ansHash ) = @_;
+      return 0 if $ansHash->{isPreview} || $correct != $student;
+      $student = $ansHash->{student_formula};
+      $correct = $correct->{original_formula} if defined $correct->{original_formula};
+      $student = Formula("$student"); $correct = Formula("$correct");
+      return 0 unless ($correct == $student);
+      Context()->flags->set(bizarroMul=>1, bizarroPow=>1);
+      delete $correct->{test_values}, $student->{test_values};
+      Value->Error("Your answer is equivalent to the correct answer, but you did not completely reduce the expression.") unless (($correct == $student) or ($student == $correct));
+      Context()->flags->set(bizarroMul=>0,bizarroPow=>0);
+      delete $correct->{test_values}, $student->{test_values};
+      return 1;
+  }));
+
+ENDDOCUMENT();        # This should be the last executable line in the problem.

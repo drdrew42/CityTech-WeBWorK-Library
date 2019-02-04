@@ -8,7 +8,8 @@
 ## DBchapter('Rational equations and functions')
 ## DBsection('Simplifying')
 ## Date('2/15/2016')
-## Author('Parker')
+## Updated ('7/5/2017')
+## Author('Parker, ElHitti')
 ## Institution('City Tech')
 
 ########################################################################
@@ -37,11 +38,11 @@ Context()->variables->are("x"=>Real, "y"=>Real);
 Context()->noreduce('x^(-1)','(-x)-y');
 LimitedPowers::OnlyNonNegativeIntegers();
 
-$dcoeff = non_zero_random(-6,6,2);
+$dcoeff = non_zero_random(-12,-1,2);
 $dXexp = random(1,5,1);
 $dYexp = random(1,5,1);
 
-$anscoeff = non_zero_random(-8,8,1);
+$anscoeff = non_zero_random(2,8,1);
 $ansXexp = random(1,5,1);
 $ansYexp = 0;
 
@@ -52,7 +53,7 @@ $nYexp = $dYexp + $ansYexp;
 $denominator = Formula("$dcoeff * x**$dXexp * y**$dYexp")->reduce;
 $numerator = Formula("$ncoeff * x**$nXexp * y**$nYexp")->reduce;
 
-$ans = Formula("$anscoeff x**$ansXexp y**$ansYexp")->reduce;
+$ans = Formula("$anscoeff x**$ansXexp * y**$ansYexp")->reduce;
 
 ##############################################################
 #

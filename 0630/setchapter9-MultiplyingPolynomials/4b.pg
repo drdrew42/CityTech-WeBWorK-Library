@@ -1,0 +1,61 @@
+## DESCRIPTION
+## This problem asks students to combine like terms.
+## ENDDESCRIPTION
+## KEYWORDS('Polynomials')
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## DBchapter(âMultiplying Polynomial Expressions') 
+## BookChapter(' Multiplying Polynomial Expressions')
+## DBsection('') 
+## BookSection(Multiplying Polynomial Expressions')
+## Date('06/30/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+## TitleText1('Arithmetic | Algebra')
+## EditionText1('3')
+## AuthorText1('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## Section1('9')
+
+DOCUMENT();        # This should be the first executable line in the problem.
+
+loadMacros(
+"PG.pl",
+"PGbasicmacros.pl",
+"PGchoicemacros.pl",
+"PGanswermacros.pl",
+"PGauxiliaryFunctions.pl",
+"PGstandard.pl",
+"MathObjects.pl",
+"PGcourse.pl"
+);
+
+
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+$a = random(2,7,1);
+$b = random(2,7,1);
+$c = random(2,7,1);
+
+TEXT(EV2(<<EOT));
+Multiply: 
+$PAR
+
+\((x+$a)(x^2-$b x+$c)\)
+
+Answer:\{ans_rule(10) \}
+$BR
+EOT
+
+$coef1 = 1;
+$coef2 =  $a-$b;
+$coef3 =  $c-$a*$b;
+$coef4 =  $a*$c;
+
+$ans=Formula("$coef1 x^3 + $coef2 x^2 + $coef3 x + $coef4");
+ANS($ans->cmp);
+
+$showPartialCorrectAnswers=1;
+
+ENDDOCUMENT();        # This should be the last executable line in the problem.

@@ -1,14 +1,14 @@
 assignmentType      = default
-openDate          = 02/10/2016 at 10:36am EST
-reducedScoringDate = 10/29/2015 at 02:00pm EDT
-dueDate           = 02/22/2016 at 10:36am EST
-answerDate        = 02/22/2016 at 10:36am EST
+openDate          = 09/14/2016 at 07:00pm EDT
+reducedScoringDate = 12/31/1969 at 07:00pm EST
+dueDate           = 09/23/2016 at 07:41pm EDT
+answerDate        = 09/23/2016 at 07:41pm EDT
 enableReducedScoring = N
 paperHeaderFile   = defaultHeader
 screenHeaderFile  = defaultHeader
 description       = 
-restrictProbProgression = 
-emailInstructor   = 
+restrictProbProgression = 0
+emailInstructor   = 0
 
 problemListV2 
 problem_start
@@ -16,169 +16,179 @@ problem_id = 1
 source_file = local/setchapter5-ScientificNotation/convert2decimal1.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = -1
+prPeriod = -1
 counts_parent_grade = 0
-att_to_open_children = 1 
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 2
-source_file = local/setchapter5-ScientificNotation/convert2decimal2.pg
+source_file = local/setchapter6-ScientificNotation/2.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = -1
+prPeriod = -1
 counts_parent_grade = 0
-att_to_open_children = 1 
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 3
 source_file = local/setchapter5-ScientificNotation/convertExpZero1.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = -1
+prPeriod = -1
 counts_parent_grade = 0
-att_to_open_children = 1 
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 4
-source_file = local/setchapter5-ScientificNotation/convert2.pg
+source_file = local/setchapter6-ScientificNotation/1d.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = -1
+prPeriod = -1
 counts_parent_grade = 0
-att_to_open_children = 1 
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 5
-source_file = local/setchapter5-ScientificNotation/convert1.pg
+source_file = local/setchapter5-ScientificNotation/convert2.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = -1
+prPeriod = -1
 counts_parent_grade = 0
-att_to_open_children = 1 
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 6
-source_file = local/setchapter5-ScientificNotation/compareForms1.pg
+source_file = local/setchapter6-ScientificNotation/6.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = -1
+prPeriod = -1
 counts_parent_grade = 0
-att_to_open_children = 1 
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 7
-source_file = local/setchapter5-ScientificNotation/multiply3.pg
+source_file = local/setchapter5-ScientificNotation/compareForms1.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = -1
+prPeriod = -1
 counts_parent_grade = 0
-att_to_open_children = 1 
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 8
-source_file = local/setchapter5-ScientificNotation/multiply2.pg
+source_file = local/setchapter6-ScientificNotation/8.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = -1
+prPeriod = -1
 counts_parent_grade = 0
-att_to_open_children = 1 
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 9
-source_file = local/setchapter5-ScientificNotation/multiply1.pg
+source_file = local/setchapter6-ScientificNotation/9.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = -1
+prPeriod = -1
 counts_parent_grade = 0
-att_to_open_children = 1 
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 10
-source_file = local/setchapter5-ScientificNotation/multiplyApplication1.pg
+source_file = local/setchapter5-ScientificNotation/multiply1.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = -1
+prPeriod = -1
 counts_parent_grade = 0
-att_to_open_children = 1 
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 11
 source_file = local/setchapter5-ScientificNotation/divide2.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = -1
+prPeriod = -1
 counts_parent_grade = 0
-att_to_open_children = 1 
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 12
-source_file = local/setchapter5-ScientificNotation/divide3.pg
+source_file = local/setchapter6-ScientificNotation/12.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = -1
+prPeriod = -1
 counts_parent_grade = 0
-att_to_open_children = 1 
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 13
-source_file = local/setchapter5-ScientificNotation/divide1.pg
+source_file = local/setchapter6-ScientificNotation/13.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = -1
+prPeriod = -1
 counts_parent_grade = 0
-att_to_open_children = 1 
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 14
 source_file = local/setchapter5-ScientificNotation/multdivide1.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = -1
+prPeriod = -1
 counts_parent_grade = 0
-att_to_open_children = 1 
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 15
 source_file = local/setchapter5-ScientificNotation/multdivide2.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = -1
+prPeriod = -1
 counts_parent_grade = 0
-att_to_open_children = 1 
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 16
 source_file = local/setchapter5-ScientificNotation/multdivide3.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = -1
+prPeriod = -1
 counts_parent_grade = 0
-att_to_open_children = 1 
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 17
 source_file = local/setchapter5-ScientificNotation/multdivide4.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = -1
+prPeriod = -1
 counts_parent_grade = 0
-att_to_open_children = 1 
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 18
+source_file = local/setchapter5-ScientificNotation/multiplyApplication1.pg
+value = 1
+max_attempts = -1
+showMeAnother = -1
+prPeriod = -1
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 

@@ -1,14 +1,14 @@
 assignmentType      = default
 openDate          = 02/07/2012 at 03:41pm EST
-reducedScoringDate = 12/31/1969 at 07:00pm EST
+reducedScoringDate = 03/15/2012 at 04:41pm EDT
 dueDate           = 03/15/2012 at 04:41pm EDT
 answerDate        = 03/15/2012 at 04:41pm EDT
 enableReducedScoring = N
 paperHeaderFile   = hardHeader.pg
 screenHeaderFile  = setHeader.pg
 description       = 
-restrictProbProgression = 
-emailInstructor   = 
+restrictProbProgression = 0
+emailInstructor   = 0
 
 problemListV2 
 problem_start
@@ -16,249 +16,249 @@ problem_id = 1
 source_file = Library/FortLewis/Algebra/2-3-Expanding-and-factoring/MCH1-2-3-44-Expanding-and-factoring.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 2
 source_file = Library/FortLewis/Algebra/2-3-Expanding-and-factoring/MCH1-2-3-58-Expanding-and-factoring-old.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 3
 source_file = Library/FortLewis/Algebra/2-3-Expanding-and-factoring/MCH1-2-3-56-Expanding-and-factoring.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 4
 source_file = Library/FortLewis/Algebra/2-3-Expanding-and-factoring/MCH1-2-3-56-Expanding-and-factoring-old.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 5
 source_file = Library/FortLewis/Algebra/2-3-Expanding-and-factoring/MCH1-2-3-52-Expanding-and-factoring.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 6
 source_file = Library/FortLewis/Algebra/2-3-Expanding-and-factoring/MCH1-2-3-50-Expanding-and-factoring.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 7
 source_file = Library/FortLewis/Algebra/2-3-Expanding-and-factoring/MCH1-2-3-28-Expanding-and-factoring-old.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 8
 source_file = Library/FortLewis/Algebra/2-3-Expanding-and-factoring/MCH1-2-3-26-Expanding-and-factoring-old.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 9
 source_file = Library/FortLewis/Algebra/2-3-Expanding-and-factoring/MCH1-2-3-48-Expanding-and-factoring.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 10
 source_file = Library/FortLewis/Algebra/2-3-Expanding-and-factoring/MCH1-2-3-32-Expanding-and-factoring.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 11
 source_file = Library/FortLewis/Algebra/2-3-Expanding-and-factoring/MCH1-2-3-40-Expanding-and-factoring-old.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 12
 source_file = Library/FortLewis/Algebra/2-3-Expanding-and-factoring/MCH1-2-3-40-Expanding-and-factoring.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 13
 source_file = Library/FortLewis/Algebra/2-3-Expanding-and-factoring/MCH1-2-3-38-Expanding-and-factoring-old.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 14
 source_file = Library/FortLewis/Algebra/2-3-Expanding-and-factoring/MCH1-2-3-34-Expanding-and-factoring.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 15
 source_file = Library/CollegeOfIdaho/setAlgebra_05_05_FactoringSpecialForms/55IntAlg_10_FactorSpecial.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 16
 source_file = Library/CollegeOfIdaho/setAlgebra_05_05_FactoringSpecialForms/55IntAlg_11_FactorSpecial.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 17
 source_file = Library/CollegeOfIdaho/setAlgebra_05_05_FactoringSpecialForms/55IntAlg_13_FactorSpecial.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 18
 source_file = Library/CollegeOfIdaho/setAlgebra_05_05_FactoringSpecialForms/55IntAlg_08_FactorSpecial.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 19
 source_file = Library/FortLewis/Algebra/2-3-Expanding-and-factoring/MCH1-2-3-54-Expanding-and-factoring.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 20
 source_file = Library/FortLewis/Algebra/2-3-Expanding-and-factoring/MCH1-2-3-66-Expanding-and-factoring.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 21
 source_file = Library/CollegeOfIdaho/setAlgebra_05_05_FactoringSpecialForms/55IntAlg_25_FactorSpecial.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 22
 source_file = Library/FortLewis/Algebra/2-3-Expanding-and-factoring/MCH1-2-3-68-Expanding-and-factoring-old.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 23
 source_file = Library/FortLewis/Algebra/2-3-Expanding-and-factoring/MCH1-2-3-60-Expanding-and-factoring-old.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 24
 source_file = Library/FortLewis/Algebra/2-3-Expanding-and-factoring/MCH1-2-3-62-Expanding-and-factoring.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 25
 source_file = Library/FortLewis/Algebra/2-3-Expanding-and-factoring/MCH1-2-3-58-Expanding-and-factoring.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 

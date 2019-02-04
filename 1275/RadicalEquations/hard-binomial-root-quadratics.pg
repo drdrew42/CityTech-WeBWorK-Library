@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Algebra problem: Solve equation involving radicals
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'radical', 'radicals', 'radical expression', 'radical equation')
+
+## DBsubject(Algebra)
+## DBchapter(Functions with fractional exponents and radical functions)
+## DBsection(Equations)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -36,22 +50,39 @@ $B = non_zero_random(-4,4,1);
 $radB = 2*$B - $R1 - $R2;
 $radC = $B**2 + $R1 * $R2;
 
-$radicand = Formula("2 p^2 + $radB p + $radC") -> reduce;
-$LHS = Formula("sqrt($radicand)");
+$rad = Formula("2 p^2 + $radB p + $radC") -> reduce;
+$LHS = Formula("sqrt($rad)");
 $RHS = Formula("p + $B")->reduce;
+
+### For solutions ###
+
+$rhsB = $B*2;
+$rhsC = $B**2;
+$rhs2 = Formula("p^2 + $rhsB p + $rhsC")->reduce;
+
+$finB = -$R1 - $R2;
+$finC = $R1*$R2;
+$fin = Formula("p^2 + $finB p + $finC")->reduce;
+
+$LHSans1 = $LHS->substitute(p=>$R1);
+$LHSans2 = $LHS->substitute(p=>$R2);
+$RHSans1 = $RHS->substitute(p=>$R1);
+$RHSans2 = $RHS->substitute(p=>$R2);
 
 Context("LimitedNumeric-List");
 
 $ans = List( Real($R1), Real($R2) );
+$ansString = "Yes, both answers work as solutions to the original equation.";
 
 $test1 = $RHS->eval(p=>$R1);
 $test2 = $RHS->eval(p=>$R2);
 
 if ( $test1 < 0 && $test2 < 0 ) {
    $ans = List( String('none') );
+   $ansString = "No, neither answer works as a solution to the original equation.";
 } else {
-   if ( $test1 < 0 ) { $ans = List( Real($R2) ); }
-   if ( $test2 < 0 ) { $ans = List( Real($R1) ); }
+   if ( $test1 < 0 ) { $ans = List( Real($R2) ); $ansString = "Only \($R2\) works as a solution to the equation."; }
+   if ( $test2 < 0 ) { $ans = List( Real($R1) ); $ansString = "Only \($R1\) works as a solution to the equation."; }
 }
 
 Context()->{error}{msg}{"Can't use '+' in this context"} 
@@ -102,5 +133,44 @@ ANS($ans->cmp->withPostFilter( sub {
     if $ans->{ans_message} eq "Your first number is incorrect";
   return $ans; 
 }));
+
+Context()->texStrings;
+BEGIN_HINT
+
+When solving equations that involve square roots, try isolating the radical term $BITALIC first $EITALIC. 
+$PAR
+Then you can square both sides of the equation in order to eliminate the radical.
+$PAR
+Always make sure that your final answer works as a solution to the $BITALIC original $EITALIC equation!
+
+END_HINT
+BEGIN_SOLUTION
+
+$BBOLD Isolate the radical: $EBOLD $BR
+The radical is already isolated in this problem. $BR
+\( \sqrt{$rad} = $RHS \)
+$PAR
+$BBOLD Square both sides: $EBOLD $BR
+\( \displaystyle \left( \sqrt{$rad} \right)^2 = \left($RHS\right)^2 \) $BR
+\( \displaystyle $rad = \left($RHS\right)\left($RHS\right) \) $BR
+\( $rad = $rhs2 \)
+$PAR
+$BBOLD Finish solving the equation: $EBOLD $BR
+\( ($rad)-p^2 = ($rhs2)-p^2 \) $BR
+\( p^2 + $radB p + $radC = $rhsB p + $rhsC \) $BR
+\( (p^2 + $radB p + $radC) - $rhsB p - $rhsC = ($rhsB p + $rhsC) - $rhsB p - $rhsC \) $BR
+\( $fin = 0\) $BR
+\( (p-$R1)(p-$R2) = 0 \) $BR
+\( p = $R1 \) or \( p = $R2 \) 
+$PAR
+$BBOLD Make sure your answers work as solutions! $EBOLD $BR
+\( \displaystyle $LHSans1 = $RHSans1 \) ? $BR
+\( \displaystyle $LHSans2 = $RHSans2 \) ?
+$PAR
+$BITALIC $ansString $EITALIC
+END_SOLUTION
+Context()->normalStrings;
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

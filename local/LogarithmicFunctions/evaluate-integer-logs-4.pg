@@ -1,0 +1,49 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "PGML.pl",
+   "parserMultiAnswer.pl",
+   "bizarroArithmetic.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(reduceConstants=>0, reduceConstantFunctions=>0,tolType=>'absolute');
+
+$base = random(5,9,1);
+$exp = 2;
+$result = $base**$exp;
+$result = Formula("1/$result");
+
+Context("LimitedNumeric");
+$exp = -$exp;
+
+##############################################################
+#
+#  Text
+#
+#
+
+BEGIN_PGML
+
+Evaluate the logarithmic expression without using a calculator.
+
+>> [` \log_{[$base]}([$result]) = `] [_____]{$exp} <<
+
+END_PGML
+
+ENDDOCUMENT();        

@@ -1,0 +1,125 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject('Algebra')
+## DBchapter('Fundamentals')
+## DBsection('Real Numbers')
+## Date('6/3/2002')
+## Author('')
+## Institution('')
+## TitleText1('Precalculus')
+## EditionText1('3')
+## AuthorText1('Stewart, Redlin, Watson')
+## Section1('1.1')
+## Problem1('22')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->variables->{namePattern} = qr/[a-z][a-z0-9_]*'*/i;
+Context()->variables->are( y => "Real", t => "Real", c => "Real", "y'" => "Real" );
+$a = Real(non_zero_random(-9,9,1));
+if ($a == -1) {
+  $a = Real(-2)
+};
+$b = Real(non_zero_random(-9,9,1));
+$de = Formula("t^2*y'+$a*t*y")->reduce;
+$hom = Formula("$b*y^2")->reduce;
+
+$v = Formula("y^-1");
+$sol = Formula("1/($b/(t*($a+1))+c*t^$a)"); 
+$getC = Formula("(1/y-$b/(t*($a+1)))/t^$a");
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+Find the general solution for the following differential equation:
+$BR
+\( $de = $hom \)
+$BR
+$BR
+
+General Solution: \(y(t)=\)\{$sol->ans_rule\} 
+END_TEXT
+
+$showHint = 5;
+BEGIN_TEXT
+$PAR
+If you don't get this in $showHint tries, you can get a hint.
+END_TEXT
+BEGIN_HINT
+$BR
+You should first notice that this DE can be made to fit the form of a Bernoulli-type differential equation: \(y' + p(t)y = f(t)y^r\)
+$BR
+$BITALIC ...by dividing all terms by the coefficient of \(y'\) $EITALIC
+$BR
+$BR
+Begin by finding a particular solution \(y_1\) to the complementary equation \(y' + p(t)y = 0\). 
+$BR
+$BR
+Now, guess a solution of the form \(y=uy_1\).  Take the derivative and substitute \(y\) and \(y'\) into the original equation.
+$BR
+$BR
+You should now be able to separate the variables, with \(u\) on the left and \(t\) on the right.  Integrate to eliminate \(u'\), and solve the resulting equation for \(u\).
+$BR
+$BR
+Finally, substitute \(u\) and \(y_1\) into \(y=uy_1\) to obtain the solution.
+$BR
+END_HINT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+#ANS($v->cmp);
+ANS( $sol->cmp( checker => sub {
+    my ( $correct, $student, $self ) = @_;
+
+    my $Dstudent = $student->D('t');
+    my $studentC = $getC->substitute(y=>"$student");
+    my $DstudentC = $studentC->D('c');
+    my $rhs = $hom->substitute(y=>"$student");
+    my $lhs = $de->substitute("y'"=>"$Dstudent", y=>"$student");
+
+    if ($DstudentC == Formula("0")) {
+       Value->Error("Your answer is not the most general solution. Where's 'c'?");
+    };
+
+    return ($lhs == $rhs && $DstudentC != Formula("0"));
+}));
+
+ENDDOCUMENT();        

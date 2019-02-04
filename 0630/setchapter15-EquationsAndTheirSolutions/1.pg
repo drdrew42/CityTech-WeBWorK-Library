@@ -1,0 +1,75 @@
+## DESCRIPTION
+## This problem asks students to check solutions
+## ENDDESCRIPTION
+## KEYWORDS('solutions','equations')
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## BookChapter('Equations and their Solutions')
+## BookEdition('3')
+## BookAuthor('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## BookChapter('15')
+## Date('07/10/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+
+
+
+########################################################################
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"parserPopUp.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"PGcourse.pl", 
+"contextLimitedNumeric.pl",
+"PGchoicemacros.pl",
+
+);
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+# the arguments of PopUp are [list of answers], 
+#    correct answer
+$popup = PopUp(["?","Yes", "No"], "No");
+
+$n = random(1,4,1);
+$a = random(2,4,1);
+$b = 3*$a - 2;
+$c = 2*$a + 1;
+$d = $a - 1;
+$e = 2*$c;
+$answer1 = $a + $a * $n - $b;
+$answer2 = $e - $d*$n;
+
+
+
+BEGIN_TEXT
+
+
+Evaluate  \( $a + $a x - $b \) at \(x= $n\) \{ ans_rule(10) \}
+$PAR
+Evaluate \( $e - $d x \) at \(x= $n\) \{ ans_rule(10) \}
+$PAR
+Is \(x= $n\) a solution to \( $a + $a x - $b = $e - $d x   \)? \{ $popup->menu() \}
+$PAR
+END_TEXT
+
+Context("LimitedNumeric");
+ANS(Real($answer1)->cmp);
+ANS(Real($answer2)->cmp);
+ANS( $popup->cmp);
+
+
+Context()->texStrings;
+SOLUTION(EV3(<<'END_SOLUTION'));
+$PAR SOLUTION $PAR
+The correct answer is \{ $popup->correct_ans() \} because when you evaluate both sides of the equation at the given value of the variable, they are not equal. 
+END_SOLUTION
+Context()->normalStrings;
+
+
+ENDDOCUMENT();
+
+

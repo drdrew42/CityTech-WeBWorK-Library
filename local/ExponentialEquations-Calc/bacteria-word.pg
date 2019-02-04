@@ -1,0 +1,96 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "PGML.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->variables->are(t=>Real);
+
+$init = random(300,900,50);
+$rate = random(0.025,0.088,0.0007);
+$At = Formula("$init*e^($rate t)");
+
+$mins = random(5,25,5);
+$Amins = $At->eval(t=>$mins);
+$Amins = round($Amins);
+$time = Real("log(2)/$rate")->with(tolType=>'absolute',tolerance=>0.0005);
+
+Context("LimitedNumeric");
+Context()->flags->set(tolType=>'absolute', tolerance=>0.5);
+Context()->{error}{msg}{"You are not allowed to type decimal numbers in this problem"} 
+  = "Round your answer to the nearest whole number.";
+Parser::Number::NoDecimals();
+
+$init = Real("$init");
+$Amins = Real("$Amins");
+
+##############################################################
+#
+#  Text
+#
+#
+
+BEGIN_PGML
+
+The growth of a certain bacteria can be modeled by the function
+
+>> [`` A(t) = [$At] ``] <<  
+
+where [` A(t) `] is the number of bacteria and [` t `] represents the time in minutes.
+
+1. What is the initial number of bacteria? [____________] (round to the nearest whole number of bacteria.)
+
+1. What is the number of bacteria after [$mins] minutes? [____________] (round to the nearest whole number of bacteria.)
+
+1. How long will it take for the number of bacteria to double? [______] (your answer must be accurate to at least 3 decimal places.)
+  
+* Recall the change of base formula for logarithms: [` \log_b(A) `] can be calculated as [`` \frac{\ln(A)}{\ln(b)} ``]
+
+END_PGML
+
+ANS($init->cmp->withPostFilter(sub { 
+  my $ans = shift; 
+  $ans->{ans_message} = "Your answer should not contain parenthesis. Compute the result as a number." 
+    if $ans->{ans_message} eq "Unexpected character '('";
+  $ans->{ans_message} = "Your answer should not contain any operations. Compute the final result as a number." 
+    if ( $ans->{ans_message} eq "Can't use '^' in this context" || $ans->{ans_message} eq "Can't use '+' in this context" || $ans->{ans_message} eq "Can't use '-' in this context" || $ans->{ans_message} eq "Can't use '*' in this context" || $ans->{ans_message} eq "Can't use '/' in this context" );
+  return $ans; 
+}));
+ANS($Amins->cmp->withPostFilter(sub { 
+  my $ans = shift; 
+  $ans->{ans_message} = "Your answer should not contain parenthesis. Compute the result as a number." 
+    if $ans->{ans_message} eq "Unexpected character '('";
+  $ans->{ans_message} = "Your answer should not contain any operations. Compute the final result as a number." 
+    if ( $ans->{ans_message} eq "Can't use '^' in this context" || $ans->{ans_message} eq "Can't use '+' in this context" || $ans->{ans_message} eq "Can't use '-' in this context" || $ans->{ans_message} eq "Can't use '*' in this context" || $ans->{ans_message} eq "Can't use '/' in this context" );
+  return $ans; 
+}));
+ANS($time->cmp->withPostFilter(sub { 
+  my $ans = shift; 
+  my $student = $ans->{student_ans};
+  my $correct = $ans->{correct_ans};
+  $ans->{ans_message} = "You're close, but you may have rounded too much." 
+    if ( abs($student - $correct) < 0.05 && abs($student-$correct) > 0.0005 );
+  $ans->{ans_message} = "Your answer should not contain parenthesis. Compute the result as a number." 
+    if $ans->{ans_message} eq "Unexpected character '('";
+  $ans->{ans_message} = "Your answer should not contain any operations. Compute the final result as a number." 
+    if ( $ans->{ans_message} eq "Can't use '^' in this context" || $ans->{ans_message} eq "Can't use '+' in this context" || $ans->{ans_message} eq "Can't use '-' in this context" || $ans->{ans_message} eq "Can't use '*' in this context" || $ans->{ans_message} eq "Can't use '/' in this context" );
+  return $ans; 
+}));
+
+ENDDOCUMENT();        

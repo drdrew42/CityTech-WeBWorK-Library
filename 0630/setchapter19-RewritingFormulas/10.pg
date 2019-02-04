@@ -1,0 +1,69 @@
+## DESCRIPTION
+## This problem asks students to rewrite formulas 
+## ENDDESCRIPTION
+## KEYWORDS('rewrite formulas`,`literal equations')
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## BookChapter('Rewriting Formulas')
+## BookEdition('3')
+## BookAuthor('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## BookChapter('19')
+## Date('07/12/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+
+
+DOCUMENT();        # This should be the first executable line in the problem.
+
+loadMacros(
+  "PGstandard.pl",
+  "MathObjects.pl"
+);
+
+TEXT(beginproblem());
+
+######################################
+#  Setup
+
+Context()->variables->are(M=>'Real',
+                          V=>'Real',
+                          u=>'Real'
+);
+
+
+
+
+$n = random(0,1,1);
+@var = ("M", "V");
+
+
+
+@answer = (
+
+Formula("uV - V"), Formula("M/(u-1)")
+
+);
+
+######################################
+#  Main text
+
+BEGIN_TEXT
+Solve for $BITALIC $var[$n]$EITALIC: \[ u = \frac{M+V}{V} \]
+$PAR
+\( $var[$n] = \) \{ans_rule(15) \}
+END_TEXT
+
+######################################
+#  Answers
+
+$ans = $answer[$n];
+ANS($ans->cmp);
+
+$showPartialCorrectAnswers = 1;
+
+######################################
+
+
+
+;
+ENDDOCUMENT();

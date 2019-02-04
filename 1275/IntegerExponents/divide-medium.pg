@@ -1,20 +1,16 @@
 ##DESCRIPTION
-##  Algebra problem: true or false for inequality 
+##  Algebra problem: Simplify expressions using properties of exponents 
 ##ENDDESCRIPTION
 
-##KEYWORDS('algebra', 'inequality', 'fraction')
+##KEYWORDS('algebra', 'exponent', 'simplify exponents')
 
-## DBsubject('Algebra')
-## DBchapter('Fundamentals')
-## DBsection('Real Numbers')
-## Date('6/3/2002')
-## Author('')
-## Institution('')
-## TitleText1('Precalculus')
-## EditionText1('3')
-## AuthorText1('Stewart, Redlin, Watson')
-## Section1('1.1')
-## Problem1('22')
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of exponents)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
 
 ########################################################################
 
@@ -43,7 +39,7 @@ $one = random(0,13,1);
 $fractionChecker = sub {
   my ($correct,$student,$ans) = @_;
   return 0 unless $correct == $student;
-  Value->Error("Please rewrite your answer without using negative exponents") unless $student->{tree}->class eq "BOP" && $student->{tree}{bop} eq "/";
+  Value->Error("Please rewrite your answer without using negative exponents") unless $student->{tree}->class eq "BOP" && $student->{tree}{bop} =~ m!/!;
   my $cden = Formula($correct->{tree}{rop});
   my $sden = Formula($student->{tree}{rop});
 Value->Error("Your answer isn't completely simplified") unless $cden == $sden;
@@ -71,6 +67,8 @@ $nLarge = -1*$pLarge;
 
 $pSum = $pSmall + $pLarge;
 $pDiff = $pLarge - $pSmall;
+$nSum = -($pSum);  #for solutions
+$nDiff = -($pDiff);      #for solutions
 
 @question = (
    Formula("$var[$one]^{$pSmall} / $var[$one]^{$pLarge}"),
@@ -142,5 +140,33 @@ ANS($answer[3]->cmp->withPostFilter(sub {
     if $ans->{ans_message} eq "The domain of your function doesn't match that of the correct answer";
   return $ans; 
 }));
+
+Context()->texStrings;
+BEGIN_HINT
+
+Recall the exponent property: \( \displaystyle \frac{B^m}{B^n} = B^{(m-n)} \)
+$PAR
+Also remember that results with negative exponents may be rewritten as \( B^{(-p)} = \frac{1}{B^p} \)
+
+END_HINT
+BEGIN_SOLUTION
+
+$BITALIC Part (a): $EITALIC $BR
+\( \frac{$var[$one]^{$pSmall} }{ $var[$one]^{$pLarge}} = $var[$one]^{($pSmall-$pLarge)} = $var[$one]^{$nDiff} = \frac{1}{$var[$one]^{$pDiff}} \)
+$PAR
+$BITALIC Part (b): $EITALIC $BR
+\( \frac{$var[$one]^{$pSmall} }{ $var[$one]^{$nLarge}} = $var[$one]^{($pSmall-($nLarge))} = $var[$one]^{$pSum} \)
+$PAR
+$BITALIC Part (c): $EITALIC $BR
+\( \frac{$var[$one]^{$nSmall} }{ $var[$one]^{$pLarge}} = $var[$one]^{($nSmall-$pLarge)} = $var[$one]^{$nSum} = \frac{1}{$var[$one]^{$pSum}} \)
+$PAR
+$BITALIC Part (d): $EITALIC $BR
+\( \frac{$var[$one]^{$nSmall} }{ $var[$one]^{$nLarge}} = $var[$one]^{($nSmall-($nLarge))} = $var[$one]^{$pDiff} \)
+
+
+END_SOLUTION
+Context()->normalStrings;
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Trigonometry problem: Solve a trig equation
+##ENDDESCRIPTION
+
+##KEYWORDS('trigonometry', 'trig functions', 'trigonometric functions', 'analytic trigonometry', 'trigonometric equation')
+
+## DBsubject(Trigonometry)
+## DBchapter(Analytic trigonometry)
+## DBsection(Solving trigonometric equations exactly)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -76,7 +90,7 @@ $twodminus1 = 2*$denom-1;
   },
   tan => {
     1 => Formula("pi/$denom"),
-    0 => Formula("$-pi/$denom"),  # this needs adjusting if looking for solutions in [0,2pi)
+    0 => Formula("-pi/$denom"),  # this needs adjusting if looking for solutions in [0,2pi)
   }
 );
 
@@ -160,4 +174,7 @@ Recall the ranges of the inverse trig functions:
 
 
 END_PGML_HINT
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
+
 ENDDOCUMENT();        

@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Algebra problem: Evaluate expression involving rational exponent
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'exponent', 'exponents', 'rational powers')
+
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of rational exponents and radicals)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -50,5 +64,36 @@ Context()->normalStrings;
 #
 
 ANS($ans->cmp);
+
+Context()->texStrings;
+BEGIN_HINT
+Don't forget that expressions like \( -x^n \) must be handled as \( -1 \cdot x^n \).
+$BR
+\( -x^n \) is NOT the same as \( (-x)^n \)!
+$PAR
+Recall what it means to have a negative exponent: $BR
+\( \displaystyle x^{-n} = \frac{1}{x^n} \)
+$PAR
+Remember that fractions as exponents can be translated into radical form.
+$PAR
+\(\large x^{m/n} = \left(\sqrt[n]{x}\right)^m \)
+END_HINT
+BEGIN_SOLUTION
+
+$BBOLD Handle the negative coefficient first: $EBOLD $BR
+\( -$rad^{-1/2} = -1 \cdot $rad^{-1/2} \)
+$PAR
+$BBOLD Deal with the negative exponent: $EBOLD $BR
+\( \displaystyle -1 \cdot $rad^{-1/2} = -1 \left(\frac{1}{$rad^{1/2}}\right) \)
+$PAR
+$BBOLD Rewrite the fractional exponent as a radical: $EBOLD $BR
+\( \displaystyle -1 \left(\frac{1}{$rad^{1/2}}\right) = \frac{-1}{\sqrt{$rad}} \)
+$PAR
+$BBOLD Compute the radical: $EBOLD $BR
+\( \displaystyle \frac{-1}{\sqrt{$rad}} = $ans \)
+END_SOLUTION
+Context()->normalStrings;
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

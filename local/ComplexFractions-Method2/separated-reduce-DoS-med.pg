@@ -1,0 +1,65 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+# [ (A / y^2) + (1 / y) ] / [ (A^2 / y^2) - 1 ] -> 1 / ( A - y )
+# { 0, A, -A }
+
+Context("Numeric")->flags->set(reduceConstants=>0, reduceConstantFunctions=>0);
+Context()->variables->are("y"=>Real);
+
+$A = random(2,11,1);
+$A2 = $A**2;
+
+$N = Formula("$A / y^2 + 1 / y")->reduce;
+$D = Formula("$A2 / y^2 - 1")->reduce;
+
+$ans = Formula("1/($A - y)")->with(test_at=>[ [0], [$A], [-$A] ]); 
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Simplify the complex fraction:
+\[ \Large\frac{$N}{$D} \]
+$BR
+\{ans_rule(20)\}
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans->cmp(checkUndefinedPoints=>1)->withPostFilter(sub { 
+  my $ans = shift; 
+  $ans->{ans_message} = "You're on the right track, but your answer can still be reduced." 
+    if $ans->{ans_message} eq "The domain of your function doesn't match that of the correct answer";
+  return $ans; 
+}));
+
+ENDDOCUMENT();        

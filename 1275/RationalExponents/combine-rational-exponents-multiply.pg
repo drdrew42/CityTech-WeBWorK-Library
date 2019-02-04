@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Algebra problem: Simplify expression involving rational exponents
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'exponent', 'exponents', 'rational powers', 'simplify exponents')
+
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of rational exponents and radicals)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -58,5 +72,32 @@ Context()->normalStrings;
 
 ANS($ans->cmp);
 
+Context()->texStrings;
+BEGIN_HINT
+$PAR
+Recall the property of exponents:
+$BR
+\( \displaystyle B^m \cdot B^n = B^{(m+n)} \)
+$PAR
+Remember that negative exponents can be rewritten with positive exponents.
+$BR
+\( \displaystyle B^{-n} = \frac{1}{B^n} \)
+END_HINT
+BEGIN_SOLUTION
+$BBOLD Use the property of exponents: $EBOLD $BR
+\( \displaystyle z^{$n1/$d} z^{$n2/$d} = z^{(($n1/$d)+($n2/$d))} \)
+$PAR
+$BBOLD Off to the side, add the exponents: $EBOLD $BR
+\( \displaystyle \frac{$n1}{$d} + \frac{$n2}{$d} = \frac{$n}{$d} \)
+$PAR
+so now we have \( \displaystyle z^{(($n1/$d)+($n2/$d))} = z^{$n/$d} \)
+$PAR
+$BBOLD Simplify your answer: $EBOLD $BR
+\( \displaystyle z^{$n/$d} = $ans \)
+$PAR
+END_SOLUTION
+Context()->normalStrings;
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

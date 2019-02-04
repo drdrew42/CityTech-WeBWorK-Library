@@ -57,7 +57,7 @@ BEGIN_TEXT
 
 Solve:
 $PAR
-\(\log_2(8x)-\log_2(1+ \sqrt{x}) \)
+\(\log_2(8x)-\log_2(1+ \sqrt{x}) = 2 \)
 
 
 $PAR

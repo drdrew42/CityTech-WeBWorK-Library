@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Algebra problem: Solve equation involving radicals
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'radical', 'radicals', 'radical expression', 'radical equation')
+
+## DBsubject(Algebra)
+## DBchapter(Functions with fractional exponents and radical functions)
+## DBsection(Equations)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -30,7 +44,10 @@ $C = random(2,10,1);
 $A = random(2,6,1);
 $X = random(-1,1,2)*random(2,6,1);
 $B = $C**2 - $A*$X;
+$C2 = $C**2; # for solutions
+$C2mB = $C2 - $B; # for solutions
 
+$rad = Formula("$A x + $B")->reduce; # for solutions
 $LHS = Formula("sqrt($A x + $B)")->reduce;
 $RHS = Formula("$C");
 
@@ -79,5 +96,33 @@ Context()->normalStrings;
 #
 
 ANS($ans->cmp);
+
+Context()->texStrings;
+BEGIN_HINT
+
+When solving equations that involve square roots, try isolating the radical term $BITALIC first $EITALIC. 
+$PAR
+Then you can square both sides of the equation in order to eliminate the radical.
+$PAR
+END_HINT
+BEGIN_SOLUTION
+
+$BBOLD Isolate the radical: $EBOLD $BR
+The radical is already isolated in this equation. $BR
+\( \sqrt{$rad} = $C \)
+$PAR
+$BBOLD Square both sides: $EBOLD $BR
+\( \left( \sqrt{$rad} \right)^2 = ($C)^2 \) $BR
+\( $rad = $C2 \)
+$PAR
+$BBOLD Finish solving the equation: $EBOLD $BR
+\( \left( $rad \right) - $B = ($C2) - $B \) $BR
+\( $A x = $C2mB \) $BR
+\( \displaystyle \frac{$A x }{$A} = \frac{$C2mB}{$A} \) $BR
+\( x = $ans \)
+END_SOLUTION
+Context()->normalStrings;
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

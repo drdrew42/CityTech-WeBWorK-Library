@@ -1,0 +1,110 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject(‘Algebra’)
+## DBchapter(‘Factoring’)
+## DBsection(‘Factoring: common factors’)
+## Date('7/6/2015')
+## Author('K. Andrew Parker')
+## Institution('NYC City Tech')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "parserPopUp.pl",
+   "scaffold.pl",
+   "niceTables.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer=>"parsed"
+   );
+
+  $sumChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentstring = $ansHash->{preview_text_string};
+     return ($studentstring eq $ansHash->{correct_ans} ? 1 : 0);
+   };
+
+  $numChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentans=$ansHash->{original_student_ans};
+     Value->Error("You're on the right track, but your answer should be just a number.") if ( ($studentans ne $student)&&($student==$correct) );
+     return($studentans eq $ansHash->{correct_ans} ? 1 : 0);
+  };
+
+
+@prime = ( 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 );
+
+
+$hrs1 = random(4,8,1);
+$hrs2 = random(4,9,1);
+do{ $hrs3 = random(3,7,1); } until ( gcf($hrs3,gcf($hrs2,$hrs1))==1 );
+$hrs1 = $hrs1*(-1)**random(0,1,1);
+$hrs3 = $hrs3*(-1)**random(0,1,1);
+
+$mult = -1*random(3,9,1);
+
+$pay1 = $mult*$hrs1;
+$pay2 = $mult*$hrs2;
+$pay3 = $mult*$hrs3;
+
+$pay = $pay1+$pay2+$pay3;
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Use the box method to apply the distributive property to the problem \( $mult \times ( $hrs1 + $hrs2 + $hrs3 ) \):
+\{
+DataTable(
+  [
+    [['\(\times\)', headerrow => 1, midrule => 1],'(','$hrs1','+','$hrs2','+','$hrs3',')'],
+    ['\($mult\)','',ans_rule(3),'+',ans_rule(3),'+',ans_rule(3),''],
+  ], 
+  caption => 'Distributive Property',
+  align => 'r | r c c c c c l',
+  rowheaders => 1,
+  center => 1
+);
+\}
+
+$PAR
+Add the results of your work: \{ ans_rule(5) \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( Real($pay1)->cmp(checker=>$numChecker) );
+ANS( Real($pay2)->cmp(checker=>$numChecker) );
+ANS( Real($pay3)->cmp(checker=>$numChecker) );
+ANS( Real($pay)->cmp(checker=>$numChecker) );
+
+ENDDOCUMENT();        

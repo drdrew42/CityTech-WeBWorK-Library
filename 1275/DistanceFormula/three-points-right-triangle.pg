@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Algebra problem: Determine whether 3 given points determine a right triangle
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'coordinate distance', 'distance formula', 'distance', 'cartesian coordinates', 'triangle', 'right triangle', 'pythagorean theorem')
+
+## DBsubject(Algebra)
+## DBchapter(Cartesian coordinate system)
+## DBsection(Midpoint and distance formulas)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -50,15 +64,12 @@ Context()->flags->set(reduceConstants=>0, reduceConstantFunctions=>0, formatStud
 Parser::Number::NoDecimals();
 Context()->operators->undefine("+"," +","+ ");
 Context()->operators->undefine("-"," -","- ");
-Context()->operators->undefine("*"," *","* ");
 Context()->operators->undefine("/"," /","/ ");
 Context()->operators->undefine("^"," ^","^ ","**"," **","** ");
 Context()->{error}{msg}{"Can't use '+' in this context"} 
   = "Addition is disabled for this problem. Simplify the sum and resubmit your answer.";
 Context()->{error}{msg}{"Can't use '-' in this context"} 
   = "Subtraction is disabled for this problem. Simplify the difference and resubmit your answer.";
-Context()->{error}{msg}{"Can't use '*' in this context"} 
-  = "Multiplication is disabled for this problem. Simplify the product and resubmit your answer.";
 Context()->{error}{msg}{"Can't use '/' in this context"} 
   = "Division is disabled for this problem. Simplify the quotient and resubmit your answer.";
 Context()->{error}{msg}{"Can't use '^' in this context"} 
@@ -115,6 +126,43 @@ END_PGML
 #  Answers
 #
 #
+
+BEGIN_PGML_HINT
+
+Find the length of each segment first.  
+If [` A = (x_A,y_A)`] and [` B = (x_B,y_B)`],  
+then the length of [`\displaystyle \overline{AB} = \sqrt{(x_A-x_B)^2 + (y_A-y_B)^2} `]
+
+Make sure to give each length in exact form, _not_ a decimal approximation.
+
+If this triangle happens to be a right triangle, then the longest side would be the hypotenuse.
+
+Then determine whether or not the sides of the triangle satisfy the Pythagorean theorem.
+
+END_PGML_HINT
+BEGIN_PGML_SOLUTION
+
+Using the distance formula:  
+[`\displaystyle \overline{AB} = \sqrt{(x_A-x_B)^2 + (y_A-y_B)^2} `]
+
+We find that the length of [` \overline{AB} = \sqrt{[$ABradicand]} `],  
+the length of [` \overline{BC} = \sqrt{[$BCradicand]} `],  
+and the length of [` \overline{AC} = \sqrt{[$ACradicand]} `].
+
+This means our candidate for the hypotenuse is the *longest* side: [` \overline{[$longest]}`].
+
+Then we determine whether or not the squares of the legs sum up to the square of the hypotenuse candidate:  
+
+[` (\overline{AB})^2 + (\overline{AC})^2 = (\overline{BC})^2`] *?*
+
+[` (\sqrt{[$ABradicand]})^2 + (\sqrt{[$ACradicand]})^2 = (\sqrt{[$BCradicand]})^2`] *?*
+
+[` [$ABradicand] + [$ACradicand] = [$BCradicand] `] *?*
+
+And we can see here that _yes_, our triangle satisfies the Pythagorean theorem, and so *it must be a right triangle*. 
+END_PGML_SOLUTION
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 
 ENDDOCUMENT();        

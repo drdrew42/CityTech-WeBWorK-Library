@@ -1,0 +1,83 @@
+## DESCRIPTION
+## This problem asks students to solve equations by factpring 
+## ENDDESCRIPTION
+## KEYWORDS('factoring `,`quadratic equations')
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## BookChapter(`Solving Quadratic Equations by FactoringÃÂ¢ÃÂÃÂ)
+## BookEdition('3')
+## BookAuthor('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## BookChapter('20')
+## Date('07/12/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+
+
+DOCUMENT(); # This should be the first executable line in the problem.
+
+loadMacros(
+  "PGstandard.pl",
+  "MathObjects.pl",
+  "contextInequalitiesAllowStrings.pl"
+);
+
+TEXT(beginproblem());
+
+######################################
+#  Setup
+#  Form: (d1 x + n1)(d2 x + n2)=0
+
+do { 
+ $n1 = random(-1,1,2)*random(2,5,1); 
+ $d1 = random(2,7,1); 
+ $n2 = non_zero_random(-5,-5,1); 
+ $d2 = 1; 
+}until( $d1 * $n1 * $d2 * $n2 < 120 );
+
+$r1 = -1 * $n1 / $d1;
+$r2 = -1 * $n2 / $d2;
+
+$a = $d1 * $d2;  
+$b = $d1*$n2 + $n1*$d2;
+$c = $n1 * $n2;
+
+$polynomial = Formula("- $b x - $c")->reduce->TeX;
+
+######################################
+#  Main text
+
+BEGIN_TEXT
+Use factoring to solve the polynomial equation:
+ \[  $a x^2 = $polynomial  \]
+Solution:  \{ ans_rule(20) \} or \{ ans_rule(20) \} 
+END_TEXT
+
+$showHint = 3;
+BEGIN_HINT
+Write the equation in standard form, factor, the use the zero-product property to solve the equation. 
+$BR
+Remember that a solution is a value of the variable that satisfies the equation. For example, \( x = 1\) is a solution. 
+END_HINT
+
+######################################
+#  Answer
+
+Context("Inequalities-AllowStrings");
+
+$ans1 = Compute("x = $r1")->reduce;
+$ans2 = Compute("x = $r2")->reduce;
+
+ANS($ans1->cmp); 
+ANS($ans2->cmp);
+
+
+
+
+$showPartialCorrectAnswers = 1;
+
+######################################
+
+
+
+COMMENT('MathObject version');
+ENDDOCUMENT();

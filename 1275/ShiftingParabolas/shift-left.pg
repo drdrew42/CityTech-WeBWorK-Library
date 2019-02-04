@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Algebra problem: find equation of shifted parabola
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'quadratic function', 'parabola', 'translation of graphs', 'function graph', 'graph')
+
+## DBsubject(Algebra)
+## DBchapter(Quadratic equations and functions)
+## DBsection(Graphs)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -23,6 +37,7 @@ $showPartialCorrectAnswers = 1;
 Context("Numeric");
 $refreshCachedImages = 1;
 $shift = -1 * random(1,6,1);
+$absShift = -1*$shift;
 
 $gr = init_graph(-8,-1,2,9,
 axes=>[0,0],
@@ -65,5 +80,25 @@ END_PGML
 #
 #
 
+BEGIN_PGML_HINT
+
+This parabola has been shifted to the left by [$absShift] units from standard position.
+
+END_PGML_HINT
+BEGIN_PGML_SOLUTION
+
+The black parabola is given by the equation [` y = x^2 `]
+
+After the shift, we find the red parabola with x-coordinates that have been decreased by [$absShift] from their original positions.
+
+Horizontal shifts are not as straightforward as vertical shifts.
+
+The y-coordinates remain the same, but they must be paired with new x-coordinates.  
+For instance, we want [`y`] to be [`0`] when [`x`] is [`[$shift]`].
+
+Thus, our new equation must be [` y = (x - [$shift] )^2 `]
+
+END_PGML_SOLUTION
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

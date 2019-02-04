@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Algebra problem: Compute difference of two complex numbers
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'complex number, 'complex numbers', 'imaginary')
+
+## DBsubject(Complex Analysis)
+## DBchapter(Arithmetic)
+## DBsection(Addition/Subtraction)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -6,7 +20,8 @@ loadMacros(
    "PGstandard.pl",     # Standard macros for PG language
    "MathObjects.pl",
    "contextLimitedComplex.pl",
-   "PGchoicemacros.pl"
+   "PGchoicemacros.pl",
+    "PGML.pl"
 );
 
 # Print problem number and point value (weight) for the problem
@@ -65,9 +80,9 @@ BEGIN_TEXT
 $PAR
 Simplify the expression using complex numbers:
 $PAR
-\[ \large{ ($c1) - ($c2) } \] 
+\[  ($c1) - ($c2)  \] 
 $PAR
-\{ans_rule(10)\}
+\{ans_rule(15)\}
 
 END_TEXT
 Context()->normalStrings;
@@ -79,5 +94,45 @@ Context()->normalStrings;
 #
 
 ANS($ans->cmp);
+
+Context()->texStrings;
+
+##############################################################
+#
+#  Hints
+#
+#
+
+BEGIN_PGML_HINT
+
+* Make sure that you're only combining "like" terms.
+
+* It's fair enough to consider [`i`] as you would any other variable.
+
+* Just make sure to remember that [`i`] has a specific value - unlike variables.
+
+END_PGML_HINT
+
+
+##############################################################
+#
+#  Solutions
+#
+#
+
+BEGIN_PGML_SOLUTION
+
+>> [` \begin{align*}([$c1]) - ([$c2]) &= [$c1] - [$bR] - [$bI] i \\
+&= ([$aR] - [$bR]) + [$aI] i - [$bI] i \\
+  &= [$ansR] + ([$aI] - [$bI]) i \\
+ &= [$ansR] + [$ansI] i 
+\end{align*}
+`] <<
+
+
+END_PGML_SOLUTION
+Context()->normalStrings;
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

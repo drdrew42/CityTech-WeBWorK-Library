@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Algebra problem: Evaluate an exponential expression
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'exponential', 'exponent')
+
+## DBsubject(Algebra)
+## DBchapter(Exponential and logarithmic expressions and functions)
+## DBsection(Exponential functions)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -50,5 +64,13 @@ END_PGML
 #  Answers
 #
 #
+
+BEGIN_PGML_SOLUTION
+
+[` [$B]^{[$exp]} \rightarrow ([$B])([$B])[@($exp==3)?"($B)":""@] \rightarrow [$ans] `]
+
+END_PGML_SOLUTION
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

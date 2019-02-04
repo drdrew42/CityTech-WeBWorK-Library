@@ -75,7 +75,7 @@ $ans8=$quot8->eval->inContext(Context());
 
 Context("Fraction");
 BEGIN_TEXT
-Divide the fractions below and leave your answers as mixed numbers or reduced fractions.
+Divide the fractions below and reduce your answer.
 
 $PAR
 

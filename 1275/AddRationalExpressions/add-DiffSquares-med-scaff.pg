@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Algebra problem: Add rational expressions
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'algebra, operations with rational expressions', 'algebra, simplifying rational expression', 'rational expressions', 'rational expression')
+## DBsubject(Algebra)
+## DBchapter(Operations on polynomial and rational expressions)
+## DBsection(Rational expressions: add, subtract)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
+
 ########################################################################
 
 DOCUMENT();      
@@ -17,13 +31,18 @@ $showPartialCorrectAnswers = 1;
 
 $rationalChecker = sub {
      my ($correct,$student,$ansHash) = @_; 
-     Value->Error("Look at the preview answer box. Did you forget parenthesis around your numerator or denominator?") unless $student->{tree}->class eq "BOP" && $student->{tree}{bop} eq "/";
-     return 0 unless $correct == $student;
+     $studentRaw = $student;
+     Value->Error("Your answer doesn't contain any variables. <BR> Perhaps you oversimplified?") unless $student->class eq "Formula";
+     if ($student->{tree}->class eq "UOP" && $student->{tree}{uop} eq 'u-') {
+          $student = Formula($student->{tree}->{op});
+     }
+     Value->Error("Check the answer preview box. Maybe you forgot parenthesis around your numerator or denominator?") unless $student->{tree}->class eq "BOP" && $student->{tree}{bop} =~ m!/!;
+     return 0 unless $correct == $studentRaw;
      my $cnum = Formula($correct->{tree}{lop});
      my $snum = Formula($student->{tree}{lop});
      my $cden = Formula($correct->{tree}{rop});
      my $sden = Formula($student->{tree}{rop});
-     Value->Error("Your answer can be reduced further") unless ($cnum == $snum && $cden == $sden);
+     Value->Error("Your answer can be reduced further") unless (abs($cnum) == abs($snum) && abs($cden) == abs($sden));
      return 1;
 };
 
@@ -95,7 +114,7 @@ Section::End();
 
 if ($displayMode eq 'TeX') {
   $showfrac1 =
-  "\[ $frac1tex = ".$multians->ans_rule(10)."$dAns"." \]";
+  "\[ $frac1tex = ".ans_rule(10)."$dAns"." \]";
 } else {
   $showfrac1 =
   ColumnTable(
@@ -107,7 +126,7 @@ if ($displayMode eq 'TeX') {
 
 if ($displayMode eq 'TeX') {
   $showfrac2 =
-  "\[ $frac2tex = ".$multians->ans_rule(10)."$dAns"." \]";
+  "\[ $frac2tex = ".ans_rule(10)."$dAns"." \]";
 } else {
   $showfrac2 =
   ColumnTable(
@@ -165,5 +184,7 @@ ANS( $ans->cmp(checker=>$rationalChecker)->withPostFilter(sub {
     if $ans->{ans_message} eq "The domain of your function doesn't match that of the correct answer";
   return $ans; 
 }));
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

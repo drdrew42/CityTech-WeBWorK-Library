@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Algebra problem: exponential model of population growth
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'exponential', 'exponential equation', 'logarithms', 'logarithm', 'exponential growth population', 'population growth')
+## DBsubject(Algebra)
+## DBchapter(Exponential and logarithmic expressions and functions)
+## DBsection(Exponential and logarithmic equations)
+## Level(5)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
+
 ########################################################################
 
 DOCUMENT();      
@@ -96,7 +110,7 @@ Parser::Number::NoDecimals();
 Context()->{error}{msg}{"You are not allowed to type decimal numbers in this problem"} 
   = "We never use decimals when discussing what year it is.";
 
-$year2Bil = Real("$year2Bil")->with(tolType=>'absolute',tolerance=>0.001);
+$year2Bil = Real("$year2Bil")->with(tolType=>'absolute',tolerance=>0.005);
 
 
 ##############################################################
@@ -180,5 +194,7 @@ ANS($year2Bil->cmp->withPostFilter(sub {
     if ( $ans->{ans_message} eq "Can't use '^' in this context" || $ans->{ans_message} eq "Can't use '+' in this context" || $ans->{ans_message} eq "Can't use '-' in this context" || $ans->{ans_message} eq "Can't use '*' in this context" || $ans->{ans_message} eq "Can't use '/' in this context" );
   return $ans; 
 }));
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

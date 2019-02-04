@@ -64,7 +64,7 @@ Context()->texStrings;
 
 BEGIN_TEXT
 
-Use rules to find the sum
+Evaluate:
 $PAR
 $BCENTER
 

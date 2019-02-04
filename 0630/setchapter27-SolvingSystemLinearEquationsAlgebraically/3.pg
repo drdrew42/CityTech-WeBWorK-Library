@@ -1,0 +1,55 @@
+## DESCRIPTION
+## This problem asks students to solve a system of linear equations 
+## ENDDESCRIPTION
+## KEYWORDS('system’, ‘linear equations')
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## BookChapter(`Solving a System of Linear Equations Algebraically’)
+## BookEdition('3')
+## BookAuthor('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## BookChapter('27')
+## Date('07/12/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+
+DOCUMENT();        # This should be the first executable line in the problem.
+
+loadMacros(
+"PG.pl",
+"PGbasicmacros.pl",
+"PGchoicemacros.pl",
+"PGanswermacros.pl",
+"PGauxiliaryFunctions.pl",
+"MathObjects.pl"
+);
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 0;
+
+
+$A = non_zero_random(-5,-1,1);
+$B = non_zero_random(-3,3,1);
+
+$n1 = Compute("($A+$B)/2");
+$n2 = Compute("($A-$B)/2");
+
+BEGIN_TEXT;
+Find two numbers whose sum is \( $A \) and whose difference is \( $B \).
+
+
+$BR
+First number = \{ans_rule(10)\}. $BR
+Second number = \{ans_rule(10)\}. $BR
+
+END_TEXT;
+
+
+Context()->normalStrings;
+
+
+ANS($n1->cmp() ); 
+ANS($n2->cmp() );
+               
+
+
+ENDDOCUMENT();        # This should be the last executable line in the problem.

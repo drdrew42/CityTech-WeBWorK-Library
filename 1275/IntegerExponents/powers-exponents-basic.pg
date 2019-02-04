@@ -1,20 +1,16 @@
 ##DESCRIPTION
-##  Algebra problem: true or false for inequality 
+##  Algebra problem: Simplify expressions using properties of exponents 
 ##ENDDESCRIPTION
 
-##KEYWORDS('algebra', 'inequality', 'fraction')
+##KEYWORDS('algebra', 'exponent', 'simplify exponents')
 
-## DBsubject('Algebra')
-## DBchapter('Fundamentals')
-## DBsection('Real Numbers')
-## Date('6/3/2002')
-## Author('')
-## Institution('')
-## TitleText1('Precalculus')
-## EditionText1('3')
-## AuthorText1('Stewart, Redlin, Watson')
-## Section1('1.1')
-## Problem1('22')
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of exponents)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
 
 ########################################################################
 
@@ -97,5 +93,27 @@ Context()->{error}{msg}{"Exponents must be positive integers in a polynomial"}
 
 ANS(Compute($ansMA)->cmp);
 ANS(Compute($ansMB)->cmp);
+
+Context()->texStrings;
+BEGIN_HINT
+
+Recall the exponent property: \( \left(B^m\right)^n = B^{(m \cdot n)} \)
+$PAR
+And don't forget that \( ( B \cdot C )^m = B^m \cdot C^m \)
+
+END_HINT
+BEGIN_SOLUTION
+
+$BITALIC Part (a): $EITALIC $BR
+\( ( $var[$one]^{$m1} )^{$m2} = $var[$one]^{($m1 \cdot $m2)} = $ansMA \)
+$PAR
+$BITALIC Part (b): $EITALIC $BR
+\( ( $c3 \cdot $var[$two]^{$m3} )^{$m4} = $c3^$m4 \cdot $var[$two]^{($m3 \cdot $m4)} = $ansMB\)
+$PAR
+
+END_SOLUTION
+Context()->normalStrings;
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

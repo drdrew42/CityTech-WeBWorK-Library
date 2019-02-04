@@ -1,14 +1,14 @@
 assignmentType      = default
 openDate          = 02/08/2012 at 01:54pm EST
-reducedScoringDate = 12/31/1969 at 07:00pm EST
+reducedScoringDate = 04/19/2012 at 02:54pm EDT
 dueDate           = 04/19/2012 at 02:54pm EDT
 answerDate        = 04/19/2012 at 02:54pm EDT
 enableReducedScoring = N
 paperHeaderFile   = hardHeader.pg
 screenHeaderFile  = setHeader.pg
 description       = 
-restrictProbProgression = 
-emailInstructor   = 
+restrictProbProgression = 0
+emailInstructor   = 0
 
 problemListV2 
 problem_start
@@ -16,59 +16,59 @@ problem_id = 1
 source_file = Library/ma117DB/set1/srw1_2_57c.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 2
 source_file = Library/ma117DB/set1/srw1_2_57a.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 3
 source_file = Library/Rochester/setAlgebra02ExponentsRadicals/sw1_3_57b.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 4
 source_file = Library/ma117DB/set1b/srw1_4_59.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 5
 source_file = Library/Rochester/setAlgebra02ExponentsRadicals/rational_denominator.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 6
 source_file = Library/Rochester/setAlgebra02ExponentsRadicals/srw1_2_109.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 

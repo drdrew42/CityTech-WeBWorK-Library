@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Algebra problem: Multiply radical expressions
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'radical', 'radicals', 'radical expression')
+
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of rational exponents and radicals)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -60,5 +74,34 @@ Context()->normalStrings;
 #
 
 ANS( $ans->cmp );
+
+Context()->texStrings;
+BEGIN_HINT
+
+Use the distributive property.
+$PAR
+Simplify your radicals.
+$PAR
+Make sure you're not trying to combine terms that don't have a common radical.
+
+END_HINT
+BEGIN_SOLUTION
+
+$BBOLD Distribute: $EBOLD $BR
+\( \displaystyle $fac1 \left( $fac2 \right) = \sqrt{$p12} \sqrt{$p1} - \sqrt{$p2} \sqrt{$p1} \)
+$PAR
+$BBOLD Factor radicals: $EBOLD $BR
+\( \displaystyle \sqrt{$p12} \sqrt{$p1} - \sqrt{$p2} \sqrt{$p1} = \sqrt{$p2} \sqrt{$p1} \sqrt{$p1} - \sqrt{$p2} \sqrt{$p1} \)
+$PAR
+$BBOLD Simplify repeated radicals: $EBOLD $BR
+\( \sqrt{$p1} \sqrt{$p1} = $p1 \), so: $BR
+\( \displaystyle \sqrt{$p2} \sqrt{$p1} \sqrt{$p1} - \sqrt{$p2} \sqrt{$p1} = \sqrt{$p2} ($p1) - \sqrt{$p2} \sqrt{$p1} \)
+$PAR
+$BBOLD There are no more radicals to simplify, so combine: $EBOLD $BR
+\( \displaystyle \sqrt{$p2} ($p1) - \sqrt{$p2} \sqrt{$p1}  = $ans \)
+END_SOLUTION
+Context()->normalStrings;
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

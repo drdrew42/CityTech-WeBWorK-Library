@@ -1,3 +1,18 @@
+##DESCRIPTION
+##  Algebra problem: Simplify and then add or subtract expressions involving radicals
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'radical', 'radicals', 'radical expression')
+
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of rational exponents and radicals)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
+
 ########################################################################
 
 DOCUMENT();      
@@ -36,6 +51,10 @@ $problem = Formula("sqrt($rad1) + sqrt($rad2)");
 
 $ans = Formula("$c sqrt( $rad )");
 
+### For solutions
+$c12 = $c1**2;
+$c22 = $c2**2;
+
 ##############################################################
 #
 #  Text
@@ -68,5 +87,41 @@ ANS($ans->cmp->withPostFilter(sub {
   return $ans; 
 }));
 
+Context()->texStrings;
+BEGIN_HINT
+
+Try simplifying each radical separately.
+$PAR
+You might find that they have a common factor after all!
+
+END_HINT
+BEGIN_SOLUTION
+
+$BBOLD First, reduce \( \sqrt{$rad1} \): $EBOLD $BR
+\( \displaystyle \sqrt{$rad1} = \sqrt{$c12 \cdot $rad} \)
+$BR
+\( \displaystyle \sqrt{$c12 \cdot $rad} = \sqrt{$c12} \cdot \sqrt{$rad} \)
+$BR
+\( \displaystyle \sqrt{$c12} \cdot \sqrt{$rad} = $c1 \sqrt{$rad} \)
+$PAR
+$BBOLD Then reduce \( \sqrt{$rad2} \): $EBOLD $BR
+\( \displaystyle \sqrt{$rad2} = \sqrt{$c22 \cdot $rad} \)
+$BR
+\( \displaystyle \sqrt{$c22 \cdot $rad} = \sqrt{$c22} \cdot \sqrt{$rad} \)
+$BR
+\( \displaystyle \sqrt{$c22} \cdot \sqrt{$rad} = $c2 \sqrt{$rad} \)
+$PAR
+$BBOLD Now return to the original problem with our simplified radicals: $EBOLD $BR
+\( \displaystyle $problem = $c1 \sqrt{$rad} + $c2 \sqrt{$rad} \)
+$BR
+\( \displaystyle $c1 \sqrt{$rad} + $c2 \sqrt{$rad} = \sqrt{$rad} \left( $c1 + $c2 \right) \)
+$BR
+\( \displaystyle \sqrt{$rad} \left( $c1 + $c2 \right) = \sqrt{$rad}\left($c\right) = $ans \)
+$BR
+
+END_SOLUTION
+Context()->normalStrings;
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

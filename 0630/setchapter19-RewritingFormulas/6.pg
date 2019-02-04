@@ -1,0 +1,61 @@
+## DESCRIPTION
+## This problem asks students to rewrite formulas 
+## ENDDESCRIPTION
+## KEYWORDS('rewrite formulas`,`literal equations')
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## BookChapter(`Rewriting FormulasÃÂ¢ÃÂÃÂ)
+## BookEdition('3')
+## BookAuthor('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## BookChapter('19')
+## Date('07/12/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+
+
+DOCUMENT();        # This should be the first executable line in the problem.
+
+loadMacros(
+  "PGstandard.pl",
+  "MathObjects.pl"
+);
+
+TEXT(beginproblem());
+
+######################################
+#  Setup
+
+Context()->variables->are(x=>'Real',
+                          y=>'Real');
+
+$n = random(0,1,1);
+@var = ("x", "y");
+$a = random(2,5,1);
+$b = random(-7,-2,1);
+$c = random(2,5,1);
+
+@answer = (Formula("($c - $b*y)/$a"), Formula("($c - $a*x)/$b"));
+
+######################################
+#  Main text
+
+BEGIN_TEXT
+Solve for $BITALIC $var[$n]$EITALIC: \[ $a x+$b y=$c \]
+$PAR
+\( $var[$n] = \) \{ans_rule(15) \}
+END_TEXT
+
+######################################
+#  Answers
+
+$ans = $answer[$n];
+ANS($ans->cmp);
+
+$showPartialCorrectAnswers = 1;
+
+######################################
+
+
+
+;
+ENDDOCUMENT();

@@ -1,0 +1,78 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "PGML.pl",
+   "PGgraphmacros.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(reduceConstants=>0, reduceConstantFunctions=>0);
+Parser::Number::NoDecimals();
+
+$leg = random(2,9,1);
+$hyp = Formula("$leg sqrt(2)");
+
+
+$forty5 = "45~~x{00B0}";
+
+$xmin = 0;
+$xmax = 1;
+$ymin = 0;
+$ymax = 1;
+
+$gr = init_graph(-0.15,-0.15,1.15,1.15,size=>[300,300]);
+$gr->lb('reset');
+$gr->lb( new Label($xmin,$ymin,'A','black','center','top'));
+$gr->lb( new Label($xmax,$ymin,'B','black','center','top'));
+$gr->lb( new Label($xmin,$ymax,'C','black','center','bottom'));
+
+$gr->lb( new Label($xmin+0.05,$ymax-0.13,"$forty5",'blue','center','middle'));
+$gr->lb( new Label($xmax-0.1,$ymin+0.03,"$forty5",'blue','center','middle'));
+
+$gr->lb( new Label(0.5,$ymin-0.025,'x','red','center','middle'));
+$gr->lb( new Label($xmin-0.03,0.5,"$leg",'blue','center','middle'));
+$gr->lb( new Label(0.55,0.5,'h','red','center','middle'));
+
+$gr->moveTo($xmin,$ymin);
+$gr->lineTo($xmax,$ymin,"black",2); # bottom edge
+$gr->lineTo($xmin,$ymax,"black",2); # hypotenuse
+$gr->lineTo($xmin,$ymin,"black",2); # left edge
+
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+BEGIN_PGML
+
+>> [@ image(insertGraph($gr), width=>400, height=>400) @]* <<
+
+If [` \overline{AC} `] has length [$leg], find the length of [` \overline{AB} `] and [` \overline{BC} `].  
+
+[` \overline{AB} = `] [__________]{$leg}  
+[` \overline{BC} = `] [__________]{$hyp}  
+
+* Your answers need to be in exact form, do not use decimal approximations.
+* To enter a number like [` \sqrt{3} `], use _sqrt(3)_.
+
+END_PGML
+
+ENDDOCUMENT();        

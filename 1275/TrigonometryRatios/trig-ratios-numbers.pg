@@ -1,3 +1,17 @@
+##DESCRIPTION
+## Trigonometry problem: Identify trigonometric ratios for given triangle ABC
+##ENDDESCRIPTION
+
+##KEYWORDS('trigonometry', 'right triangle', 'triangle')
+
+## DBsubject(Trigonometry)
+## DBchapter(Triangle Trigonometry)
+## DBsection(Sine, cosine, and tangent of an angle in a right triangle)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -29,6 +43,10 @@ do { $AC = random(2,9,1); } until ( gcf($AB,$AC) == 1 );
 $rad = $AB**2 + $AC**2;
 $BC = Formula("sqrt($rad)");
 
+$opp = $AC;
+$adj = $AB;
+$hyp = $BC;
+
 $sinB = Formula("$AC/$BC");
 $cosB = Formula("$AB/$BC");
 $tanB = Formula("$AC/$AB");
@@ -51,7 +69,7 @@ $xmax = $AB/$max;
 $ymax = $AC/$max;
 
 # $theta = "~~x{03B8}";
-# $theta = "ÃÂ¸";
+# $theta = "ÃÂÃÂÃÂÃÂ¸";
 
 $gr = init_graph(-$bufX,-$bufY,$xmax+$bufX,$ymax+$bufY,size=>[300,300]);
 $gr->lb('reset');
@@ -98,5 +116,43 @@ Remember that "opposite" and "adjacent" legs depend on which angle you're lookin
 
 Use SOHCAHTOA if you're having trouble remembering which trig ratios are which.
 END_PGML
+
+BEGIN_PGML_HINT
+
+We know that the function [` \tan(\theta) `] gives us the ratio: [` \frac{ \text{opposite leg}}{\text{adjacent leg}}`].
+
+What is the length of the leg adjacent to [`\theta`]?  
+What is the length of the leg opposite of [`\theta`]?
+
+Can you draw a picture of this right triangle?  
+*Make sure to label [`\theta`]!*  
+
+What is the length of the missing side?
+
+END_PGML_HINT
+BEGIN_PGML_SOLUTION
+
+Based on the given image: 
+we know that the leg opposite angle [`B`] has length [`[$opp]`]  
+and the leg adjacent to angle [`B`] has length [`[$adj]`].
+
+Using the Pythagorean theorem, we can determine that:  
+[` ([$adj])^2 + ([$opp])^2 = (\overline{BC})^2 `]  
+[` [@$adj**2@] + [@$opp**2@] = (\overline{BC})^2 `]  
+[` [@$opp**2+$adj**2@] = (\overline{BC})^2 `]  
+[` \overline{BC} = [$hyp] `]  
+
+Now we have everything we need to determine the trigonometric ratios for [`\theta`]:
+
+* [`\displaystyle \sin(B) = \frac{\text{opposite leg}}{\text{hypotenuse}} = [$sinB] `]
+* [`\displaystyle \cos(B) = \frac{\text{adjacent leg}}{\text{hypotenuse}} = [$cosB] `]
+* [`\displaystyle \tan(B) = \frac{\text{opposite leg}}{\text{adjacent leg}} = [$tanB] `]
+* [`\displaystyle \sec(B) = \frac{\text{hypotenuse}}{\text{adjacent leg}} = [$secB] `]
+* [`\displaystyle \csc(B) = \frac{\text{hypotenuse}}{\text{opposite leg}} = [$cscB] `]
+* [`\displaystyle \cot(B) = \frac{\text{adjacent leg}}{\text{opposite leg}} = [$cotB] `]
+
+END_PGML_SOLUTION
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

@@ -1,20 +1,17 @@
 ##DESCRIPTION
-##  Algebra problem: true or false for inequality 
+##  Algebra problem: Solve a quadratic equation using the quadratic formula
 ##ENDDESCRIPTION
 
-##KEYWORDS('algebra', 'inequality', 'fraction')
+##KEYWORDS('algebra', 'quadratic equation', 'quadratic formula')
 
-## DBsubject('Algebra')
-## DBchapter('Fundamentals')
-## DBsection('Real Numbers')
-## Date('6/3/2002')
-## Author('')
-## Institution('')
-## TitleText1('Precalculus')
-## EditionText1('3')
-## AuthorText1('Stewart, Redlin, Watson')
-## Section1('1.1')
-## Problem1('22')
+## DBsubject(Algebra)
+## DBchapter(Quadratic equations and functions)
+## DBsection(Quadratic formula)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 
 ########################################################################
 
@@ -80,6 +77,8 @@ BEGIN_TEXT
 $PAR
 List the roots of the parabola \( y = $quadratic \)
 $PAR
+In other words, list the solutions of the equation \( 0 = $quadratic \)
+$PAR
 $BBOLD Step 1: $EBOLD Identify the parameters A, B, and C:
 $BR
 A: \{ ans_rule(5) \}
@@ -126,5 +125,6 @@ ANS(Real($oppB)->cmp);
 ANS(Real($twoA)->cmp);
 ANS($roots->cmp);
 
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

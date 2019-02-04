@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Trigonometry problem: Use the Law of Cosines to solve a triangle
+##ENDDESCRIPTION
+
+##KEYWORDS('trigonometry', 'law of cosines', 'analytic trigonometry', 'triangle')
+
+## DBsubject(Trigonometry)
+## DBchapter(Triangle Trigonometry)
+## DBsection(Law of cosines (side-angle-side, side-side-side))
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -7,7 +21,8 @@ loadMacros(
    "MathObjects.pl",
    "PGML.pl",
    "PGgraphmacros.pl",
-   "niceTables.pl"
+   "niceTables.pl",
+   "answerHints.pl"
 );
 
 # Print problem number and point value (weight) for the problem
@@ -227,12 +242,19 @@ $sideA = random(5,15,1); # side A is \overline{BC}
 $angleC = random(10,80,1);
 
 $sideC = Real("sqrt($sideA**2 + $sideB**2 - 2*$sideA*$sideB*cos($angleC))");
-$angleA = Real("asin($sideA*sin($angleC)/$sideC)");
-$angleB = Real("180-$angleA-$angleC");
+$angleA = Real("acos(($sideB**2+$sideC**2-$sideA**2)/(2*$sideB*$sideC))");
+$angleB = Real("acos(($sideA**2+$sideC**2-$sideB**2)/(2*$sideA*$sideC))");
+#$angleB = Real("180-$angleA-$angleC");
 
 ($Ax, $Ay) = (0,0);
 ($Bx, $By) = (Real("$sideC*cos($angleA)"), Real("$sideC*sin($angleA)"));
 ($Cx, $Cy) = ($sideB,0);
+
+if ($Bx < 0) {
+     $Ax = $Ax + abs($Bx);
+     $Cx = $Cx + abs($Bx);
+     $Bx = 0;
+};
 
 $xmax = max($Cx, $Bx);
 $ymax = $By;
@@ -240,6 +262,7 @@ $max = max($xmax,$ymax);
 $xmax = $xmax/$max;
 $ymax = $ymax/$max;
 
+($AxScale, $AyScale) = ($Ax/$max, $Ay/$max);
 ($BxScale, $ByScale) = ($Bx/$max, $By/$max);
 ($CxScale, $CyScale) = ($Cx/$max, $Cy/$max);
 
@@ -248,18 +271,18 @@ $bufY = (1.3 - $ymax)/2;
 
 $gr = init_graph(-$bufX,-$bufY,$xmax+$bufX,$ymax+$bufY,size=>[300,300]);
 $gr->lb('reset');
-$gr->lb( new Label($Ax,$Ay,'A','red','center','top'));
+$gr->lb( new Label($AxScale,$AyScale,'A','red','center','top'));
 $gr->lb( new Label($BxScale,$ByScale,'B','red','center','bottom'));
 $gr->lb( new Label($CxScale,$CyScale,'C','red','center','top'));
 
-$gr->lb( new Label($CxScale/2,$Ay,"b",'blue','center','top'));
-$gr->lb( new Label($BxScale/2-0.05,$ByScale/2,"c",'blue','right','middle'));
-$gr->lb( new Label(($BxScale+$CxScale)/2+0.05,$ByScale/2,"a",'blue','right','middle'));
+$gr->lb( new Label(($AxScale+$CxScale)/2,$Ay,"b",'blue','center','top'));
+$gr->lb( new Label(($AxScale+$BxScale)/2-0.05,($AyScale+$ByScale)/2,"c",'blue','right','middle'));
+$gr->lb( new Label(($BxScale+$CxScale)/2+0.05,$ByScale/2+0.025,"a",'blue','right','middle'));
 
-$gr->moveTo($Ax,$Ay); # start at A
+$gr->moveTo($AxScale,$AyScale); # start at A
 $gr->lineTo($BxScale,$ByScale,"black",2); # \overline{AB}
 $gr->lineTo($CxScale,$CyScale,"black",2); # \overline{BC}
-$gr->lineTo($Ax,$Ay,"black",2); # \overline{AC}
+$gr->lineTo($AxScale,$AyScale,"black",2); # \overline{AC}
 
 ##############################################################
 #
@@ -289,7 +312,9 @@ BEGIN_PGML
 
 * Enter your answer as a decimal value.
 
-* You must be accurate to at least 3 decimal places.
+* You must be accurate to at least 3 decimal places. (That means you might need to keep some extra decimal places as you do further calculations!)
+
+* Remember that _rounded_ angles no longer have to add up to [`180^{\circ}`].
 
 * Note that for these problems, we are using degrees to measure angles. Make sure your calculator is set to degrees instead of radians.
 
@@ -301,8 +326,22 @@ Context()->flags->set(
  tolerance => 0.0005
 );
 
-ANS(Real($angleA)->cmp);
-ANS(Real($angleB)->cmp);
+ANS(Real($angleA)->cmp->withPostFilter(AnswerHints(
+    sub {
+			my ($correct,$student,$ans) = @_;
+			return abs($correct-$student) < .01;
+		} => ["You're close, try again *without* rounding 'c' this time.", score => .25]
+)));
+
+ANS(Real($angleB)->cmp->withPostFilter(AnswerHints(
+    sub {
+			my ($correct,$student,$ans) = @_;
+			return abs($correct-$student) < .01;
+		} => ["You're close, try again *without* rounding 'c' this time.", score => .25]
+)));
+
 ANS(Real($sideC)->cmp);
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

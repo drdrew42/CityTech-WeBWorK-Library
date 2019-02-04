@@ -1,0 +1,107 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject(‘Algebra’)
+## DBchapter(‘Properties of exponents, rational exponents and radicals’)
+## DBsection(‘Properties of exponents’)
+## Date('7/5/2015')
+## Author('K. Andrew Parker')
+## Institution('NYC City Tech')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "parserPopUp.pl",
+   "scaffold.pl",
+   "niceTables.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer=>"parsed"
+   );
+
+  $sumChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentstring = $ansHash->{preview_text_string};
+     return ($studentstring eq $ansHash->{correct_ans} ? 1 : 0);
+   };
+
+  $formChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentstring = $ansHash->{student_formula};
+     my $correctans = $ansHash->{correct_ans};
+     $studentstring =~ tr/()//d;
+     $correctans =~ tr/()//d;
+     return ( $student==$correct && $studentstring eq $correctans ? 1 : 0);
+   };
+
+
+  $numChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentans=$ansHash->{student_formula};
+     Value->Error("You're on the right track, but your answer should be just a number.") if ( ($studentans ne $student)&&($student==$correct) );
+     return($studentans eq $ansHash->{correct_ans} ? 1 : 0);
+  };
+
+
+@prime = ( 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 );
+
+$p1 = $prime[random(0,3,1)];
+$p2 = $prime[random(0,2,1)];
+$simplifyRad = $p1**2*$p2;
+$simplifyList = List( $p1, $p1, $p2 );
+$simplifyListRad = List( sqrt($p1), sqrt($p1), sqrt($p2) );
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+
+$PAR
+Simplify \( \sqrt{$simplifyRad} \).
+$BR
+Do a factor tree for $simplifyRad and list the prime factors: \{ ans_rule(10) \}
+$BR
+Now list the prime RADICAL factors for \( \sqrt{$simplifyRad} \): \{ ans_rule(20) \}
+$BR
+You should see one of the prime radical factors repeated twice. What do we get if we multiply the repeated radical factor? \{ ans_rule(5) \}
+$BR
+What is the simplified version of \( \sqrt{$simplifyRad} \)? \{ ans_rule(10) \}
+END_TEXT
+
+Context()->normalStrings;
+
+ANS( $simplifyList->cmp(showLengthHints=>1, ordered=>0) );
+ANS( $simplifyListRad->cmp(showLengthHints=>1, ordered=>0) );
+ANS( Real($p1)->cmp(checker=>$numChecker) );
+ANS( Formula("$p1*sqrt($p2)")->cmp(checker=>$formChecker) );
+
+ENDDOCUMENT();        

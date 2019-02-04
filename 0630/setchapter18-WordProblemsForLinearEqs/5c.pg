@@ -1,0 +1,96 @@
+## DESCRIPTION
+## This problem asks students to solve word problems for linear equations 
+## ENDDESCRIPTION
+## KEYWORDS('word problems, linear equations')
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## BookChapter('Word Problems for Linear Equations)
+## BookEdition('3')
+## BookAuthor('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## BookChapter('18')
+## Date('07/12/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "problemRandomize.pl",
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+#  Allow for the user to try another version of the problem once they get it correct.
+ProblemRandomize(when=>"Correct",onlyAfterDue=>0);
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+
+
+$a = list_random(12,14,16);
+$b = list_random(5,7);
+$ans1 = Compute("3*x-$a")->reduce;
+$ans2 = Compute("$b+x");
+$ans3 = Compute(($b+$a)/(2))->reduce;
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Translate the phrase into an equation and use x to represent the unknown number:
+$PAR
+$BCENTER
+Subtracting \($a\) from three times  an unknown number is equal to adding \( $b \) to the same number:
+
+$ECENTER
+$PAR
+
+\{ans_rule(20)\} = \{ans_rule(20)\}
+
+$PAR
+$BCENTER
+Sove for x:
+$ECENTER
+$PAR
+\( x \) = \{ans_rule(20)\}
+END_TEXT
+Context()->normalStrings;
+
+$showHint = 3;
+BEGIN_HINT
+Remember that "difference" involves subtracting.
+END_HINT
+
+##############################################################
+#
+#  Answers
+#
+#
+
+Context()->normalStrings;
+
+ANS($ans1->cmp);
+ANS($ans2->cmp);
+ANS($ans3->cmp);
+
+
+ENDDOCUMENT();        

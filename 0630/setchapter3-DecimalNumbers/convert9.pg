@@ -35,8 +35,14 @@ $showPartialCorrectAnswers = 1;
 #
 Context("Numeric");
 
-$decimal = random(1.04,1.64,0.04);
-$percent = Real("$decimal*100");
+#$decimal = random(1.04,1.64,0.04);
+#$percent = Real("$decimal*100");
+# this is reversed for a weird bug in LimitedFraction (occurring with seed 1221)
+# the value 1.16 for $decimal is reduced in $fraction to 23.2/20??
+
+
+$percent=Real(random(104,164,4));
+$decimal = $percent/100;
 
 Context("LimitedFraction")->flags->set(showMixedNumbers=>0);
 

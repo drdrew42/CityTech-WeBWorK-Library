@@ -1,3 +1,19 @@
+##DESCRIPTION
+##  Algebra problem: Evaluating cube root of negative fraction
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'radical', 'radicals', 'radical expression')
+
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of rational exponents and radicals)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
+########################################################################
+
 DOCUMENT();      
 
 loadMacros(
@@ -23,12 +39,14 @@ Context()->flags->set(
 );
 Context()->strings->are(undefined => {}, imaginary => {alias => "undefined"});
 
+$power = 3;
 $Nans = random(2,5,1);
 do { $Dans = random(2,5,1); } until ( gcf($Nans, $Dans) == 1 );
+$Nans = -1*$Nans;
 $N = $Nans**3;
 $D = $Dans**3;
-$R = Fraction(-$N,$D);
-$ans = Fraction(-$Nans,$Dans);
+$R = Fraction($N,$D);
+$ans = Fraction($Nans,$Dans);
 
 
 ##############################################################
@@ -55,5 +73,26 @@ Context()->normalStrings;
 
 ANS($ans->cmp);
 
+Context()->texStrings;
+BEGIN_HINT
+
+Recall the property of exponents: \( \displaystyle \left(\frac{A}{B}\right)^n = \frac{A^n}{B^n} \)
+$PAR
+This holds for radicals as well... \( \displaystyle \sqrt[\large $power]{\frac{A}{B}} = \frac{\sqrt[$power]{A}}{\sqrt[$power]{B}} \)
+END_HINT
+BEGIN_SOLUTION
+$BBOLD Begin by simplifying: $EBOLD $BR
+\( \displaystyle \sqrt[\large $power]{$R} = \frac{\sqrt[$power]{$N}}{\sqrt[$power]{$D}} \)
+$PAR
+$BBOLD Then simplify each radical. $EBOLD $BR
+\( \sqrt[$power]{$N} \) is \( $Nans \), and \( \sqrt[$power]{$D} \) is \( $Dans \).
+$PAR
+$BBOLD And put it all back together: $EBOLD $BR
+\( \displaystyle \frac{\sqrt[$power]{$N}}{\sqrt[$power]{$D}} = \frac{$Nans}{$Dans} \)
+
+END_SOLUTION
+Context()->normalStrings;
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

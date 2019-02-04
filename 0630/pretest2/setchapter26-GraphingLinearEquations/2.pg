@@ -1,0 +1,67 @@
+## DESCRIPTION
+## This problem asks students to solve equations by factoring 
+## ENDDESCRIPTION
+## KEYWORDS('graphing `,`linear equations')
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## BookChapter(`Graphing Linear EquationsÃÂÃÂ¢ÃÂÃÂÃÂÃÂ)
+## BookEdition('3')
+## BookAuthor('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## BookChapter('26')
+## Date('07/12/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+
+
+DOCUMENT();        # This should be the first executable line in the problem.
+
+loadMacros(
+"PG.pl",
+"PGbasicmacros.pl",
+"PGchoicemacros.pl",
+"PGanswermacros.pl",
+"PGauxiliaryFunctions.pl",
+"MathObjects.pl"
+);
+
+TEXT(beginproblem());
+
+$showPartialCorrectAnswers = 1;
+
+Context("Point");
+
+$X = non_zero_random(-6,6,1);
+$a = random(2,7,1);
+$b = $a*$X;
+$c = non_zero_random(2,7,1);
+$Y = -$b/$c;
+
+
+$Xint = Point("($X,0)");
+$Yint = Point("(0,$Y)");
+$slp = Compute("$a/$c");
+
+
+BEGIN_TEXT
+Find the slope, \(x\)- and \(y\)-intercepts of the graph of the equation
+\( $c y-$a x = -$b \).
+$BR $BR
+The slope is \{ans_rule(20)\}
+$BR $BR
+The \(x\)-intercept is: \{$Xint->ans_array\}
+$BR $BR
+The \(y\)-intercept is: \{$Yint->ans_array\}
+END_TEXT
+
+ANS($slp->cmp() );
+ANS($Xint->cmp() );
+ANS($Yint->cmp() );
+BEGIN_HINT
+You have arrived at an incorrect answer.  Please look at the following link to improve your skills:
+<a href="https://www.khanacademy.org/math/algebra-basics/alg-basics-graphing-lines-and-slope/alg-basics-slope-intercept-form/v/slope-intercept-form">Slope-intercept form</a>,
+<a href="https://www.khanacademy.org/math/algebra-basics/alg-basics-graphing-lines-and-slope/alg-basics-slope-intercept-form/v/graphing-a-line-in-slope-intercept-form">graphing lines</a>,
+and
+<a href="https://www.khanacademy.org/math/algebra-basics/alg-basics-graphing-lines-and-slope">Slope and graphing lines</a>.
+END_HINT
+
+ENDDOCUMENT();        # This should be the last executable line in the problem.

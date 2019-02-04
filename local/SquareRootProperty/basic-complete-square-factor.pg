@@ -1,0 +1,66 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "PGML.pl",
+   "contextLimitedNumeric.pl",
+   "contextLimitedFactor.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+
+$A = random(-1,1,2)*random(3,9,1);
+$twoA = 2*$A;
+
+$expr = Formula("x^2 - $twoA x")->reduce;
+
+Context("LimitedNumeric");
+
+$A2 = $A**2;
+$ans1 = Real("$A2")->reduce;
+
+Context("LimitedFactor");
+
+$ans2 = Formula("(x - $A)^2")->reduce;
+
+##############################################################
+#
+#  Text
+#
+#
+
+BEGIN_PGML
+
+Fill in the missing value so that the expression is a perfect square trinomial.
+
+    [` \large{ [$expr] + } `] [_____]{$ans1}
+
+    Factored: [______________]{$ans2}
+
+* Enter multiple answers separated by commas.
+* If you need to use the square root symbol as in [` \sqrt{5}`], type it using *sqrt(5)*.
+* If there are no solutions, enter *no solutions*.
+END_PGML
+
+##############################################################
+#
+#  Answers
+#
+#
+
+
+ENDDOCUMENT();        

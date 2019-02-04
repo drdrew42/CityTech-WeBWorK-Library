@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Algebra problem: Evaluate expression involving rational exponent
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'exponent', 'exponents', 'rational powers')
+
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of rational exponents and radicals)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -59,5 +73,27 @@ ANS($ans->cmp->withPostFilter(sub {
     if $ans->{ans_message} eq "Can't use '^' in this context";
   return $ans; 
 }));
+
+Context()->texStrings;
+BEGIN_HINT
+$PAR
+Remember that fractions as exponents can be translated into radical form.
+$PAR
+\(\large x^{m/n} = \left(\sqrt[n]{x}\right)^m \)
+END_HINT
+BEGIN_SOLUTION
+
+$BBOLD Rewrite the fractional exponent as a radical: $EBOLD $BR
+\( \displaystyle $r5^{$m/5} = \left(\sqrt[5]{$r5}\right)^{$m} \)
+$PAR
+$BBOLD Compute the radical: $EBOLD $BR
+\( \displaystyle \left(\sqrt[5]{$r5}\right)^{$m} = ($r)^{$m} \)
+$PAR
+$BBOLD Compute the exponent: $EBOLD $BR
+\( \displaystyle ($r)^{$m} = $ans \)
+END_SOLUTION
+Context()->normalStrings;
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

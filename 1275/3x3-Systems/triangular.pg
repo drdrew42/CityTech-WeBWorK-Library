@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Algebra problem: Solve a system of 3 linear	equations in 3 variables
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'linear algebra, 'algebra linear equations', 'linear equations', 'linear equations system', 'linear system', 'linear system of equations', 'linear systems', 'system of linear equations')
+
+## DBsubject(Algebra)
+## DBchapter(Systems of equations and inequalities)
+## DBsection(Linear systems)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -22,6 +36,7 @@ $showPartialCorrectAnswers = 1;
 Context("Point");
 Context()->variables->are(x=>Real,y=>Real,z=>Real);
 Context()->noreduce('(-x)+y','(-x)-y');
+Context()->flags->set(reduceConstants=>0);
 
 # coefficients for equation one
 $A1 = non_zero_random(-5,5,1);
@@ -63,10 +78,41 @@ BEGIN_PGML
 
 [`` \begin{array}{rcl} [$LHS1] & = & [$RHS1] \\ [$LHS2] & = & [$RHS2] \\ [$LHS3] & = & [$RHS3] \end{array} ``]
 
-Find the unique solution to this system of equations. Give your answer as a point.
+Find the unique solution to this system of equations. Give your answer as a point. [`(x,y,z)`]
 
 [__________]{$ans}
 
 END_PGML
+
+BEGIN_PGML_HINT
+
+Perhaps start by looking at the third equation? 
+
+What can you determine from [`[$LHS3] = [$RHS3]`]?
+
+Can you use that in the other equations?
+
+END_PGML_HINT
+BEGIN_PGML_SOLUTION
+
+[`[$LHS3] = [$RHS3]`] tells us that [` z = [$z] `]
+
+
+If we use this [`z`] value in the second equation:  
+    [`[@$LHS2->substitute(z=>$z)->TeX@] = [$RHS2] `]  
+    [`[$B2]y = [@$RHS2-$C2*$z@] `]  
+    [` y = [$y] `]
+
+All that's left is to use our [`y`] and [`z`] values in the first equation to find [`x`]:  
+    [`[@$LHS1->substitute(y=>$y,z=>$z)->TeX@] = [$RHS1] `]  
+    [`[@$LHS1->substitute(y=>$y,z=>$z)->reduce->TeX@] = [$RHS1] `]  
+    [`[$A1]x = [@$A1*$x@]`]  
+    [` x = [$x] `]
+
+So our solution is [`[$ans]`].
+
+END_PGML_SOLUTION
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

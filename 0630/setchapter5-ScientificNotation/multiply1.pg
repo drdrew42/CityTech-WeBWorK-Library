@@ -59,7 +59,7 @@ Context()->operators->add(
     TeX => '\times ', class => 'ScientificNotation::BOP::x'},
 );
 
-$answer = Compute($a*$b)->reduce;
+$answer = ScientificNotation($a*$b);
 ANS($answer->cmp);	
 	
 $showPartialCorrectAnswers = 1;

@@ -57,7 +57,7 @@ $n1 = n + 1;
 #  Main text
 
 BEGIN_TEXT
-Perform the following operations:  (Note: You are allowed to enter improper fractions or mixed numbers, but they must be reduced!)
+Perform the following operations and reduce your answer.  Note: You are allowed to enter improper fractions or mixed numbers, but they must be reduced.
 $PAR
 a) \( -\frac{$an1}{$ad1} - (-\frac{$an2}{$ad2}) = \) \{ ans_rule(10) \} 
 

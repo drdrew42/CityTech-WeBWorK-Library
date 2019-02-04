@@ -1,0 +1,65 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+# [ (Aq / p) - q ] / [ q - (Bq / p) ] -> ( A - p ) / ( p - B ) 
+# A != B, { (B,1), (B,0), (A,0) }
+
+Context("Numeric")->flags->set(reduceConstants=>0, reduceConstantFunctions=>0);
+Context()->variables->are("p"=>Real, "q"=>Real);
+
+$A = random(2,9,1);
+do { $B = random(2,9,1); } until ( $B != $A );
+
+$N = Formula("($A q) / p - q")->reduce;
+$D = Formula("q - ($B q) / p")->reduce;
+
+$ans = Formula("($A - p)/(p - $B)")->with(test_at=>[ [$A,0], [$B,0], [$B,1] ]); 
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Simplify the complex fraction:
+\[ \Large\frac{$N}{$D} \]
+$BR
+\{ans_rule(20)\}
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans->cmp(checkUndefinedPoints=>1)->withPostFilter(sub { 
+  my $ans = shift; 
+  $ans->{ans_message} = "You're on the right track, but your answer can still be reduced." 
+    if $ans->{ans_message} eq "The domain of your function doesn't match that of the correct answer";
+  return $ans; 
+}));
+
+ENDDOCUMENT();        

@@ -1,3 +1,20 @@
+##DESCRIPTION
+##  Algebra problem: Simplify square root involving integers
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'radical', 'radicals', 'radical expression')
+
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of rational exponents and radicals)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
+
+########################################################################
+
 ########################################################################
 
 DOCUMENT();      
@@ -125,5 +142,32 @@ ANS($ans->cmp(checker=>$reducedSqrt)->withPostFilter(sub {
     if $ans->{ans_message} eq "Powers must be positive integer constants";
   return $ans; 
 }));
+
+Context()->texStrings;
+BEGIN_HINT
+
+See if you can find any perfect squares that are factors of $rad.
+$PAR
+Make sure you don't lose track of the coefficient, \($coeff\), when you're simplifying \( \sqrt{$rad} \)...
+
+END_HINT
+BEGIN_SOLUTION
+
+$BBOLD Find the largest perfect square factor of $rad: $EBOLD $BR
+\( \displaystyle $coeff \sqrt{$rad} = $coeff \sqrt{$out \cdot $out \cdot $in} \)
+$PAR
+$BBOLD Split up the radical: $EBOLD $BR
+\( \displaystyle $coeff \sqrt{$out \cdot $out \cdot $in} = $coeff \sqrt{$out} \sqrt{$out} \sqrt{$in} \)
+$PAR
+$BBOLD Group matching radicals into pairs: $EBOLD $BR
+\( \displaystyle $coeff \sqrt{$out} \sqrt{$out} \sqrt{$in} = $coeff \left( \sqrt{$out} \sqrt{$out} \right) \sqrt{$in} \)
+$PAR
+$BBOLD Simplify paired radicals: $EBOLD $BR
+\( \displaystyle $coeff \left( \sqrt{$out} \sqrt{$out} \right) \sqrt{$in} = $coeff ($out) \sqrt{$in} = $finalOut \sqrt{$in} \)
+
+END_SOLUTION
+Context()->normalStrings;
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

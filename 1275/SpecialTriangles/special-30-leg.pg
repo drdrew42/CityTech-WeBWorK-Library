@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Trigonometry problem: Solve a special right triangle
+##ENDDESCRIPTION
+
+##KEYWORDS('trigonometry', 'right triangle', 'triangle')
+
+## DBsubject(Trigonometry)
+## DBchapter(Triangle Trigonometry)
+## DBsection(Applications of special triangles & right triangles)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -75,5 +89,38 @@ If [` \overline{AB} `] has length [$short], find the length of [` \overline{BC} 
 * To enter a number like [` \sqrt{3} `], use _sqrt(3)_.
 
 END_PGML
+
+BEGIN_PGML_HINT
+
+Remember that a 30-60-90 triangle is the result of cutting an equilateral triangle in half.
+
+What is the relationship between the short leg and the hypotenuse in this scenario?
+
+Can you use that knowledge to figure out the length of the longer leg?
+
+END_PGML_HINT
+BEGIN_PGML_SOLUTION
+
+[`\overline{AB}`] is the short leg in this triangle.
+
+In any 30-60-90 triangle, the hypotenuse is twice as long as the short leg.
+
+So, [`\overline{BC} = 2 \times \overline{AB} = [$hyp] `]
+
+We can use the Pythagorean theorem to determine the length of the remaining leg.
+
+    [` \overline{AB}^2 + \overline{AC}^2 = \overline{BC}^2 `]
+
+    [` ([$short])^2 + \overline{AC}^2 = ([$hyp])^2 `]
+
+    [` [@$short**2@] + \overline{AC}^2 = [@$hyp**2@] `]
+
+    [` \overline{AC}^2 = [@3*$short**2@] `]
+
+    [` \overline{AC} = \sqrt{[@3*$short**2@]} = [$short]\sqrt{3} `]
+
+END_PGML_SOLUTION
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

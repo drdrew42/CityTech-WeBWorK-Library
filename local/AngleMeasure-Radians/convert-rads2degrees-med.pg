@@ -1,0 +1,60 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "PGchoicemacros.pl",
+   "PGML.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(
+  reduceConstants => 0,
+  tolerance => 0.0005,
+  tolType => 'absolute'
+);
+
+@n = (); @degrees = (); @radians = ();
+
+@quad = NchooseK(4,4);
+
+for my $i (0..3) {
+  $n[$i] = random(1,135,2)/100; 
+  $radians[$i] = Real("$quad[$i]*1.6+$n[$i]");
+  $degrees[$i] = Real("$radians[$i]*180/pi");
+};
+
+##############################################################
+#
+#  Text
+#
+#
+
+BEGIN_PGML
+
+Convert [` [$radians[0]] `] radians into degrees: [__________]{$degrees[0]}
+
+Convert [` [$radians[1]] `] radians into degrees: [__________]{$degrees[1]}
+
+Convert [` [$radians[2]] `] radians into degrees: [__________]{$degrees[2]}
+
+Convert [` [$radians[3]] `] radians into degrees: [__________]{$degrees[3]}
+
+* You may use decimal approximation, but your answer must be accurate to at least 3 decimal places.
+
+END_PGML
+
+ENDDOCUMENT();        

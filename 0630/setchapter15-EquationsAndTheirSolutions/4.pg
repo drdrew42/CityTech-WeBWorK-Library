@@ -1,0 +1,74 @@
+## DESCRIPTION
+## This problem asks students to factor trinomials
+## ENDDESCRIPTION
+## KEYWORDS('solutions')
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## BookChapter('Equations and their Solutions')
+## Date('07/07/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+## TitleText1('Arithmetic | Algebra')
+## EditionText1('3')
+## AuthorText1('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## Section1('15')
+
+
+########################################################################
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"parserPopUp.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"PGcourse.pl", 
+"contextLimitedNumeric.pl",
+"PGchoicemacros.pl",
+
+);
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+# the arguments of PopUp are [list of answers], 
+#    correct answer
+$popup = PopUp(["?","Yes", "No"], "No");
+
+
+$a = random(2,5,1);
+$b = 3*$a - 2;
+$c = 1;
+$d = $a + 4;
+
+
+$n = list_random(-1,-2,-3);
+$answer1 = Compute($c/$d *($n-1))->reduce;
+$answer2 = 2*$c/$d + $n;
+
+
+
+BEGIN_TEXT
+
+Evaluate \( \frac{$c}{$d} (x-1) \) at \(x= $n\) \{ ans_rule(10) \}
+$PAR
+Evaluate  \( \frac{2}{$d} + x \) at \(x= $n\) \{ ans_rule(10) \}
+$PAR
+Is \(x= $n\) a solution to \( \frac{$c}{$d} (x-1) = \frac{2}{$d} + x   \) \{ $popup->menu() \}
+$PAR
+END_TEXT
+
+Context("Numeric");
+ANS(Real($answer1)->cmp);
+ANS(Real($answer2)->cmp);
+ANS( $popup->cmp);
+
+
+Context()->texStrings;
+SOLUTION(EV3(<<'END_SOLUTION'));
+$PAR SOLUTION $PAR
+The correct answer is \{ $popup->correct_ans() \} because when you evaluate both sides of the equation at the given value of the variable, they are not equal. 
+END_SOLUTION
+Context()->normalStrings;
+
+
+ENDDOCUMENT();

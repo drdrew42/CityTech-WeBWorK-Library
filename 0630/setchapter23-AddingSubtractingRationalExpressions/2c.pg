@@ -1,0 +1,99 @@
+## DESCRIPTION
+## This problem asks students to simplify rational expressions
+## ENDDESCRIPTION
+## KEYWORDS(Rational Expressions)
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## BookChapter(Adding and Subtracting Rational Expressions)
+## BookEdition('3')
+## BookAuthor('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## BookChapter('23')
+## Date('07/14/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+
+
+DOCUMENT(); # This should be the first executable line in the problem.
+
+loadMacros(
+
+  "PGstandard.pl",
+  "MathObjects.pl",
+  "CofIdaho_macros.pl",
+   "contextLimitedPolynomial.pl",
+   "contextLimitedPowers.pl",
+   "contextRationalFunction.pl"
+
+
+);
+
+Context("Numeric");
+Context()->variables->are("x"=>Real, "y"=>Real);
+Context()->noreduce('x^(-1)','(-x)-y');
+LimitedPowers::OnlyNonNegativeIntegers();
+
+
+Context()->texStrings;
+
+TEXT(beginproblem());
+
+
+
+
+
+
+
+$a = random(2,5,1);
+$b = random(2,7,1);
+
+
+$f1 = Formula("($a) / (x**2)")->reduce->TeX;
+$f2 = Formula("($b) / (x*y)")->reduce->TeX;
+
+######################################
+#  Main text
+BEGIN_TEXT
+Perform the indicated operation. Simplify the result, if possible.
+\[ $f1 + $f2 \]
+$PAR
+Answer:  \{ ans_rule(25) \} 
+END_TEXT
+
+######################################
+#  Answer
+
+Context()->normalStrings;
+
+
+$ans = Formula("($a*y + $b*x)/(x**2*y)");
+
+ANS($ans->cmp(checker=>$cmp));
+
+
+$showPartialCorrectAnswers = 1;
+
+###################################### 
+
+
+;
+ENDDOCUMENT();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

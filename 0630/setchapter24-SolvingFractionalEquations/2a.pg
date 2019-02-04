@@ -1,0 +1,86 @@
+## DESCRIPTION
+## This problem asks students to solve a fractional equation
+## ENDDESCRIPTION
+## KEYWORDS(âRational Expressionsâ)
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## BookChapter(âSolving Fractional Equations)
+## BookEdition('3')
+## BookAuthor('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## BookChapter('24')
+## Date('07/13/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+
+
+## Edited version of Library/UMN/algebraKaufmannSchwitters/ks_4_6_6.pg
+
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+########################################################################
+
+TEXT(beginproblem());
+
+$showPartialCorrectAnswers = 1;
+
+########################################################################
+
+Context("Numeric");
+Context()->strings->add(none=>{},EmptySet=>{alias=>"none"});
+
+$a = random(1,5,1);
+$d = random(2,5,1);
+
+if ($a==2){
+$c = Compute("4");
+$f = Formula("x")->reduce;
+}
+
+if ($a==4){
+$c = Compute("7");
+$f = Formula("2*x")->reduce;
+}
+if ($a==1){
+$c = Compute("3*$a + 2");
+$f = Formula("$a*x")->reduce;
+}
+if ($a==3){
+$c = Compute("3*$a + 2");
+$f = Formula("$a*x")->reduce;
+}
+if ($a==5){
+$c = Compute("3*$a + 2");
+$f = Formula("$a*x")->reduce;
+}
+
+$b = Compute("$a");
+$ans = Compute("$c - $a*$d");
+
+########################################################################
+
+Context()->texStrings;
+BEGIN_TEXT
+Solve the equation:
+\[ 
+\frac{$c}{$f}-\frac{1}{$b} = \frac{$d}{x} 
+\]
+$PAR
+Solution: \(x =\) \{ ans_rule(10) \}
+END_TEXT
+Context()->normalStrings;
+
+########################################################################
+
+ANS( $ans->cmp() );
+
+ENDDOCUMENT(); 

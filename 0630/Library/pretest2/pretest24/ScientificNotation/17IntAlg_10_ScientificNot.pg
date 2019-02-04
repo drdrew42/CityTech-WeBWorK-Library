@@ -1,0 +1,158 @@
+##DESCRIPTION
+## Scientific Notation
+## 
+##ENDDESCRIPTION
+## DBsubject(Algebra)
+## DBchapter(Algebra of real numbers and simplifying expressions)
+## DBsection(Scientific notation)
+## Institution(The College of Idaho)
+## Author(RA Cruz)
+## MLT(Mult_scientific)
+## Level(2)
+## MO(1)
+## TitleText1('Essentials of Intermediate Algebra')
+## AuthorText1('Blitzer')
+## EditionText1('1')
+## Section1('1.7')
+## Problem1('')
+## KEYWORDS('Scientific Notation')
+## Date: 2007/09
+
+DOCUMENT();        # This should be the first executable line in the problem.
+loadMacros(
+  "PGstandard.pl",
+  "MathObjects.pl",
+  "contextScientificNotation.pl",
+  "contextLimitedNumeric.pl",
+  "PGcourse.pl"
+);
+
+TEXT(beginproblem());
+
+######################################
+#  Setup
+
+$num1 = random(-9,-1.1,.1);
+$exp1 = random(-7,-3,1);
+$num2 = random(1,9,1);
+$exp2 = random(-7,-3,1);
+
+Context(ScientificNotation);
+$a = ScientificNotation($num1 * 10**$exp1);
+$b = ScientificNotation($num2 * 10**$exp2);
+
+######################################
+#  Main text
+
+BEGIN_TEXT
+Perform the computation and write the result in scientific notation:
+$PAR
+\( (\{$a->TeX\})(\{$b->TeX\}) \) =  \{ ans_rule(20) \}
+END_TEXT
+
+######################################
+#  Answers
+
+Context("ScientificNotation");
+
+$answer = Compute($a*$b)->reduce;
+ANS($answer->cmp);	
+
+$showPartialCorrectAnswers = 1;
+
+######################################
+
+######################################
+#  Setup
+
+$num1 = random(1.1,5,.1);
+$exp1 = random(-7,-1,1);
+$num2 = $num1*random(1.1,1.9,.1);  #Keep the decimal length small
+$exp2 = random(3,7,1);
+
+Context(ScientificNotation);
+$a = ScientificNotation($num1 * 10**$exp1);
+$b = ScientificNotation($num2 * 10**$exp2);
+
+######################################
+#  Main text
+
+BEGIN_TEXT
+$BR
+Perform the computation and write the result in scientific notation:
+$PAR
+\( \displaystyle \frac{\{$a->TeX\}}{\{$b->TeX\}} \) =  \{ ans_rule(20) \}
+END_TEXT
+
+######################################
+#  Answers
+
+Context("ScientificNotation");
+
+$answer = Compute($a/$b)->reduce;
+ANS($answer->cmp);	
+
+$showPartialCorrectAnswers = 1;
+
+######################################
+
+######################################
+#  Setup
+
+$a = random(5,9,1);
+$b = random(3,9,1);
+$c = random(5,9,1);
+
+$n1 = random(3,10,1); # *random(-1,1,2);
+$n2 = random(3,10,1); # *random(-1,1,2);
+$n3 = random(3,10,1)*-1;
+
+Context(ScientificNotation);
+Context()->operators->add(
+  '*' => {precedence => 3, associativity => 'left', type => 'bin',
+    TeX => '\times ', class => 'ScientificNotation::BOP::x'},
+);
+
+$num1 = ScientificNotation($a * $c * 10**$n1);
+$num2 = ScientificNotation($b * 10**$n2);
+$den = ScientificNotation($c * 10**$n3);
+
+######################################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+$BR
+Perform the computation and write the result in scientific notation:
+$PAR
+\( \displaystyle \frac{( $num1 )( $num2 )}{$den} \) =  \{ ans_rule(20) \}
+END_TEXT
+Context()->normalStrings;
+######################################
+#  Answers
+
+
+$answer = ScientificNotation($a * $b * 10**($n1+$n2-$n3));
+ANS($answer->cmp);	
+
+$showPartialCorrectAnswers = 1;
+
+######################################
+
+
+COMMENT('MathObject version');
+
+;
+BEGIN_HINT
+You have arrived at an incorrect answer.  Please look at the following links to improve your skills:
+
+
+<a href="https://www.khanacademy.org/math/pre-algebra/pre-algebra-exponents-radicals/pre-algebra-scientific-notation/a/scientific-notation-review">scientific notation review</a>,
+and 
+
+<a href="https://www.khanacademy.org/math/cc-eighth-grade-math/cc-8th-numbers-operations/cc-8th-scientific-notation-compu/v/multiplying-and-dividing-in-scientific-notation">Multiplying and Dividing with scientific notation</a>
+END_HINT
+
+
+
+ENDDOCUMENT();

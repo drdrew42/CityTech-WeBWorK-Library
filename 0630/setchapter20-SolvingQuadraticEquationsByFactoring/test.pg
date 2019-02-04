@@ -1,0 +1,19 @@
+   Context("Point");
+   $a = random(2,10,1);
+   $x = random(-5,5,1);
+   $y = $a - $x;
+   
+   BEGIN_TEXT
+   Find a point \((x,y)\) that is a solution to \(x+y=$a\).
+   $PAR
+   \((x,y)\) = \{ans_rule(15)\}
+   END_TEXT
+   
+   ANS(Point($x,$y)->cmp(
+     showCoordinateHints => 0,                # doesn't make sense to give hints in this case
+     checker => sub {
+       my ($correct,$student,$ansHash) = @_;  # get correct and student MathObjects
+       my ($sx,$sy) = $student->value;        # get coordinates of student answer
+       return ($sx + $sy == $a ? 1 : 0);      # return 1 if correct, 0 otherwise
+     }
+   ));

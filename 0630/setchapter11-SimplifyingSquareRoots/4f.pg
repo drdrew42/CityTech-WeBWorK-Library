@@ -1,0 +1,84 @@
+## DESCRIPTION
+## This problem asks students to combine like radicals
+## ENDDESCRIPTION
+## KEYWORDS('Roots')
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## BookChapter('Simplifying Square Roots')
+## DBsection('') 
+## BookSection('Simplifying Square Roots')
+## Date('07/05/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+## TitleText1('Arithmetic | Algebra')
+## EditionText1('3')
+## AuthorText1('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## Section1('11')
+
+## KEYWORDS('algebra', 'radicals')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+"contextLimitedNumeric.pl",
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+########################################################################
+
+install_problem_grader(~~&std_problem_grader);
+
+$showPartialCorrectAnswers = 0;
+
+TEXT(beginproblem());
+
+########################################################################
+
+Context("Numeric");
+
+$a = random(-8,-3,1);
+$b = random(2,9,1);
+$c1 = list_random(2,3,5);
+$c2 = list_random(2,3,5);
+$d = random(1,7,1);
+$f = random(1,6,1);
+$e = Compute("2*$a")->reduce;
+$ee = Compute("$b * $c1 -$d * $c2")->reduce;
+$cc1 = Compute("$c1 * $c1 * $f")->reduce;
+$cc2 = Compute("$c2 * $c2 * $f")->reduce;
+
+Context("LimitedNumeric");
+$ans1 = Compute("$e");
+$ans2 = Compute("7");
+$ans3 = Compute("$ee");
+$ans4 = Compute("$f");
+
+
+########################################################################
+
+Context()->texStrings;
+BEGIN_TEXT
+Simplify:
+\[
+ $a \sqrt{28} + $b \sqrt{$cc1} - $d \sqrt{$cc2} 
+\]
+into the form \(A \sqrt{C}\) + \(B \sqrt{D}\), where \(A\), \(C\), \(B\) and \(D\) are all integers.
+$PAR
+Answer: \(A =\) \{ans_rule(20)\}, \(C =\) \{ans_rule(20)\}, \(B =\) \{ans_rule(20)\} and \(D =\) \{ans_rule(20)\}
+$HR
+END_TEXT
+Context()->normalStrings;
+
+########################################################################
+
+ANS( $ans1->cmp );
+ANS( $ans2->cmp );
+ANS( $ans3->cmp );
+ANS( $ans4->cmp );
+
+ENDDOCUMENT();        

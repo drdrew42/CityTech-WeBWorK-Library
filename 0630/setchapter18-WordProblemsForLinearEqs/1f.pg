@@ -1,0 +1,81 @@
+## DESCRIPTION
+## This problem asks students to solve word problems for linear equations 
+## ENDDESCRIPTION
+## KEYWORDS('word problems, linear equations')
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## BookChapter('Word Problems for Linear Equations')
+## BookEdition('3')
+## BookAuthor('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## BookChapter('18')
+## Date('07/11/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "problemRandomize.pl",
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+#  Allow for the user to try another version of the problem once they get it correct.
+ProblemRandomize(when=>"Correct",onlyAfterDue=>0);
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+
+
+Context()->variables->add(n => "Real");
+
+$a = random(2,19,1);
+$ans = Compute("2x+$a");
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Translate the phrase into an algebraic expression. Use x for the variable:
+$PAR
+$BCENTER
+Twice a variable is added to \($a\) 
+
+$ECENTER
+$PAR
+
+\{ans_rule(20)\}
+END_TEXT
+Context()->normalStrings;
+
+
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans->cmp);
+
+
+ENDDOCUMENT();        

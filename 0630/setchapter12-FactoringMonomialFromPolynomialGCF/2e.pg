@@ -1,0 +1,86 @@
+###DESCRIPTION
+## Factoring Polynomials 
+##ENDDESCRIPTION
+## DBsubject(Algebra)
+## DBchapter(Factoring)
+## DBsection(Factoring: common factors)
+## Institution(City Tech)
+## Author(ElHitti)
+## TitleText1('Arithmetics | Algebra')
+## AuthorText1('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## EditionText1('3')
+## Section1('12')
+## KEYWORDS('polynomials','factoring')
+## Date: 7/6/2017
+
+DOCUMENT(); # This should be the first executable line in the problem.
+
+loadMacros(
+  "PGstandard.pl",
+  "MathObjects.pl",
+  "CofIdaho_macros.pl"
+);
+
+TEXT(beginproblem());
+
+######################################
+#  Setup
+
+@alphabet = ("a","b","t","x","y");
+$var = $alphabet[random(0,4,1)];
+Context()->variables->are($var=>'Real');
+
+$a= random(2,4,1);
+do {$b= non_zero_random(-5,-1,1);} until (gcd($a,$b)==1);
+$c = random(2,5,1);
+
+
+$n = random(2,4,1);
+$m = $n - 1;
+
+$poly = Formula("$a * $c * $var^$n + $b * $c * $var^$m")->reduce->TeX;
+
+######################################
+#  Main text
+
+BEGIN_TEXT
+Factor out the greatest common factor: 
+$PAR
+\( $poly =\) \{ ans_rule(30) \} 
+END_TEXT
+
+######################################
+#  Answer
+
+$answer = "$c * $var^$m * ($a * $var + $b)";
+ANS(FactoringEvaluator($answer,$var)); 
+
+$showPartialCorrectAnswers = 1;
+
+######################################
+
+
+;
+ENDDOCUMENT();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

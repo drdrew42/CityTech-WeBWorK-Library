@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Algebra problem: Solve equation involving radicals
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'radical', 'radicals', 'radical expression', 'radical equation')
+
+## DBsubject(Algebra)
+## DBchapter(Functions with fractional exponents and radical functions)
+## DBsection(Equations)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -78,5 +92,29 @@ Context()->normalStrings;
 #
 
 ANS($ans->cmp);
+
+Context()->texStrings;
+BEGIN_HINT
+
+When solving equations that involve square roots, try isolating the radical term $BITALIC first $EITALIC. 
+$PAR
+Then you can square both sides of the equation in order to eliminate the radical.
+$PAR
+
+END_HINT
+BEGIN_SOLUTION
+
+$BBOLD Isolate the radical: $EBOLD $BR
+\( \left( \sqrt{x} + $A \right) - $A = ($B) - $A \) $BR
+\( \sqrt{x} = $C \)
+$PAR
+$BBOLD Square both sides: $EBOLD $BR
+\( \left( \sqrt{x} \right)^2 = ($C)^2 \) $BR
+\( x = $ans \)
+
+END_SOLUTION
+Context()->normalStrings;
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

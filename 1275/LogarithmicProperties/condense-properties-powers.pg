@@ -1,3 +1,18 @@
+##DESCRIPTION
+##  Algebra problem: Rewrite logarithms in expanded form by applying the properties of logarithms
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'logarithm', 'logarithms', 'laws of logarithms')
+## DBsubject(Algebra)
+## DBchapter(Exponential and logarithmic expressions and functions)
+## DBsection(Properties of logarithms)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
+########################################################################
+
 DOCUMENT();      
 
 loadMacros(
@@ -92,11 +107,78 @@ BEGIN_PGML
 
 Condense the following expressions into a single logarithm by applying the properties of logarithms.
 
->> [`` [$ans1] = ``] [____________]{$exp1->cmp(checker=>$logCheck)} <<
-
->> [`` [$ans2] = ``] [____________]{$exp2->cmp(checker=>$logCheck)} <<
-
 * Make sure your final answer is written as a single logarithm.
+
+a. [`` [$ans1] = ``] [______________________________________]{$exp1->cmp(checker=>$logCheck)} 
+
+b. [`` [$ans2] = ``] [______________________________________]{$exp2->cmp(checker=>$logCheck)} 
+
+
 END_PGML
+
+
+##############################################################
+#
+#  Answers
+#
+#
+
+BEGIN_PGML_HINT
+
+* Do you have an expression like `\color{blue}{a} \log(\color{red}{b})`?  That is `\log(\color{red}{b}^\color{blue}{a})`.
+
+* Do you have a sum of logarithms? Use the fact that `\log(\color{red}{a}) + \log(\color{blue}{b})  = \log(\color{red}{a}\color{blue}{b})`.
+
+* Do you have a difference of logarithms? Use the fact that `\log(\color{red}{a}) - \log(\color{blue}{b})  = \log(\frac{\color{red}{a}}{\color{blue}{b}})`.
+
+
+
+END_PGML_HINT
+
+BEGIN_PGML_SOLUTION
+
+
+a.
+>>
+[`\begin{align*}
+&\color{magenta}{[$m] \log(x)}- \color{magenta}{[$p] \log(y)}+\color{magenta}{ [$n] \log(z)} & \text{three terms of the form } \color{blue}{a} \log(\color{red}{b})\\ \\
+\longrightarrow\quad&\color{blue}{[$m]} \log(\color{red}{x})- \color{blue}{[$p]} \log(\color{red}{y})+ \color{blue}{[$n]} \log(\color{red}{z}) & \text{identify the} \;\color{red}{a}\text{'s and the }\;\color{blue}{b}\text{'s} \\
+&&\text{ use that } \color{blue}{a}\log(\color{red}{b})= \log(\color{red}{b}^\color{blue}{a})\\ \\
+\longrightarrow\quad & \log(\color{red}{x}^{\color{blue}{[$m]}} )-  \log(\color{red}{y}^{\color{blue}{[$p]}})+  \log(\color{red}{z}^{\color{blue}{[$n]}}) & \text{the first two terms are a } \textbf{difference} \text{ of logs}\\ \\
+\longrightarrow\quad & \log(\color{red}{x^{[$m]}} )-  \log(\color{blue}{y^{[$p]}})+  \log(z^{[$n]})& \text{ use that }  \log (\color{red}{a}) - \log(\color{blue}{b}) = \log\left(\dfrac{\color{red}{a}}{\color{blue}{b}}\right) \\
+&& \text{identify the } \color{red}{a} \text{ and the } \color{blue}{b} \\ \\
+\longrightarrow\quad &  \log\left(\dfrac{\color{red}{x^{[$m]}}}{\color{blue}{y^{[$p]}}}\right)+  \log(z^[$n])  &  \textbf{sum} \text{ of two logs} \\ \\
+\longrightarrow\quad &\log\left(\color{red}{\dfrac{x^{[$m]}}{y^{[$p]}}}\right)+  \log(\color{blue}{z^[$n]})& \text{ use that } \log(\color{red}{a})+\log(\color{blue}{b}) = \log(\color{red}{a}\color{blue}{b}) \\
+&&  \text{identify the } \color{red}{a} \text{ and the } \color{blue}{b} \\ \\
+\longrightarrow\quad & \log\left(\color{red}{\dfrac{x^{[$m]}}{y^{[$p]}}} \cdot\color{blue}{z^[$n]}\right)  &\\ \\
+\longrightarrow\quad &  \log\left(\dfrac{x^[$m]z^[$n]}{y^[$p]}\right) &\\
+\end{align*}`]<<
+    
+b.
+    >>[`\begin{align*} 
+&-\color{magenta}{[$m] \log(z)}+ \color{magenta}{[$p] \log(x)}-\color{magenta}{ [$n] \log(y)} & \text{three terms of the form } \color{blue}{a} \log(\color{red}{b})\\ \\
+\longrightarrow\quad&-\color{blue}{[$m]} \log(\color{red}{z})+ \color{blue}{[$p]} \log(\color{red}{x})- \color{blue}{[$n]} \log(\color{red}{y}) & \text{identify the} \;\color{red}{a}\text{'s and the }\;\color{blue}{b}\text{'s} \\
+&&\text{ use that } \color{blue}{a}\log(\color{red}{b})= \log(\color{red}{b}^\color{blue}{a})\\ \\
+\longrightarrow\quad & -\log(\color{red}{z}^{\color{blue}{[$m]}} )+ \log(\color{red}{x}^{\color{blue}{[$p]}})-  \log(\color{red}{y}^{\color{blue}{[$n]}}) & \text{the last two terms are a } \textbf{difference} \text{ of logs}\\ \\
+\longrightarrow\quad & -\log(z^{[$m]} )+  \log(\color{red}{x^{[$p]}})-  \log(\color{blue}{y^{[$n]}})& \text{ use that }  \log (\color{red}{a}) - \log(\color{blue}{b}) = \log\left(\dfrac{\color{red}{a}}{\color{blue}{b}}\right) \\
+&& \text{identify the } \color{red}{a} \text{ and the } \color{blue}{b} \\ \\
+\longrightarrow\quad &  -  \log(z^[$m]) +\log\left(\dfrac{\color{red}{x^{[$p]}}}{\color{blue}{y^{[$n]}}}\right)  &  \\ \\
+\longrightarrow\quad & \log\left(\dfrac{\color{red}{x^{[$p]}}}{\color{blue}{y^{[$n]}}}\right)  -  \log(z^[$m])  &  \textbf{difference} \text{ of two logs} \\ \\
+\longrightarrow\quad &\log\left(\color{red}{\dfrac{x^{[$p]}}{y^{[$n]}}}\right)  -  \log(\color{blue}{z^[$m]})& \text{ use that }  \log (\color{red}{a}) - \log(\color{blue}{b}) = \log\left(\dfrac{\color{red}{a}}{\color{blue}{b}}\right) \\
+&&  \text{identify the } \color{red}{a} \text{ and the } \color{blue}{b} \\ \\
+\longrightarrow\quad & \log\left(\dfrac{\color{red}{\dfrac{x^{[$p]}}{y^{[$n]}}}}{\color{blue}{z^[$m]}}\right)  &\\ \\
+\longrightarrow\quad & \log\left(\dfrac{\color{red}{\dfrac{x^{[$p]}}{y^{[$n]}}}}{\color{blue}{\dfrac{z^[$m]}{1}}}\right)  & \text{division of fractions}\\ \\
+\longrightarrow\quad & \log\left(\dfrac{x^{[$p]}}{y^{[$n]}}\cdot\dfrac{1}{z^{[$m]}}\right)  &\\ \\
+\longrightarrow\quad &  \log\left(\dfrac{x^[$p]}{y^[$n]z^[$m]} \right)  &\\
+\end{align*}`]<<
+    
+   
+
+END_PGML_SOLUTION
+
+
+
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

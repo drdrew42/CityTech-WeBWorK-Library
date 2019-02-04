@@ -1,0 +1,376 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject(‘Arithmetic’)
+## DBchapter(‘Fractions/rational numbers’)
+## DBsection(‘Reducing fractions’)
+## Date('7/3/2015')
+## Author('K. Andrew Parker')
+## Institution('NYC City Tech')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextFraction.pl",
+   "parserPopUp.pl",
+   "scaffold.pl",
+   "niceTables.pl",
+   "PGessaymacros.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer=>"parsed"
+   );
+
+Context()->operators->set('*'=>{TeX=>"\times "});
+Context()->operators->set(' *'=>{TeX=>"\times "});
+Context()->operators->set('* '=>{TeX=>"\times "});
+Context()->update;
+
+  $formChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentstring = $ansHash->{preview_text_string};
+     return ($studentstring eq $ansHash->{correct_ans} ? 1 : 0);
+   };
+
+  $numChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentans=$ansHash->{original_student_ans};
+     Value->Error("You're on the right track, but your answer should be just a number.") if ( ($studentans ne $student)&&($student==$correct) );
+     return($studentans eq $ansHash->{correct_ans} ? 1 : 0);
+  };
+
+
+@prime = ( 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 );
+@card = ("zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen");
+
+do { $numDimes = random(2,9,1); } until ( gcf( 10, $numDimes ) == 1 );
+do { $numNickels = random(2,19,1); } until ( gcf( 20, $numNickels ) == 1 );
+do { $numPennies = random(2,19,1); } until ( gcf( 100, $numPennies ) == 1 );
+
+do { $nickDimes = random(2,9,1); } until ( gcf( 10, $nickDimes ) == 1 );
+$dimeNicks = 2*$nickDimes;
+
+$nickQuarts = random(2,3,1);
+$quartNicks = 5*$nickQuarts;
+$quartPenns = 25*$nickQuarts;
+
+$frac1n = $prime[random(0,3,1)];
+do { $frac1d = $prime[random(0,3,1)]; } until ( $frac1n != $frac1d );
+$gcf1 = random(4,9,1);
+$frac1num = $frac1n*$gcf1;
+$frac1den = $frac1d*$gcf1;
+
+do { $gcf2 = random(4,9,1); } until ( $gcf1 != $gcf2 );
+$frac2num = $frac1n*$gcf2;
+$frac2den = $frac1d*$gcf2;
+
+$gcf1List = List( "" );
+$gcf1rem = $gcf1;
+$frac1numForm = Formula( "$frac1n" );
+$frac1denForm = Formula( "$frac1d" );
+
+ foreach my $i (0..3) {
+  while ( $gcf1rem % $prime[$i] == 0 ) {
+   $gcf1List = $gcf1List . List( Real( $prime[$i] ) );
+   $frac1numForm = Formula( "$frac1numForm*$prime[$i]" );
+   $frac1denForm = Formula( "$frac1denForm*$prime[$i]" );
+   $gcf1rem = $gcf1rem / $prime[$i];
+  }
+ }
+
+$frac1numList = $gcf1List . List( Real( $frac1n ) );
+$frac1denList = $gcf1List . List( Real( $frac1d ) );
+
+$gcf2List = List( "" );
+$gcf2rem = $gcf2;
+$frac2numForm = Formula( "$frac1n" );
+$frac2denForm = Formula( "$frac1d" );
+
+ foreach my $i (0..3) {
+  while ( $gcf2rem % $prime[$i] == 0 ) {
+   $gcf2List = $gcf2List . List( Real( $prime[$i] ) );
+   $frac2numForm = Formula( "$frac2numForm*$prime[$i]" );
+   $frac2denForm = Formula( "$frac2denForm*$prime[$i]" );
+   $gcf2rem = $gcf2rem / $prime[$i];
+  }
+ }
+
+$frac2numList = List( $frac1n ) . $gcf2List;
+$frac2denList = List( $frac1d ) . $gcf2List;
+ 
+##############################################################
+#
+#  Text
+#
+#
+
+
+Scaffold::Begin(
+      can_open => "when_previous_correct",
+      is_open  => "first_incorrect"
+);
+
+Section::Begin( "Part 1: Coins as fractions" );
+
+Context("LimitedFraction")->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer=>"parsed",
+     showMixedNumbers=>0,
+     allowMixedNumbers=>0
+   );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Coins are our way of representing values less than one dollar.
+$BR
+In this first section, we're going to identify the fraction corresponding to each coin.
+$PAR
+The quarter is of course worth $0.25, but what we're interested in is what fraction of a dollar it represents. 
+$BR
+Because it takes four quarters to make a dollar, each quarter represents \( \dfrac{1}{4} \) of a dollar. Two quarters would be \( \dfrac{2}{4} \) and three quarters \( \dfrac{3}{4} \).
+$PAR
+Dimes are also pretty easy. Each dime is $0.10, so how many does it take to make a whole dollar? \{ ans_rule(5) \}
+$BR
+So what fraction of a dollar would a single dime represent? \{ ans_rule(5) \}
+$BR
+What fraction would $card[$numDimes] dimes represent? \{ ans_rule(5) \}
+$PAR
+Nickels are worth $0.05, so how many nickels does it take to make a whole dollar?
+\{ ans_rule(5) \}
+$BR
+What fraction of a dollar does a single nickel represent? \{ ans_rule(5) \}
+$BR
+What fraction would $card[$numNickels] nickels represent? \{ ans_rule(5) \}
+$PAR
+Finally, pennies. They're worth $0.01, so how many pennies does it take to make a whole dollar? \{ ans_rule(5) \}
+$BR
+What fraction of a dollar does a single penny represent? \{ ans_rule(5) \}
+$BR
+What fraction would $card[$numPennies] pennies represent? \{ ans_rule(5) \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( Real(10)->cmp(checker=>$numChecker) );
+ANS( Fraction(1,10)->cmp() );
+ANS( Fraction($numDimes,10)->cmp() );
+ANS( Real(20)->cmp(checker=>$numChecker) );
+ANS( Fraction(1,20)->cmp() );
+ANS( Fraction($numNickels,20)->cmp() );
+ANS( Real(100)->cmp(checker=>$numChecker) );
+ANS( Fraction(1,100)->cmp() );
+ANS( Fraction( $numPennies,100)->cmp() );
+Section::End();
+
+Section::Begin( "Part 2: Making Change" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Often, it's necessary to exchange one type of coin for others.
+$PAR
+How many nickels can we get in exchange for one dime? \{ ans_rule(5) \}
+$BR
+The fraction for a dime is \( \dfrac{1}{10} \), what is the equivalent fraction in nickels?
+\{ ans_rule(5) \}
+$BR
+How many nickels can we get in exchange for $card[$nickDimes] dimes? \{ ans_rule(5) \}
+$BR
+The fraction for $card[$nickDimes] dimes is \( \dfrac{$nickDimes}{10} \). What is the equivalent fraction in nickels? \{ ans_rule(5) \}
+$PAR
+The fraction for a quarter is \( \dfrac{1}{4} \), what is the equivalent fraction in nickels?
+\{ ans_rule(5) \}
+$BR
+The fraction for $card[$nickQuarts] quarters is \( \dfrac{$nickQuarts}{4} \). What is the equivalent fraction in nickels? \{ ans_rule(5) \}
+$BR
+What would the equivalent fraction for \( \dfrac{$nickQuarts}{4} \) be in pennies?
+\{ ans_rule(5) \}
+
+END_TEXT
+Context()->normalStrings;
+
+Context("Numeric")->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer=>"parsed"
+   );
+
+ANS( Real(2)->cmp() );
+ANS( Formula("2/20")->cmp(checker=>$formChecker) );
+ANS( Real($dimeNicks)->cmp() );
+ANS( Formula("$dimeNicks/20")->cmp(checker=>$formChecker) );
+ANS( Formula("5/20")->cmp(checker=>$formChecker) );
+ANS( Formula("$quartNicks/20")->cmp(checker=>$formChecker) );
+ANS( Formula("$quartPenns/100")->cmp(checker=>$formChecker) );
+
+Section::End();
+
+Section::Begin( "Part 3: Synonymous Fractions" );
+
+Context("LimitedFraction")->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer=>"parsed",
+     showMixedNumbers=>0,
+     allowMixedNumbers=>0
+   );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+In the previous section, we came up with different fractions that still represented the same monetary value.
+$PAR
+Hopefully you noticed some things while you were working:
+$BR
+First we saw that \( \dfrac{1}{10} \) and \( \dfrac{2}{20} \) represented the same value, $0.10
+$BR
+Then it was \( \dfrac{$nickDimes}{10} \) and \( \dfrac{$dimeNicks}{20} \) that were the same; followed by \( \dfrac{$nickQuarts}{4} \) and \( \dfrac{$quartNicks}{20} \) and \( \dfrac{$quartPenns}{100} \) that were all equal.
+$PAR
+$PAR
+In every equivalent pair of fractions, you hopefully noticed that both the numerators and the denominators changed in the same way. The way that they both changed was by multiplication by the same value.
+$PAR
+For instance, look at the pair \( \dfrac{1}{10} \) and \( \dfrac{2}{20} \). One dime and two nickels clearly have the same value. But looking at their fractions, if we take \( \dfrac{1}{10} \) and multiply both the numerator and denominator by 2, we get the equivalent fraction \( \dfrac{2}{20} \).
+$PAR
+What did we multiply by both the numerator and denominator of \( \dfrac{$nickDimes}{10} \) to get \( \dfrac{$dimeNicks}{20} \)? \{ ans_rule(5) \}
+$BR
+$BR
+What did we multiply by both the numerator and denominator of \( \dfrac{$nickQuarts}{4} \) to get \( \dfrac{$quartNicks}{20} \)? \{ ans_rule(5) \}
+$BR
+$BR
+What did we multiply by both the numerator and denominator of \( \dfrac{$quartNicks}{20} \) to get \( \dfrac{$quartPenns}{100} \)? \{ ans_rule(5) \}
+$BR
+$BR
+One of the things that makes fractions tricky is exactly this principle that we've been looking at. We can have two fractions that look completely different, but yet they can still represent the same value. 
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( Real(2)->cmp() );
+ANS( Real(5)->cmp() );
+ANS( Real(5)->cmp() );
+
+Section::End();
+
+Section::Begin( "Part 4: Reducing Fractions" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+So, if fractions can look completely different and sometimes still be equal, how can we tell when two fractions are equal and when they aren't?
+$PAR
+To answer the question of when two fractions are equal, the first method we'll learn is the method of reducing fractions.
+$BR
+Every fraction has what we call a $BBOLD reduced form. $EBOLD
+$PAR
+Reducing a fraction is the opposite of what we were doing in the last two sections. There, we were multiplying the numerators and denominators by the same value to get a fraction that LOOKED different, but still had the same value. (Just like getting change, you get different looking coins, but they have the same value as what you started with.)
+$PAR
+So, instead of multiplying both the numerator and denominator, now we'll be dividing them.
+$PAR
+Consider the fraction \( \dfrac{$frac1num}{$frac1den} \).
+$BR
+List the prime factors of $frac1num. \{ ans_rule(10) \}
+$BR
+List the prime factors of $frac1den. \{ ans_rule(10) \}
+$BR
+Find the GCF of $frac1num and $frac1den. \{ ans_rule(5) \}
+$BR
+What will the new version of our fraction look like if we divide both the numerator and denominator by that GCF? \{ ans_rule(5) \}
+$PAR
+$PAR
+Now try the same steps to reduce \( \dfrac{$frac2num}{$frac2den} \).
+$BR
+List the prime factors of $frac2num. \{ ans_rule(10) \}
+$BR
+List the prime factors of $frac2den. \{ ans_rule(10) \}
+$BR
+Find the GCF of $frac2num and $frac2den. \{ ans_rule(5) \}
+$BR
+What will the new version of our fraction look like if we divide both the numerator and denominator by that GCF? \{ ans_rule(5) \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS($frac1numList->cmp(showLengthHints=>1, ordered=>0) );
+ANS($frac1denList->cmp(showLengthHints=>1, ordered=>0) );
+ANS(Real($gcf1)->cmp() );
+ANS(Fraction($frac1n,$frac1d)->cmp() );
+ANS($frac2numList->cmp(showLengthHints=>1, ordered=>0) );
+ANS($frac2denList->cmp(showLengthHints=>1, ordered=>0) );
+ANS(Real($gcf2)->cmp() );
+ANS(Fraction($frac1n,$frac1d)->cmp() );
+
+Section::End();
+
+Section::Begin( "Part 5: Prime factor method of reduction" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+We can make the reduction process a little bit faster by skipping the GCF part. However, we'll still need to use the prime factorization.
+$PAR
+Let's look first at \( \dfrac{$frac1num}{$frac1den} \).
+$PAR
+If we replace the numerator and the denominator with their respective prime factorizations, we get a fraction that looks like this:
+$BR
+\[ \dfrac{$frac1numForm}{$frac1denForm} \]
+$BR
+From this, we can see the common prime factor(s): $gcf1List
+$BR
+And if we remove all the common factor(s), we're left with \( \dfrac{$frac1n}{$frac1d} \), the reduced fraction.
+$PAR
+$PAR
+We can do the same thing with \( \dfrac{$frac2num}{$frac2den} \).
+$PAR
+Again, we'll replace the numerator and denominator with their prime factorizations:
+$BR
+\[ \dfrac{$frac2numForm}{$frac2denForm} \]
+$BR
+And identify the common factor(s): $gcf2List
+$BR
+And once we remove them, we're left with the reduced fraction: \( \dfrac{$frac1n}{$frac1d} \).
+$PAR
+Which method seems easier? Finding the GCF and dividing by it? Or using the prime factorization to reduce the common factors? 
+$BR
+(There's no wrong answer here, just say which method you prefer and a little bit about why.)
+$BR
+\{ essay_box() \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( essay_cmp() );
+
+Section::End();
+
+Scaffold::End();
+
+ENDDOCUMENT();        

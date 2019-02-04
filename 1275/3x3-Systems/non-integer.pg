@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Algebra problem: Solve a system of 3 linear	equations in 3 variables
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'linear algebra, 'algebra linear equations', 'linear equations', 'linear equations system', 'linear system', 'linear system of equations', 'linear systems', 'system of linear equations')
+
+## DBsubject(Algebra)
+## DBchapter(Systems of equations and inequalities)
+## DBsection(Linear systems)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -24,6 +38,8 @@ Context()->variables->are(x=>Real,y=>Real,z=>Real);
 Context()->noreduce('(-x)+y','(-x)-y');
 Context()->flags->set( reduceConstants=>0, reduceConstantFunctions=>0 );
 Parser::Number::NoDecimals();
+Context()->{error}{msg}{"You are not allowed to type decimal numbers in this problem"} 
+  = "Decimals are not allowed for this problem, please use exact forms (such as fractions) instead of decimal approximations.";
 
 $denom = list_random(2,4,5);
 
@@ -84,7 +100,7 @@ $RHS1 = $eqn1->eval(x=>$x, y=>$y, z=>$z);
 $RHS2 = $eqn2->eval(x=>$x, y=>$y, z=>$z);
 $RHS3 = $eqn3->eval(x=>$x, y=>$y, z=>$z);
 
-$ans = Point("($xAns,$yAns,$zAns)");
+$ans = Compute("($xAns,$yAns,$zAns)");
 
 ##############################################################
 #
@@ -100,6 +116,11 @@ Find the unique solution to this system of equations. Give your answer as a poin
 
 [__________]{$ans}
 
+* Do not use decimal approximations in your answer.
+* Use fractions instead.
+
 END_PGML
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

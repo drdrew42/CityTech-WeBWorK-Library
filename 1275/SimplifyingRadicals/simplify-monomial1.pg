@@ -1,3 +1,18 @@
+##DESCRIPTION
+##  Algebra problem: Simplify square root of a monomial
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'radical', 'radicals', 'radical expression')
+
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of rational exponents and radicals)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
+
 ########################################################################
 
 DOCUMENT();      
@@ -87,6 +102,18 @@ $rad = 2*$exp+1;
 
 $ans = Compute("x^$exp sqrt(x)");
 
+$ansString = "\sqrt{x}";
+$rawString = "\sqrt{x}";
+$varString = "x";
+$redString = "";
+for $n (2..$rad) {
+   $varString = $varString . "\cdot x";
+   $rawString = $rawString . "\sqrt{x}";
+   $ansString = $ansString . "\left(\sqrt{x}" if ($n % 2 == 0);
+   $ansString = $ansString . "\sqrt{x}\right)" if ($n % 2 == 1);
+   $redString = $redString . "(x)" if ($n % 2 == 1);
+};
+
 ##############################################################
 #
 #  Text
@@ -104,7 +131,8 @@ $PAR
 \( \sqrt{x^$rad} \) = \{ ans_rule(10) \}
 $PAR
 * Use "sqrt" to input square-roots into WeBWorK. For example, use "sqrt(5)" to represent \( \sqrt{5} \).
-
+$BR
+* Assume all variables are restricted to positive values (that way we don't have to worry about absolute values).
 END_TEXT
 Context()->normalStrings;
 
@@ -120,5 +148,38 @@ ANS($ans->cmp(checker=>$reducedSqrt)->withPostFilter(sub {
     if $ans->{ans_message} eq "Powers must be positive integer constants";
   return $ans; 
 }));
+
+Context()->texStrings;
+BEGIN_HINT
+
+Remember that \( \sqrt{x^2} = |x| \).
+$BR
+Also note that the problem specifically tells you to assume that variables only represent positive numbers. $BR
+This means we don't have to worry about using absolute values in our answer.
+$PAR
+So we may simplify \( \sqrt{x^2} = x \) 
+END_HINT
+BEGIN_SOLUTION
+
+$BBOLD Break down \(x^$rad\): $EBOLD $BR
+\( \displaystyle \sqrt{x^$rad} = \sqrt{$varString} \)
+$PAR
+$BBOLD Split the radical: $EBOLD $BR
+\( \displaystyle \sqrt{$varString} = $rawString \)
+$PAR
+$BBOLD Group matching radicals into pairs: $EBOLD $BR
+\( \displaystyle $rawString = $ansString \)
+$PAR
+$BBOLD Simplify each group: $EBOLD $BR
+Remember that \( \sqrt{x} \cdot \sqrt{x} = x \) for all positive values of \(x\).
+$BR
+\( \displaystyle $ansString = \sqrt{x} $redString \)
+$PAR
+\( \displaystyle \sqrt{x} $redString = $ans \)
+
+END_SOLUTION
+Context()->normalStrings;
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

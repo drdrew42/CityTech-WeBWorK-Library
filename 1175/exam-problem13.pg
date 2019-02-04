@@ -1,0 +1,139 @@
+##DESCRIPTION
+##  Algebra: exponents and radicals 
+##ENDDESCRIPTION
+
+
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of rational exponents and radicals)
+## Date(10/27/2009)
+## Institution(University of Minnesota)
+## Author(Justin Sukiennik)
+## Level(2)
+## MO(1)
+## TitleText1('Algebra for College Students')
+## AuthorText1('Kaufmann, Schwitters')
+## EditionText1('8')
+## Section1('5.3')
+## Problem1('34')
+## KEYWORDS('algebra', 'radicals', 'exponents')
+
+## Edited version of Library/UMN/algebraKaufmannSchwitters/ks_5_3_34.pg
+## Original version separates the reduced form into coefficient and radicand.
+## We now ask students to enter their radical expression in its entirety.
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextLimitedPowers.pl",
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+########################################################################
+
+install_problem_grader(~~&std_problem_grader);
+
+$showPartialCorrectAnswers = 0;
+
+TEXT(beginproblem());
+
+########################################################################
+
+   # code essentially from Davide Cervone 4/25/10
+    ###########################
+    #
+    # Subclass the numeric functions
+    #
+    package my::Function::numeric;
+    our @ISA = ('Parser::Function::numeric');
+
+    #
+    # Override sqrt() to return a special value (usually 1) when evaluated
+    # effectively eliminating it from the product.
+    #
+    sub sqrt {
+      my $self = shift;
+      my $value = $self->context->flag("setSqrt");
+ 
+ return $value+2 if $value && $_[0] == 1; # force sqrt(1) to be incorrect
+      return $value if $value;
+      return $self->SUPER::sqrt(@_);
+    }
+
+    #
+    # end of subclass
+    #
+package main;
+
+Context("Numeric")->variables->are(a=>['Real',limits=>[0,2]],b=>['Real',limits=>[0,2]]);
+Context()->flags->set(reduceConstants=>0, reduceConstantFunctions=>0);
+    #
+    # make sqrt() use our subclass
+    #
+    Context()->functions->set(sqrt=>{class=>'my::Function::numeric'});
+    Context()->flags->set(reduceConstantFunctions=>0);
+    #
+   #
+    # Don't allow fractional powers (avoids 1/2 power)
+    # [Could subclass exponentiation to handle that as well]
+    #
+    LimitedPowers::OnlyPositiveIntegers();
+
+$reducedSqrt = sub  {
+      my ($correct,$student,$ans) = @_;
+      return 0 if $ans->{isPreview} || $correct != $student;
+      #
+      #  Get parsed formula for student and correct answers
+      #
+      $student = $ans->{student_formula};
+      $correct = $correct->{original_formula} if defined $correct->{original_formula};
+      #
+      # check if equal when sqrt's are replaced by 1
+      #
+      Context()->flags->set(setSqrt => 1);
+      delete $correct->{test_values}, $student->{test_values};
+      my $OK = ($correct == $student);
+      Context()->flags->set(setSqrt => 0);
+      #
+      Value::Error("Your answer is not completely reduced.") unless $OK;
+      return $OK;
+    };
+
+$c = list_random(-6,-5,-4,-3,-2,2,3,4,5);
+$d = random(5,7,2);
+$e = random(3,7,2);
+$f = random(2,6,2);
+
+$g = Compute("4*$d")->reduce;
+
+$ans1 = Compute("2*$c*a^(($e-1)/2)b^($f/2)")->reduce;
+$ans2 = Compute("$d*a")->reduce;
+$ans = Formula("$ans1 sqrt($ans2)");
+########################################################################
+
+Context()->texStrings;
+BEGIN_TEXT
+Assume that \(a\) and \(b\) represent positive real numbers.  Simplify the expression
+\[
+$c \sqrt{$g a^{$e} b^{$f}}
+\]
+into the simplest radical form \(A \sqrt{C} \), where \(A\) and \(C\) are either integers or monomials.
+$PAR
+Answer: \{ans_rule(20)\}
+$HR
+* to enter a square root, use "sqrt(...)" to represent \( \sqrt{ . . . } \)
+$BR
+* make sure to put parenthesis around everything you want to be under the radical.
+END_TEXT
+Context()->normalStrings;
+
+########################################################################
+
+ANS( $ans->cmp(checker=>$reducedSqrt, formatStudentAnswer=>"reduced") );
+
+ENDDOCUMENT();        

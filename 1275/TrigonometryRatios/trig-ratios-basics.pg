@@ -1,3 +1,17 @@
+##DESCRIPTION
+## Trigonometry problem: Identify trigonometric ratios for given triangle ABC
+##ENDDESCRIPTION
+
+##KEYWORDS('trigonometry', 'right triangle', 'triangle')
+
+## DBsubject(Trigonometry)
+## DBchapter(Triangle Trigonometry)
+## DBsection(Sine, cosine, and tangent of an angle in a right triangle)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -74,7 +88,7 @@ $ymin = 0;
 $ymax = 0.7;
 
 # $theta = "~~x{03B8}";
-# $theta = "ÃÂ¸";
+# $theta = "ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¸";
 
 $gr = init_graph(-0.15,-0.3,1.15,1,size=>[300,300]);
 $gr->lb('reset');
@@ -114,5 +128,30 @@ Remember that "opposite" and "adjacent" legs depend on which angle you're lookin
 
 Use SOHCAHTOA if you're having trouble remembering which trig ratios are which.
 END_PGML
+
+BEGIN_PGML_HINT
+
+The hypotenuse is always the same, no matter which angle we're looking at.
+
+Which leg is opposite angle [`B`]?  
+Which leg is adjacent to angle [`B`]?
+
+Which leg is opposite angle [`C`]?  
+Which leg is adjacent to angle [`C`]?
+
+END_PGML_HINT
+BEGIN_PGML_SOLUTION
+
+* [`\displaystyle \sin(B) = \frac{\text{opposite leg}}{\text{hypotenuse}} = [$sinB] `]
+* [`\displaystyle \cos(B) = \frac{\text{adjacent leg}}{\text{hypotenuse}} = [$cosB] `]
+* [`\displaystyle \tan(B) = \frac{\text{opposite leg}}{\text{adjacent leg}} = [$tanB] `]
+
+* [`\displaystyle \sin(C) = \frac{\text{opposite leg}}{\text{hypotenuse}} = [$sinC] `]
+* [`\displaystyle \cos(C) = \frac{\text{adjacent leg}}{\text{hypotenuse}} = [$cosC] `]
+* [`\displaystyle \tan(C) = \frac{\text{opposite leg}}{\text{adjacent leg}} = [$tanC] `]
+
+END_PGML_SOLUTION
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

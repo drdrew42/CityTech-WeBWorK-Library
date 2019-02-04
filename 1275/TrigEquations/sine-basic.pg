@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Trigonometry problem: Solve a trig equation
+##ENDDESCRIPTION
+
+##KEYWORDS('trigonometry', 'trig functions', 'trigonometric functions', 'analytic trigonometry', 'trigonometric equation')
+
+## DBsubject(Trigonometry)
+## DBchapter(Analytic trigonometry)
+## DBsection(Solving trigonometric equations exactly)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -155,4 +169,7 @@ Recall the ranges of the inverse trig functions:
 * [` \arctan(x) `] has range [` [ \frac{-\pi}{2}, \frac{\pi}{2} ] `]
 
 END_PGML_HINT
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
+
 ENDDOCUMENT();        

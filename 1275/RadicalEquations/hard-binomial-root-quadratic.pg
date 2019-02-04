@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Algebra problem: Solve equation involving radicals
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'radical', 'radicals', 'radical expression', 'radical equation')
+
+## DBsubject(Algebra)
+## DBchapter(Functions with fractional exponents and radical functions)
+## DBsection(Equations)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -31,12 +45,17 @@ Context()->noreduce('(-x)-y');
 $R1 = non_zero_random(-8,8,2);
 do { $R2 = non_zero_random(-8,8,2); } until ( abs($R1) != abs($R2) && ($R1 + $R2)%4 == 0 );
 
-$A = ($R1 + $R2)/4;
-$B = $R1*$R2/4;
+$A = $R1+$R2;
+$B = $R1*$R2;
+$A4 = ($R1 + $R2)/4;
+$B4 = $R1*$R2/4;
 
-$radicand = Formula("$A w - $B") -> reduce;
-$LHS = Formula("2 sqrt($radicand) - w");
+$rad = Formula("$A4 w - $B4") -> reduce;
+$LHS = Formula("2 sqrt($rad) - w");
 $RHS = Formula("0");
+
+$LHSans1 = $LHS->substitute(w=>$R1);
+$LHSans2 = $LHS->substitute(w=>$R2);
 
 Context("LimitedNumeric-List");
 
@@ -50,14 +69,18 @@ List( Real($R1), Real($R2) );
 if ( $R1 < 0 ) {
    if ( $R2 < 0 ) {
       $ans = List(String('none'));
+      $ansString = "Neither answer works as a solution to the original equation.";
    } else {
       $ans = List(Real($R2));
+      $ansString = "Only \($R2\) works as a solution to the original equation.";
    }
 } else {
    if ( $R2 < 0 ) {
       $ans = List(Real($R1));
+      $ansString = "Only \($R1\) works as a solution to the original equation.";
    } else {
       $ans = List(Real($R1),Real($R2));
+      $ansString = "Both answers work as solutions to the original equation.";
    }
 }
 
@@ -105,5 +128,44 @@ ANS($ans->cmp->withPostFilter( AnswerHints(
    $ans => "Correct!", 
    List( Real($R1), Real($R2) ) => ["Did you verify that your result(s) are actually solutions to the equation?", checkCorrect=>0]
 )));
+
+Context()->texStrings;
+BEGIN_HINT
+
+When solving equations that involve square roots, try isolating the radical term $BITALIC first $EITALIC. 
+$PAR
+Then you can square both sides of the equation in order to eliminate the radical.
+$PAR
+Always make sure that your final answer works as a solution to the $BITALIC original $EITALIC equation!
+
+END_HINT
+BEGIN_SOLUTION
+
+$BBOLD Isolate the radical: $EBOLD $BR
+\( \left( 2 \sqrt{$rad} - w \right) + w = (0) + w \) $BR
+\( 2 \sqrt{$rad} = w \) $PAR
+\( \displaystyle \frac{ 2 \sqrt{$rad}}{2} = \frac{ w }{2} \) $PAR
+\( \displaystyle \sqrt{$rad} = \frac{w}{2} \)
+$PAR
+$BBOLD Square both sides: $EBOLD $BR
+\( \displaystyle \left( \sqrt{$rad} \right)^2 = \left(\frac{w}{2}\right)^2 \) $PAR
+\( \displaystyle $rad = \frac{w^2}{4} \)
+$PAR
+$BBOLD Finish solving the equation: $EBOLD $BR
+\( \displaystyle \left( $rad \right) \cdot 4 = \left(\frac{w^2}{4}\right)\cdot 4 \) $PAR
+\( $A w - $B = w^2 \) $BR
+\( 0 = w^2 - $A w + $B \) $BR
+\( 0 = (a - $R1)(a - $R2) \) $BR
+\( a = $R1 \) or \( a = $R2 \)
+$PAR
+$BBOLD Make sure these answers are solutions! $EBOLD $BR
+\( \displaystyle $LHSans1 = $RHS \) ? $BR
+\( \displaystyle $LHSans2 = $RHS \) ?
+$PAR
+$BITALIC $ansString $EITALIC
+END_SOLUTION
+Context()->normalStrings;
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

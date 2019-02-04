@@ -1,3 +1,18 @@
+##DESCRIPTION
+##  Trigonometry problem: Solve a special right triangle
+##ENDDESCRIPTION
+
+##KEYWORDS('trigonometry', 'right triangle', 'triangle')
+
+## DBsubject(Trigonometry)
+## DBchapter(Triangle Trigonometry)
+## DBsection(Applications of special triangles & right triangles)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
+
 ########################################################################
 
 DOCUMENT();      
@@ -74,5 +89,40 @@ If [` \overline{AC} `] has length [$leg], find the length of [` \overline{AB} `]
 * To enter a number like [` \sqrt{3} `], use _sqrt(3)_.
 
 END_PGML
+
+BEGIN_PGML_HINT
+
+Any 45-45-90 triangle will also be an isosceles triangle.
+
+Which two sides must have the same length?
+
+Can you use this knowledge to determine the remaining sides?
+
+END_PGML_HINT
+BEGIN_PGML_SOLUTION
+
+45-45-90 triangles are always isosceles triangles.
+
+The legs always have the same length.
+
+So we know right away that both [` \overline{AB} = [$leg] `] and [` \overline{AC} = [$leg] `]
+
+Now that we know two sides of this right triangle, Pythagorean theorem will help us with the remaining side:
+
+    [` \overline{AB}^2 + \overline{AC}^2 = \overline{BC}^2 `]
+
+    [` ([$leg])^2 + ([$leg])^2 = \overline{BC}^2 `]
+
+    [` [@$leg**2@] + [@$leg**2@] = \overline{BC}^2 `]
+
+    [` [@2*$leg**2@] = \overline{BC}^2 `]
+
+    [` \sqrt{[@2*$leg**2@]} = \overline{BC} `]
+
+    [` [$leg]\sqrt{2} = \overline{BC} `]
+
+END_PGML_SOLUTION
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

@@ -1,3 +1,19 @@
+##DESCRIPTION
+##  Algebra problem: Evaluating higher roots of -1
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'radical', 'radicals', 'radical expression')
+
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of rational exponents and radicals)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
+########################################################################
+
 DOCUMENT();      
 
 loadMacros(
@@ -59,5 +75,36 @@ ANS($ans[$perm[1]]->cmp);
 ANS($ans[$perm[2]]->cmp);
 ANS($ans[$perm[3]]->cmp);
 
+Context()->texStrings;
+BEGIN_HINT
+
+Remember what it means to be a radical:$BR
+If \( \sqrt[n]{B} = x \), then it must also be true that \( x^n = B \)
+$PAR
+For these problems, we have \( x^n = -1 \) for several different values of \( n \).
+$BR
+Is there a difference between them? $BR
+Do these equations always have a solution? 
+END_HINT
+BEGIN_SOLUTION
+In these problems, we're looking at whether or not \( -1 \) has different radicals.
+$PAR
+If we assume \( \sqrt[n]{-1} \) exists, and we call it \( x \)
+$BR
+Then \( x \) must satisfy \( x^n = -1 \)
+$PAR
+This equation doesn't always have a solution.
+$BR
+$BBOLD When \(n\) is even, \(x^n\) will always be positive. $EBOLD $BR
+Which means there is no \(x\) such that \(x^n = -1\) whenever \(n\) is even.
+$PAR
+$BBOLD However, when \(n\) is odd, \(x^n\) can be negative. $EBOLD $BR
+\( \sqrt[n]{-1} = -1 \) whenever \( n \) is odd, because \( (-1)^n = -1 \) when 
+\(n\) is odd.
+
+END_SOLUTION
+Context()->normalStrings;
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

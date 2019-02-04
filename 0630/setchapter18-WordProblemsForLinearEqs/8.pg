@@ -1,0 +1,63 @@
+## DESCRIPTION
+## This problem asks students to solve word problems for linear equations 
+## ENDDESCRIPTION
+## KEYWORDS('word problems`,`linear equations')
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## BookChapter('Word Problems for Linear EquationsÃ¢ÂÂ)
+## BookEdition('3')
+## BookAuthor('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## BookChapter('18')
+## Date('07/12/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+
+
+DOCUMENT();
+
+loadMacros("PG.pl",
+           "PGbasicmacros.pl",
+           "PGchoicemacros.pl",
+           "PGanswermacros.pl",
+           "PGgraphmacros.pl",
+           "PGauxiliaryFunctions.pl",
+           "PGgraphmacros.pl",
+           "MathObjects.pl",
+           "PGcourse.pl"
+);
+
+TEXT(beginproblem());
+
+Context("Numeric")->variables->are( n=>'Real' );
+
+
+$showPartialCorrectAnswers = 1;
+
+$y1 = random(500,600,800);
+$ans1 = "($y1/4)";
+$ans2 = "(3*$y1/4)";
+
+
+Context()->texStrings;
+BEGIN_TEXT
+
+An engineer wants to split a $y1 ft cable into two pieces of different sizes. The size of the longer piece should be three times the size of the shorter piece. How long are the two pieces?
+
+$BR
+Short piece = \{ ans_rule(20) \} 
+Long piece = \{ ans_rule(20) \} 
+
+END_TEXT
+Context()->normalStrings;
+
+
+ANS( Compute($ans1)->cmp() );
+ANS( Compute($ans2)->cmp() );
+
+
+
+Context()->texStrings;
+
+
+Context()->normalStrings;
+ENDDOCUMENT();

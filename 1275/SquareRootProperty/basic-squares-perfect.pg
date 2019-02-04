@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Algebra problem: Solve simple quadratic equation by using the square root property
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'quadratic equation')
+
+## DBsubject(Algebra)
+## DBchapter(Quadratic equations and functions)
+## DBsection(Solving equations)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -19,7 +33,8 @@ $showPartialCorrectAnswers = 1;
 #
 #  Setup
 #
-#
+# (x - B)^2 = A^2 --> x = B +/- A
+
 Context("LimitedRadical");
 Context()->variables->are(x=>Real);
 Context()->flags->set( reduceConstants=>0, reduceConstantFunctions=>0, formatStudentAnswer=>'parsed');
@@ -59,7 +74,7 @@ BEGIN_PGML
 Solve by using the square root property.
     [` \large{ [$LHS] = [$RHS] } `]
 
-    [______________________]
+    [`x =`] [______________________]
 
 * Enter multiple answers separated by commas.
 * If you need to use the square root symbol as in [` \sqrt{5}`], type it using *sqrt(5)*.
@@ -151,5 +166,39 @@ ANS($ans->cmp(list_checker => sub {
      }
      return ($score,@errors);
    }));
+
+BEGIN_PGML_HINT
+
+Be careful about taking square roots of "both sides" of an equation...  
+Think about how many different values for [`x`] might satisfy this equation?
+
+Do you know of more than one number who's square is [`[$A2]`]?
+
+Remember, in general, if [` x^2 = A `]  
+then [` x = \sqrt{A} `] is only one possible solution.  
+[` x = -\sqrt{A} `] would _also_ work!
+
+END_PGML_HINT
+BEGIN_PGML_SOLUTION
+
+Starting with the equation [` (x-[$B])^2 = [$A2] `], we must consider how many solutions we should expect.  
+This is a quadratic equation, and as such, we should find two solutions.
+
+[` x-[$B] = \pm \sqrt{[$A2]} `]
+
+[` x-[$B] = \pm [$A] `]
+
+So, either [` x-[$B] = [$A] `] or [` x-[$B] = -[$A] `]
+
+Solve each equation:
+
+[` x = [$A] + [$B] = [@ $A+$B @] `]  
+or  
+[` x = -[$A] + [$B] = [@ -$A+$B @] `]  
+
+
+END_PGML_SOLUTION
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

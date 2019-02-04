@@ -39,10 +39,10 @@ Context()->texStrings;
 BEGIN_TEXT
 
 $PAR
-The solution of the equation
+Solve the fractional equation by cross multiplication:
 \[ \frac{1}{x-$a} = \frac{2}{x+$b} \]
 $PAR
-is \(x = \) \{ ans_rule(20) \}.
+\(x = \) \{ ans_rule(20) \}.
 
 END_TEXT
 Context()->normalStrings;

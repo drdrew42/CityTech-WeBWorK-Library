@@ -1,0 +1,92 @@
+##DESCRIPTION
+##  PreAlgebra problem:
+##ENDDESCRIPTION
+
+##KEYWORDS('prealgebra','common core')
+
+## DBsubject('PreAlgebra')
+## DBchapter('')
+## DBsection('')
+## Date('2/12/2016')
+## Author('John Travis, Parker,ElHitti')
+## Institution('Mississippi College, City Tech')
+## ProblemTester('Laura Travis')
+## TitleText1('Pre-Algebra')
+## Publisher('Prentice Hall')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+
+
+$a = random(28,39,1);
+$b = random(-35,-28,1);
+$c = random(-17,-11,1);
+$e = $a+$b+$c;
+
+Context("LimitedNumeric");
+$ans = Compute("$e");
+
+##    to disable arithmetic operations in the answer.  Student must simplify.
+Context("LimitedNumeric");
+$ans = Real($ans);
+Context()->{error}{msg}{"Can't use '+' in this context"} 
+  = "Addition is disabled for this problem. Compute the result for yourself and resubmit your answer.";
+Context()->{error}{msg}{"Can't use '-' in this context"} 
+  = "Subtraction is disabled for this problem. Compute the result for yourself and resubmit your answer.";
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+
+BEGIN_TEXT
+
+Evaluate:
+$PAR
+$BCENTER
+
+ \($a + ($b) +($c)\)
+
+$ECENTER
+$PAR
+
+\{ans_rule(20)\}
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans->cmp);
+
+
+ENDDOCUMENT();        

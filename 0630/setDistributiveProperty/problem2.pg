@@ -1,0 +1,303 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject(‘Algebra’)
+## DBchapter(‘Factoring’)
+## DBsection(‘Factoring: common factors’)
+## Date('6/26/2015')
+## Author('K. Andrew Parker')
+## Institution('NYC City Tech')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "parserPopUp.pl",
+   "scaffold.pl",
+   "niceTables.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer=>"parsed"
+   );
+
+  $sumChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentstring = $ansHash->{preview_text_string};
+     return ($studentstring eq $ansHash->{correct_ans} ? 1 : 0);
+   };
+
+  $numChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentans=$ansHash->{original_student_ans};
+     Value->Error("You're on the right track, but your answer should be just a number.") if ( ($studentans ne $student)&&($student==$correct) );
+     return($studentans eq $ansHash->{correct_ans} ? 1 : 0);
+  };
+
+
+@prime = ( 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 );
+
+$A = random(4,9,1);
+$B = random(3,5,1);
+$negA = $A*-1;
+$ABform = Formula("$negA");
+foreach my $i (2..$B) {
+ $ABform = Formula("$ABform + $negA");
+}
+$negAB = Real("$negA*$B");
+
+$C = random(3,9,1);
+$D = random(3,9,1);
+$CD = Real( "$C*$D" );
+$negC = -1*$C;
+$negD = -1*$D;
+
+do{ $E = random(3,9,1); } until ( $E != $C && $E != $D );
+$F = random(3,9,1);
+$negE = -1*$E;
+$negF = -1*$F;
+$EF=$E*$F;
+
+##############################################################
+#
+#  Text
+#
+#
+Scaffold::Begin(
+      can_open => "when_previous_correct",
+      is_open  => "first_incorrect"
+);
+
+Section::Begin( "Part 1: Multiplying negative numbers" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+When it comes to multiplying negative numbers, it's easy to see what happens in the case where we're multiplying a positive number with a negative number. For example, consider \( $negA \times $B \)
+$PAR
+Because of the commutative property of multiplication, we have the option to view it as $negA being repeatedly added $B times. \( $ABform \).
+$PAR
+And because we know how adding a bunch of negative numbers together works, we can conclude that multiplying a negative number times a positive number will always give us a negative product. What do we get when we multiply \( $negA \times $B \)? \{ ans_rule(5) \}
+$PAR
+But what happens when we multiply two negative numbers together? What is \( $negC \times $negD \)?
+$BR
+First, we can replace $negC with \( -1 \times $C \) and replace $negD with \( -1 \times $D \), which changes \( $negC \times $negD \) into \( (-1 \times $C) \times (-1 \times $D) \)
+\{
+ DataTable(
+  [
+    ['\( $negC \times $negD \)',' '],
+    [' ','replace $negC with \( -1 \times $C \) and $negD with \( -1 \times $D \)'],
+    ['\( ( -1 \times $C ) \times ( -1 \times $D ) \)',' '],
+    [' ','apply the Associative Property of Multiplication'],
+    ['\( -1 \times ( $C \times -1 ) \times $D \)',' '],
+    [' ','apply the Commutative Property of Multiplication'],
+    ['\( -1 \times ( -1 \times $C ) \times $D \)',' '],
+    [' ','apply the Associative Property of Multiplication'],
+    ['\( ( -1 \times -1 ) \times ( $C \times $D ) \)',' '],
+    [' ','compute \( $C \times $D \), because its in parenthesis, and we know the product'],
+    ['\( ( -1 \times -1 ) \times\)'.ans_rule(2),'']
+  ], 
+  caption => "\( $negC \times $negD \)",
+  columnscss => [ '', 'color:red; ' ],
+  align => 'c l',
+  captioncss => "font-weight:bold; color:blue;"
+ );
+\}
+$PAR
+The process above applies to all products of negative numbers. (We could change $negC and $negD to any other pair of negative numbers and do the same steps.)
+$PAR
+The answer to every question about multiplying two negative numbers boils down to $BBOLD "what is \(-1 \times -1\) "? $EBOLD
+$PAR
+
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( $negAB->cmp(checker=>$numChecker) );
+ANS( $CD->cmp(checker=>$numChecker) );
+
+Section::End();
+
+Section::Begin( "Part 2: So what IS \(-1 \times -1\)?" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Our exploration of the question regarding \(-1 \times -1\) involves four things:
+$PAR
+1.) The fact that \( -1 + 1 \) is zero.
+$BR
+2.) The fact that the product of multiplying a number by zero is always zero.
+$BR
+3.) Applying the Order of Operations.
+$BR
+4.) Applying the distributive property.
+$PAR
+$PAR
+So, starting with first fact, we know that \( -1 + 1 \) is zero.
+$PAR
+Then, using the second fact, no matter what we multiply times \( ( -1 + 1) \), we'll still have zero.
+$BR
+Specifically, because we want to know what happens with \(-1 \times -1\), we're going to multiply by -1.
+$PAR
+So now we're looking at \( -1 \times ( -1 + 1 ) \) .
+$BR
+Using our third fact, the order of operations, we know that \( -1 \times ( -1 + 1 ) \) works out to be \{ans_rule(5)\}.
+$PAR
+HOWEVER, if we use our fourth fact, the distributive property, we get the following:
+\{
+DataTable(
+  [
+    [['\(\times\)', headerrow => 1, midrule => 1],'(','-1','+','1',')'],
+    ['\(-1\)','','\(-1 \times -1\)','+','\(-1 \times 1\)',''],
+  ], 
+  caption => 'Distributive Property',
+  align => 'r | r c c c l',
+  rowheaders => 1,
+  center => 1
+);
+\}
+$PAR
+So, on the one hand, we know that  \( -1 \times ( -1 + 1 ) \) must be zero by the order of operations.
+$PAR
+On the other hand, we know that \( -1 \times ( -1 + 1 ) \) can be rewritten as \( (-1 \times -1) + (-1 \times 1) \) by using the distributive property.
+$PAR
+Putting the two together, we know know that \( (-1 \times -1) + (-1 \times 1) = 0 \)
+$PAR
+The first part of the sum is what we want to figure out, but the second part of the sum is known to us. What is \(-1 \times 1\)? \{ ans_rule(5) \}
+$PAR
+And since we know that the first product and the second product add up to zero, what must \( -1 \times -1 \) be? \{ans_rule(5)\}
+END_TEXT
+Context()->normalStrings;
+
+ANS( Real(0)->cmp(checker=>$numChecker) );
+ANS( Real(-1)->cmp(checker=>$numChecker) );
+ANS( Real(1)->cmp(checker=>$numChecker) );
+
+Section::End();
+
+Section::Begin( "Part 3: Practice" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Now that we know that \(-1 \times -1 = 1\) , we can multiply $BITALIC any $EITALIC pair of negative numbers.
+$PAR
+If we re-visit our example from the first part, we can now finish the problem:
+\{
+ DataTable(
+  [
+    ['\( $negC \times $negD \)',' '],
+    [' ','replace $negC with \( -1 \times $C \) and $negD with \( -1 \times $D \)'],
+    ['\( ( -1 \times $C ) \times ( -1 \times $D ) \)',' '],
+    [' ','apply the Associative Property of Multiplication'],
+    ['\( -1 \times ( $C \times -1 ) \times $D \)',' '],
+    [' ','apply the Commutative Property of Multiplication'],
+    ['\( -1 \times ( -1 \times $C ) \times $D \)',' '],
+    [' ','apply the Associative Property of Multiplication'],
+    ['\( ( -1 \times -1 ) \times ( $C \times $D ) \)',' '],
+    [' ','compute \( $C \times $D \), because its in parenthesis, and we know the product'],
+    ['\( ( -1 \times -1 ) \times $CD \)',' '],
+    [' ','NOW we know that \(-1 \times -1\) is just 1'],
+    [ans_rule(2).'\(\times $CD \)',' '],
+    [' ','1 is the multiplicative identity, so multiplying a number by 1 leaves it the same'],
+    [ans_rule(5),' ']
+  ], 
+  caption => "\( $negC \times $negD \)",
+  align => 'c l',
+  columnscss => [ '', 'color:red; ' ],
+  captioncss => "font-weight:bold; color:blue;"
+ );
+\}
+
+
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( Real(1)->cmp(checker=>$numChecker) );
+ANS( $CD->cmp(checker=>$numChecker) );
+
+Section::End();
+
+Section::Begin( "Part 4: Bringing it all together" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Fill out the following table to calculate \($negE \times $negF\):
+\{
+ DataTable(
+  [
+    ['\( $negE \times $negF \)',' '],
+    [' ','replace $negE with \( -1 \times $E \) and $negE with \( -1 \times $F \)'],
+    ['\( ( -1 \times\)'.ans_rule(3).'\() \times ( -1 \times\)'.ans_rule(3).'\() \)',' '],
+    [' ','apply the Associative Property of Multiplication'],
+    [ans_rule(3).'\(\times (\)'.ans_rule(3).'\(\times\)'.ans_rule(3).'\() \times\)'.ans_rule(3),' '],
+    [' ','apply the Commutative Property of Multiplication'],
+    ['\( -1 \times (\)'.ans_rule(3).'\(\times\)'.ans_rule(3).'\() \times $F \)',' '],
+    [' ','apply the Associative Property of Multiplication'],
+    ['\( (\)'.ans_rule(3).'\( \times\)'.ans_rule(3).'\() \times (\)'.ans_rule(3).'\(\times\)'.ans_rule(3).'\() \)',' '],
+    [' ','follow the order of operations and find the the product in each parenthesis'],
+    [ans_rule(3).'\(\times\)'.ans_rule(3),' '],
+    [' ','1 is the multiplicative identity, so multiplying a number by 1 leaves it the same'],
+    [ans_rule(5),' ']
+  ], 
+  caption => "\( $negE \times $negF \)",
+  align => 'c l',
+  columnscss => [ '', 'color:red; ' ],
+  captioncss => "font-weight:bold; color:blue;"
+ );
+\}
+$PAR
+$PAR
+From here on out, you will not need to show all of this work. But hopefully, working through all of this, you'll remember why the product of two negative numbers is always positive.
+
+END_TEXT
+Context()->normalStrings;
+
+ANS(Real($E)->cmp() );
+ANS(Real($F)->cmp() );
+ANS(Real(-1)->cmp() );
+ANS(Real($E)->cmp() );
+ANS(Real(-1)->cmp() );
+ANS(Real($F)->cmp() );
+ANS(Real(-1)->cmp() );
+ANS(Real($E)->cmp() );
+ANS(Real(-1)->cmp() );
+ANS(Real(-1)->cmp() );
+ANS(Real($E)->cmp() );
+ANS(Real($F)->cmp() );
+ANS(Real(1)->cmp() );
+ANS(Real($EF)->cmp() );
+ANS(Real($EF)->cmp() );
+
+Section::End();
+
+Scaffold::End();
+
+ENDDOCUMENT();        

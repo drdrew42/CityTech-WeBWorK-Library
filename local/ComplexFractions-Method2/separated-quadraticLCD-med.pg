@@ -1,0 +1,71 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+# [ A/t - ( B / (t - R) ) ] / [ ( A / (t-R) ) - B/t ] -> ( (A-B)t - AR ) / ( (A-B)t + BR ) 
+# { 0, R }
+
+Context("Numeric")->flags->set(reduceConstants=>0, reduceConstantFunctions=>0);
+Context()->variables->are("t"=>Real);
+
+$A = random(2,7,1);
+do { $B = random(2,7,1); } until ( gcf($A,$B) == 1 );
+$AmB = $A - $B;
+
+do { $R = random(1,9,1)*random(-1,1,2); } until ( gcf($AmB,abs($R)) == 1 );
+$AR = $A * $R;
+$BR = $B * $R;
+
+$N = Formula("$A/t - ( $B / (t - $R) )")->reduce;
+$D = Formula("( $A / (t-$R) ) - $B/t")->reduce;
+
+$ans = Formula("( $AmB t - $AR ) / ( $AmB t + $BR )")->reduce;
+$ans = $ans->with(test_at=>[ [0], [$R] ]); 
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Simplify the complex fraction:
+\[ \Large\frac{$N}{$D} \]
+$PAR
+\{ans_rule(20)\}
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans->cmp(checkUndefinedPoints=>1)->withPostFilter(sub { 
+  my $ans = shift; 
+  $ans->{ans_message} = "You're on the right track, but your answer can still be reduced." 
+    if $ans->{ans_message} eq "The domain of your function doesn't match that of the correct answer";
+  return $ans; 
+}));
+
+ENDDOCUMENT();        

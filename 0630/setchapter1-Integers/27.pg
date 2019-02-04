@@ -1,0 +1,69 @@
+#DESCRIPTION
+##Type of
+#ENDDESCRIPTION
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+#"PGgraphmacros.pl",
+# "MathObjects.pl",
+# "compoundProblem.pl",
+#"contextCurrency.pl",
+#"contextInequalities.pl",
+#"unionTables.pl",
+# "unionLists.pl",
+#"unionMacros.pl",
+"contextLeadingZero.pl",
+
+);
+#for currency use Context("Currency") then Currency($A);
+#Then, in the text use $DOLLAR $a
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+$b1=random(3,9,1);
+$q1=random (15,19,1);
+$a1=$b1*$q1;
+$b2=random(3,9,1);
+$q2=random (15,19,1);
+$a2=$b2*$q2;
+$b3=random(3,9,1);
+$q3=random (15,19,1);
+$a3=$b3*$q3;
+$b4=random(3,9,1);
+$q4=random (15,19,1);
+$a4=$b4*$q4;
+
+
+
+BEGIN_TEXT
+$PAR
+OPTIONAL
+$PAR
+a) Uprise Bakery delivers a selection of cakes to its $b2 customers.  Each customer receives the same number of cakes. $BR If the delivery truck is loaded with $a2 cakes so that each customer will receive \{ans_rule(1)\} cakes.
+$PAR
+b) Jesse's zoo has $b3 monkeys.  Each morning he brings a total of $a3 bananas which are shared equally by his monkeys.$BR  Each monkey gets   \{ans_rule(1)\} of the
+bananas.
+$PAR
+
+END_TEXT
+
+
+ANS(Real($q2)->cmp);
+ANS(Real($q3)->cmp);
+
+BEGIN_SOLUTION
+$PAR Solution $PAR
+All of these problems are division problems because a certain number of things
+are divided into $BR a certain number of (say) piles, one pile for each recipient.$PAR
+
+END_SOLUTION
+
+;
+ENDDOCUMENT();
+## DBsubject(Arithmetic)
+## DBchapter(Integers)
+## DBsection(Applications)
+## Level(5)
+## MO(1)
+

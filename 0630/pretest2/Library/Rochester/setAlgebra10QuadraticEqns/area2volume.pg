@@ -1,0 +1,53 @@
+##DESCRIPTION
+##  Given the surface area of a cube, find its volume.
+##ENDDESCRIPTION
+
+
+## Tagged by sawblade
+
+## DBsubject(Algebra)
+## DBchapter(Quadratic equations and functions)
+## DBsection(Applications and models)
+## Date(6/3/2002)
+## Level(3)
+## TitleText1('College Algebra')
+## AuthorText1('Stewart, Redlin, Watson')
+## EditionText1('3')
+## Section1('3.3')
+## Problem1('69')
+## KEYWORDS('algebra', 'word problem', 'quadratic')
+
+DOCUMENT();        # This should be the first executable line in the problem.
+
+loadMacros(
+  "PGstandard.pl",
+  "PGchoicemacros.pl",
+  "PGcourse.pl"
+);
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+$SA = random(20,200,1);
+
+$ans = ($SA/6)**(3/2);
+
+BEGIN_TEXT;
+The surface area of a cube is $SA cm\(^2\).  What is the volume of the cube?
+$BR$BR Note:  Your answer must be a number.  It may not contain any arithmetic
+operations.
+$BR
+$BR
+The volume of the cube is  \{ans_rule(10)\} cm\(^3\).
+END_TEXT;
+
+ANS(num_cmp($ans, mode=>"strict"));
+BEGIN_HINT
+You have arrived at an incorrect answer.  Please look at the following link to improve your skills:
+<a href="https://www.khanacademy.org/math/geometry/hs-geo-solids/hs-geo-solids-intro/v/solid-geometry-volume">geometry</a>
+
+END_HINT
+
+
+ENDDOCUMENT();        # This should be the last executable line in the problem.
+

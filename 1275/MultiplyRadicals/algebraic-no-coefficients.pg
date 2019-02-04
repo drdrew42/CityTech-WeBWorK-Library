@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Algebra problem: Multiply radical expressions
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'radical', 'radicals', 'radical expression')
+
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of rational exponents and radicals)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -61,5 +75,36 @@ Context()->normalStrings;
 #
 
 ANS( $ans->cmp );
+
+Context()->texStrings;
+BEGIN_HINT
+
+Try factoring your radicands, see if you can find some repeated factors.
+$PAR
+Remember that \(\sqrt{a}\sqrt{a} = a\)
+
+END_HINT
+BEGIN_SOLUTION
+
+$BBOLD Factor \( \sqrt{$rad1 x} \): $EBOLD $BR
+\( \displaystyle \sqrt{$rad1} = \sqrt{$p1} \sqrt{$p2} \sqrt{$p3} \sqrt{x} \)
+$PAR
+$BBOLD Factor \( \sqrt{$rad2 x} \): $EBOLD $BR
+\( \displaystyle \sqrt{$rad2} = \sqrt{$p2} \sqrt{$p2} \sqrt{$p3} \sqrt{x} \)
+$PAR
+Which means that our original problem now looks like:
+$BR
+\( \displaystyle \left(\sqrt{$rad1 x}\right)\left(\sqrt{$rad2 x}\right) = \left(\sqrt{$p1} \sqrt{$p2} \sqrt{$p3} \sqrt{x}\right)\left(\sqrt{$p2}\sqrt{$p2}\sqrt{$p3}\sqrt{x} \right) \)
+$PAR
+$BBOLD Rearrange the factors: $EBOLD $BR
+(And group matching factors into pairs.) $BR
+\( \displaystyle \left(\sqrt{$p1} \sqrt{$p2} \sqrt{$p3} \sqrt{x} \right) \left(\sqrt{$p2}\sqrt{$p2}\sqrt{$p3}\sqrt{x}\right) = \sqrt{$p1} \sqrt{$p2} \left(\sqrt{$p2}\sqrt{$p2}\right)\left(\sqrt{$p3}\sqrt{$p3}\right) \left(\sqrt{x}\sqrt{x}\right) \)
+$PAR
+$BBOLD Simplify the repeated radicals: $EBOLD $BR
+\( \displaystyle \sqrt{$p1} \sqrt{$p2} \left(\sqrt{$p2}\sqrt{$p2}\right) \left(\sqrt{$p3}\sqrt{$p3}\right)\left(\sqrt{x}\sqrt{x}\right) = \sqrt{$p1} \sqrt{$p2} ($p2) ($p3) (x) = $ans \)
+END_SOLUTION
+Context()->normalStrings;
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

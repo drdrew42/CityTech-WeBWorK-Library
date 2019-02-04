@@ -1,0 +1,65 @@
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of exponents)
+## Level(3)
+## Static(1)
+## MO(1)
+DOCUMENT(); 
+
+loadMacros(
+  "PGstandard.pl",
+  "MathObjects.pl",
+  "PGcourse.pl"
+);
+
+TEXT(beginproblem());
+
+##############################################
+#  Setup
+
+Context("Numeric");
+
+$answer = Real("64");
+
+Context()->operators->undefine("+","-","*","/","**","^");
+Context()->functions->disable("All");
+
+##############################################
+#  Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Evaluate: \( \displaystyle \left( \frac{ -4^{3} }{ -2^{3} } \right)^2 = \)
+\{ans_rule(20)\}
+
+$BR
+$BR
+$HR
+Note: Your answer should be completely simplified.
+Unsimplified answers will not be accepted.
+
+END_TEXT
+Context()->normalStrings;
+
+##################################################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 0;
+
+ANS($answer->cmp());
+
+
+;
+
+
+BEGIN_HINT
+You have arrived at an incorrect answer.  Please look at the following links to improve your skills:
+
+
+<a href="https://www.khanacademy.org/math/pre-algebra/pre-algebra-exponents-radicals/pre-algebra-negative-exponents/v/negative-exponents">negative exponents</a>.
+END_HINT
+
+
+ENDDOCUMENT();        # This should be the last executable line in the problem.
+

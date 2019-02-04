@@ -1,20 +1,16 @@
 ##DESCRIPTION
-##  Algebra problem: true or false for inequality 
+##  Algebra problem: Simplify expressions using properties of exponents 
 ##ENDDESCRIPTION
 
-##KEYWORDS('algebra', 'inequality', 'fraction')
+##KEYWORDS('algebra', 'exponent', 'simplify exponents')
 
-## DBsubject('Algebra')
-## DBchapter('Fundamentals')
-## DBsection('Real Numbers')
-## Date('6/3/2002')
-## Author('')
-## Institution('')
-## TitleText1('Precalculus')
-## EditionText1('3')
-## AuthorText1('Stewart, Redlin, Watson')
-## Section1('1.1')
-## Problem1('22')
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of exponents)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
 
 ########################################################################
 
@@ -33,15 +29,15 @@ TEXT(beginproblem());
 $showPartialCorrectAnswers = 1;
 
 # Select two variables for this problem
-@var = ("a", "b", "c", "d", "m", "n", "p", "q", "r", "s", "w", "x", "y", "z" );
-$one = random(0,13,1);
-do { $two = random(0,13,1); } until ( $one != $two );
+@var = ("a", "b", "c", "d", "m", "n", "p", "q", "r", "w", "x", "y", "z" );
+$one = random(0,12,1);
+do { $two = random(0,12,1); } until ( $one != $two );
 
 # Force students to combine exponents within fractions
 $fractionChecker = sub {
   my ($correct,$student,$ans) = @_;
   return 0 unless $correct == $student;
-  Value->Error("Please rewrite your answer without using negative exponents") unless $student->{tree}->class eq "BOP" && $student->{tree}{bop} eq "/";
+  Value->Error("Please rewrite your answer without using negative exponents") unless $student->{tree}->class eq "BOP" && $student->{tree}{bop} =~ m!/!;
   my $cden = Formula($correct->{tree}{rop});
   my $sden = Formula($student->{tree}{rop});
 Value->Error("Your answer isn't completely simplified") unless $cden == $sden;
@@ -84,11 +80,13 @@ $ansMB = Formula("$var[$two]^$mB");
 $n1 = random(2,8,1);
 do { $n2 = random(5,14,1); } until ( $n2 > $n1 );
 $nA = $n2 - $n1;
+$nAn = $n1 - $n2; # for solutions
 
 $ansDA = Formula("1/($var[$one]^$nA)");
 
 $n3 = random(4,12,1);
 $nB = $n3 - 1;
+$nBn = 1 - $n3; # for solutions
 
 $ansDB = Formula("1/($var[$two]^$nB)");
 
@@ -130,5 +128,36 @@ ANS($ansMA->cmp);
 ANS($ansMB->cmp);
 ANS($ansDA->cmp(checker=>$fractionChecker));
 ANS($ansDB->cmp(checker=>$fractionChecker));
+
+Context()->texStrings;
+BEGIN_HINT
+
+Use the addition property of exponents: \( B^m \times B^n = B^{(m+n)} \)
+$PAR
+And remember that a lone \( B \) is the same as \( B^1 \).
+$PAR
+Use the subtraction property of exponents: \( \displaystyle \frac{B^m}{B^n} = B^{(m-n)} \)
+$PAR
+And remember that if you end up with a negative exponent: \( B^{(-p)} = \displaystyle{ \frac{1}{B^p}} \)
+
+END_HINT
+BEGIN_SOLUTION
+
+$BITALIC Part (a): $EITALIC $BR
+\( $var[$one]^{$m1} \cdot $var[$one]^{$m2} = $var[$one]^{($m1+$m2)} = $ansMA \)
+$PAR
+$BITALIC Part (b): $EITALIC $BR
+\( $var[$two]^{$m3} \cdot $var[$two]^1 = $var[$one]^{($m3+1)} = $ansMB \)
+$PAR
+$BITALIC Part (c): $EITALIC $BR
+\( \displaystyle{ \frac{$var[$one]^{$n1}}{$var[$one]^{$n2}} = $var[$one]^{($n1-$n2)} = $var[$one]^{$nAn} =  $ansDA } \)
+$PAR
+$BITALIC Part (d): $EITALIC $BR
+\( \displaystyle{ \frac{$var[$two]^{1}}{$var[$two]^{$n3}} = $var[$two]^{(1-$n3)} = $var[$two]^{$nBn} =  $ansDB } \)
+
+END_SOLUTION
+Context()->normalStrings;
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

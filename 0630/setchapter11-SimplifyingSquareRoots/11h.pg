@@ -1,0 +1,76 @@
+## DESCRIPTION
+## This problem asks students to combine like radicals
+## ENDDESCRIPTION
+## KEYWORDS('Roots')
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## BookChapter('Simplifying Square Roots')
+## DBsection('') 
+## BookSection('Simplifying Square Roots')
+## Date('07/05/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+## TitleText1('Arithmetic | Algebra')
+## EditionText1('3')
+## AuthorText1('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## Section1('11')
+## KEYWORDS('algebra', 'radicals', 'exponents')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+########################################################################
+
+install_problem_grader(~~&std_problem_grader);
+
+$showPartialCorrectAnswers = 0;
+
+TEXT(beginproblem());
+
+########################################################################
+
+Context("Numeric");
+Context()->variables->are(a=>'Real', b=>'Real');
+
+$a1 = random(3,8,2);
+$a2 = random(3,8,2);
+$b1 = random(5,7,1);
+$b2 = random(1,8,2);
+$b3 = random(-8,-2,1);
+$b4 = list_random(2,3,5);
+
+$b5 = Compute("$b4 * $b1")->reduce; 
+$bb =  Compute("($a1+1)/2")->reduce;
+$aExp = Compute("($a2 - 1)/2+1")->reduce;
+$bExp = Compute("($a1 - 1)/2+1")->reduce;
+
+$ans1 = Compute("$b2 * $b3 * $b4 * a^$aExp * b^$bExp") -> reduce;
+$ans2 = Compute("$b1 * a * b");
+########################################################################
+
+Context()->texStrings;
+BEGIN_TEXT
+Simplify:
+\[
+\left ($b2 a \sqrt{$b5 b^{$a1}}\right)\left( $b3 b \sqrt{$b4 a^{$a2}}\right)
+\]
+Write your answer in the simplest radical form \(A \sqrt{C} \), where \(A\) (quantity outside the radical) and \(C\) ((quantity inside the radical) are either integers or monomials. 
+$BR$BR
+Answer: \(A =\) \{ans_rule(20)\} and \(C =\) \{ans_rule(20)\}
+END_TEXT
+Context()->normalStrings;
+
+########################################################################
+
+ANS( $ans1->cmp );
+ANS( $ans2->cmp );
+
+ENDDOCUMENT();        

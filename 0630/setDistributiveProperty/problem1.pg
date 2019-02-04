@@ -1,0 +1,268 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject(‘Algebra’)
+## DBchapter(‘Factoring’)
+## DBsection(‘Factoring: common factors’)
+## Date('6/26/2015')
+## Author('K. Andrew Parker')
+## Institution('NYC City Tech')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "parserPopUp.pl",
+   "scaffold.pl",
+   "niceTables.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer=>"parsed"
+   );
+
+  $sumChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentstring = $ansHash->{preview_text_string};
+     return ($studentstring eq $ansHash->{correct_ans} ? 1 : 0);
+   };
+
+  $numChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentans=$ansHash->{original_student_ans};
+     Value->Error("You're on the right track, but your answer should be just a number.") if ( ($studentans ne $student)&&($student==$correct) );
+     return($studentans eq $ansHash->{correct_ans} ? 1 : 0);
+  };
+
+
+@prime = ( 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 );
+
+$A = random(4,11,1);
+do { $B = random(4,9,1); } until ( gcf($A,$B) == 1 );
+
+$A5 = 5*$A;
+$B5 = 5*$B;
+$sum = $A+$B;
+$sum5 = 5*$sum;
+$formA = Formula("5");
+foreach my $i (2..$A) {
+ $formA = Formula("$formA + 5");
+}
+$formB = Formula("5");
+foreach my $i (2..$B) {
+ $formB = Formula("$formB + 5");
+}
+
+$hrs1 = random(4,8,1);
+$hrs2 = random(4,9,1);
+do{ $hrs3 = random(3,7,1); } until ( gcf($hrs3,gcf($hrs2,$hrs1))==1 );
+
+$pay1 = 10*$hrs1;
+$pay2 = 10*$hrs2;
+$pay3 = 10*$hrs3;
+
+$hrs = $hrs1+$hrs2+$hrs3;
+$pay = $pay1+$pay2+$pay3;
+
+##############################################################
+#
+#  Text
+#
+#
+Scaffold::Begin(
+      can_open => "when_previous_correct",
+      is_open  => "first_incorrect"
+);
+
+Section::Begin( "Part 1: Adding numbers with a GCF that's not 1" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Let's start by looking at an innocent looking addition problem. 
+$BR
+What is \( $A5 + $B5 \)? \{ ans_rule(5) \}
+$PAR
+But let's look a little deeper at what's going on with this sum.
+$PAR
+Looking at the terms, $A5 and $B5, it should be clear that they're both multiples of 5.
+$BR
+What multiple of 5 is $A5? \{ ans_rule(5) \}
+$BR
+What multiple of 5 is $B5? \{ ans_rule(5) \}
+$PAR
+And if we look at the sum, \( $A5 + $B5 \), we should see that it also is a multiple of 5.
+$BR
+What multiple of 5 is the sum? \{ ans_rule(5) \}
+$PAR
+Do you see any relationship between your last three answers? It's not a coincidence, and in this problem we'll see why.
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( Real($sum5)->cmp(checker=>$numChecker) );
+ANS( Real($A)->cmp(checker=>$numChecker) );
+ANS( Real($B)->cmp(checker=>$numChecker) );
+ANS( Real($sum)->cmp(checker=>$numChecker) );
+Section::End();
+
+Section::Begin( "Part 2: Paid daily" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Let's assume you have a job that pays you at the end of every day that you work, and that you are paid $10 an hour.
+$PAR
+If you work $hrs1 hours on Tuesday, how much will you be paid? \{ ans_rule(5) \}
+$BR
+If you work $hrs2 hours on Thursday, how much will you be paid? \{ ans_rule(5) \}
+$BR
+And if you work $hrs3 hours on Friday, how much will you be paid? \{ ans_rule(5) \}
+$PAR
+So, if those are all the hours you worked for the week, how much did you earn all together? \{ ans_rule(5) \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( Real($pay1)->cmp(checker=>$numChecker) );
+ANS( Real($pay2)->cmp(checker=>$numChecker) );
+ANS( Real($pay3)->cmp(checker=>$numChecker) );
+ANS( Real($pay)->cmp(checker=>$numChecker) );
+
+
+Section::End();
+
+Section::Begin( "Part 3: Paid Weekly" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Will it make a difference if you're paid weekly instead of daily?
+$BR
+Let's use the same setup as in the last section; you're paid $10 an hour and you worked $hrs1 hours on Tuesday, $hrs2 hours on Thursday and $hrs3 hours on Friday.
+$PAR
+How many hours did you work this week? \{ ans_rule(5) \}
+$BR
+How much did you earn this week? \{ ans_rule(5) \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( Real($hrs)->cmp(checker=>$numChecker) );
+ANS( Real($pay)->cmp(checker=>$numChecker) );
+
+Section::End();
+
+Section::Begin( "Part 4: Bringing it all together" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+In the first section, we looked at a rather straightforward addition problem: \( $A5 + $B5 = $sum5 \) , noticing that $A5 and $B5 were both multiples of 5 and then as a result, so was the sum, $sum5.
+$BR
+Not only that, but we also should have noticed that $A5 is the $A th multiple of 5 and $B5 is $B th multiple of 5; and even more importantly, adding $A and $B gives us $sum, the necessary multiple of 5 for $sum5.
+$PAR
+And it makes sense that this should happen. Observe:
+$BR
+First, what does it mean to write $A5 as \( $A \times 5 \)? It means we can write $A5 as:
+$BR
+\[ $formA \]
+$BR
+We can do the same thing for $B5 as \($B \times 5\):
+$BR
+\[ $formB \]
+$BR
+And if we're going to add $A5 and $B5, we'll get:
+$BR
+\[ ($formA) + ($formB) \]
+$BR
+Which is, of course, repeatedly adding 5. And how many times is it repeated? \{ ans_rule(5) \}
+$BR
+So it should absolutely make sense that our sum can be written as \( $sum \times 5 \).
+$PAR
+$PAR
+Then, in the second and third sections, we looked at the same problem from two different angles.
+$PAR
+First, we looked at how much pay we earned each day, multiplying the number of hours worked by $10, and adding up the pay at the end: 
+$BR
+\[ 10 \times $hrs1 + 10 \times $hrs2 + 10 \times $hrs3 \]
+$PAR
+Then we looked instead at adding up our hours for the week first, and then multiplying by $10 at the end: 
+$BR
+\[ 10 \times ( $hrs1 + $hrs2 + $hrs3 ) \]
+$PAR
+Of course, we ended up receiving the same amount of total pay from both calculations.
+$BR
+Symbolically, our result looks like this:
+$BR
+\[ 10 \times ( $pay1 + $pay2 + $pay3 ) = 10 \times $hrs1 + 10 \times $hrs2 + 10 \times $hrs3 \]
+$PAR
+This equality, rearranging the calculation but still preserving the total value, is what mathematicians call $BBOLD the distributive property. $EBOLD
+$PAR
+The distributive property is illustrated very well by the box method of multiplication:
+\{
+DataTable(
+  [
+    [['\(\times\)', headerrow => 1, midrule => 1],'(','$hrs1','+','$hrs2','+','$hrs3',')'],
+    ['\(10\)','',ans_rule(3),'+',ans_rule(3),'+',ans_rule(3),''],
+  ], 
+  caption => 'Distributive Property',
+  align => 'r | r c c c c c l',
+  rowheaders => 1,
+  center => 1
+);
+\}
+$PAR
+The distributive property also works in reverse, in a process we call $BBOLD factoring out the GCF. $EBOLD
+\{
+DataTable(
+  [
+    [['\(\times\)', headerrow => 1, midrule => 1],'(',ans_rule(3),'+',ans_rule(3),')'],
+    ['\(5\)','','$A5','+','$B5',''],
+  ], 
+  caption => 'Factoring out the GCF',
+  align => 'r | r c c c l',
+  rowheaders => 1,
+  center => 1
+);
+\}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( Real($sum)->cmp(checker=>$numChecker) );
+ANS( Real($pay1)->cmp(checker=>$numChecker) );
+ANS( Real($pay2)->cmp(checker=>$numChecker) );
+ANS( Real($pay3)->cmp(checker=>$numChecker) );
+ANS( Real($A)->cmp(checker=>$numChecker) );
+ANS( Real($B)->cmp(checker=>$numChecker) );
+
+Section::End();
+
+Scaffold::End();
+
+ENDDOCUMENT();        

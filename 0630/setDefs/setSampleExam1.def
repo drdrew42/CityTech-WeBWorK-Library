@@ -1,14 +1,14 @@
 assignmentType      = default
-openDate          = 02/11/2016 at 01:40pm EST
+openDate          = 09/12/2016 at 08:20pm EDT
 reducedScoringDate = 05/25/2015 at 05:00pm EDT
-dueDate           = 02/17/2016 at 10:40am EST
-answerDate        = 02/17/2016 at 01:40pm EST
+dueDate           = 09/19/2016 at 06:00pm EDT
+answerDate        = 09/19/2016 at 08:20pm EDT
 enableReducedScoring = N
 paperHeaderFile   = defaultHeader
 screenHeaderFile  = defaultHeader
 description       = 
-restrictProbProgression = 
-emailInstructor   = 
+restrictProbProgression = 0
+emailInstructor   = 0
 
 problemListV2 
 problem_start
@@ -16,8 +16,8 @@ problem_id = 1
 source_file = local/setParker-Sample1/question1a.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = 0
+prPeriod = 0
 counts_parent_grade = 0
 att_to_open_children = 1 
 problem_end
@@ -26,8 +26,8 @@ problem_id = 2
 source_file = local/setParker-Sample1/question1b.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = 0
+prPeriod = 0
 counts_parent_grade = 0
 att_to_open_children = 1 
 problem_end
@@ -36,8 +36,8 @@ problem_id = 3
 source_file = local/setParker-Sample1/question1c.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = 0
+prPeriod = 0
 counts_parent_grade = 0
 att_to_open_children = 1 
 problem_end
@@ -46,8 +46,8 @@ problem_id = 4
 source_file = local/setParker-Sample1/question2a.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = 0
+prPeriod = 0
 counts_parent_grade = 0
 att_to_open_children = 1 
 problem_end
@@ -56,8 +56,8 @@ problem_id = 5
 source_file = local/setParker-Sample1/question2b.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = 0
+prPeriod = 0
 counts_parent_grade = 0
 att_to_open_children = 1 
 problem_end
@@ -66,8 +66,8 @@ problem_id = 6
 source_file = local/setParker-Sample1/question2c.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = 0
+prPeriod = 0
 counts_parent_grade = 0
 att_to_open_children = 1 
 problem_end
@@ -76,8 +76,8 @@ problem_id = 7
 source_file = local/setParker-Sample1/question2d.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = 0
+prPeriod = 0
 counts_parent_grade = 0
 att_to_open_children = 1 
 problem_end
@@ -86,8 +86,8 @@ problem_id = 8
 source_file = local/setParker-Sample1/question2e.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = 0
+prPeriod = 0
 counts_parent_grade = 0
 att_to_open_children = 1 
 problem_end
@@ -96,8 +96,8 @@ problem_id = 9
 source_file = local/setParker-Sample1/question2f.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = 0
+prPeriod = 0
 counts_parent_grade = 0
 att_to_open_children = 1 
 problem_end
@@ -106,8 +106,8 @@ problem_id = 10
 source_file = local/setParker-Sample1/question3a.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = 0
+prPeriod = 0
 counts_parent_grade = 0
 att_to_open_children = 1 
 problem_end
@@ -116,8 +116,8 @@ problem_id = 11
 source_file = local/setParker-Sample1/question3b.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = 0
+prPeriod = 0
 counts_parent_grade = 0
 att_to_open_children = 1 
 problem_end
@@ -126,8 +126,8 @@ problem_id = 12
 source_file = local/setParker-Sample1/question3c.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = 0
+prPeriod = 0
 counts_parent_grade = 0
 att_to_open_children = 1 
 problem_end
@@ -136,8 +136,8 @@ problem_id = 13
 source_file = local/setParker-Sample1/question3d.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = 0
+prPeriod = 0
 counts_parent_grade = 0
 att_to_open_children = 1 
 problem_end
@@ -146,8 +146,8 @@ problem_id = 14
 source_file = local/setParker-Sample1/question4a.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = 0
+prPeriod = 0
 counts_parent_grade = 0
 att_to_open_children = 1 
 problem_end
@@ -156,8 +156,8 @@ problem_id = 15
 source_file = local/setParker-Sample1/question4b.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = 0
+prPeriod = 0
 counts_parent_grade = 0
 att_to_open_children = 1 
 problem_end
@@ -166,8 +166,8 @@ problem_id = 16
 source_file = local/setParker-Sample1/question4c.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = 0
+prPeriod = 0
 counts_parent_grade = 0
 att_to_open_children = 1 
 problem_end
@@ -176,8 +176,8 @@ problem_id = 17
 source_file = local/setParker-Sample1/question4d.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = 0
+prPeriod = 0
 counts_parent_grade = 0
 att_to_open_children = 1 
 problem_end
@@ -186,8 +186,8 @@ problem_id = 18
 source_file = local/setParker-Sample1/question5a.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = 0
+prPeriod = 0
 counts_parent_grade = 0
 att_to_open_children = 1 
 problem_end
@@ -196,8 +196,8 @@ problem_id = 19
 source_file = local/setParker-Sample1/question5b.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = 0
+prPeriod = 0
 counts_parent_grade = 0
 att_to_open_children = 1 
 problem_end
@@ -206,8 +206,8 @@ problem_id = 20
 source_file = local/setParker-Sample1/question5c.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = 0
+prPeriod = 0
 counts_parent_grade = 0
 att_to_open_children = 1 
 problem_end
@@ -216,8 +216,8 @@ problem_id = 21
 source_file = local/setParker-Sample1/question5d.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = 0
+prPeriod = 0
 counts_parent_grade = 0
 att_to_open_children = 1 
 problem_end
@@ -226,8 +226,8 @@ problem_id = 22
 source_file = local/setParker-Sample1/question5e.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = 0
+prPeriod = 0
 counts_parent_grade = 0
 att_to_open_children = 1 
 problem_end

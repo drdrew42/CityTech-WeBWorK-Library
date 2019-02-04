@@ -1,3 +1,16 @@
+##DESCRIPTION
+##  Algebra problem: exponential model of population growth
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'exponential', 'exponential equation', 'logarithms', 'logarithm', 'exponential growth population', 'population growth')
+## DBsubject(Algebra)
+## DBchapter(Exponential and logarithmic expressions and functions)
+## DBsection(Exponential and logarithmic equations)
+## Level(5)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -48,21 +61,58 @@ $Amins = Real("$Amins");
 
 BEGIN_PGML
 
-The growth of a certain bacteria can be modeled by the function
+>> ### Exponential Growth and Decay ### <<
+
+Exponential growth and decay problems follow the model given by the equation [`A(t)=Pe^{rt}`].
+
+* The model is a function of time [`t`]
+* [`A(t)`] is the amount we have after time [`t`]
+* [`P`] is the initial amount, because for [`t=0`], notice how [`A(0)=Pe^{0\cdot t}=Pe^{0}=P`]
+* [`r`] is the growth or decay rate. It is _positive_ for growth and _negative_ for decay
+
+Growth and decay problems can deal with money (interest compounded continuously), bacteria growth, radioactive decay, population growth etc. So [`A(t)`] can represent any of these depending on the problem.
+
+
+>> ### Practice ### <<
+
+The growth of a certain bacteria population can be modeled by the function
 
 >> [`` A(t) = [$At] ``] <<  
 
 where [` A(t) `] is the number of bacteria and [` t `] represents the time in minutes.
 
-1. What is the initial number of bacteria? [____________] (round to the nearest whole number of bacteria.)
+a. What is the initial number of bacteria? [_________________________] (round to the nearest whole number of bacteria.)
 
-1. What is the number of bacteria after [$mins] minutes? [____________] (round to the nearest whole number of bacteria.)
+b. What is the number of bacteria after [$mins] minutes? [_________________________] (round to the nearest whole number of bacteria.)
 
-1. How long will it take for the number of bacteria to double? [______] (your answer must be accurate to at least 3 decimal places.)
-  
-* Recall the change of base formula for logarithms: [` \log_b(A) `] can be calculated as [`` \frac{\ln(A)}{\ln(b)} ``]
+c. How long will it take for the number of bacteria to double? [_________________________] (your answer must be accurate to at least 3 decimal places.)
+
 
 END_PGML
+
+##############################################################
+#
+#  Answers
+#
+#
+
+##############################################################
+#
+#  Hints
+#
+#
+
+
+
+
+BEGIN_PGML_HINT
+  
+**Hints:**
+
+* We already found the initial amount of the bacteria in (a). Find [`t`] when [`A(t)`] is double that.
+
+
+END_PGML_HINT
 
 ANS($init->cmp->withPostFilter(sub { 
   my $ans = shift; 
@@ -92,5 +142,44 @@ ANS($time->cmp->withPostFilter(sub {
     if ( $ans->{ans_message} eq "Can't use '^' in this context" || $ans->{ans_message} eq "Can't use '+' in this context" || $ans->{ans_message} eq "Can't use '-' in this context" || $ans->{ans_message} eq "Can't use '*' in this context" || $ans->{ans_message} eq "Can't use '/' in this context" );
   return $ans; 
 }));
+
+
+
+##############################################################
+#
+#  Solutions
+#
+#
+
+
+
+BEGIN_PGML_SOLUTION
+
+a. The initial population is [`A(0)= [$init] e^{([$rate] \cdot 0 )} = [$init]e^0  = [$init]\cdot 1 = [$init]`].
+
+b. We want to know the population size [`A(t)`] when [`t= [$mins]`]. So we need to evaluate [`A([$mins])`].
+    
+    >>[`A([$mins])= [$init] e^{([$rate] \cdot [$mins] )} \approx [$Amins] `]<<
+    
+    The number of bacteria after 10 minutes is [`[$Amins]`].
+    
+c. The initial population is [`[$init]`].  The double of that is [`[@2*$init@]`]. We want to find [`t`] such that [`A(t)= [@2*$init@]`]:
+
+>>
+[`\begin{align*}
+[$At] & = [@2*$init@] & \qquad \text{divide both sides by } [$init] \\
+e^{[$rate] t}  & = 2  & \qquad \text{apply } \ln \text{to both sides}\\
+\ln\left(e^{[$rate] t}\right)  & = \ln 2  & \qquad \text{use the } \log \text{property for powers} \\
+[$rate] t \ln e & = \ln 2  & \qquad  \text{use that } \ln e = 1 \\
+ [$rate] t  & = \ln 2  & \qquad  \text{divide both sides by } [$rate] \\
+ t & = \dfrac{\ln 2}{[$rate]} &\\
+ t & \approx [$time] &
+\end{align*}
+`]<<
+
+The population will double in about [`[$time]`] minutes.
+
+END_PGML_SOLUTION
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

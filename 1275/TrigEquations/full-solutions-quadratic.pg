@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Trigonometry problem: Solve a trig equation
+##ENDDESCRIPTION
+
+##KEYWORDS('trigonometry', 'trig functions', 'trigonometric functions', 'analytic trigonometry', 'trigonometric equation')
+
+## DBsubject(Trigonometry)
+## DBchapter(Analytic trigonometry)
+## DBsection(Solving trigonometric equations exactly)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -166,4 +180,7 @@ Then your equation looks like [` [$A] u^2 - [$B] = 0 `]. Figure out what values 
 Remember to find _all_ such values of [` x `] between [` [ 0, 2\pi) `].
 
 END_PGML_HINT
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
+
 ENDDOCUMENT();        

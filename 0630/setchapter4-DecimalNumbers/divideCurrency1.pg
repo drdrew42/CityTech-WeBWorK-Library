@@ -22,23 +22,22 @@ $a2=Currency($a7);
 $ans1=$a2/$a1; 
 
 $b10=random(4856,5056,5);
-$b1=Currency($b10/100);
+$b1=Fraction($b10/100);
 $b2=random(76,92,8);
-$ans2=Currency($b1/$b2)->round;
+$ans2=Fraction($b1/$b2)->round;
 
 Context()->texStrings; 
 BEGIN_TEXT
 
 $PAR
-Find the answer to the nearest cent when you perform each division.  Your
-answer should include a dollar sign and a decimal point.
+Perform the given operation:
 $PAR
 \($a2 \div $a1 =\) \{ans_rule(5)\}
 $PAR
 \($b1 \div $b2 =\)  \{ans_rule(5)\}
 
 END_TEXT
-Context("Currency")->normalStrings;
+
 
 ANS($ans1->cmp);
 ANS($ans2->cmp);

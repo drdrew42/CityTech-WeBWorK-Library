@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Trigonometry problem: Use the Law of Sines to solve for unknown side length
+##ENDDESCRIPTION
+
+##KEYWORDS('trigonometry', 'law of sines', 'analytic trigonometry', 'triangle')
+
+## DBsubject(Trigonometry)
+## DBchapter(Triangle Trigonometry)
+## DBsection(Law of sines (angle-side-angle))
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -256,5 +270,7 @@ Solve for the missing side:
 * Note that for these problems, we are using degrees to measure angles. Make sure your calculator is set to degrees instead of radians.
 
 END_PGML
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

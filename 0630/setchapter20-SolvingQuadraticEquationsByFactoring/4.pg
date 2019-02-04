@@ -1,0 +1,78 @@
+## DESCRIPTION
+## This problem asks students to set up a quadratic equation using the Pythagorean theorem and solve it 
+## ENDDESCRIPTION
+## KEYWORDS('factoring','quadratic equations')
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## BookChapter(`Solving Quadratic Equations by Factoring’)
+## BookEdition('3')
+## BookAuthor('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## BookChapter('20')
+## Date('07/13/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "unionTables.pl",
+   "PGgraphmacros.pl"
+);
+
+TEXT(beginproblem());
+
+$refreshCachedImages = 1;
+
+$a = random(2,8,2);
+$b = random(1,5,1);
+$c = sqrt($a**2-$b**2);
+
+$gr = init_graph(-1,-1,$a+1,$b+1,
+size=>[200,200]
+);
+$gr->moveTo(0,0);
+$gr->lineTo($a,0,'black');
+$gr->lineTo($a,$b,'black');
+$gr->lineTo(0,0,'black');
+$gr->lb( new Label($a/2,-0.2,'x','black','center','middle'));
+$gr->lb( new Label($a+0.2,$b/2,$b,'black','center','middle'));
+$gr->lb( new Label($a/2-0.2,$b/2+0.2,$a,'black','center','middle'));
+$gr->lb( new Label(-0.2,-0.2,'black','center','middle'));
+
+Context("Numeric");
+Context()->flags->set(
+  tolerance => 0.0000000000001,
+  tolType => "absolute",
+);
+
+# below are the actual function values when given the corresponding sides of a given right triangle
+# we want the answers to be entered using formulas and not from a calculator
+
+
+
+BEGIN_TEXT
+Find \( x \):
+$BR
+$BCENTER
+\{ image( insertGraph($gr), width=>200, 
+    height=>200, tex_size=>400 ) \}
+$PAR
+
+\( x = \) \{ans_rule(20)\}
+
+
+
+$ECENTER
+END_TEXT
+
+
+$ans = Compute("$c")->reduce;
+
+ANS($ans->cmp);
+
+ENDDOCUMENT();    

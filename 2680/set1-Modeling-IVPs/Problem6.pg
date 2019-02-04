@@ -39,8 +39,8 @@ $showPartialCorrectAnswers = 1;
 #
 #
 Context("Numeric");
-Context()->variables->remove(x);
-Context()->variables->add( p => "Real", t => "Real", c => "Real" );
+Context()->flags->set(tolerance=>0.1, toltype=>'absolute');
+Context()->variables->are( p => "Real", t => "Real", c => "Real" );
 $rate = Real(random(1,7,1)/8);
 $pred = Real(non_zero_random(1,5,1)*5);
 $sol = Formula("$pred*30/$rate + c * e ^ ($rate * t)");
@@ -59,6 +59,7 @@ BEGIN_TEXT
 A species of rabbits has a growth rate of $rate / month. If a population of foxes inhabits the same forest and kills $pred rabbits per day, find the general solution describing the population of rabbits.
 $BR
 \{$sol->ans_rule\}
+* Assume that one month = 30 days.
 END_TEXT
 
 $showHint = 5;
@@ -93,7 +94,7 @@ ANS( $sol->cmp( checker => sub {
     if ($DstudentC == Formula("0")) {
        Value->Error("Your answer is not the most general solution. Where's 'c'?");
     };
-
+    Value->Error("You may have rounded too much.") if ($Dstudent != $rhs && abs($Dstudent-$rhs) < 1);
     return ($Dstudent == $rhs && $DstudentC != Formula("0"));
 }));
 

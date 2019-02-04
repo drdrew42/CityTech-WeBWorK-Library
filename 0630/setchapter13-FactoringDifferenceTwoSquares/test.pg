@@ -1,0 +1,44 @@
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"contextLimitedPolynomial.pl",
+"contextPolynomialFactors.pl",
+"contextLimitedPowers.pl",
+);
+
+TEXT(beginproblem()); 
+
+Context()->variables->are(x=>'Real',y=>'Real');
+
+
+#
+#  Vertex form
+#
+Context("Numeric");
+
+$vertexform = Compute("x^3- y^3");
+
+
+#
+#  Factored form
+#
+Context("PolynomialFactors-Strict");
+Context()->flags->set(singleFactors=>0);
+LimitedPowers::OnlyIntegers(
+minPower => 0, maxPower => 1,
+message => "either 0 or 1",
+);
+$factoredform = Compute("(x-y)(x-y)(x+y)");
+
+Context()->texStrings;
+BEGIN_TEXT
+Factor Completely \( $vertexform \) = \{ ans_rule(30)\}
+END_TEXT
+Context()->normalStrings;
+
+$showPartialCorrectAnswers = 1;
+
+ANS( $factoredform->cmp() );
+
+ENDDOCUMENT(); 

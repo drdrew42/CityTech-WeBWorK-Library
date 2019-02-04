@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Algebra problem: Evaluate expressions involving rational exponents
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'exponent', 'exponents', 'rational powers')
+
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of rational exponents and radicals)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -33,6 +47,16 @@ $r3 = $r**3;
 @a = ( Real($r3), Real(-$r3), String("undefined"), Fraction(1,$r3), Fraction(-1,$r3), String("undefined") );
 
 @perm = NchooseK(6,6);
+
+@sol = (
+"\( \displaystyle $r2^{3/2} = \left(\sqrt{$r2}\right)^3 = ($r)^3 = $r3 \)",
+"\( \displaystyle -$r2^{3/2} = -1 \left(\sqrt{$r2}\right)^3 = -1($r)^3 = -$r3 \)",
+"\( \displaystyle (-$r2)^{3/2} = \left(\sqrt{-$r2}\right)^3\) but \(\sqrt{-$r2}\) is undefined.",
+"\( \displaystyle $r2^{-3/2} = \frac{1}{$r2^{3/2}} = \frac{1}{\left(\sqrt{$r2}\right)^3} = \frac{1}{$r^3} = \frac{1}{$r3} \)",
+"\( \displaystyle -$r2^{-3/2} = -1 \cdot $r2^{-3/2} = -1 \cdot \left(\frac{1}{$r2^{3/2}}\right) = \frac{-1}{\left(\sqrt{$r2}\right)^3} = \frac{-1}{$r^3} = -\frac{1}{$r3} \)",
+"\( \displaystyle (-$r2)^{-3/2} = \frac{1}{(-$r2)^{3/2}} = \frac{1}{\left(\sqrt{-$r2}\right)^3} \) but \(\sqrt{-$r2}\) is undefined."
+);
+
 
 ##############################################################
 #
@@ -71,5 +95,37 @@ ANS($a[$perm[2]]->cmp);
 ANS($a[$perm[3]]->cmp);
 ANS($a[$perm[4]]->cmp);
 ANS($a[$perm[5]]->cmp);
+
+Context()->texStrings;
+BEGIN_HINT
+Don't forget that expressions like \( -x^n \) must be handled as \( -1 \cdot x^n \).
+$BR
+\( -x^n \) is NOT the same as \( (-x)^n \)!
+$PAR
+Recall what it means to have a negative exponent: $BR
+\( \displaystyle x^{-n} = \frac{1}{x^n} \)
+$PAR
+Remember that fractions as exponents can be translated into radical form.
+$PAR
+\(\large x^{m/n} = \left(\sqrt[n]{x}\right)^m \)
+END_HINT
+BEGIN_SOLUTION
+$PAR
+(a) $sol[$perm[0]]
+$PAR
+(b) $sol[$perm[1]]
+$PAR
+(c) $sol[$perm[2]]
+$PAR
+(d) $sol[$perm[3]]
+$PAR
+(e) $sol[$perm[4]]
+$PAR
+(f) $sol[$perm[5]]
+
+END_SOLUTION
+Context()->normalStrings;
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

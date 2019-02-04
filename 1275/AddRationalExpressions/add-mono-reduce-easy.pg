@@ -1,3 +1,18 @@
+##DESCRIPTION
+##  Algebra problem: Add rational expressions
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'algebra, operations with rational expressions', 'algebra, simplifying rational expression', 'rational expressions', 'rational expression')
+## DBsubject(Algebra)
+## DBchapter(Operations on polynomial and rational expressions)
+## DBsection(Rational expressions: add, subtract)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
+########################################################################
+
 DOCUMENT();      
 
 loadMacros(
@@ -14,12 +29,13 @@ $showPartialCorrectAnswers = 1;
 
 $rationalChecker = sub {
      my ($correct,$student,$ansHash) = @_; 
-     return 0 if ($student->class ne "Formula");
+     $studentRaw = $student;
+     Value->Error("Your answer doesn't contain any variables. <BR> Perhaps you oversimplified?") unless $student->class eq "Formula";
      if ($student->{tree}->class eq "UOP" && $student->{tree}{uop} eq 'u-') {
           $student = Formula($student->{tree}->{op});
      }
-     Value->Error("Check the answer preview box. Maybe you forgot parenthesis around your numerator or denominator?") unless $student->{tree}->class eq "BOP" && $student->{tree}{bop} eq "/";
-     return 0 unless $correct == $student;
+     Value->Error("Check the answer preview box. Maybe you forgot parenthesis around your numerator or denominator?") unless $student->{tree}->class eq "BOP" && $student->{tree}{bop} =~ m!/!;
+     return 0 unless $correct == $studentRaw;
      my $cnum = Formula($correct->{tree}{lop});
      my $snum = Formula($student->{tree}{lop});
      my $cden = Formula($correct->{tree}{rop});
@@ -45,6 +61,7 @@ $a = Formula("$a_num/($prime*x)");
 $b = Formula("$b_num/($prime*x)");
 
 $ans = Formula("$ans_numer/x");
+$preNum = $ans_numer * $prime; #for solution
 
 ##############################################################
 #
@@ -72,5 +89,26 @@ Context()->normalStrings;
 #
 
 ANS($ans->cmp(checker=>$rationalChecker));
+
+Context()->texStrings;
+BEGIN_HINT
+
+These two fractions already have a common denominator - so you may simply add the numerators together. $BR
+Remember, you may only combine $BITALIC like terms! $EITALIC
+$PAR
+Also, don't forget to reduce your final answer, if possible.
+
+END_HINT
+BEGIN_SOLUTION
+
+The denominators are already the same, so we may add the fractions: $BR
+\( \displaystyle $a + $b = \frac{$a_num + $b_num}{$prime x} = \frac{$preNum}{$prime x} \)
+$PAR
+Now, can our result be simplified? It seems that we have a common factor of \($prime\): $BR
+\( \displaystyle \frac{$preNum}{$prime x} = \left(\frac{$prime}{$prime}\right) \left( $ans \right) = $ans \)
+END_SOLUTION
+Context()->normalStrings;
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

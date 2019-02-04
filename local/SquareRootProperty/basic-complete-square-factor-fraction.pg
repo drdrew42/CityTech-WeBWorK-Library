@@ -1,0 +1,96 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "PGML.pl",
+   "contextFraction.pl",
+   "contextLimitedFactor.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+$context = Context("Numeric")->variables->are(w=>Real);
+
+$A = random(-1,1,2)*random(3,9,2);
+
+$expr = Formula("w^2 - $A w")->reduce;
+
+Context("LimitedFactor")->variables->are(w=>Real);
+Parser::Number::NoDecimals();
+
+$ans2 = Compute("(w - ($A/2))^2");
+
+$factorCheck = sub {
+    my ($correct,$student,$ans) = @_;
+    return 0 if $ans->{isPreview} || $correct != $student;
+    $student = $ans->{student_formula};
+    $correct = $correct->{original_formula} if defined $correct->{original_formula};
+    # check for equivalence when bizarro arithmetic is enforced
+    Context()->flags->set(bizarroSub=> 1,bizarroAdd=> 1);
+    delete $correct->{test_values}, $student->{test_values};
+    my $OK = ($correct == $student); # check if equal when arithmetic is replace by bizarro arithmetic
+    Context()->flags->set(bizarroSub=> 0,bizarroAdd=> 0);
+    $factorableObject = Context()->flag("factorableObject");
+    Value::Error("Your answer is equivalent to the $factorableObject in the correct answer, but not completely factored or simplified") unless $OK;
+    return $OK;
+  };
+
+Context("LimitedFraction")->flags->set(showMixedNumbers=>0, allowMixedNumbers=>0);
+
+$A2 = $A**2;
+$ans1 = Fraction($A2,4)->reduce;
+$R = Fraction($A,2);
+
+##############################################################
+#
+#  Text
+#
+#
+
+BEGIN_PGML
+
+Fill in the missing value so that the expression is a perfect square trinomial.
+
+    [` \large{ [$expr] + } `] [_____]
+
+    Factored: [______________]
+
+* If your answer contains non-integer values, use fractions, not decimals.
+* If you need to use the square root symbol as in [`\sqrt{5}`], type it using *sqrt(5)*.
+* If there are no solutions, enter *no solutions*.
+END_PGML
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS(
+   $ans1->cmp->withPostFilter( sub {
+       my $ans = shift; 
+       $ans->{ans_message} = "Use fractions instead of decimals." 
+       if $ans->{ans_message} eq "You are not allowed to type decimal numbers in this problem";
+       return $ans;
+    }),
+   $ans2->cmp(checker=>$factorCheck)->withPostFilter( sub {
+       my $ans = shift; 
+       $ans->{ans_message} = "Use fractions instead of decimals." 
+       if $ans->{ans_message} eq "You are not allowed to type decimal numbers in this problem";
+       return $ans;
+    })
+);
+
+ENDDOCUMENT();        

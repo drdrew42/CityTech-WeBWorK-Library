@@ -1,0 +1,59 @@
+###DESCRIPTION
+## Factoring Polynomials 
+##ENDDESCRIPTION
+## DBsubject(Algebra)
+## DBchapter(Factoring the Difference of Two Squares)
+## DBsection(Factoring: common factors)
+## Institution(City Tech)
+## Author(ElHitti)
+## TitleText1('Arithmetics | Algebra')
+## AuthorText1('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## EditionText1('3')
+## Section1('13')
+## KEYWORDS('polynomials','factoring')
+## Date: 7/7/2017
+
+DOCUMENT(); # This should be the first executable line in the problem.
+
+loadMacros(
+  "PGstandard.pl",
+  "MathObjects.pl",
+  "CofIdaho_macros.pl"
+);
+
+TEXT(beginproblem());
+
+######################################
+#  Setup
+
+Context()->variables->are(p=>'Real',q=>'Real');
+
+
+$polynomial = Formula("p^3 - p q^2 - p^2 q + q^3")->reduce->TeX;
+
+######################################
+#  Main text
+
+BEGIN_TEXT
+OPTIONAL
+$PAR
+Factor completely: 
+$PAR
+\( $polynomial = \)  \{ ans_rule(30) \} 
+END_TEXT
+
+######################################
+#  Answer
+
+$answer = "(p-q) * (p-q) * (p+q)";
+ANS(FactoringEvaluator($answer,["p","q"])); 
+
+$showPartialCorrectAnswers = 1;
+
+######################################
+
+
+;
+ENDDOCUMENT();
+
+

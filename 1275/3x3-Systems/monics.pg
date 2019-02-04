@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Algebra problem: Solve a system of 3 linear	equations in 3 variables
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'linear algebra, 'algebra linear equations', 'linear equations', 'linear equations system', 'linear system', 'linear system of equations', 'linear systems', 'system of linear equations')
+
+## DBsubject(Algebra)
+## DBchapter(Systems of equations and inequalities)
+## DBsection(Linear systems)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -68,5 +82,7 @@ Find the unique solution to this system of equations. Give your answer as a poin
 [__________]{$ans}
 
 END_PGML
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

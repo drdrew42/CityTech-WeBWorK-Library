@@ -1,4 +1,16 @@
-########################################################################
+##DESCRIPTION
+##  Algebra problem: Simplify square root of mixed monomial
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'radical', 'radicals', 'radical expression')
+
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of rational exponents and radicals)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
 
 DOCUMENT();      
 
@@ -90,6 +102,33 @@ $radB = 2*$expB;
 
 $ans = Compute("a^$expA b^$expB sqrt(a)");
 
+### For solutions ###
+
+$ansStringA = "\sqrt{a}";
+$rawStringA = "\sqrt{a}";
+$varStringA = "a";
+$redStringA = "";
+for $n (2..$radA) {
+   $varStringA = $varStringA . "\cdot a";
+   $rawStringA = $rawStringA . "\sqrt{a}";
+   $ansStringA = $ansStringA . "\left(\sqrt{a}" if ($n % 2 == 0);
+   $ansStringA = $ansStringA . "\sqrt{a}\right)" if ($n % 2 == 1);
+   $redStringA = $redStringA . "(a)" if ($n % 2 == 1);
+};
+
+$ansStringB = "\left(\sqrt{b}";
+$rawStringB = "\sqrt{b}";
+$varStringB = "b";
+$redStringB = "";
+for $n (2..$radB) {
+   $varStringB = $varStringB . "\cdot b";
+   $rawStringB = $rawStringB . "\sqrt{b}";
+   $ansStringB = $ansStringB . "\left(\sqrt{b}" if ($n % 2 == 1);
+   $ansStringB = $ansStringB . "\sqrt{b}\right)" if ($n % 2 == 0);
+   $redStringB = $redStringB . "(b)" if ($n % 2 == 0);
+};
+
+
 ##############################################################
 #
 #  Text
@@ -121,5 +160,36 @@ ANS($ans->cmp(checker=>$reducedSqrt)->withPostFilter(sub {
     if $ans->{ans_message} eq "Powers must be positive integer constants";
   return $ans; 
 }));
+
+Context()->texStrings;
+BEGIN_HINT
+
+Notice that the problem specifically tells you to assume that variables only represent positive numbers. $BR
+This means we don't have to worry about using absolute values in our answer.
+$PAR
+So we may simplify \( \sqrt{x^2} = x \) 
+END_HINT
+BEGIN_SOLUTION
+
+$BBOLD Break down \(a^$radA\) and \(b^$radB\): $EBOLD $BR
+\( \displaystyle \sqrt{a^$radA b^$radB} = \sqrt{$varStringA \cdot $varStringB} \)
+$PAR
+$BBOLD Split the radical: $EBOLD $BR
+\( \displaystyle \sqrt{$varStringA \cdot $varStringB} = $rawStringA $rawStringB \)
+$PAR
+$BBOLD Group matching radicals into pairs: $EBOLD $BR
+\( \displaystyle $rawStringA $rawStringB = $ansStringA $ansStringB \)
+$PAR
+$BBOLD Simplify each group: $EBOLD $BR
+Remember that \( \sqrt{x} \cdot \sqrt{x} = x \) for all positive values of \(x\).
+$BR
+\( \displaystyle $ansStringA $ansStringB = \sqrt{a} $redStringA $redStringB \)
+$PAR
+\( \displaystyle \sqrt{a} $redStringA $redStringB = $ans \)
+
+END_SOLUTION
+Context()->normalStrings;
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

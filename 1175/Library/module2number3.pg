@@ -1,0 +1,98 @@
+##DESCRIPTION
+## Slope-intercept form of a line
+## updated -rac 12/2014
+##ENDDESCRIPTION
+## DBsubject(Algebra)
+## DBchapter(Linear equations and functions)
+## DBsection(Equations of lines: slope-intercept form)
+## Institution(The College of Idaho)
+## Author(RA Cruz)
+## MLT(MLT07)
+## Level(2)
+## MO(1)
+## TitleText1('Essentials of Intermediate Algebra')
+## AuthorText1('Blitzer')
+## EditionText1('1')
+## Section1('2.3')
+## Problem1('')
+## KEYWORDS('slope', 'y-intercept')
+## Date: 2007/10
+
+## Edited version of Library/CollegeOfIdaho/setAlgebra_02_03_LinearFunctionsAndSlope/23IntAlg_15_Slope.pg
+## Original version wanted equation written, but provided "y=" as a prompt.
+## Now "view correct answers" displays in fraction form instead of decimals.
+## K. Andrew Parker, CityTech, 12/14/16
+
+DOCUMENT(); # This should be the first executable line in the problem.
+
+loadMacros(
+  "PGstandard.pl",
+  "MathObjects.pl",
+  "contextFraction.pl",
+  "parserAssignment.pl"
+);
+
+TEXT(beginproblem());
+
+######################################
+#  Setup
+
+Context("Fraction");
+
+@fraction = (1,2, -1,2, 3,2, -3,2, 2,3, -2,3, 2,5, -2,5, 4,5 ,-4,5, 5,2);
+$n = random(0,20,2);
+
+$num= $fraction[$n];
+$den = $fraction[$n+1];
+$c = $den * random(-2,2,1);
+ 
+######################################
+#  Main text
+
+BEGIN_TEXT
+Rewrite the equation in slope-intercept form by solving for \(y\). Find the
+slope and the \(y\)-intercept. \[ $num x + $den y = $c \]
+$PAR
+a)  Write the equation for the given line in slope-intercept form: \{ ans_rule(20) \} 
+$BR
+* Your answer must be written as an equation.
+$PAR
+b) What is the slope of this line? \(m =\) \{ ans_rule(5) \} 
+$PAR
+c) The \(y\)-intercept is \(b =\) \{ ans_rule(5) \} 
+END_TEXT
+
+######################################
+#  Answer
+
+Context('Fraction');
+Context()->variables->are(x=>'Real', y=>'Real');
+parser::Assignment->Allow;
+Context()->strings->add("Does not exist"=>{}, 
+                        "Not defined"=>{alias=>'Does not exist'});
+
+sub errMsg {
+  my $ans = shift; 
+  $ans->{ans_message} =  "Enter your answer in the form: ".
+        "$BR ${BITALIC}y = mx+b, y = b${EITALIC} or ${BITALIC}x = c${EITALIC}"
+    if $ans->{ans_message} =~ / left side of an assignment/;
+  return $ans; 
+}
+
+$m = Fraction("-1*$num",$den);
+$b = $c / $den;
+$ans_a = Compute("y=$m x + $b"); 
+ANS($ans_a->cmp->withPostFilter(~~&errMsg));
+
+ANS($m->cmp); 
+
+$ans_c = Real($b);
+ANS($ans_c->cmp); 
+
+$showPartialCorrectAnswers = 1;
+
+######################################
+
+
+;
+ENDDOCUMENT();

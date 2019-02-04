@@ -1,0 +1,65 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "PGchoicemacros.pl",
+   "PGML.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(
+  reduceConstants => 0,
+  tolerance => 0.0005,
+  tolType => 'absolute'
+);
+
+@n = (); @degrees = (); @radians = ();
+
+@quad = NchooseK(4,4);
+
+for my $i (0..3) {
+  $n[$i] = random(1,89,1); 
+  $degrees[$i] = $quad[$i]*90+$n[$i];
+  $gcf = gcf($degrees[$i],180);
+  $nRad = $degrees[$i]/$gcf;
+  $dRad = 180/$gcf;
+  $radians[$i] = ($dRad == 1) ? Formula("pi") : Formula("($nRad*pi)/$dRad");
+};
+
+##############################################################
+#
+#  Text
+#
+#
+
+BEGIN_PGML
+
+Convert [` [$degrees[0]]^{\circ} `] into radian measure: [__________]{$radians[0]}
+
+Convert [` [$degrees[1]]^{\circ} `] into radian measure: [__________]{$radians[1]}
+
+Convert [` [$degrees[2]]^{\circ} `] into radian measure: [__________]{$radians[2]}
+
+Convert [` [$degrees[3]]^{\circ} `] into radian measure: [__________]{$radians[3]}
+
+* Enter your answer as a fraction of _pi_
+
+* You may also use decimal approximation, but your answer must be accurate to at least 3 decimal places.
+
+END_PGML
+
+ENDDOCUMENT();        

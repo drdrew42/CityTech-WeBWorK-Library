@@ -1,0 +1,76 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextLimitedRadical.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+Context("LimitedRadical")->variables->are(a=>[Real,limits=>[0,2]],b=>[Real,limits=>[0,2]],c=>[Real,limits=>[0,2]],d=>[Real,limits=>[0,2]]);
+Context()->flags->set(reduceConstants=>0, reduceConstantFunctions=>0, formatStudentAnswer=>'parsed');
+Parser::Number::NoDecimals;
+LimitedPowers::OnlyNonNegativeIntegers();
+
+##############################################################
+#
+#  Setup
+#
+#
+
+$coeff = list_random(2,3,5,6);
+$radCo = $coeff**3;
+
+$expA = random(8,32,1);
+$expB = random(8,32,1);
+$expC = random(8,32,1);
+do { $expD = random(8,32,1); } until ( ($expA+$expB+$expC+$expD)%2 != 0 );
+
+$ansA = floor($expA/2);
+$remA = $expA - $ansA*2;
+$ansB = floor($expB/2);
+$remB = $expB - $ansB*2;
+$ansC = floor($expC/2);
+$remC = $expC - $ansC*2;
+$ansD = floor($expD/2);
+$remD = $expD - $ansD*2;
+
+$rad = Formula("$radCo a^$expA b^$expB c^$expC d^$expD")->reduce;
+
+$ans = Formula("$coeff a^$ansA b^$ansB c^$ansC d^$ansD sqrt($coeff a^$remA b^$remB c^$remC d^$remD)")->reduce;
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Simplify the radical without using rational exponents. 
+$BR
+Assume all variables are restricted to positive values (that way we don't have to worry about absolute values).
+$PAR
+\(\displaystyle \large{ \sqrt{$rad}} \) = \{ ans_rule(10) \}
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans-> cmp);
+
+ENDDOCUMENT();        

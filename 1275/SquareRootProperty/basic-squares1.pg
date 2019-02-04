@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Algebra problem: Solve simple quadratic equation by using the square root property
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'quadratic equation')
+
+## DBsubject(Algebra)
+## DBchapter(Quadratic equations and functions)
+## DBsection(Solving equations)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -58,7 +72,7 @@ BEGIN_PGML
 Solve by using the square root property.
     [` \large{ [$LHS] = [$RHS] } `]
 
-    [______________________]
+    x = [______________________]
 
 * Enter multiple answers separated by commas.
 * If you need to use the square root symbol as in [` \sqrt{5}`], type it using *sqrt(5)*.
@@ -150,5 +164,32 @@ ANS($ans->cmp(list_checker => sub {
      }
      return ($score,@errors);
    }));
+
+BEGIN_PGML_HINT
+
+Be careful about taking square roots of "both sides" of an equation...  
+Think about how many different values for [`x`] might satisfy this equation?
+
+Do you know of more than one number who's square is [`[$A2]`]?
+
+Remember, in general, if [` x^2 = A `]  
+then [` x = \sqrt{A} `] is only one possible solution.  
+[` x = -\sqrt{A} `] would _also_ work!
+
+END_PGML_HINT
+BEGIN_PGML_SOLUTION
+
+Starting with the equation [` x^2 = [$A2] `], we must consider how many solutions we should expect.  
+This is a quadratic equation, and as such, we should find two solutions.
+
+[` x = \pm \sqrt{[$A2]} `]
+
+[` x = \pm [$A] `]
+
+So, either [` x = [$A] `] or [` x= -[$A] `]
+
+END_PGML_SOLUTION
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

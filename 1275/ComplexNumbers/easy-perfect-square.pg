@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Algebra problem: Find square root of a negative perfect square integer
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'complex number, 'complex numbers', 'radical', 'radical expression', 'imaginary')
+
+## DBsubject(Complex Analysis)
+## DBchapter(Arithmetic)
+## DBsection(Powers and roots)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -5,7 +19,8 @@ DOCUMENT();
 loadMacros(
    "PGstandard.pl",     # Standard macros for PG language
    "MathObjects.pl",
-   "contextLimitedComplex.pl"
+   "contextLimitedComplex.pl",
+   "PGML.pl"
 );
 
 # Print problem number and point value (weight) for the problem
@@ -22,6 +37,7 @@ $showPartialCorrectAnswers = 1;
 Context("LimitedComplex");
 
 $a = random(3,12,1);
+$posRad = $a**2;
 $radicand = -1*$a**2;
 
 Context("LimitedComplex-strict");
@@ -53,11 +69,9 @@ Context()->{error}{msg}{"Function 'sqrt' is not allowed in this context"}
 Context()->texStrings;
 BEGIN_TEXT
 $PAR
-Simplify the expression using complex numbers:
-$PAR
-\[ \large{ \sqrt{$radicand} } \]
-$PAR
-\{ans_rule(10)\}
+Simplify the expression using complex numbers: \[\quad  \sqrt{$radicand}  \]
+
+\{ans_rule(15)\}
 END_TEXT
 Context()->normalStrings;
 
@@ -68,5 +82,49 @@ Context()->normalStrings;
 #
 
 ANS($ans->cmp);
+
+Context()->texStrings;
+
+##############################################################
+#
+#  Hints
+#
+#
+
+
+
+BEGIN_PGML_HINT
+
+* It might help to separate the radicand: 
+
+>>[`\sqrt{[$radicand]} =
+\sqrt{([$posRad])(-1)} = \sqrt{[$posRad]} \sqrt{-1}.`]<<
+
+END_PGML_HINT
+
+
+##############################################################
+#
+#  Solutions
+#
+#
+
+
+BEGIN_PGML_SOLUTION
+
+* Split off the negative from the radicand: 
+
+>>[` \displaystyle \sqrt{[$radicand]} = \sqrt{[$posRad]} \sqrt{-1} `]<<
+
+
+* Simplify each radical: 
+
+>>[` \displaystyle \sqrt{[$posRad]} \sqrt{-1} = [$a] i `]<<
+
+END_PGML_SOLUTION
+
+Context()->normalStrings;
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

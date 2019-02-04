@@ -24,11 +24,11 @@ Context()->{error}{msg}{"Can't use '+' in this context"}
 Context()->{error}{msg}{"Can't use '-' in this context"} 
   = "Subtraction is disabled for this problem. Compute the result for yourself and resubmit your answer.";
 
-$a2 = random(-10 , -4, 1);  $b2=random ( 3, 6 ,1 ); $ans2= $a2 -$b2 ;
+$a2 = random(-10 , -4, 1);  $b2=random ( 3, 6 ,1 ); $ans2= $a2 +$b2 ;
 
 BEGIN_TEXT
-
-\($a2 -$b2\) = \{ans_rule(2)\}. $PAR
+Evaluate:
+\($a2 +$b2\) = \{ans_rule(2)\}. $PAR
 
 
 END_TEXT

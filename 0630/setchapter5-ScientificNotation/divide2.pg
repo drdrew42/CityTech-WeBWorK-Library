@@ -46,6 +46,9 @@ BEGIN_TEXT
 Perform the computation and write the result in scientific notation:
 $PAR
 \( \displaystyle \frac{\{$b->TeX\}}{\{$a->TeX\}} \) =  \{ ans_rule(20) \}
+
+$PAR
+The number to the left of 'x' must be in the form of '0.0'
 END_TEXT
 
 ######################################
@@ -57,7 +60,7 @@ Context()->operators->add(
     TeX => '\times ', class => 'ScientificNotation::BOP::x'},
 );
 
-$answer = Compute($b/$a)->reduce;
+$answer = ScientificNotation($b/$a);
 ANS($answer->cmp);	
 	
 $showPartialCorrectAnswers = 1;

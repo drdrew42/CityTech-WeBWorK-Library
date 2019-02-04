@@ -1,3 +1,18 @@
+##DESCRIPTION
+##  Algebra problem: Rewrite logarithms in expanded form by applying the properties of logarithms
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'logarithm', 'logarithms', 'laws of logarithms')
+## DBsubject(Algebra)
+## DBchapter(Exponential and logarithmic expressions and functions)
+## DBsection(Properties of logarithms)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
+########################################################################
+
 DOCUMENT();      
 
 loadMacros(
@@ -81,12 +96,36 @@ BEGIN_PGML
 
 Rewrite the following logarithms in expanded form by applying the properties of logarithms.
 
->> [` \log(xy) = `] [____________]{$ans1->cmp(checker=>$logCheck)} <<
+a. [` \log(xy) = `] [_____________________]{$ans1->cmp(checker=>$logCheck)} 
 
->> [` \log(\frac{x}{y}) = `] [____________]{$ans2->cmp(checker=>$logCheck)} <<
+b. [` \log\left(\dfrac{x}{y}\right) = `] [_____________________]{$ans2->cmp(checker=>$logCheck)} 
 
->> [` \log(x^y) = `] [____________]{$ans3->cmp(checker=>$logCheck)} <<
+c. [` \log(x^y) = `] [_____________________]{$ans3->cmp(checker=>$logCheck)} 
 
 END_PGML
+
+##############################################################
+#
+#  Answers
+#
+#
+
+
+
+BEGIN_PGML_SOLUTION
+
+a. ` \log(xy) = \log(x)+\log(y)`
+
+b. ` \log(\frac{x}{y}) =\log(x)-\log(y)`
+
+c. ` \log(x^y) = y\log(x)`
+
+
+
+END_PGML_SOLUTION
+
+
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

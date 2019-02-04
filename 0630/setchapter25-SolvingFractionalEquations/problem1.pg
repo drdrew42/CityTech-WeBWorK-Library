@@ -57,7 +57,7 @@ Context()->functions->disable("All");
 Context()->texStrings;
 BEGIN_TEXT
 
-Solve the equation \( \displaystyle \frac{w}{$a} = $b \).
+Solve the fractional equation by cross multiplication: \( \displaystyle \frac{w}{$a} = $b \).
 $PAR
 \( w = \)
 \{ ans_rule(10) \}

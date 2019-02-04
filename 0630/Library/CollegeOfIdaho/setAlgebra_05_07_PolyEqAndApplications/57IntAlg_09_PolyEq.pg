@@ -1,0 +1,163 @@
+##DESCRIPTION
+##  Polynomial Equations
+## 
+##ENDDESCRIPTION
+## DBsubject(Algebra)
+## DBchapter(Quadratic equations and functions)
+## DBsection(Solve by factoring)
+## Institution(The College of Idaho)
+## Author(RA Cruz)
+## MLT(quadraticFactorSolveSquareEqLinear)
+## Level(3)
+## MO(1)
+## TitleText1('Essentials of Intermediate Algebra')
+## AuthorText1('Blitzer')
+## EditionText1('1')
+## Section1('5.7')
+## Problem1('')
+## KEYWORDS('polynomial equations')
+## Date: 2007/11
+
+DOCUMENT(); # This should be the first executable line in the problem.
+
+loadMacros(
+  "PGstandard.pl",
+  "MathObjects.pl",
+  "contextInequalitiesAllowStrings.pl",
+  "PGcourse.pl"
+);
+
+TEXT(beginproblem());
+
+######################################
+#  Setup
+#  Form: (x-a)^2=0
+
+$a = random(3,5,2);  
+$Two_a= 2*$a;  
+$aa = -1*$a*$a;
+
+$polynomial = Formula("$Two_a x + $aa")->reduce->TeX;
+
+######################################
+#  Main text
+
+BEGIN_TEXT
+
+A.  Use factoring to solve the polynomial equation:
+ \[  x^2 = $polynomial \]
+Answer:  \{ ans_rule(30) \} $BR
+
+END_TEXT
+
+######################################
+#  Answer
+
+Context("Inequalities-AllowStrings");
+
+$ans = Compute("x = $a");
+ANS($ans->cmp); 
+
+$showPartialCorrectAnswers = 1;
+
+######################################
+
+
+;
+######################################
+
+
+$a = random(2,4,1);  
+$b= 4*$a;
+$c = 3*$a; 
+
+
+######################################
+#  Main text
+
+BEGIN_TEXT
+
+B.  Solve the quadratic equation by factoring:
+ \[  -$b x^2 = $c x \]
+\( x = \)   \{ ans_rule(20) \} or  \{ ans_rule(20) \} $BR
+
+END_TEXT
+
+######################################
+#  Answer
+Context("LimitedNumeric-StrictFraction"); 
+
+
+$ans1 = Compute("- $c/$b");
+$ans2 = Compute("0");
+
+ANS($ans1->cmp); 
+ANS($ans2->cmp); 
+
+
+$showPartialCorrectAnswers = 1;
+
+######################################
+
+
+;
+Context("Numeric");
+Context()->flags->set(
+   reduceConstants=>0, 
+   reduceConstantFunctions=>0,
+   tolType=>"absolute",
+   tolerance=>0.001
+);
+
+######################################
+#  Setup
+#  Form: (ax+b)(ax-b)=0
+
+
+$a = random(3,5,2);  
+
+$b = list_random(2,4,8);
+$aa = $a*$a;
+$bb = $b*$b;
+
+######################################
+#  Main text
+
+BEGIN_TEXT
+C.  Use factoring to solve the polynomial equation:
+ \[  $aa x^2 = $bb \]
+Answer:  \{ ans_rule(30) \} 
+END_TEXT
+
+######################################
+#  Answer
+
+Context("Inequalities-AllowStrings");
+
+
+($num,$den) = reduce($b,$a);
+$v = "$num/$den";
+if ($den==1) {$v = "$num";}
+$ans = Compute("x = -$v or x = $v")->reduce;
+ANS($ans->cmp); 
+
+$showPartialCorrectAnswers = 1;
+
+######################################
+
+BEGIN_HINT
+You have arrived at an incorrect answer.  Make sure you have mastered the previous problem.  Then look at the following link to improve your skills:
+<a href="https://www.khanacademy.org/math/algebra/quadratics/solving-quadratic-equations-by-factoring/v/example-1-solving-a-quadratic-equation-by-factoring">solving by factoring</a>,
+
+
+END_HINT
+
+
+;
+ENDDOCUMENT();
+<a href="https://www.khanacademy.org/math/algebra/quadratics/modal/a/solving-quadratic-equations-by-factoring">Factoring quadratics II</a>,
+
+<a href="https://www.khanacademy.org/math/algebra-basics/alg-basics-quadratics-and-polynomials/alg-basics-factoring-diff-of-squares/v/factoring-to-produce-difference-of-squares">Factoring quadratics Difference of squares</a>
+and 
+
+<a href="https://www.khanacademy.org/math/algebra/quadratics/modal/a/solving-quadratic-equations-by-factoring">Factoring quadratics III</a>

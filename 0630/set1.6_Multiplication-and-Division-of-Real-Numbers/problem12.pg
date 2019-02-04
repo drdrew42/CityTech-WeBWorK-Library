@@ -32,20 +32,27 @@ TEXT(&beginproblem);
 
 $a1 = random(2,13,1);
 $a2 = random(-13,-2,1);
+$a3 = random(0,20,1);
+$a4 = random(0,0,0);
+$a5 = random(-12,-1,1);
 
 do { $b1 = random(-10,-2,1);} until ($b1 != $a2);
-$b2 = random(-12,-2,1);
+$b2 = random(-12,-1,2);
 
 ######################################
 #  Main text
 
 BEGIN_TEXT
-Multiply as indicated:  
+Multiply:  
 $PAR
 a) \( $a1($a2) = \)  \{ ans_rule(10) \} 
 $PAR
 b) \( ($b1)($b2) = \)  \{ ans_rule(10) \} 
 $BR
+c)  \( $a3($b1) = \)  \{ ans_rule(10) \} 
+$PAR
+d)  \( $a5($a4) = \)  \{ ans_rule(10) \} 
+$PAR
 
 END_TEXT
 
@@ -61,6 +68,12 @@ $ans_a=Real($a1 * $a2)->reduce;
 
 $ans_b=Real($b1 * $b2)->reduce;
 &ANS($ans_b->cmp);
+
+$ans_c=Real($a3 * $b1)->reduce;
+&ANS($ans_c->cmp);
+
+$ans_d=Real($a5 * $a4)->reduce;
+&ANS($ans_d->cmp);
 
 $showPartialCorrectAnswers = 1;
 

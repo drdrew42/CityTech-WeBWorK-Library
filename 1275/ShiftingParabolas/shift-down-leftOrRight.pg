@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Algebra problem: find equation of shifted parabola
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'quadratic function', 'parabola', 'translation of graphs', 'function graph', 'graph')
+
+## DBsubject(Algebra)
+## DBchapter(Quadratic equations and functions)
+## DBsection(Graphs)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -68,5 +82,44 @@ END_PGML
 #
 #
 
+BEGIN_PGML_HINT
+
+This parabola has been shifted to the [$LR] by [$absShiftX] units and shifted up by [$shiftY] units from standard position.
+
+END_PGML_HINT
+BEGIN_PGML_SOLUTION
+
+The black parabola is given by the equation [` y = x^2 `]
+
+This parabola has been shifted to the [@($shiftX>0)?"right":"left"@] by [@abs($shiftX)@] units and shifted down by [@abs($shiftY)@] units from standard position.
+
+To shift down by [@abs($shiftY)@] units, we only need to tack on "[` + [$shiftY] `]" to the end of our function.
+
+To shift [@($shiftX>0)?"right":"left"@] by [@abs($shiftX)@] units, we must replace [`x`] with [`(x-[$shiftX])`] in our function.
+
+So our new equation must be [` y = (x - [$shiftX] )^2 + [$shiftY] `]
+
+**It may seem that horizontal and vertical shifts are inexplicably reversed -**  
+_But they're actually the same!_
+
+To shift horizontally, we replace [`x`] with [`(x+A)`] or [`(x-A)`],  
+depending on whether we want to shift left [`(x+A)`],  
+or shift right [`(x-A)`].
+
+We can apply the same process to [`y`] when shifting vertically.  
+Replace [`y`] with [`(y+B)`] to shift down,  
+or [`(y-B)`] to shift up.
+
+For example in this problem, we shift [@($shiftX>0)?"right":"left"@] by [@abs($shiftX)@] units and shift [@($shiftY>0)?"up":"down"@] by [@abs($shiftY)@] units.  
+So we replace [`x`] with [`(x-[$shiftX])`] and replace [`y`] with [`(y-[$shiftY])`]:  
+    [`(y-[$shiftY]) = (x-[$shiftX])^2`]  
+    [`y = (x - [$shiftX] )^2 + [$shiftY]`]
+
+**After isolating [`y`], we end up with exactly the same result -**  
+_and the appearance that the [`x`] and [`y`] shifts are "reversed"._
+
+END_PGML_SOLUTION
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

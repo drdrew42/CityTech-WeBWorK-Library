@@ -1,0 +1,79 @@
+## DESCRIPTION
+## This problem asks students to factor trinomials
+## ENDDESCRIPTION
+## KEYWORDS('solutions')
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## BookChapter('Equations and their Solutions')
+## Date('07/07/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+## TitleText1('Arithmetic | Algebra')
+## EditionText1('3')
+## AuthorText1('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## Section1('15')
+
+
+########################################################################
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"parserPopUp.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"PGcourse.pl", 
+"contextLimitedNumeric.pl",
+"PGchoicemacros.pl",
+
+);
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+# the arguments of PopUp are [list of answers], 
+#    correct answer
+$popup = PopUp(["?","Yes", "No"], "No");
+
+
+
+$b = random(-6,-2,1);
+
+
+
+$answer1 = 5*$b - 2*$b*$b +1;
+$answer2 = $b*$b + 2*$b-5;
+
+
+
+BEGIN_TEXT
+
+Evaluate \( 5x - 2 x^2 +1 \) at \(x= $b\) \{ ans_rule(10) \}
+$PAR
+Evaluate  \( x^2 + 2 x -5 \) at \(x= $b\) \{ ans_rule(10) \}
+$PAR
+Is \(x= $b\) a solution to \( 5x - 2 x^2 +1  = x^2 + 2 x -5   \) \{ $popup->menu() \}
+$PAR
+END_TEXT
+
+Context("LimitedNumeric");
+ANS(Real($answer1)->cmp);
+ANS(Real($answer2)->cmp);
+ANS( $popup->cmp);
+
+
+Context()->texStrings;
+
+Context()->normalStrings;
+
+BEGIN_HINT
+You have arrived at an incorrect answer.  Please look at the following links to improve your skills:
+
+
+<a href="https://www.khanacademy.org/math/pre-algebra/pre-algebra-equations-expressions/pre-algebra-intro-equations/v/testing-solutions-to-equation">testing solutions</a>
+END_HINT
+ENDDOCUMENT();
+SOLUTION(EV3(<<'END_SOLUTION'));
+$PAR SOLUTION $PAR
+The correct answer is \{ $popup->correct_ans() \} because when you evaluate both sides of the equation at the given value of the variable, they are not equal. 
+
+END_SOLUTION

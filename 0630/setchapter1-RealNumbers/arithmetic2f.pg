@@ -27,7 +27,7 @@ Context()->{error}{msg}{"Can't use '-' in this context"}
 $a6 = random(-22 , -16, 1);  $b6=random (-28 , -24 , 1); $ans6= $a6 -$b6 ;
 
 BEGIN_TEXT
-
+Evaluate:
 \($a6 -($b6)\) = \{ans_rule(2)\}. $PAR
 
 

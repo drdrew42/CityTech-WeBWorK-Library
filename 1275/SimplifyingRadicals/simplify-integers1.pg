@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Algebra problem: Simplify square root of an integer
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'radical', 'radicals', 'radical expression')
+
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of rational exponents and radicals)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -86,7 +100,7 @@ Parser::Number::NoDecimals;
 #
 
 $out = random(3,7,1);
-$in = list_random(2,3,5,6);
+do { $in = list_random(2,3,5,6); } until ( gcf($in,$out) == 1 );
 
 $rad = $in*$out**2;
 
@@ -125,5 +139,30 @@ ANS($ans->cmp(checker=>$reducedSqrt)->withPostFilter(sub {
     if $ans->{ans_message} eq "Powers must be positive integer constants";
   return $ans; 
 }));
+
+Context()->texStrings;
+BEGIN_HINT
+
+See if you can find any perfect squares that are factors of $rad.
+
+END_HINT
+BEGIN_SOLUTION
+
+$BBOLD Find the largest perfect square factor of $rad: $EBOLD $BR
+\( \displaystyle \sqrt{$rad} = \sqrt{$out \cdot $out \cdot $in} \)
+$PAR
+$BBOLD Split up the radical: $EBOLD $BR
+\( \displaystyle \sqrt{$out \cdot $out \cdot $in} = \sqrt{$out} \sqrt{$out} \sqrt{$in} \)
+$PAR
+$BBOLD Group matching radicals into pairs: $EBOLD $BR
+\( \displaystyle \sqrt{$out} \sqrt{$out} \sqrt{$in} = \left( \sqrt{$out} \sqrt{$out} \right) \sqrt{$in} \)
+$PAR
+$BBOLD Simplify paired radicals: $EBOLD $BR
+\( \displaystyle \left( \sqrt{$out} \sqrt{$out} \right) \sqrt{$in} = ($out) \sqrt{$in} = $out \sqrt{$in} \)
+
+END_SOLUTION
+Context()->normalStrings;
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

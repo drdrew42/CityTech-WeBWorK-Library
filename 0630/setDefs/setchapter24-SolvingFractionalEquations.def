@@ -1,8 +1,8 @@
 assignmentType      = default
-openDate          = 04/11/2016 at 10:57am EDT
-reducedScoringDate = 10/29/2015 at 02:00pm EDT
-dueDate           = 04/18/2016 at 10:57am EDT
-answerDate        = 04/18/2016 at 10:57am EDT
+openDate          = 11/21/2016 at 06:20pm EST
+reducedScoringDate = 12/31/1969 at 07:00pm EST
+dueDate           = 11/30/2016 at 11:59pm EST
+answerDate        = 11/30/2016 at 11:59pm EST
 enableReducedScoring = N
 paperHeaderFile   = defaultHeader
 screenHeaderFile  = defaultHeader
@@ -17,7 +17,7 @@ source_file = local/setchapter25-SolvingFractionalEquations/problem1.pg
 value = 1
 max_attempts = -1
 showMeAnother = -1
-prPeriod = 
+prPeriod = -1
 counts_parent_grade = 0
 att_to_open_children = 0 
 problem_end
@@ -27,7 +27,7 @@ source_file = local/setchapter25-SolvingFractionalEquations/problem2.pg
 value = 1
 max_attempts = -1
 showMeAnother = -1
-prPeriod = 
+prPeriod = -1
 counts_parent_grade = 0
 att_to_open_children = 0 
 problem_end
@@ -37,17 +37,17 @@ source_file = local/setchapter25-SolvingFractionalEquations/problem3.pg
 value = 1
 max_attempts = -1
 showMeAnother = -1
-prPeriod = 
+prPeriod = -1
 counts_parent_grade = 0
 att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 4
-source_file = local/setchapter25-SolvingFractionalEquations/problem4.pg
+source_file = local/setchapter24-SolvingFractionalEquations/2a.pg
 value = 1
 max_attempts = -1
 showMeAnother = -1
-prPeriod = 
+prPeriod = -1
 counts_parent_grade = 0
 att_to_open_children = 0 
 problem_end
@@ -57,7 +57,7 @@ source_file = Library/ma112DB/set2/sw1_6_19.pg
 value = 1
 max_attempts = -1
 showMeAnother = -1
-prPeriod = 
+prPeriod = -1
 counts_parent_grade = 0
 att_to_open_children = 0 
 problem_end
@@ -67,7 +67,7 @@ source_file = Library/Rochester/setAlgebra08LinearEqns/Test2_11.pg
 value = 1
 max_attempts = -1
 showMeAnother = -1
-prPeriod = 
+prPeriod = -1
 counts_parent_grade = 0
 att_to_open_children = 0 
 problem_end
@@ -77,7 +77,7 @@ source_file = local/setchapter25-SolvingFractionalEquations/problem7.pg
 value = 1
 max_attempts = -1
 showMeAnother = -1
-prPeriod = 
+prPeriod = -1
 counts_parent_grade = 0
 att_to_open_children = 0 
 problem_end
@@ -87,7 +87,17 @@ source_file = Library/ma117DB/set1b/srw1_5_11.pg
 value = 1
 max_attempts = -1
 showMeAnother = -1
-prPeriod = 
+prPeriod = -1
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 9
+source_file = local/setchapter24-SolvingFractionalEquations/1d.pg
+value = 1
+max_attempts = -1
+showMeAnother = -1
+prPeriod = -1
 counts_parent_grade = 0
 att_to_open_children = 0 
 problem_end

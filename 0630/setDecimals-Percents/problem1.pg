@@ -1,0 +1,288 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject(‘Arithmetic’)
+## DBchapter(‘’)
+## DBsection(‘’)
+## Date('7/5/2015')
+## Author('K. Andrew Parker')
+## Institution('NYC City Tech')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "parserPopUp.pl",
+   "scaffold.pl",
+   "niceTables.pl",
+   "contextFraction.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer=>"parsed"
+   );
+
+  $formChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentstring = $ansHash->{student_formula};
+     my $correctans = $ansHash->{correct_ans};
+     $studentstring =~ tr/()//d;
+     $correctans =~ tr/()//d;
+     return ( $student==$correct && $studentstring eq $correctans ? 1 : 0);
+   };
+
+
+  $numChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     my $studentans=$ansHash->{student_formula};
+     Value->Error("You're on the right track, but your answer should be just a number.") if ( ($studentans ne $student)&&($student==$correct) );
+     return($studentans eq $ansHash->{correct_ans} ? 1 : 0);
+  };
+
+@prime = ( 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 );
+
+@card = ("zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen");
+
+$halves = random(3,9,2);
+
+Context("Fraction")->flags->set(
+  strictFractions=>1,
+  allowMixedNumbers=>1,
+  requireProperFractions=>1,
+  showMixedNumbers=>1,
+);
+
+$halvesFrac = Fraction($halves,2);
+
+Context("Numeric");
+Context()->flags->set(
+     reduceConstants => 0,
+     reduceConstantFunctions => 0,
+     formatStudentAnswer=>"parsed"
+   );
+
+$halvesWhole = floor($halves/2);
+$halvesDec = $halvesWhole+0.5;
+$ignoreDec = $halvesDec*10;
+
+$nickels = random( 5,13,1 );
+$nickelsDec = $nickels*0.05;
+$ignoreNicks = $nickelsDec*100;
+
+$quarters = random(6,14,2);
+$quartersDec = $quarters*0.25;
+$ignoreQuarts = $quartersDec*100;
+
+##############################################################
+#
+#  Text
+#
+#
+Scaffold::Begin(
+      can_open => "when_previous_correct",
+      is_open  => "first_incorrect"
+);
+
+
+Section::Begin( "Part 1: Fractions as decimals" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+In this problem, we're going to look at multiplying decimals.
+$BR
+But before that, let's remind ourselves about some facts about money.
+$PAR
+It takes 4 quarters to make a whole dollar. What fraction of a dollar does one quarter represent? \{ ans_rule(5) \}
+$BR
+Write the decimal form that a quarter represents. $\{ ans_rule(5) \}
+$PAR
+It takes 10 dimes to make a whole dollar. What fraction of a dollar does one dime represent? \{ ans_rule(5) \}
+$BR
+Write the decimal form that a dime represents. $\{ ans_rule(5) \}
+$PAR
+It takes 20 nickels to make a whole dollar. What fraction of a dollar does one nickel represent? \{ ans_rule(5) \}
+$BR
+Write the decimal form that a nickel represents. $\{ ans_rule(5) \}
+$PAR
+It takes 100 pennies to make a whole dollar. What fraction of a dollar does one penny represent? \{ ans_rule(5) \}
+$BR
+Write the decimal form that a penny represents. $\{ ans_rule(5) \}
+$PAR
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( Formula("1/4")->cmp(checker=>$formChecker) );
+ANS( Real(0.25)->cmp() );
+ANS( Formula("1/10")->cmp(checker=>$formChecker) );
+ANS( Real(0.10)->cmp() );
+ANS( Formula("1/20")->cmp(checker=>$formChecker) );
+ANS( Real(0.05)->cmp() );
+ANS( Formula("1/100")->cmp(checker=>$formChecker) );
+ANS( Real(0.01)->cmp() );
+
+Section::End();
+
+Section::Begin( "Part 2: Multplying Fractions" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+There is a distinct connection between decimals and fractions.
+$BR
+This is because they are both two different ways of looking at the values that lie between whole numbers.
+$BR
+Every fraction has a decimal representation. (Though not every decimal number has a fractional form.)
+$BR
+What is the decimal representation for \( \dfrac{1}{2} \)? \{ ans_rule(5) \}
+$PAR
+But before we talk about multiplying decimals, let's look at how we multiply fractions first. Then we'll convert our work to decimals and see what we can see.
+$PAR
+As our first example, let's look at \( $halves \times \dfrac{1}{2} \).
+$BR
+So, we're really just looking at $card[$halves]-halves. Write this as an improper fraction. 
+\{ ans_rule(5) \}
+$BR
+Now convert $card[$halves]-halves into its mixed-fraction form. \{ ans_rule(5) \}
+
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( Real(0.5)->cmp(checker=>$numChecker) );
+ANS( Formula("$halves/2")->cmp(checker=>$formChecker) );
+ANS( $halvesFrac->cmp() );
+
+Section::End();
+
+Section::Begin( "Part 3: Connecting fractions and decimals" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+So we started with \( $halves \times \dfrac{1}{2} \), and you correctly answered that \( \dfrac{1}{2} = 0.5 \). So our multiplication can be re-written as \( $halves \times 0.5 \).
+$PAR
+You also correctly found the mixed-fraction form of the product, \( $halvesFrac \).
+$BR
+Remember that mixed fractions are hiding an addition sign between the whole part and the fractional part, so we should think of it as \( $halvesWhole + \dfrac{1}{2} \).
+$BR
+Now, if we convert \( \dfrac{1}{2} \) to a decimal again, we have an answer of \( $halvesWhole + 0.5 \). So what is our answer as a decimal? \{ ans_rule(5) \}
+$PAR
+Finally, what do get if we ignore the decimals in \( $halves \times 0.5 \), and multiply \( $halves \times 5 \) instead? \{ ans_rule(5) \}
+$PAR
+Think about how your last two answers compare. Why do you think that is?
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( Real($halvesDec)->cmp(checker=>$numChecker) );
+ANS( Real($ignoreDec)->cmp(checker=>$numChecker) );
+
+Section::End();
+
+Section::Begin( "Part 4: Multiplying decimals" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+So, multiplying the original decimal version: \( $halves \times 0.5 \) we got $halvesDec as our answer.
+$BR
+And when ignoring the decimals and multiplying \( $halves \times 5 \) instead, we got $ignoreDec.
+$PAR
+What's the difference between our two answers? 
+$BR
+Of course, when we ignore the decimals, we're multiplying whole numbers, so our answer is also a whole number.
+$PAR
+But we ignored ONE decimal place to get \( $halves \times 5 \) instead of \( $halves \times 0.5 \). 
+$BR
+(5 was originally BEHIND the decimal, and that's the ONE decimal place we ignored.)
+$PAR
+So, if we put that one decimal place BACK, AFTER we multiply \( $halves \times 5 \), we go from $ignoreDec to the actual answer: $halvesDec.
+$PAR
+$PAR
+So, will this method of ignoring decimals before we multiply and then putting them back AFTER we multiply work every time?
+$BR
+Let's do a few more examples with money just to be sure.
+$PAR
+Multiply \( $nickels \times 0.05 \).
+$BR
+How many decimal places do we have to ignore to get 5 instead of 0.05? \{ ans_rule(5) \}
+$BR
+What do we get if we multiply \( $nickels \times 5 \) instead of the original product? 
+\{ ans_rule(5) \}
+$BR
+Then what do we get if we put those decimal places back in our previous answer?
+\{ ans_rule(5) \}
+$BR
+Look at your final answer, does it make sense? 
+$BR
+(0.05 corresponds to a nickel, so does your answer match up with what you'd expect from $card[$nickels] nickels?)
+END_TEXT
+Context()->normalStrings;
+
+ANS( Real(2)->cmp() );
+ANS( Real($ignoreNicks)->cmp(checker=>$numChecker) );
+ANS( Real($nickelsDec)->cmp(checker=>$numChecker) );
+
+Section::End();
+
+Section::Begin( "Part 5: Practice" );
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Multiply \( $quarters \times 0.25 \).
+$BR
+How many decimal places do we have to ignore to get 25 instead of 0.25? 
+\{ ans_rule(5) \}
+$BR
+What do we get if we multiply \( $quarters \times 25 \) instead of the original product? 
+\{ ans_rule(5) \}
+$BR
+Then what do we get if we put those decimal places back in our previous answer?
+\{ ans_rule(5) \}
+$BR
+Look at your final answer, does it make sense? 
+$BR
+(0.25 corresponds to a quarter, so does your answer match up with what you'd expect from $card[$quarters] quarters?)
+
+
+END_TEXT
+Context()->normalStrings;
+
+ANS( Real(2)->cmp() );
+ANS( Real($ignoreQuarts)->cmp(checker=>$numChecker) );
+ANS( Real($quartersDec)->cmp(checker=>$numChecker) );
+
+Section::End();
+
+
+Scaffold::End();
+
+ENDDOCUMENT();        

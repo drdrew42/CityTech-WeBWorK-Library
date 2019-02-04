@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Algebra problem: Complete the square and factor
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'quadratic equation', 'completing the square', 'quadratic algebra completing the square')
+
+## DBsubject(Algebra)
+## DBchapter(Quadratic equations and functions)
+## DBsection(Completing the square)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -26,7 +40,7 @@ Context("Numeric");
 $A = random(-1,1,2)*random(3,9,1);
 $twoA = 2*$A;
 
-$expr = Formula("x^2 - $twoA x")->reduce;
+$expr = Formula("x^2 + $twoA x")->reduce;
 
 Context("LimitedNumeric");
 
@@ -35,7 +49,7 @@ $ans1 = Real("$A2")->reduce;
 
 Context("LimitedFactor");
 
-$ans2 = Formula("(x - $A)^2")->reduce;
+$ans2 = Formula("(x + $A)^2")->reduce;
 
 ##############################################################
 #
@@ -62,5 +76,41 @@ END_PGML
 #
 #
 
+BEGIN_PGML_HINT
+
+When you square a binomial such as [` (x+A)^2 `],  
+you will get [` x^2 + 2Ax + A^2 `].
+
+You've only been given the first two terms: [` [$expr] `]
+
+Obviously the [` x^2 `] is there... but instead of [` 2A `], we have [` [$twoA] `].
+
+What is the value of [` A `]? And then what should the third term be?
+
+END_PGML_HINT
+BEGIN_PGML_SOLUTION
+
+Perfect square binomials look like:  
+[` (x+A)^2 = x^2 + 2Ax + A^2 `]
+
+But we've only been given [` [$expr] `].
+
+This is enough to determine the value of [`A`],  
+because instead of [`2A`], we have [`[$twoA]`].
+
+We can see that in order for [` [$expr] `] to be a perfect square,  
+[`A`] must be [`[$A]`]. 
+
+In order to complete the square, we need the third term:  
+[` x^2 + 2Ax + A^2 `]
+
+Because [` A `] is [`[$A]`], then the [`A^2`] must be [`[$A2]`].
+
+This gives us the perfect square:  
+[` [$expr] + [$A2] = ( x + [$A] )^2 `]
+
+END_PGML_SOLUTION
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

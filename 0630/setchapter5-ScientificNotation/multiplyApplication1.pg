@@ -36,6 +36,8 @@ $num = random(30,90,10);
 #  Main text
 
 BEGIN_TEXT
+OPTIONAL
+$PAR
 The mass of one hydrogen atom is \(1.67 \times 10^{-24}\) gram.
 Find the mass of $num,000 hydrogen atoms.  Express the answer in
 scientific notation.

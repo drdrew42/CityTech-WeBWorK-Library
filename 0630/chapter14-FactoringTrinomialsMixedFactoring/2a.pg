@@ -1,0 +1,88 @@
+## DESCRIPTION
+## This problem asks students to factor trinomials
+## ENDDESCRIPTION
+## KEYWORDS('factor')
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## BookChapter('Factoring Trinomials and Mixed Factoring')
+## Date('07/07/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+## TitleText1('Arithmetic | Algebra')
+## EditionText1('3')
+## AuthorText1('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## Section1('14')
+
+
+DOCUMENT(); # This should be the first executable line in the problem.
+
+loadMacros(
+  "PGstandard.pl",
+  "MathObjects.pl",
+  "CofIdaho_macros.pl"
+#####Doesn't do non-x variables with higher powers well
+#  "contextPolynomialFactors.pl",  
+#  "contextLimitedPowers.pl"
+#####Put back when fixed
+);
+
+TEXT(beginproblem());
+
+######################################
+#  Setup
+
+$a = random(1,4,1);  #$a and $b must be relatively prime.
+do {$b = non_zero_random(-3,2,1);} until (gcd($a,$b)==1);
+$c = random(1,3,1);
+
+$polynomial = Formula("($a^2*$c)x^2 + (2*$a*$b*$c)x + (($b)^2*$c)")->reduce->TeX;
+
+######################################
+#  Main text
+
+BEGIN_TEXT
+Factor completely: 
+$PAR
+\( $polynomial = \)  \{ ans_rule(30) \} 
+END_TEXT
+
+######################################
+#  Answer
+
+$answer = "$c*($a*x + $b)^2";
+ANS(FactoringEvaluator($answer,"x")); 
+
+$showPartialCorrectAnswers = 1;
+
+######################################
+
+
+;
+ENDDOCUMENT();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

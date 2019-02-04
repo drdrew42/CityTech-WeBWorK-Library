@@ -1,20 +1,15 @@
 ##DESCRIPTION
-##  Algebra problem: true or false for inequality 
+##  Algebra problem: Reduce a given rational expression
 ##ENDDESCRIPTION
 
-##KEYWORDS('algebra', 'inequality', 'fraction')
-
-## DBsubject('Algebra')
-## DBchapter('Fundamentals')
-## DBsection('Real Numbers')
-## Date('6/3/2002')
-## Author('')
-## Institution('')
-## TitleText1('Precalculus')
-## EditionText1('3')
-## AuthorText1('Stewart, Redlin, Watson')
-## Section1('1.1')
-## Problem1('22')
+##KEYWORDS('algebra', 'algebra, operations with rational expressions', 'algebra, simplifying rational expression', 'rational expressions', 'rational expression', 'factoring')
+## DBsubject(Algebra)
+## DBchapter(Operations on polynomial and rational expressions)
+## DBsection(Simplify rational expressions)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
 
 ########################################################################
 
@@ -34,14 +29,19 @@ $showPartialCorrectAnswers = 1;
 
 $rationalChecker = sub {
      my ($correct,$student,$ansHash) = @_; 
-     Value->Error("Your answer should be an algebraic expression") unless $student->class eq "Formula";
-     Value->Error("Make sure you're placing parenthesis around your numerator and denominator") unless $student->{tree}->class eq "BOP" && $student->{tree}{bop} eq "/";
-     return 0 unless $correct == $student;
+     my $negated = 1; #-1 for negated=TRUE
+     Value->Error("Your answer doesn't contain any variables. <BR> Perhaps you oversimplified?") unless $student->class eq "Formula";
+     if ($student->{tree}->class eq "UOP" && $student->{tree}{uop} eq 'u-') {
+          $student = Formula($student->{tree}->{op});
+          $negated = -1;
+     }
+     Value->Error("Check the answer preview box. Maybe you forgot parenthesis around your numerator or denominator?") unless $student->{tree}->class eq "BOP" && $student->{tree}{bop} =~ m!/!;
+     return 0 unless $correct == $student*$negated;
      my $cnum = Formula($correct->{tree}{lop});
      my $snum = Formula($student->{tree}{lop});
      my $cden = Formula($correct->{tree}{rop});
      my $sden = Formula($student->{tree}{rop});
-     Value->Error("Your answer can be reduced further") unless ($cnum == $snum && $cden == $sden);
+     Value->Error("Your answer can be reduced further") unless ($cnum == $snum*$negated || $cden == $sden*$negated);
      return 1;
 };
 
@@ -50,7 +50,7 @@ $rationalChecker = sub {
 #  Setup
 #
 #
-Context("RationalFunction");
+Context("Numeric");
 
 $nCoeff = random(2,6,1);
 do { $dCoeff = random(2,6,1); } until ( gcf($nCoeff,$dCoeff) == 1 );
@@ -60,6 +60,8 @@ $common =1;
 $nRoot = non_zero_random(-9,9,1);
 $dRoot = non_zero_random(-9,9,1);
 $nRoot2 = $dRoot;
+$nSum = $nRoot + $nRoot2; #for solution
+$nProd = $nRoot * $nRoot2;   #for solution
 
 $nA = $common*$nCoeff;
 $nB = $common*$nCoeff*($nRoot+$nRoot2);
@@ -98,5 +100,35 @@ Context()->normalStrings;
 
 ANS($answer->cmp(showDomainErrors=>0, checker=>$rationalChecker));
 
+Context()->texStrings;
+BEGIN_HINT
+
+Separately, factor both the numerator and denominator. Be sure to factor them completely.
+$PAR
+Then reduce any common factors.
+
+END_HINT
+BEGIN_SOLUTION
+
+Factor the numerator completely: $BR
+\( $numer = $nA ( x^2 - $nSum x + $nProd ) \) $BR
+\( $nA ( x^2 - $nSum x + $nProd ) = $nA (x - $nRoot) (x - $nRoot2) \)
+$PAR
+Factor the denominator completely: $BR
+\( $denom = $dA x ( x - $dRoot ) \)
+$PAR
+Now we can rewrite our original fraction: $BR
+\( \displaystyle \frac{$numer}{$denom} = \frac{$nA (x - $nRoot) (x - $nRoot2)}{$dA x ( x - $dRoot )} = \left(\frac{$nA}{$dA x}\right) \left(\frac{x - $nRoot}{1}\right) \left(\frac{x - $nRoot2}{x - $dRoot}\right) = \left(\frac{$nA}{$dA x}\right) \left(\frac{x - $nRoot}{1}\right) \left( 1 \right) \)
+$PAR
+We cannot reduce the monomials any more: \( $nA \) and \( $dA x \) 
+$BR
+There are no more binomials to reduce, \(x - $nRoot\) only appears in the numerator.
+$PAR
+So all that is left is to combine our results into a final answer: $BR
+\( \displaystyle \left(\frac{$nA}{$dA x}\right) \left(\frac{x - $nRoot}{1}\right) = \frac{$nA (x - $nRoot)}{$dA x} \)
+END_SOLUTION
+Context()->normalStrings;
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

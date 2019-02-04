@@ -1,0 +1,62 @@
+## DESCRIPTION
+## This problem asks students to solve equations by factoring 
+## ENDDESCRIPTION
+## KEYWORDS('factoring `,`quadratic equations')
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## BookChapter(`Solving Quadratic Equations by FactoringÃ¢ÂÂ)
+## BookEdition('3')
+## BookAuthor('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## BookChapter('20')
+## Date('07/12/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+
+
+DOCUMENT(); # This should be the first executable line in the problem.
+
+loadMacros(
+  "PGstandard.pl",
+  "MathObjects.pl",
+  "contextInequalitiesAllowStrings.pl"
+);
+
+TEXT(beginproblem());
+
+######################################
+
+
+$a = random(2,4,1);  
+$b= 4*$a;
+$c = 3*$a; 
+
+
+######################################
+#  Main text
+
+BEGIN_TEXT
+Solve the quadratic equation by factoring:
+ \[  -$b x^2 = $c x \]
+\( x = \)   \{ ans_rule(20) \} or  \{ ans_rule(20) \}
+END_TEXT
+
+######################################
+#  Answer
+Context("LimitedNumeric-StrictFraction"); 
+
+
+$ans1 = Compute("- $c/$b");
+$ans2 = Compute("0");
+
+ANS($ans1->cmp); 
+ANS($ans2->cmp); 
+
+
+$showPartialCorrectAnswers = 1;
+
+######################################
+
+
+;
+ENDDOCUMENT();
+      

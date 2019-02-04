@@ -1,11 +1,11 @@
 assignmentType      = default
-openDate          = 05/14/2016 at 11:59pm EDT
-reducedScoringDate = 12/31/1969 at 07:00pm EST
-dueDate           = 08/20/2016 at 11:59pm EDT
-answerDate        = 08/20/2016 at 11:59pm EDT
+openDate          = 01/30/2012 at 09:00am EST
+reducedScoringDate = 03/15/2012 at 12:24pm EDT
+dueDate           = 03/15/2012 at 12:24pm EDT
+answerDate        = 03/15/2012 at 12:24pm EDT
 enableReducedScoring = N
-paperHeaderFile   = defaultHeader
-screenHeaderFile  = defaultHeader
+paperHeaderFile   = hardHeader.pg
+screenHeaderFile  = setHeader.pg
 description       = 
 restrictProbProgression = 0
 emailInstructor   = 0
@@ -13,91 +13,231 @@ emailInstructor   = 0
 problemListV2 
 problem_start
 problem_id = 1
-source_file = local/IntegerExponents/negative1-exponents.pg
+source_file = Library/ma117DB/set1/srw1_2_1c.pg
 value = 1
 max_attempts = -1
 showMeAnother = 0
-prPeriod = 
+prPeriod = 0
 counts_parent_grade = 0
 att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 2
-source_file = local/IntegerExponents/negative2-exponents.pg
+source_file = Library/UMN/algebraKaufmannSchwitters/ks_5_1_14.pg
 value = 1
 max_attempts = -1
 showMeAnother = 0
-prPeriod = 
+prPeriod = 0
 counts_parent_grade = 0
 att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 3
-source_file = local/IntegerExponents/multiply-divide-easy.pg
+source_file = Library/UMN/algebraKaufmannSchwitters/ks_5_1_2.pg
 value = 1
 max_attempts = -1
 showMeAnother = 0
-prPeriod = 
+prPeriod = 0
 counts_parent_grade = 0
 att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 4
-source_file = local/IntegerExponents/powers-exponents-basic.pg
+source_file = Library/ma117DB/set1/srw1_2_1b.pg
 value = 1
 max_attempts = -1
 showMeAnother = 0
-prPeriod = 
+prPeriod = 0
 counts_parent_grade = 0
 att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 5
-source_file = local/IntegerExponents/multiply-medium.pg
+source_file = Library/FortLewis/Algebra/6-1-Exponent-rules/MCH1-6-1-50-Exponent-rules.pg
 value = 1
 max_attempts = -1
 showMeAnother = 0
-prPeriod = 
+prPeriod = 0
 counts_parent_grade = 0
 att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 6
-source_file = local/IntegerExponents/divide-medium.pg
+source_file = Library/ma117DB/set1/srw1_2_3c.pg
 value = 1
 max_attempts = -1
 showMeAnother = 0
-prPeriod = 
+prPeriod = 0
 counts_parent_grade = 0
 att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 7
-source_file = local/IntegerExponents/exponents-fraction-positive.pg
+source_file = Library/FortLewis/Algebra/6-1-Exponent-rules/MCH1-6-1-08-Exponent-rules.pg
 value = 1
 max_attempts = -1
-showMeAnother = -1
-prPeriod = 
+showMeAnother = 0
+prPeriod = 0
 counts_parent_grade = 0
 att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 8
-source_file = local/IntegerExponents/exponents-multiply-negative.pg
+source_file = Library/FortLewis/Algebra/6-1-Exponent-rules/MCH1-6-1-74-Exponent-rules.pg
 value = 1
 max_attempts = -1
-showMeAnother = -1
-prPeriod = 
+showMeAnother = 0
+prPeriod = 0
 counts_parent_grade = 0
 att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 9
-source_file = local/IntegerExponents/exponents-mixed-hard.pg
+source_file = Library/Rochester/setAlgebra02ExponentsRadicals/sw1_3_3a.pg
 value = 1
 max_attempts = -1
-showMeAnother = -1
-prPeriod = 
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 10
+source_file = Library/Rochester/setAlgebra02ExponentsRadicals/srw1_2_3.pg
+value = 1
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 11
+source_file = Library/UMN/algebraKaufmannSchwitters/ks_5_1_38.pg
+value = 1
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 12
+source_file = Library/UMN/algebraKaufmannSchwitters/ks_5_1_76.pg
+value = 1
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 13
+source_file = Library/FortLewis/Algebra/6-2-Fractional-exponents/MCH1-6-2-12-Fractional-exponents.pg
+value = 1
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 14
+source_file = Library/FortLewis/Algebra/6-1-Exponent-rules/MCH1-6-1-24-Exponent-rules.pg
+value = 1
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 15
+source_file = Library/FortLewis/Algebra/6-1-Exponent-rules/MCH1-6-1-26-Exponent-rules.pg
+value = 1
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 16
+source_file = Library/FortLewis/Algebra/6-1-Exponent-rules/MCH1-6-1-30-Exponent-rules.pg
+value = 1
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 17
+source_file = Library/FortLewis/Algebra/6-2-Fractional-exponents/MCH1-6-2-16-Fractional-exponents.pg
+value = 1
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 18
+source_file = Library/Rochester/setAlgebra02ExponentsRadicals/sw1_3_27.pg
+value = 1
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 19
+source_file = Library/ma117DB/set1/srw1_2_19.pg
+value = 1
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 20
+source_file = Library/ma117DB/set1/srw1_2_23.pg
+value = 1
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 21
+source_file = Library/Rochester/setAlgebra02ExponentsRadicals/sw1_3_29.pg
+value = 1
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 22
+source_file = Library/UMN/algebraKaufmannSchwitters/ks_5_1_74.pg
+value = 1
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
+problem_end
+problem_start
+problem_id = 23
+source_file = Library/Utah/Trigonometry/set2_Algebra/s2p4.pg
+value = 1
+max_attempts = -1
+showMeAnother = 0
+prPeriod = 0
 counts_parent_grade = 0
 att_to_open_children = 0 
 problem_end

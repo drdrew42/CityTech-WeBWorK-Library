@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Algebra problem: find equation of shifted parabola
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'quadratic function', 'parabola', 'quadratic formula', 'translation of graphs', 'function graph', 'graph')
+
+## DBsubject(Algebra)
+## DBchapter(Quadratic equations and functions)
+## DBsection(Graphs)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -65,5 +79,21 @@ END_PGML
 #
 #
 
+BEGIN_PGML_HINT
+
+This parabola has been shifted up [$shift] units from standard position.
+
+END_PGML_HINT
+BEGIN_PGML_SOLUTION
+
+The black parabola is given by the equation [` y = x^2 `]
+
+After the shift, we find the red parabola with y-coordinates that have been increased by [$shift] from their original positions.
+
+Thus, our new equation is [` y = x^2 + [$shift] `]
+
+END_PGML_SOLUTION
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

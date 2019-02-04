@@ -1,3 +1,18 @@
+##DESCRIPTION
+##  Algebra problem: find the vertex of the given quadratic function using the vertex formula
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'quadratic function', 'parabola', 'vertex')
+
+## DBsubject(Algebra)
+## DBchapter(Quadratic equations and functions)
+## DBsection(Forms: vertex, factored, general)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
+
 ########################################################################
 
 DOCUMENT();      
@@ -22,7 +37,9 @@ $showPartialCorrectAnswers = 1;
 #
 #
 Context("Fraction");
+Context()->flags->set(reduceConstants=>0,reduceConstantFunctions=>0);
 
+$A = 1;
 $B = non_zero_random(-9,9,2);
 $C = non_zero_random(-9,9,1);
 
@@ -51,9 +68,10 @@ BEGIN_PGML
 
 Find the vertex of [` \large{ y = [$RHS] } `] using the _vertex formula_.  
 
- * This problem will not accept decimal answer.
+ * This problem will not accept decimal answers.
 
  * Please use fractions only.
+
 END_PGML
 
 Scaffold::Begin();
@@ -93,5 +111,42 @@ END_PGML
 #  Answers
 #
 #
+
+BEGIN_PGML_HINT
+
+For _Part 1_, identify the values of [`A`], [`B`], and [`C`].  
+    Then compute [` \frac{-B}{2A} `].  
+    Make sure to enter your answer as a *fraction*.
+
+For _Part 2_, the y-coordinate is given by [`y = [$RHS] `]  
+    You already found the x-coordinate in part 1.  
+
+    Substitute your [`x`] value to find [`y`].  
+    Make sure to enter your answer as a *fraction*.
+
+END_PGML_HINT
+BEGIN_PGML_SOLUTION
+
+**Identify A, B, and C**
+
+[` A = [$A] `]; [` B = [$B] `]; [` C = [$C] `];
+
+**Compute the x-coordinate:**
+
+So the x-coordinate of the vertex is [` \frac{-B}{2A} `].
+
+[` x_v = \frac{[@-$B@]}{2([$A])} = [$h] `]
+
+**Compute the y-coordinate**
+
+[` y = [$RHS] `] and [` x_v = [$h] `]
+
+Substitute [`x`]: [` y_v = \left([$h]\right)^2 + [$B] \left([$h]\right) + [$C] = [$k] `]
+
+So our vertex is [`([$h],[$k])`].
+
+END_PGML_SOLUTION
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

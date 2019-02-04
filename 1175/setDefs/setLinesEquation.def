@@ -1,14 +1,14 @@
 assignmentType      = default
 openDate          = 02/07/2012 at 01:18pm EST
-reducedScoringDate = 12/31/1969 at 07:00pm EST
+reducedScoringDate = 03/15/2012 at 02:18pm EDT
 dueDate           = 03/15/2012 at 02:18pm EDT
 answerDate        = 03/15/2012 at 02:18pm EDT
 enableReducedScoring = N
 paperHeaderFile   = hardHeader.pg
 screenHeaderFile  = setHeader.pg
 description       = 
-restrictProbProgression = 
-emailInstructor   = 
+restrictProbProgression = 0
+emailInstructor   = 0
 
 problemListV2 
 problem_start
@@ -16,199 +16,199 @@ problem_id = 1
 source_file = Library/CollegeOfIdaho/setAlgebra_02_04_PointSlopeFormofLine/24IntAlg_14_LinearFunction.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 2
 source_file = Library/CollegeOfIdaho/setAlgebra_02_04_PointSlopeFormofLine/24IntAlg_15_LinearFunction.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 3
 source_file = Library/CollegeOfIdaho/setAlgebra_02_04_PointSlopeFormofLine/24IntAlg_16_LinearFunction.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 4
 source_file = Library/CollegeOfIdaho/setAlgebra_02_04_PointSlopeFormofLine/24IntAlg_17_LinearFunction.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 5
 source_file = Library/CollegeOfIdaho/setAlgebra_02_04_PointSlopeFormofLine/24IntAlg_07_LinearFunction.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 6
 source_file = Library/CollegeOfIdaho/setAlgebra_02_04_PointSlopeFormofLine/24IntAlg_12_LinearFunction.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 7
 source_file = Library/CollegeOfIdaho/setAlgebra_02_04_PointSlopeFormofLine/24IntAlg_13_LinearFunction.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 8
 source_file = Library/ma117DB/set2/srw1_10_23.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 9
 source_file = Library/ma117DB/set2/srw1_10_19.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 10
 source_file = Library/ma117DB/set2/srw1_10_17.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 11
 source_file = Library/Utah/Calculus_I/set1_Preliminaries/1210s1p17.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 12
 source_file = Library/CollegeOfIdaho/setAlgebra_02_04_PointSlopeFormofLine/24IntAlg_03_LinearFunction.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 13
 source_file = Library/CollegeOfIdaho/setAlgebra_02_04_PointSlopeFormofLine/24IntAlg_27_LinearFunction.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 14
 source_file = Library/CollegeOfIdaho/setAlgebra_02_04_PointSlopeFormofLine/24IntAlg_25_LinearFunction.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 15
 source_file = Library/ma117DB/set2/srw1_10_33.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 16
 source_file = Library/Utah/Calculus_I/set1_Preliminaries/1210s1p18.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 17
 source_file = Library/CollegeOfIdaho/setAlgebra_02_04_PointSlopeFormofLine/24IntAlg_26_LinearFunction.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 18
 source_file = Library/FortLewis/Algebra/5-1-Linear-functions/MCH1-5-1-03-Linear-functions.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 19
 source_file = Library/FortLewis/Algebra/5-1-Linear-functions/MCH1-5-1-01-Linear-functions.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 20
 source_file = Library/FortLewis/Algebra/5-1-Linear-functions/MCH1-5-1-02-Linear-functions.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 
-att_to_open_children =  
+showMeAnother = 0
+prPeriod = 0
+counts_parent_grade = 0
+att_to_open_children = 0 
 problem_end
 

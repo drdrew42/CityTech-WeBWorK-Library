@@ -1,0 +1,53 @@
+## DESCRIPTION
+## This problem asks students to combine like radicals
+## ENDDESCRIPTION
+## KEYWORDS('Roots')
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## BookChapter('Simplifying Square Roots')
+## DBsection('') 
+## BookSection('Simplifying Square Roots')
+## Date('07/05/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+## TitleText1('Arithmetic | Algebra')
+## EditionText1('3')
+## AuthorText1('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## Section1('11')
+## KEYWORDS('algebra','exponent')
+
+
+DOCUMENT();        # This should be the first executable line in the problem.
+
+loadMacros(
+"PG.pl",
+"PGbasicmacros.pl",
+"PGchoicemacros.pl",
+"PGanswermacros.pl",
+"PGauxiliaryFunctions.pl"
+);
+
+TEXT(beginproblem());
+$showCorrectPartialAnswers = 1;
+
+$a = random(3,9,2);
+$b = random(2,8,2);
+$c = random(2,9,1);
+$a1 = $a**2;
+$b1 = $b**2;
+$d = $c * $a;
+
+TEXT(EV2(<<EOT));
+Simplify:
+$PAR
+\[\frac{ $c \sqrt{$a1}}{\sqrt{$b1}}\] =  \{ ans_rule(5) \} / \{ ans_rule(5) \}.
+EOT
+
+$ans1 = $d;
+$ans2 = $b;
+
+
+ANS(num_cmp($ans1, mode=>"strict"));
+ANS(num_cmp($ans2, mode=>"strict"));
+
+ENDDOCUMENT();        # This should be the last executable line in the problem.

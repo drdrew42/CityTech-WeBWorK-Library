@@ -1,0 +1,87 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "PGML.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Point");
+Context()->flags->set(
+  reduceConstants=>0,
+  reduceConstantFunctions=>0,
+  tolType=>'absolute',
+  tolerance=>0.0005
+);
+
+%unit = (
+  6 => {
+    x => Formula("sqrt(3)/2"),
+    nx => Formula("-(sqrt(3)/2)"),
+    y => Formula("1/2"),
+    ny => Formula("-(1/2)"),
+  },
+  3 => {
+    x => Formula("1/2"),
+    nx => Formula("-(1/2)"),
+    y => Formula("sqrt(3)/2"),
+    ny => Formula("-(sqrt(3)/2)"),
+  },
+  4 => {
+    x => Formula("sqrt(2)/2"),
+    nx => Formula("-(sqrt(2)/2)"),
+    y => Formula("sqrt(2)/2"),
+    ny => Formula("-(sqrt(2)/2)"),
+  }
+);
+
+$denom = list_random(3,4,6);
+$quad = random(1,4,1);
+$xtra = non_zero_random(-4,4,2);
+
+$x = $unit{$denom}{x};
+$nx = $unit{$denom}{nx};
+$y = $unit{$denom}{y};
+$ny = $unit{$denom}{ny};
+
+if      ($quad==1) { $num=$xtra*$denom+1; }
+elsif ($quad==2) { $num=($xtra+1)*$denom-1; $x=$nx; }
+elsif ($quad==3) { $num=($xtra+1)*$denom+1; $x=$nx; $y=$ny; }
+elsif ($quad==4) { $num=($xtra+2)*$denom-1; $y=$ny; };
+
+$angle = Formula("($num pi)/$denom");
+
+$reference = Formula("pi/$denom");
+
+$point = Compute("($x,$y)");
+
+##############################################################
+#
+#  Text
+#
+#
+
+BEGIN_PGML
+
+Given the angle [`` \theta = [$angle] ``]:
+
+* To which quadrant does [` \theta `] belong? [___]{$quad}
+* Find the reference angle for [` \theta `]. [__________]{$reference}
+* Find the point where [` \theta `] intersects the unit circle. [__________]{$point}
+
+END_PGML
+
+ENDDOCUMENT();        

@@ -1,3 +1,18 @@
+##DESCRIPTION
+##  Trigonometry problem: Solve a right	triangle using trig functions and inverse trig functions
+##ENDDESCRIPTION
+
+##KEYWORDS('trigonometry', 'right triangle', 'triangle')
+
+## DBsubject(Trigonometry)
+## DBchapter(Triangle Trigonometry)
+## DBsection(Sine, cosine, and tangent of an angle in a right triangle)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
+
 ########################################################################
 
 DOCUMENT();      
@@ -309,7 +324,13 @@ In this problem, you don't want to use a decimal approximation for [` \overline{
 
 END_PGML_HINT
 
-ANS($AC->cmp);
+ANS($AC->cmp->withPostFilter(AnswerHints(
+  sub {
+          my ($correct,$student,$ans) = @_;
+          return abs($correct-$student) < 0.1;
+  } => "You're close! <BR> You must be accurate to at least 3 decimal places.", 
+)));
+
 ANS($B->cmp()->withPostFilter(AnswerHints( 
   $Brad => "Make sure your calculator is set to 'degrees'.",
   $C => "Are you sure you're using the appropriate inverse trig function for this angle?",
@@ -329,5 +350,40 @@ ANS($C->cmp()->withPostFilter(AnswerHints(
    } => "You're close! But your answer needs to be accurate to at least 3 decimal places."
 
 )));
+
+BEGIN_PGML_SOLUTION
+
+We can find the remaining side with the Pythagorean theorem:  
+[` \overline{AB}^2 + \overline{AC}^2 = \overline{BC}^2 `]  
+[` [$AB]^2 + \overline{AC}^2 = [$BC]^2 `]  
+[` [@$AB**2@] + \overline{AC}^2 = [@$BC**2@] `]  
+[` \overline{AC}^2 = [@$BC**2-$AB**2@] `]  
+[` \overline{AC} = [$AC] `]  
+[` \overline{AC} \approx [@$AC->eval@] `]
+
+To find the missing angles, we should use the given sides [`\overline{AB}`] and [`\overline{BC}`].  
+If you decide to use [`\overline{AC}`], you should use [`[$AC]`] in your calculations instead of the decimal approximation.
+
+To find angle [`B`], first note that our given sides ([`\overline{AB}`] and [`\overline{BC}`]) are the adjacent leg to [`B`] and hypotenuse. 
+
+This means we should use [`\cos(B) = \frac{AB}{BC}`].  
+[` \cos(B) = \frac{[$AB]}{[$BC]} `]  
+[` B = \arccos(\frac{[$AB]}{[$BC]}) `]  
+[` B \approx [@$B->eval@]^{\circ} `]
+
+For angle [`C`], we similarly note that our given sides ([`\overline{AB}`] and [`\overline{BC}`]) are the opposite leg to [`C`] and hypotenuse. 
+
+This means we should use [`\sin(C) = \frac{AB}{BC}`].  
+[` \sin(C) = \frac{[$AB]}{[$BC]} `]  
+[` C = \arcsin(\frac{[$AB]}{[$BC]}) `]  
+[` C \approx [@$C->eval@]^{\circ} `]
+
+We can now use the fact that angles in a triangle add up to [`180^{\circ}`] to check our work:
+
+Does [`90^{\circ} + [@$B->eval@]^{\circ} + [@$C->eval@]^{\circ} = 180^{\circ}`]?
+
+END_PGML_SOLUTION
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Algebra problem: Evaluate an exponential expression
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'exponential', 'exponent')
+
+## DBsubject(Algebra)
+## DBchapter(Exponential and logarithmic expressions and functions)
+## DBsection(Exponential functions)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -52,5 +66,21 @@ END_PGML
 #  Answers
 #
 #
+
+BEGIN_PGML_HINT
+
+Remember that rational exponents such as [`\displaystyle B^{1/n}`] refer to the _nth root_ of B. 
+
+Algebraically: [` \displaystyle B^{1/n} = \sqrt[n]{B} `]
+
+END_PGML_HINT
+
+
+BEGIN_PGML_SOLUTION
+
+[` [$Bexp]^{ \frac{1}{[$exp]} } \rightarrow [@$exp==2?"\\sqrt{$Bexp}":"\\sqrt[3]{$Bexp}"@] \rightarrow [$ans] `]
+
+END_PGML_SOLUTION
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

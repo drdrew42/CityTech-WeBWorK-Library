@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Trigonometry problem: Identify amplitude and formula for given graph of sine or cosine function
+##ENDDESCRIPTION
+
+##KEYWORDS('trigonometry', 'trig functions', 'trigonometric functions', 'trigonometric function graph', 'amplitude')
+
+## DBsubject(Trigonometry)
+## DBchapter(Trigonometric functions)
+## DBsection(Sine & cosine functions - definitions, graphs, & properties)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -63,5 +77,30 @@ What is the amplitude of the graphed function? [_____]{$amp}
 State the formula for the function that is graphed above. [` y = `] [__________]{$f}
 
 END_PGML
+
+BEGIN_PGML_HINT
+
+Do you recall the difference between the graphs of sine and cosine?  
+    _[`\sin(x)`] passes through the origin, and [`\cos(x)`] does not._
+
+Amplitude is used to describe the _height_ of the wave.  
+    _How high does this wave get?_
+
+Remember that the formula for a sine or cosine wave looks like:  
+    [` y = A \sin(x)`] or [` y = A \cos(x) `]  
+    where [`A`] represents the amplitude.
+
+END_PGML_HINT
+BEGIN_PGML_SOLUTION
+
+We can tell that this is a graph of [`[@'\\'."$trig[$choice]"@]**`] because we [@($choice==0)?"":"don't"@] pass through the origin.
+
+Our amplitude must be [`[$amp]`] because our graph extends up to [`[$amp]`] and down to [`[@-$amp@]`] on the [`y`]-axis.
+
+Therefore, our formula for this graph is [`y=[$f]`].
+
+END_PGML_SOLUTION
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Algebra problem: Evaluate expression involving rational exponent
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'exponent', 'exponents', 'rational powers')
+
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of rational exponents and radicals)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -49,5 +63,26 @@ Context()->normalStrings;
 #
 
 ANS(Real($ans)->cmp);
+
+Context()->texStrings;
+BEGIN_HINT
+
+Remember that an expression like \( -x^n \) refers to \( -1 \cdot x^n \).
+$PAR
+It does NOT mean the same thing as \( (-x)^n \)!
+
+END_HINT
+BEGIN_SOLUTION
+
+$BBOLD Rewrite your rational exponent as a radical: $EBOLD $BR
+\(\displaystyle -$rad^{1/2} = -1 \cdot \sqrt{$rad} \)
+$PAR
+$BBOLD Simplify the radical: $EBOLD $BR
+\( -1 \cdot \sqrt{$rad} = $ans \)
+
+END_SOLUTION
+Context()->normalStrings;
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

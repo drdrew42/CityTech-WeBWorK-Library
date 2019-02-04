@@ -1,0 +1,131 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject('Differential Equations')
+## DBchapter('First order differential equations')
+## DBsection('Substitutions')
+## Date('3/4/2015')
+## Author('Andrew Parker')
+## Institution('NYC City Tech')
+## TitleText1('')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   #"source.pl",        # allows code to be displayed on certain sites.
+   #"PGcourse.pl",      # Customization file for the course
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->variables->{namePattern} = qr/[a-z][a-z0-9_]*'*/i;
+Context()->variables->are( y => "Real", t => "Real", c => "Real", "y'" => "Real" );
+$a = Real(non_zero_random(-9,9,1));
+$b = Real(non_zero_random(-9,9,1));
+$n = Real(random(-8,-2,2));
+$de = Formula("y'+$a*y")->reduce;
+$hom = Formula("$b*y^$n")->reduce;
+
+$v = Formula("y^(1-$n)")->reduce;
+$sol = Formula("(($b/$a)+c*e^(-1*$a*(1-$n)*t))^(1/(1-$n))"); 
+$getC = Formula("(y^(1-$n)-$b/$a)*e^($a*(1-$n)*t)");
+
+## Ensure that values for c & t can be found to make (radicand of $sol) > 0
+Context()->variables->set(t=>{limits=>[0,1]});
+Context()->variables->set(c=>{limits=>[100,10000]});
+Context()->variables->set(t=>{resolution=>0.001});
+Context()->variables->set(c=>{resolution=>1});
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+Find the general solution for the following differential equation:
+$BR
+\( $de = $hom \)
+$BR
+$BR
+General Solution: \(y(t)=\)\{$sol->ans_rule\} 
+END_TEXT
+
+$showHint = 5;
+BEGIN_TEXT
+$PAR
+If you don't get this in $showHint tries, you can get a hint.
+END_TEXT
+BEGIN_HINT
+$BR
+You should first notice that this DE can be made to fit the form of a Bernoulli-type differential equation: \(y' + p(t)y = f(t)y^r\)
+$BR
+$BITALIC ...by dividing all terms by the coefficient of \(y'\) $EITALIC
+$BR
+$BR
+Begin by finding a particular solution \(y_1\) to the complementary equation \(y' + p(t)y = 0\). 
+$BR
+$BR
+Now, guess a solution of the form \(y=uy_1\).  Take the derivative and substitute \(y\) and \(y'\) into the original equation.
+$BR
+$BR
+You should now be able to separate the variables, with \(u\) on the left and \(t\) on the right.  Integrate to eliminate \(u'\), and solve the resulting equation for \(u\).
+$BR
+$BR
+Finally, substitute \(u\) and \(y_1\) into \(y=uy_1\) to obtain the solution.
+$BR
+END_HINT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+#ANS($v->cmp);
+ANS($sol->cmp);
+#ANS( $sol->cmp( checker => sub {
+#    my ( $correct, $student, $self ) = @_;
+#
+#    my $Dstudent = $student->D('t');
+#    my $studentC = $getC->substitute(y=>"$student");
+#    my $DstudentC = $studentC->D('c');
+#    my $rhs = $hom->substitute(y=>"$student");
+#    my $lhs = $de->substitute("y'"=>"$Dstudent", y=>"$student");
+#
+#    if ($DstudentC == Formula("0")) {
+#       Value->Error("Your answer is not the most general solution. Where's #'c'?");
+#    } else {
+#       Value->Error("$lhs is not equal to $rhs");
+#    };
+#
+#    return ($lhs == $rhs && $DstudentC != Formula("0"));
+#}));
+
+ENDDOCUMENT();        

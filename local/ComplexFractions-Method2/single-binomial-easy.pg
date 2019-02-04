@@ -1,0 +1,69 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+# [ Ay / (y-R) ] / [ B / ( C(y-R) ) ] -> (AC y) / B
+
+Context("Numeric")->flags->set(reduceConstants=>0, reduceConstantFunctions=>0);
+Context()->variables->are("y"=>Real);
+
+$A = random(2,9,1);
+do { $B = random(1,9,1); } until ( gcf($B,$A) == 1 );
+do { $C = random(2,9,1); } until ( gcf($C,$A) == 1 );
+
+$R = random(-1,1,2)*random(2,9,1);
+$CR = $C*$R;
+
+$N = Formula("($A y) / ( y - $R )")->reduce;
+$D = Formula("$B / ($C y - $CR)")->reduce;
+
+$AC = $A*$C;
+$ans = Formula("($AC y)/$B")->with(test_at=>[ [0], [$R] ]); 
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Simplify the complex fraction:
+\[ \Large\frac{$N}{$D} \]
+$BR
+\{ans_rule(20)\}
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans->cmp(checkUndefinedPoints=>1)->withPostFilter(sub { 
+  my $ans = shift; 
+  $ans->{ans_message} = "You're on the right track, but your answer can still be reduced." 
+    if $ans->{ans_message} eq "The domain of your function doesn't match that of the correct answer";
+  return $ans; 
+}));
+
+ENDDOCUMENT();        

@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Algebra problem: Identify the center and radius of a circle given two points which determine its diameter
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'circle', 'circles', 'center', 'radius', 'diameter', 'distance formula', 'midpoint')
+
+## DBsubject(Algebra)
+## DBchapter(Cartesian coordinate system)
+## DBsection(Circles)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -89,6 +103,7 @@ END_PGML
 BEGIN_PGML_HINT
 
 * If [` \overline{AB} `] is a diameter of the circle, where will we find the center of the circle?
+
 * Can you find the length of the diameter [` \overline{AB} `]? How does it compare to the radius of the circle?
 
 END_PGML_HINT
@@ -99,5 +114,49 @@ END_PGML_HINT
 #
 #
 
+BEGIN_PGML_SOLUTION
+
+*Begin by identifying the center of the circle.*
+
+If we know the endpoints of a diameter for the circle, then the center must be halfway between them.
+
+    [` \displaystyle (h,k) = (\frac{x_A+x_B}{2},\frac{y_A+y_B}{2}) `]
+
+    [` \displaystyle (h,k) = (\frac{[$Ax]+[$Bx]}{2},\frac{[$Ay]+[$By]}{2}) `]
+
+    [` (h,k) = ([$h],[$k]) `]
+
+*Use the distance formula compute the length of [`\overline{AB}`]:*
+
+    [` \overline{AB} = \sqrt{(x_A-x_B)^2+(y_A-y_B)^2} `]
+
+    [` \overline{AB} = \sqrt{([$Ax]-[$Bx])^2+([$Ay]-[$By])^2} `]
+
+    [` \overline{AB} = \sqrt{([@$Ax-$Bx@])^2+([@$Ay-$By@])^2} `]
+
+    [` \overline{AB} = \sqrt{[@4*$r2@]} `]
+
+    [` \overline{AB} = [@2*$radius@] `]
+
+*Use the length of the diameter to find the length of the radius:*
+
+    Diameter is twice the radius, so [` r = \frac{1}{2} (\overline{AB}) `]
+
+    [` r = \frac{[@2*$radius@]}{2} = [$radius] `]
+
+*Now we have everything we need in order to compose the equation of the circle:*  
+    [` h = [$h] `]  
+    [` k = [$k] `]  
+    [` r = [$radius] `]
+
+    Replace [`h`], [`k`], and [`r`] in the standard form equation:
+
+    [` (x-h)^2 + (y-k)^2 = r^2 `]
+
+    [` (x-[$h])^2 + (y-[$k])^2 = [$radius]^2 `]
+
+END_PGML_SOLUTION
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

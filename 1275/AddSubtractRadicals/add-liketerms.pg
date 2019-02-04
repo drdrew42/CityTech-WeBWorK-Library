@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Algebra problem: Add or subtract expressions involving radicals
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'radical', 'radicals', 'radical expression')
+
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of rational exponents and radicals)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -63,5 +77,29 @@ ANS($ans->cmp->withPostFilter(sub {
   return $ans; 
 }));
 
+Context()->texStrings;
+BEGIN_HINT
+
+It looks like both terms have a common factor of \( \sqrt{$rad} \)...
+$PAR
+What happens if you factor it out?
+
+END_HINT
+BEGIN_SOLUTION
+
+\( \displaystyle $c1 \sqrt{$rad} + $c2 \sqrt{$rad} \) has a common factor of \( \sqrt{$rad} \).
+$PAR
+If we factor out the \( \sqrt{$rad} \), we get:
+$BR
+\( \displaystyle $c1 \sqrt{$rad} + $c2 \sqrt{$rad} = \sqrt{$rad}\left($c1 + $c2\right) \)
+$PAR
+Now there's nothing stopping us from combining the \($c1\) and \($c2\).
+$PAR
+\( \displaystyle \sqrt{$rad}\left($c1 + $c2\right) = \sqrt{$rad}\left($cAns\right) = $ans \)
+
+END_SOLUTION
+Context()->normalStrings;
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

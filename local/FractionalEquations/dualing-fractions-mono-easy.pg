@@ -1,0 +1,73 @@
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextFraction.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+# 1/D - A/(Dx) = B/x + ?/DX => x - A - BD =  ?
+
+Context("Numeric")->flags->set(reduceConstants=>0, reduceConstantFunctions=>0);
+Context()->variables->are("x"=>Real);
+
+do {
+$X = random(-7,-2,1);
+$A = random(2,6,1);
+$B = random(2,6,1);
+$D = random(3,7,1);
+
+$BD = $B*$D;
+$DX = abs($D*$X);                  # both will be negative, but ->reduce decimalizes the fraction.
+$NRH2 = abs($X - $A - $BD); # so do this to improve appearance of problem
+} until ( gcf($DX,$NRH2) == 1 );
+
+$LHfrac1 = Formula("1/$D");
+$LHfrac2 = Formula("$A/($D x)");
+$LHS = Formula("$LHfrac1 - $LHfrac2");
+$RHfrac1 = Formula("$B / x");
+$RHfrac2 = Formula("$NRH2/$DX");
+$RHS = Formula("$RHfrac1 + $RHfrac2");
+
+Context("LimitedFraction")->flags->set(showMixedNumbers=>0);
+
+$ans = Fraction($X, 1)->reduce;
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Solve for x:
+
+\[ $LHS = $RHS \]
+
+$PAR
+\{ans_rule(10)\}
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans->cmp);
+
+ENDDOCUMENT();        

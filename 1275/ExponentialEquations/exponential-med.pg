@@ -1,3 +1,16 @@
+##DESCRIPTION
+##  Algebra problem: Solve a simple exponential equation
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'exponential', 'exponential equation')
+## DBsubject(Algebra)
+## DBchapter(Exponential and logarithmic expressions and functions)
+## DBsection(Exponential and logarithmic equations)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -42,5 +55,7 @@ Solve the exponential equation by using the property that [` b^x = b^y `] means 
 [` x = `] [_____]{$x}
 
 END_PGML
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

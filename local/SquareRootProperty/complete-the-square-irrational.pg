@@ -1,0 +1,155 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "PGML.pl",
+   "scaffold.pl",
+   "contextFraction.pl",
+   "contextLimitedFactor.pl",
+   "bizarroArithmetic.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric")->variables->are(x=>[Real, limits=>[0,2]]);
+Context()->flags->set(reduceConstants=>0, reduceConstantFunctions=>0, formatStudentAnswer=>'parsed');
+Context()->operators->set(
+'+' => {class => 'bizarro::BOP::add', isCommand => 1},
+'-' => {class => 'bizarro::BOP::subtract', isCommand => 1}
+);
+# Parser::Number::NoDecimals();
+
+
+$B = random(-1,1,2)*random(2,8,2);
+$CtS = ($B/2)**2;
+$rad = list_random(5,6,7,10,11,13,14,15,17,19);
+$C = $CtS - $rad;
+
+$LHS = Formula("x^2 - $B x + $C")->reduce;
+$RHS = Formula("0");
+
+$LHS1 = Formula("x^2 - $B x")->reduce;
+$ans1 = Real("-$C")->reduce;
+
+$ans2 = Real("$CtS");
+$ans3 = Real("$ans1 + $CtS")->reduce;
+
+$halfB = $B/2;
+
+$LHS5 = Formula("x - $halfB")->reduce;
+$root = Formula("sqrt($ans3)");
+$ans5 = List($root,-$root);
+
+$ans6 = List(Compute("$halfB + $root"),Compute("$halfB - $root"))->reduce;
+
+Context("LimitedFactor");
+
+$ans4 = Formula("(x -  $halfB)^2")->reduce;
+
+$factorCheck = sub{
+      my ( $correct, $student, $ansHash ) = @_;
+      return 0 if $ansHash->{isPreview} || $student != $correct;
+      $student = $ansHash->{student_formula};
+      $correct = $correct->{original_formula} if defined $correct->{original_formula};
+      $student = Formula("$student"); $correct = Formula("$correct");
+      delete $correct->{test_values}, $student->{test_values};
+      return 0 unless ($correct == $student || $student == $correct);
+      Context()->flags->set(bizarroAdd=>1, bizarroSub=>1);
+      delete $correct->{test_values}, $student->{test_values};
+      Value->Error("Your answer is equivalent to the correct answer, but is not completely factored") unless (($correct == $student) or ($student == $correct));
+      Context()->flags->set(bizarroAdd=>0,bizarroSub=>0);
+      return 1;
+  };
+
+##############################################################
+#
+#  Text
+#
+#
+
+BEGIN_PGML
+
+This polynomial is *not* factorable, so you need to use the _complete the square_ method.
+
+Solve the equation for x.
+
+    [`` \large{ [$LHS] = [$RHS] } ``]  
+
+END_PGML
+
+Scaffold::Begin();
+Section::Begin("Step 1: Separate the constant term");
+BEGIN_PGML
+First, separate the constant term from the terms with variables.
+
+    [` \large{ [$LHS1] = } `] [_____]{$ans1}
+END_PGML
+Section::End();
+Section::Begin("Step 2: Complete the Square");
+BEGIN_PGML
+
+    [`` \large{ [$LHS1] = [$ans1] } ``]
+
+Find the value that will make the left-hand side into a perfect square trinomial, and add it to both sides of the equation.
+
+    [` \large{ [$LHS1] + } `] [_____]{$ans2} [` \large= `] [_____]{$ans3}
+END_PGML
+Section::End();
+Section::Begin("Step 3: Factor the completed square");
+BEGIN_PGML
+
+    [`` \large{ [$LHS1] + [$ans2] = [$ans3] } ``]
+
+Now that the left-hand side is a perfect square, factor it.
+
+    [__________]{$ans4->cmp(checker=>$factorCheck)} [` \large{ = [$ans3] } `]
+END_PGML
+Section::End();
+Section::Begin("Step 4: Use the Square Root Property");
+BEGIN_PGML
+
+    [`` \large{ [$ans4] = [$ans3] } ``]
+
+Take the square root of both sides, remembering the square root property (there are _two_ square roots to consider, the positive *and* the negative!)
+
+    [` \large{ [$LHS5] = } `] [_____]{$ans5}
+END_PGML
+Section::End();
+Section::Begin("Step 5: Finish solving");
+BEGIN_PGML
+
+    [`` \large{ [$LHS5] = \sqrt{[$ans3]} \text{  or  } [$LHS5] = -\sqrt{[$ans3]} } ``]
+
+Finally, solve for x. Remember to deal with each root separately!
+
+    [` \large{ x = } `] [_____]{$ans6}
+END_PGML
+Section::End();
+Scaffold::End();
+
+BEGIN_PGML
+* If your answer contains non-integer values, use fractions, not decimals.
+* If you need to use the square root symbol as in [`\sqrt{5}`], type it using *sqrt(5)*.
+* If there are no solutions, enter *no solutions*.
+END_PGML
+
+##############################################################
+#
+#  Answers
+#
+#
+
+
+ENDDOCUMENT();        

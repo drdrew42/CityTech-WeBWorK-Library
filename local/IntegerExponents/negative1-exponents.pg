@@ -1,0 +1,94 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject('Algebra')
+## DBchapter('Fundamentals')
+## DBsection('Real Numbers')
+## Date('6/3/2002')
+## Author('')
+## Institution('')
+## TitleText1('Precalculus')
+## EditionText1('3')
+## AuthorText1('Stewart, Redlin, Watson')
+## Section1('1.1')
+## Problem1('22')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextFraction.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("LimitedFraction")->flags->set(
+  showMixedNumbers=>0,
+  reduceConstants=>0,
+  allowMixedNumbers=>0
+);
+
+$A = random(5,20,1);
+
+$ansA = Fraction(1,$A);
+
+$ansB = Compute(random(5,20,1));
+
+$B = Fraction(1,$ansB);
+
+$Cnum = Compute(random(7,19,2));
+$Cden = $Cnum + non_zero_random(-4,4,2);
+
+$C = Fraction($Cnum, $Cden);
+$ansC = Fraction($Cden, $Cnum);
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+$PAR
+$PAR
+$BITALIC (a) $EITALIC Rewrite \( $A^{-1} \) without using negative exponents.
+$PAR
+\{$ansA->ans_rule\}
+$PAR
+$BITALIC (b) $EITALIC Rewrite \( \displaystyle{($B)^{-1}} \) without using negative exponents.
+$PAR
+\{$ansB->ans_rule\}
+$PAR
+$BITALIC (c) $EITALIC Rewrite \( \displaystyle{($C)^{-1}} \) without using negative exponents.
+$PAR
+\{$ansC->ans_rule\}
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ansA->cmp);
+ANS($ansB->cmp);
+ANS($ansC->cmp);
+
+ENDDOCUMENT();        

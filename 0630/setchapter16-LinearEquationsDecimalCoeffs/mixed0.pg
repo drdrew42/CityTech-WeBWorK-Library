@@ -102,5 +102,12 @@ ANS($ClearL->cmp);
 ANS($ClearR->cmp);
 ANS(Compute($x)->cmp);
 
+BEGIN_HINT
+You have arrived at an incorrect answer.  Please look at the following links to improve your skills:
+
+
+<a href="https://www.khanacademy.org/math/algebra/one-variable-linear-equations/modal/v/one-step-multiplication-and-division-equations-with-fractions">Linear equations with fractions</a>
+
+END_HINT
 
 ENDDOCUMENT();        

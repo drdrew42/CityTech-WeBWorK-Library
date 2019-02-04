@@ -1,194 +1,184 @@
 assignmentType      = default
-openDate          = 02/03/2016 at 11:31am EST
-reducedScoringDate = 10/29/2015 at 02:00pm EDT
-dueDate           = 02/10/2016 at 11:31am EST
-answerDate        = 02/10/2016 at 11:31am EST
+openDate          = 09/07/2016 at 07:00pm EDT
+reducedScoringDate = 12/31/1969 at 07:00pm EST
+dueDate           = 09/16/2016 at 07:09pm EDT
+answerDate        = 09/16/2016 at 07:09pm EDT
 enableReducedScoring = N
 paperHeaderFile   = defaultHeader
 screenHeaderFile  = defaultHeader
 description       = 
-restrictProbProgression = 
-emailInstructor   = 
+restrictProbProgression = 0
+emailInstructor   = 0
 
 problemListV2 
 problem_start
 problem_id = 1
-source_file = Library/NewHampshire/unh_schoolib/Fractions/fraprs102.pg
+source_file = local/setchapter3-DecimalNumbers/addSubtractDecimals.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = -1
+prPeriod = -1
 counts_parent_grade = 0
-att_to_open_children = 1 
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 2
-source_file = local/setchapter4-DecimalNumbers/convertFrac2DecA.pg
+source_file = local/setchapter3-DecimalNumbers/multDivDecimals.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = -1
+prPeriod = -1
 counts_parent_grade = 0
-att_to_open_children = 1 
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 3
-source_file = local/setchapter4-DecimalNumbers/convertFrac2DecB.pg
+source_file = local/setchapter3-DecimalNumbers/divideDecimals1.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = -1
+prPeriod = -1
 counts_parent_grade = 0
-att_to_open_children = 1 
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 4
-source_file = local/setchapter4-DecimalNumbers/convertDec2Frac.pg
+source_file = local/setchapter4-DecimalNumbers/divide.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = -1
+prPeriod = -1
 counts_parent_grade = 0
-att_to_open_children = 1 
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 5
-source_file = local/setchapter4-DecimalNumbers/addSubtractDecimals.pg
+source_file = local/setchapter4-DecimalNumbers/convertFrac2DecA.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = -1
+prPeriod = -1
 counts_parent_grade = 0
-att_to_open_children = 1 
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 6
-source_file = local/setchapter4-DecimalNumbers/multDivDecimals.pg
+source_file = local/setchapter4-DecimalNumbers/convertFrac2DecB.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = -1
+prPeriod = -1
 counts_parent_grade = 0
-att_to_open_children = 1 
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 7
-source_file = local/setchapter4-DecimalNumbers/divideDecimals1.pg
+source_file = local/setchapter4-DecimalNumbers/convertDec2Frac.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = -1
+prPeriod = -1
 counts_parent_grade = 0
-att_to_open_children = 1 
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 8
-source_file = local/setchapter4-DecimalNumbers/divideCurrency1.pg
-value = 1
-max_attempts = -1
-showMeAnother = 
-prPeriod = 
-counts_parent_grade = 0
-att_to_open_children = 1 
-problem_end
-problem_start
-problem_id = 9
 source_file = local/setchapter3-DecimalNumbers/convert1.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = -1
+prPeriod = -1
 counts_parent_grade = 0
-att_to_open_children = 1 
+att_to_open_children = 0 
 problem_end
 problem_start
-problem_id = 10
+problem_id = 9
 source_file = local/setchapter3-DecimalNumbers/convert2.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = -1
+prPeriod = -1
 counts_parent_grade = 0
-att_to_open_children = 1 
+att_to_open_children = 0 
 problem_end
 problem_start
-problem_id = 11
+problem_id = 10
 source_file = local/setchapter3-DecimalNumbers/convert3.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = -1
+prPeriod = -1
 counts_parent_grade = 0
-att_to_open_children = 1 
+att_to_open_children = 0 
 problem_end
 problem_start
-problem_id = 12
+problem_id = 11
 source_file = local/setchapter3-DecimalNumbers/convert4.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = -1
+prPeriod = -1
 counts_parent_grade = 0
-att_to_open_children = 1 
+att_to_open_children = 0 
 problem_end
 problem_start
-problem_id = 13
+problem_id = 12
 source_file = local/setchapter3-DecimalNumbers/convert5.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = -1
+prPeriod = -1
 counts_parent_grade = 0
-att_to_open_children = 1 
+att_to_open_children = 0 
 problem_end
 problem_start
-problem_id = 14
+problem_id = 13
 source_file = local/setchapter3-DecimalNumbers/convert6.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = -1
+prPeriod = -1
 counts_parent_grade = 0
-att_to_open_children = 1 
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 15
 source_file = local/setchapter3-DecimalNumbers/convert7.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = -1
+prPeriod = -1
 counts_parent_grade = 0
-att_to_open_children = 1 
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 16
 source_file = local/setchapter3-DecimalNumbers/convert8.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = -1
+prPeriod = -1
 counts_parent_grade = 0
-att_to_open_children = 1 
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 17
 source_file = local/setchapter3-DecimalNumbers/convert9.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = -1
+prPeriod = -1
 counts_parent_grade = 0
-att_to_open_children = 1 
+att_to_open_children = 0 
 problem_end
 problem_start
 problem_id = 18
 source_file = local/setchapter3-DecimalNumbers/convert10.pg
 value = 1
 max_attempts = -1
-showMeAnother = 
-prPeriod = 
+showMeAnother = -1
+prPeriod = -1
 counts_parent_grade = 0
-att_to_open_children = 1 
+att_to_open_children = 0 
 problem_end
 

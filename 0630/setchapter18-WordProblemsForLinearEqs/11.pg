@@ -1,0 +1,64 @@
+## DESCRIPTION
+## This problem asks students to solve word problems for linear equations 
+## ENDDESCRIPTION
+## KEYWORDS('word problems`,`linear equations')
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## BookChapter('Word Problems for Linear Equations')
+## BookEdition('3')
+## BookAuthor('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## BookChapter('18')
+## Date('07/12/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+
+
+DOCUMENT();
+
+loadMacros("PG.pl",
+           "PGbasicmacros.pl",
+           "PGchoicemacros.pl",
+           "PGanswermacros.pl",
+           "PGgraphmacros.pl",
+           "PGauxiliaryFunctions.pl",
+           "PGgraphmacros.pl",
+           "MathObjects.pl",
+           "PGcourse.pl"
+);
+
+TEXT(beginproblem());
+
+Context("Numeric")->variables->are( n=>'Real' );
+
+
+$showPartialCorrectAnswers = 1;
+
+$y1 = random(36,48,2);
+$y2 = $y1/2-18;
+$ans1 = Compute("$y1/2 - 3")->reduce;
+$ans2 = 3;
+
+Context()->texStrings;
+BEGIN_TEXT
+
+The perimeter of a rectangle is $y1 in. The length is five times the width increased by $y2. Find the dimensions of the rectangle. 
+
+$BR
+Length  = \{ ans_rule(20) \} 
+$BR
+Width  = \{ ans_rule(20) \} 
+
+END_TEXT
+Context()->normalStrings;
+
+
+ANS( Compute($ans1)->cmp() );
+ANS( Compute($ans2)->cmp() );
+
+
+
+Context()->texStrings;
+
+
+Context()->normalStrings;
+ENDDOCUMENT();

@@ -1,0 +1,98 @@
+## DESCRIPTION
+## This problem asks students to simplify rational expressions
+## ENDDESCRIPTION
+## KEYWORDS(‘Rational Expressions’)
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## BookChapter(‘Simplifying, Multiplying and Dividing Rational Expressions’)
+## BookEdition('3')
+## BookAuthor('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## BookChapter('22')
+## Date('07/13/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextLimitedPolynomial.pl",
+   "contextLimitedPowers.pl",
+   "contextRationalFunction.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+Context()->variables->are("x"=>Real, "y"=>Real,"z"=>Real);
+Context()->noreduce('x^(-1)','(-x)-y');
+LimitedPowers::OnlyNonNegativeIntegers();
+
+$ncoeff = non_zero_random(-6,6,2);
+$dXexp = random(6,10,1);
+$dYexp = random(1,5,1);
+$dZexp = random(1,5,1);
+
+$anscoeff = non_zero_random(-8,8,1);
+$ansXexp = random(1,5,1);
+$ansYexp = random(1,5,1);
+$ansZexp = random(1,5,1);
+
+$dcoeff = $ncoeff * $anscoeff;
+$nXexp = $ansXexp;
+$nYexp = $dYexp - $ansYexp;
+$nZexp = $dZexp + $ansZexp;
+
+$denominator = Formula("$dcoeff * y**$dYexp * z**$dZexp")->reduce;
+$numerator = Formula("$ncoeff * x**$nXexp * y**$nYexp * z**$nZexp")->reduce;
+
+Context("RationalFunction");
+Context()->variables->are(x=>'Real',y=>'Real',z=>'Real');
+
+
+
+$ans = Formula("( x**$ansXexp  * z**$ansZexp) / ($anscoeff * y**$ansYexp)");
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+Simplify.
+$BR
+$BR
+\( \displaystyle{ \frac{$numerator}{$denominator} } \)
+$BR
+$BR
+\{$ans->ans_rule\}
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans->cmp(checker=>$cmp));
+
+
+ENDDOCUMENT();        

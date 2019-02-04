@@ -1,3 +1,17 @@
+##DESCRIPTION
+##  Algebra problem: Multiply radical expressions
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'radical', 'radicals', 'radical expression')
+
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of rational exponents and radicals)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
 ########################################################################
 
 DOCUMENT();      
@@ -54,10 +68,10 @@ LimitedPowers::OnlyPositiveIntegers();
 $p1 = list_random(2,3,5,7);
 do { $p2 = list_random(2,3,5); } until ( $p1 != $p2 );
 
-$a1 = random(1,5,2);
-$a2 = random(1,5,2);
+$a1 = random(3,7,2);
+$a2 = random(3,7,2);
 $b1 = random(2,6,2);
-$b2 = random(1,5,2);
+$b2 = random(3,7,2);
 
 $a = ($a1 + $a2)/2;
 $b = ($b1 + $b2 - 1)/2;
@@ -74,6 +88,15 @@ $in = Formula("$p2 y");
 $fac1 = Formula("$o1 sqrt($rad1)");
 $fac2 = Formula("$o2 sqrt($rad2)");
 $ans = Formula("$out sqrt($in)");
+
+### For solutions
+$c1 = $p1;
+$c2 = $p1*$p2;
+$o = $o1*$o2;
+$c = $o*$p1;
+$aTot = $a1+$a2;
+$bTot = $b1+$b2;
+$bEven = $bTot - 1;
 
 ##############################################################
 #
@@ -123,5 +146,52 @@ ANS( $ans->cmp( checker => sub {
   }, formatStudentAnswer=>"parsed"
   )
  );
+
+Context()->texStrings;
+BEGIN_HINT
+
+Try factoring your radicands, see if you can find some repeated factors.
+$PAR
+Remember that \(\sqrt{a}\sqrt{a} = a\)
+
+END_HINT
+BEGIN_SOLUTION
+$BBOLD Deal with each variable and the constants separately: $EBOLD $BR
+\( \displaystyle \left( $o1 \sqrt{$rad1}\right) \left( $o2 \sqrt{$rad2}\right) = 
+\left( $o1 \sqrt{$c1}\sqrt{x^$a1}\sqrt{y^$b1}\right) 
+\left( $o2 \sqrt{$c2}\sqrt{x^$a2}\sqrt{y^$b2}\right) \)
+$BR
+\( \displaystyle \left($o1\sqrt{$c1}\sqrt{x^$a1}\sqrt{y^$b1}\right) \left($o2\sqrt{$c2}\sqrt{x^$a2}\sqrt{y^$b2}\right) = \left($o1 \cdot $o2\right) \left(\sqrt{$c1}\sqrt{$c2}\right) \left(\sqrt{x^$a1}\sqrt{x^$a2}\right) \left(\sqrt{y^$b1}\sqrt{y^$b2}\right) \)
+$PAR
+$BBOLD Simplify the constant radicals: $EBOLD $BR
+\( \displaystyle \sqrt{$c1}\sqrt{$c2} = \sqrt{$p1} \sqrt{$p1} \sqrt{$p2} \)
+$BR
+\( \displaystyle \sqrt{$p1} \sqrt{$p1} \sqrt{$p2} = $p1 \sqrt{$p2} \)
+$PAR
+$BBOLD Simplify the \(a\) radicals: $EBOLD $BR
+\( \displaystyle \sqrt{x^$a1}\sqrt{x^$a2} = \sqrt{x^{$aTot}} \)
+$BR
+\( \displaystyle \sqrt{x^{$aTot}} = x^$a \)
+$PAR
+$BBOLD Simplify the \(b\) radicals: $EBOLD $BR
+\( \displaystyle \sqrt{y^$b1}\sqrt{y^$b2} = \sqrt{y^{$bTot}} \)
+$BR
+\( \displaystyle \sqrt{y^{$bTot}} = \sqrt{y^{$bEven}} \sqrt{b} \)
+$BR
+\( \displaystyle \sqrt{y^{$bEven}} \sqrt{y} = y^$b \sqrt{y} \)
+$PAR
+$BBOLD Our original problem now looks like: $EBOLD $BR
+$BR
+\( \displaystyle \left($o1\sqrt{$rad1}\right)\left($o2\sqrt{$rad2}\right) = \left($o1 \cdot $o2\right) \left(\sqrt{$c1}\sqrt{$c2}\right) \left(\sqrt{x^$a1}\sqrt{x^$a2}\right) \left(\sqrt{y^$b1}\sqrt{y^$b2}\right) = \left($o\right) \left( $p1 \sqrt{$p2} \right) (x^$a) \left(y^$b \sqrt{y}\right) \)
+$PAR
+$BBOLD Gather the radicals and non-radicals: $EBOLD $BR
+\( \displaystyle ($o) \left( $p1 \sqrt{$p2} \right) (x^$a) \left(y^$b \sqrt{y}\right) = \left( $o \cdot $p1 x^$a y^$b\right) \left( \sqrt{$p2} \sqrt{y} \right) \)
+$PAR
+$BBOLD Combine for the final answer: $EBOLD $BR
+\( \displaystyle \left( $o \cdot $p1 x^$a y^$b\right) \left( \sqrt{$p2} \sqrt{y} \right) = $ans \)
+END_SOLUTION
+Context()->normalStrings;
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

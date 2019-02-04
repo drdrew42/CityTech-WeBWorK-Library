@@ -1,12 +1,12 @@
 assignmentType      = default
-openDate          = 06/01/2016 at 11:59pm EDT
+openDate          = 05/15/2016 at 12:15am EDT
 reducedScoringDate = 12/31/1969 at 07:00pm EST
-dueDate           = 08/22/2016 at 11:59pm EDT
+dueDate           = 08/20/2016 at 11:35pm EDT
 answerDate        = 08/22/2016 at 11:59pm EDT
 enableReducedScoring = N
 paperHeaderFile   = defaultHeader
-screenHeaderFile  = defaultHeader
-description       = 
+screenHeaderFile  = local/ParabolaVertices-CtS/ParabolaVertices-CtSHeader.pg
+description       = Identify the vertex of a parabola from the given equation.<n>Emphasizes the Completing the Square method.<n>Rewrite equations in vertex form.
 restrictProbProgression = 0
 emailInstructor   = 0
 
@@ -16,8 +16,8 @@ problem_id = 1
 source_file = local/ParabolaVertices/vertex-CtS-walkthrough.pg
 value = 1
 max_attempts = -1
-showMeAnother = -1
-prPeriod = 
+showMeAnother = -2
+prPeriod = -1
 counts_parent_grade = 0
 att_to_open_children = 0 
 problem_end
@@ -26,8 +26,8 @@ problem_id = 2
 source_file = local/ParabolaVertices/vertex-CtS-walkthrough-fractions.pg
 value = 1
 max_attempts = -1
-showMeAnother = -1
-prPeriod = 
+showMeAnother = -2
+prPeriod = -1
 counts_parent_grade = 0
 att_to_open_children = 0 
 problem_end
@@ -36,8 +36,8 @@ problem_id = 3
 source_file = local/ParabolaVertices/vertex-CtS-walkthrough-fractions-medium.pg
 value = 1
 max_attempts = -1
-showMeAnother = -1
-prPeriod = 
+showMeAnother = -2
+prPeriod = -1
 counts_parent_grade = 0
 att_to_open_children = 0 
 problem_end
@@ -46,8 +46,8 @@ problem_id = 4
 source_file = local/ParabolaVertices/vertex-CtS-walkthrough-fractions-hard.pg
 value = 1
 max_attempts = -1
-showMeAnother = -1
-prPeriod = 
+showMeAnother = -2
+prPeriod = -1
 counts_parent_grade = 0
 att_to_open_children = 0 
 problem_end

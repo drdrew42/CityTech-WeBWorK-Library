@@ -1,0 +1,79 @@
+#DESCRIPTION
+##Type of
+#ENDDESCRIPTION
+## Date('2/12/2016')
+## Author('Parker')
+## Institution('City Tech')
+
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"PGchoicemacros.pl",
+"MathObjects.pl",
+"contextScientificNotation.pl",
+);
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+@VeryPrecise=(zeroLevel=>1E-100,zeroLevelTol=> 1E-100);
+Context("Numeric")->flags->set(@VeryPrecise);
+
+$n1 = random(3,8,1);
+$N = $n1+2;
+Context()->flags->set(format => "%.${N}f"); #make sure the decimal is displayed properly
+$a1 = (random(210,990,10)+random(1,9,1))/100; 
+$d1 = $a1*100; #for use in solution
+$real1 = Real("$a1*10**(-$n1)");
+
+$n2 = random(3,8,1);
+$a2 = random(226,981,17)/100;
+$d2 = $a2*100; #for use in solution
+$real2 = Real("$a2*10**($n2)");
+
+$n3 = random(5,11,1);
+$a3 = random(17,97,5)/10;
+$d3 = $a3*10; #for use in solution
+$real3 = Real("$a3*10**($n3)");
+
+Context()->texStrings; 
+BEGIN_TEXT
+Write in decimal notation without the use of exponents:
+$PAR
+
+\($a3 \times 10^{$n3}\) in standard notation: \{ans_rule(10)\} $PAR
+
+END_TEXT 
+Context()->normalStrings;
+
+Context("ScientificNotation");
+Context()->operators->add(
+  '*' => {precedence => 3, associativity => 'left', type => 'bin',
+    TeX => '\times ', class => 'ScientificNotation::BOP::x'},
+);
+$sn1 = ScientificNotation($real1);
+$sn2 = ScientificNotation($real2);
+
+
+ANS($real3->cmp());
+
+Context()->flags->set(format => "%.${N}f#"); #make sure the decimal is displayed properly
+Context()->texStrings;
+BEGIN_SOLUTION
+
+$PAR Solution: $PAR
+ \( $a3 \times 10^$n3 \) suggests that we are talking about a much larger number than just $a3 $BR Each time we multiply by ten, the significant digits shift to the next higher decimal place. $BR If we repeat this $n3 times, we end up with $real3
+  
+END_SOLUTION
+
+COMMENT('MathObject version');
+ENDDOCUMENT();
+## DBsubject(Algebra)
+## DBchapter(Algebra of real numbers and simplifying expressions)
+## DBsection(Scientific notation)
+## MO(1)
+
+
+
+

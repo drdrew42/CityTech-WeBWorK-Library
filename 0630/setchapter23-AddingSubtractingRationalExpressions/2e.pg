@@ -1,0 +1,77 @@
+## DESCRIPTION
+## This problem asks students to simplify rational expressions
+## ENDDESCRIPTION
+## KEYWORDS(Rational Expressions)
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## BookChapter(Adding and Subtracting Rational Expressions)
+## BookEdition('3')
+## BookAuthor('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## BookChapter('23')
+## Date('07/17/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+
+
+##################################
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"PGunion.pl",
+"MathObjects.pl",
+"PGcourse.pl",
+"parserMultiAnswer.pl",
+"CofIdaho_macros.pl",
+"contextFraction.pl"
+);
+
+
+
+TEXT(beginproblem());
+
+
+###################################
+# Setup
+
+Context("Numeric")->variables->are(x=>"Real");
+Context("Fraction-NoDecimals");
+
+
+$a = random(2,5,1);
+$b = 3*$a;
+$e = 2*$a;
+$c = Compute("$e - 1");
+$d = Compute("$b - 1");
+
+$f1 = Formula("($c) / ($e*x)")->reduce->TeX;
+$f2 = Compute("$d/$b");
+
+
+$num = Formula("3*$c - 2*$d*x")->reduce;
+$den = Formula("6*$a * x")->reduce;
+
+###################################
+# Main text
+
+Context()->texStrings;
+BEGIN_TEXT
+Write the expression as a single fraction.  Simplify your answer.
+$BR
+$BR
+$BCENTER
+\( $f1 - $f2= \) \{ ans_rule(20) \}
+$ECENTER
+END_TEXT
+Context()->normalStrings;
+
+###################################
+# Answers
+
+$showPartialCorrectAnswers = 1;
+
+$ans = Formula("$num/$den");
+ANS( RationalExpEvaluator($ans,"x") );
+
+ENDDOCUMENT();

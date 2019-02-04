@@ -1,3 +1,19 @@
+##DESCRIPTION
+##  Algebra problem: Evaluating higher root
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'radical', 'radicals', 'radical expression')
+
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of rational exponents and radicals)
+## Level(2)
+## Author(K. Andrew Parker)
+## Institution(CUNY City Tech)
+## Language(en)
+
+########################################################################
+
 DOCUMENT();      
 
 loadMacros(
@@ -38,7 +54,9 @@ $PAR
 Evaluate without using a calculator. Write "undefined" or "imaginary" if your result is not a real number.
 $PAR
 \(\displaystyle \sqrt[\large$power]{\large$R}\) = \{ans_rule(10)\}
-
+$PAR
+* Write "undefined" or "imaginary" if your result is not a real number. $BR
+* Give your answer as a reduced fraction. No decimals.
 END_TEXT
 Context()->normalStrings;
 
@@ -50,5 +68,26 @@ Context()->normalStrings;
 
 ANS($ans->cmp);
 
+Context()->texStrings;
+BEGIN_HINT
+
+Recall the property of exponents: \( \displaystyle \left(\frac{A}{B}\right)^n = \frac{A^n}{B^n} \)
+$PAR
+This holds for radicals as well... \( \displaystyle \sqrt[$power]{\frac{A}{B}} = \frac{\sqrt[$power]{A}}{\sqrt[$power]{B}} \)
+END_HINT
+BEGIN_SOLUTION
+$BBOLD Begin by simplifying: $EBOLD $BR
+\( \displaystyle \sqrt[$power]{$R} = \frac{\sqrt[$power]{1}}{\sqrt[$power]{$D}} \)
+$PAR
+$BBOLD Then simplify each radical. $EBOLD $BR
+\( \sqrt[$power]{1} \) is \( 1 \), and \( \sqrt[$power]{$D} \) is \( 2 \).
+$PAR
+$BBOLD And put it all back together: $EBOLD $BR
+\( \displaystyle \frac{\sqrt[$power]{1}}{\sqrt[$power]{$D}} = \frac{1}{2} \)
+
+END_SOLUTION
+Context()->normalStrings;
+
+COMMENT("Funded by US DoE Title V: Opening Gateways grant.");
 
 ENDDOCUMENT();        

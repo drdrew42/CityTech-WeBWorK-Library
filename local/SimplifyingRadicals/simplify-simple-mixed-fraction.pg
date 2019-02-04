@@ -1,0 +1,82 @@
+########################################################################
+
+DOCUMENT();      
+
+loadMacros(
+   "PGstandard.pl",     # Standard macros for PG language
+   "MathObjects.pl",
+   "contextFraction.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+$rationalChecker = sub {
+     my ($correct,$student,$ansHash) = @_; 
+     Value->Error("Look at the preview answer box. Did you forget parenthesis around your numerator or denominator?") unless $student->{tree}->class eq "BOP" && $student->{tree}{bop} eq "/";
+     return 0 unless $correct == $student;
+     my $cnum = Formula($correct->{tree}{lop});
+     my $snum = Formula($student->{tree}{lop});
+     my $cden = Formula($correct->{tree}{rop});
+     my $sden = Formula($student->{tree}{rop});
+     Value->Error("Your answer can be reduced further") unless ($cnum == $snum && $cden == $sden);
+     return 1;
+};
+
+Context("Numeric");
+Context()->flags->set(reduceConstants=>0, reduceConstantFunctions=>0, formatStudentAnswer=>'parsed');
+Parser::Number::NoDecimals;
+
+##############################################################
+#
+#  Setup
+#
+#
+
+$ansDen = random(2,10,1);
+$common = random(2,3,1);
+$radDen = $ansDen**2 * $common;
+$ansExp = random(2,6,1);
+$exp = random(1,5,2);
+$radExp = $ansExp * 2 + $exp;
+
+$rad = Formula("($common x^$exp)/($radDen x^$radExp)")->reduce;
+
+$ans = Formula("1/($ansDen x^$ansExp)")->with(test_at=>[[0]]);
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+$PAR
+Simplify the radical without using rational exponents. 
+$BR
+Assume all variables are restricted to positive values (that way we don't have to worry about absolute values).
+$PAR
+\(\displaystyle \large{ \sqrt{$rad}} \) = \{ ans_rule(10) \}
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans-> cmp(checker=>$rationalChecker, checkUndefinedPoints=>1)->withPostFilter(sub { 
+  my $ans = shift; 
+  $ans->{ans_message} = "You're on the right track, but your answer can still be reduced." 
+    if $ans->{ans_message} eq "The domain of your function doesn't match that of the correct answer";
+  return $ans; 
+}));
+
+ENDDOCUMENT();        

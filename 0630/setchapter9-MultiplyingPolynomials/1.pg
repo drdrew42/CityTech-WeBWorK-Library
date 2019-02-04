@@ -1,0 +1,65 @@
+## DESCRIPTION
+## This problem asks students to combine like terms.
+## ENDDESCRIPTION
+
+## KEYWORDS('Polynomials')
+
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## DBchapter('Multiplying Polynomial Expressions') 
+## BookChapter('Multiplying Polynomial Expressions')
+## DBsection('') 
+## BookSection('Multiplying Polynomial Expressions')
+## Date('06/30/2017')
+## Author('ElHitti')
+## Institution('ElHitti')
+## TitleText1('Arithmetic | Algebra')
+## EditionText1('1')
+## AuthorText1('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## Section1('9')
+
+DOCUMENT(); # This should be the first executable line in the problem.
+
+loadMacros(
+  "PGstandard.pl",
+  "MathObjects.pl",
+  "contextLimitedPolynomial.pl",
+  "CofIdaho_macros.pl"
+);
+
+TEXT(beginproblem());
+
+######################################
+#  Setup
+
+Context("LimitedPolynomial-Strict");
+
+$a= random(1,7,1);
+($b1,$b0)= (random(2,5,1),non_zero_random(-3,3,1));
+
+
+$poly = nicestring([$b1,$b0],["x",""]);
+
+######################################
+#  Main text
+
+BEGIN_TEXT
+Distribute:  \( $a ( $poly ) \)
+$PAR
+Answer:  \{ ans_rule(40) \} 
+END_TEXT
+
+######################################
+#  Answer
+
+($c1,$c0) = ($a*$b1,$a*$b0);
+$ans = Formula("$c1 x + $c0 ")->reduce;
+ANS($ans->cmp); 
+
+$showPartialCorrectAnswers = 1;
+
+######################################
+
+
+COMMENT('MathObject version');
+ENDDOCUMENT();     

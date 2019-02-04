@@ -1,0 +1,73 @@
+## DESCRIPTION
+## This problem asks students to factor trinomials
+## ENDDESCRIPTION
+## KEYWORDS('solutions')
+## DBsubject('Algebra') 
+## BookTitle('Arithmetic | Algebra')
+## BookChapter('Equations and their Solutions')
+## Date('07/07/2017')
+## Author('ElHitti')
+## Institution('City Tech')
+## TitleText1('Arithmetic | Algebra')
+## EditionText1('3')
+## AuthorText1('Bonanome, Carley, ElHitti, Tradler, Zhou')
+## Section1('15')
+
+
+########################################################################
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"parserPopUp.pl",
+"MathObjects.pl",
+"AnswerFormatHelp.pl",
+"PGcourse.pl", 
+"contextLimitedNumeric.pl",
+"PGchoicemacros.pl",
+
+);
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+# the arguments of PopUp are [list of answers], 
+#    correct answer
+$popup = PopUp(["?","Yes", "No"], "Yes");
+
+
+$a = random(2,4,1);
+$b = random(2,6,2);
+$d = $b/2;
+$c = $a*$b;
+$e = $c/2;
+
+$answer1 = $b*$b - $a*$b;
+$answer2 = $b*$b - $a*$b;
+
+
+
+BEGIN_TEXT
+
+Evaluate \( x^2-$a x \) at \(x= $b\) \{ ans_rule(10) \}
+$PAR
+Evaluate  \( 2($d x - $e) \) at \(x= $b\) \{ ans_rule(10) \}
+$PAR
+Is \(x= $b\) a solution to \( x^2-$a x = 2($d x - $e)  \) \{ $popup->menu() \}
+$PAR
+END_TEXT
+
+Context("LimitedNumeric");
+ANS(Real($answer1)->cmp);
+ANS(Real($answer2)->cmp);
+ANS( $popup->cmp);
+
+
+Context()->texStrings;
+SOLUTION(EV3(<<'END_SOLUTION'));
+$PAR SOLUTION $PAR
+The correct answer is \{ $popup->correct_ans() \} because when you evaluate both sides of the equation at the given value of the variable, they are equal. 
+END_SOLUTION
+Context()->normalStrings;
+
+
+ENDDOCUMENT();
